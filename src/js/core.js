@@ -1,10 +1,68 @@
-define(['backbone', 'events', 'globals','views/login/loginView','models/login/loginModel','views/defaultAction/accessForbiden','underscore','jqueryCookie'],
-    function(Backbone, Events, Globals,LoginView,LoginModel,AccessForbidenView){
+define(['backbone', 
+    'events', 
+    'globals',
+    'views/login/loginView',
+    'models/login/loginModel',
+    'views/defaultAction/accessForbiden',
+    'models/interview/interviewerModel',
+    'models/interview/modeModel',
+    'models/interview/recruiterModel',
+    'models/interview/roundsModel',
+    'models/interview/statusModel',
+    'underscore',
+    'jqueryCookie'
+    ],
+    function(Backbone,
+        Events,
+        Globals,
+        LoginView,
+        LoginModel,
+        AccessForbidenView,
+        InterviewerModel,
+        ModeModel,
+        RecruiterModel,
+        RoundsModel,
+        StatusModel
+        ){
 
     _.extend(Backbone.Model , {
         gateWayUrl:Globals.gateWayUrl
     });
 
+    var globals = {};
+  
+    var interviewerModel = new InterviewerModel();
+    var modeModel = new ModeModel();
+    var recruiterModel = new RecruiterModel();
+    var roundsModel = new RoundsModel();
+    var statusModel = new StatusModel();
+
+    interviewerModel.fetch({
+        success:function(){
+            globals.interviewer_list =  interviewerModel.toJSON();
+        }
+    });
+    modeModel.fetch({
+        success:function(){
+            globals.interviewmode_list =  modeModel.toJSON();
+        }
+    });
+    recruiterModel.fetch({
+        success:function(){
+            globals.recruiter_list =  recruiterModel.toJSON();
+        }
+    });
+    roundsModel.fetch({
+        success:function(){
+            globals.interviewrounds_list =  roundsModel.toJSON();
+        }
+    });
+    statusModel.fetch({
+        success:function(){
+            globals.interviewstatus_list =  statusModel.toJSON();
+        }
+    });
+     
     var views = {},
         user = ['UserAssesmentPage', 'DashboardPage', 'NewSurvey', 'SurveyDetailed', 'SurveyUserDetailed', 'ListSurvey', 'userPage'];
 
@@ -55,7 +113,8 @@ define(['backbone', 'events', 'globals','views/login/loginView','models/login/lo
     };
 
     return {
-        create: create
+        create: create,
+        globals:globals
     };
 
 
