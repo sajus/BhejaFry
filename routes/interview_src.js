@@ -2,18 +2,19 @@ var sequelize = require('../dbconfig').sequelize
 ,           _ = require('../libresources').underscore;
 
 exports.postInterview = function(req, res){
-	
+
+	console.log(req.body.description);
+
 	var query = "INSERT INTO interviewresponse_tbl(candiateName, interviewer_1_id, interviewer_2_id, recruiter_id, status_id, round_id, mode_id, description)";
 	query += "VALUES (";
-	query += " "+req.params.candiateName+",";
-	query += " "+req.params.interviewer_1_id+",";
-	query += " "+req.params.interviewer_2_id+",";
-	query += " "+req.params.recruiter_id+",";
-	query += " "+req.params.status_id+",";
-	query += " "+req.params.round_id+",";
-	query += " "+req.params.mode_id+",";
-	query += " "+req.params.description+" ";
-	query += " ); ";
+	query += " ' " +req.body.candiateName+" ',";
+	query += " ' " +req.body.interviewer_1_id+" ',";
+	query += " ' " +req.body.interviewer_2_id+" ',";
+	query += " ' " +req.body.recruiter_id+" ',";
+	query += " ' " +req.body.status_id+" ',";
+	query += " ' " +req.body.round_id+" ',";
+	query += " ' " +req.body.mode_id+" ',";
+	query += " ' " +req.body.description+" ' )";
 
 	sequelize.query(query).success(function(rows) {
 		console.log("Record added successfully");
