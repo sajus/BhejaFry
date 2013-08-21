@@ -16,12 +16,12 @@
         {{#each interviewList}}
             <tr>
                 <td>{{candiateName}}</td>
-                <td>{{interviewer_1_id}}</td>
-                <td>{{interviewer_2_id}}</td>
-                <td>{{recruiter_id}}</td>
-                <td>{{status_id}}</td>
-                <td>{{round_id}}</td>
-                <td>{{mode_id}}</td>
+                <td>{{getInterviewer interviewer_1_id}}</td>
+                <td>{{getInterviewer interviewer_2_id}}</td>
+                <td>{{getRecruiter recruiter_id}}</td>
+                <td>{{getStatus status_id}}</td>
+                <td>{{getRound round_id}}</td>
+                <td>{{getMode mode_id}}</td>
                 <td>{{description}}</td>
                 <td>
                     <button type="button" class="btn btn-small btn-primary edit" href="#"> Edit</button>
