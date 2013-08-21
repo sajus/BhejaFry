@@ -16,12 +16,13 @@ define(['backbone','events', 'views/BaseView', 'template!templates/interview/int
 
             render: function() {
                 this.$el.html(interviewCreateEditPageTemplate);
-                // this._modelBinder.bind(this.model, this.el);
 
-                // Backbone.Validation.bind(this, {
-                //     invalid: this.showError,
-                //     valid: this.removeError
-                // });
+                this._modelBinder.bind(this.model, this.el);
+
+                Backbone.Validation.bind(this, {
+                    invalid: this.showError,
+                    valid: this.removeError
+                });
 
                 return this;
             },

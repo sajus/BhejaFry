@@ -7,8 +7,6 @@ define(function(require) {
     require('modelValidator');
 
     return Backbone.Model.extend({
-        // url: function() {
-        //     return Backbone.Model.gateWayUrl + '/checkAuthorization';
-        // }
+
     });
 });
