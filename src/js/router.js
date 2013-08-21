@@ -27,6 +27,7 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
             'login': 'login',
             'dashboard':'dashboard',
             'interview': 'interview',
+            'interviewList/:id': 'interviewList',
             'logout':'logout',
             'accessForbiden':'accessForbiden',
 
@@ -44,6 +45,14 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
                 var dashboardCollection = new DashboardCollection();
                 var dashboardPage = Core.create(appView, 'DashboardPage', DashboardPage, { collection: dashboardCollection });
                 dashboardPage.render();
+            });
+        });
+
+        router.on('route:interview', function () {
+            require(['views/interview/interviewCreateEditView','models/interview/interviewCreateEditModel'], function (InterviewPage, InterviewModel) {
+                var interviewModel = new InterviewModel();
+                var interviewPage = Core.create(appView, 'InterviewPage', InterviewPage, { model: interviewModel });
+                interviewPage.render();
             });
         });
 

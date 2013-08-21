@@ -1,5 +1,14 @@
-define(['backbone', 'template!templates/dashboard/dashboard','core','jqueryCookie','underscore'],
-    function(Backbone, dashboardTemplate, Core){
+define(function(require) {
+
+    'use strict';
+    var _ = require('underscore');
+    var Backbone = require('backbone');
+    var dashboardTemplate = require('template!templates/dashboard/dashboard');
+    var EditDeleteInterviewModel = require('models/dashboard/editDeleteInterviewModel');
+    var Events = require('events');
+    var Core = require('core');
+
+    require('jqueryCookie');
 
     /* Handlebars register helper to convert Number to readable text */
     Handlebars.registerHelper('getInterviewer', function(empID) {
@@ -39,7 +48,17 @@ define(['backbone', 'template!templates/dashboard/dashboard','core','jqueryCooki
 
     var Dashboard = Backbone.View.extend({
 
+        initialize: function() {
+            this.editDeleteInterviewModel = new EditDeleteInterviewModel();
+            Events.on('deleteInterview',this.render);
+        },
+
         el: '.page',
+
+        events: {
+            'click .edit': 'editInterview',
+            'click .delete': 'deleteInterview'
+        },
 
         render: function () {
             var self = this;
@@ -49,6 +68,32 @@ define(['backbone', 'template!templates/dashboard/dashboard','core','jqueryCooki
                 }
             });
             return this;
+        },
+
+        editInterview: function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var editId = this.$(e.target).closest('tr').attr('data-id');
+        },
+
+        deleteInterview: function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var deleteId = this.$(e.target).closest('tr').attr('data-id');
+            this.editDeleteInterviewModel.set({id:deleteId});
+            this.editDeleteInterviewModel.destroy({
+                success: function() {
+                    Events.trigger("alert:success", [{
+                        message: "Record deleted successfully"
+                    }]);
+                    Events.trigger('deleteInterview');
+                },
+                error: function() {
+                    Events.trigger("alert:error", [{
+                        message: "Some error got triggered white deleting record"
+                    }]);
+                }
+            })
         }
     });
 

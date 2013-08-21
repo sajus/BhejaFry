@@ -2,13 +2,22 @@
 	<form class="form-horizontal" id="userForm">
 		<legend> Add new interview details</legend>
 
+		<!-- candiateName -->
+		<div class="control-group">
+			<label class="control-label" for="mode">Candiate Name </label>
+			<div class="controls">
+				<input type="text" id="candiateName" name="candiateName" class="input-xlarge" placeholder="eg. Candiate 1" />
+				<span class="help-inline"></span>
+			</div>
+		</div>
+
 		<!-- mode -->
 		<div class="control-group">
 			<label class="control-label" for="mode">Mode </label>
 			<div class="controls">
-				<select id="mode" name="mode" class="input-xlarge">
+				<select id="mode" name="mode_id" class="input-xlarge">
 					{{#each mode}}
-						<option value="{{empid}}">{{name}}</option>
+						<option value="{{id}}">{{mode}}</option>
 					{{/each}}
 				</select>
 				<span class="help-inline"></span>
@@ -19,9 +28,9 @@
 		<div class="control-group">
 			<label class="control-label" for="interviewer1">Interviewer 1</label>
 			<div class="controls">
-				<select id="interviewer1" name="interviewer1" class="input-xlarge">
-					{{#each interviewer}}
-						<option value="{{empid}}">{{name}}</option>
+				<select id="interviewer1" name="interviewer_1_id" class="input-xlarge">
+					{{#each interviewer1}}
+						<option value="{{empid}}">{{firstname}} {{lastname}}</option>
 					{{/each}}
 				</select>
 				<span class="help-inline"></span>
@@ -32,9 +41,9 @@
 		<div class="control-group">
 			<label class="control-label" for="interviewer2">Interviewer 2</label>
 			<div class="controls">
-				<select id="interviewer2" name="interviewer2" class="input-xlarge">
-					{{#each interviewer}}
-						<option value="{{empid}}">{{name}}</option>
+				<select id="interviewer2" name="interviewer_2_id" class="input-xlarge">
+					{{#each interviewer2}}
+						<option value="{{empid}}">{{firstname}} {{lastname}}</option>
 					{{/each}}
 				</select>
 				<span class="help-inline"></span>
@@ -45,9 +54,22 @@
 		<div class="control-group">
 			<label class="control-label" for="recruiter">Recruiter </label>
 			<div class="controls">
-				<select id="recruiter" name="recruiter" class="input-xlarge">
+				<select id="recruiter" name="recruiter_id" class="input-xlarge">
 					{{#each recruiter}}
-						<option value="{{empid}}">{{name}}</option>
+						<option value="{{empid}}">{{firstname}} {{lastname}}</option>
+					{{/each}}
+				</select>
+				<span class="help-inline"></span>
+			</div>
+		</div>
+
+		<!-- rounds -->
+		<div class="control-group">
+			<label class="control-label" for="rounds">Rounds </label>
+			<div class="controls">
+				<select id="rounds" name="round_id" class="input-xlarge">
+					{{#each rounds}}
+						<option value="{{id}}">{{round}}</option>
 					{{/each}}
 				</select>
 				<span class="help-inline"></span>
@@ -58,9 +80,9 @@
 		<div class="control-group">
 			<label class="control-label" for="status">Status </label>
 			<div class="controls">
-				<select id="status" name="status" class="input-xlarge">
-					{{#each status}}
-						<option value="{{empid}}">{{name}}</option>
+				<select id="status" name="status_id" class="input-xlarge">
+					{{#each interviewStatus}}
+						<option value="{{id}}">{{status}}</option>
 					{{/each}}
 				</select>
 				<span class="help-inline"></span>
@@ -69,16 +91,16 @@
 
 		<!-- remarks -->
 		<div class="control-group">
-			<label class="control-label" for="status">Status </label>
+			<label class="control-label" for="status">Remarks </label>
 			<div class="controls">
-				<textarea></textarea>
+				<textarea id="remarks" name="description"></textarea>
 				<span class="help-inline"></span>
 			</div>
 		</div>
 
 		<div class="form-actions">
 			<button type="submit" class="btn btn-primary" href="#" id="addUser"> Add</button>
-			<button type="button" class="btn" href="#" id="addUser"> Cancel</button>
+			<button type="button" class="btn" href="#" id="addCancel"> Cancel</button>
 		</div>
 
 	</form>

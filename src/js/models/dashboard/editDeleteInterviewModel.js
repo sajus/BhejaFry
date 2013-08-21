@@ -5,7 +5,7 @@ define(function(require) {
 
     return Backbone.Model.extend({
         url: function() {
-            return Backbone.Model.gateWayUrl + '/interview';
+            return Backbone.Model.gateWayUrl + '/interviewList/' + this.id;
         }
     });
 });
