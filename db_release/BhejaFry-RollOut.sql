@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `interviewresponse_tbl` (
   `status_id` int(11) NOT NULL,
   `round_id` int(11) NOT NULL,
   `mode_id` int(11) NOT NULL,
-  `description` varchar(100) NOT NULL,
+  `description` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_IR_interviewer_1` (`interviewer_1_id`),
   KEY `fk_IR_interviewer_2` (`interviewer_2_id`),
