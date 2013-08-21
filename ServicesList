@@ -1,0 +1,13 @@
+POST /checkAuthorization {
+	email
+	password
+}.R {
+	isAuthenticated:false/true
+	...
+}
+
+POST /interview
+
+GET /interviewList/:id
+PUT /interviewList/:id
+DETELE /interviewList/:id

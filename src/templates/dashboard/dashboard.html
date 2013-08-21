@@ -1,0 +1,33 @@
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Candiate Name</th>
+            <th>Interview 1</th>
+            <th>Interview 2</th>
+            <th>Recruiter</th>
+            <th>Status</th>
+            <th>Round</th>
+            <th>Mode</th>
+            <th>Remarks</th>
+            <th>Operation</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each interviewList}}
+            <tr>
+                <td>{{candiateName}}</td>
+                <td>{{interviewer_1_id}}</td>
+                <td>{{interviewer_2_id}}</td>
+                <td>{{recruiter_id}}</td>
+                <td>{{status_id}}</td>
+                <td>{{round_id}}</td>
+                <td>{{mode_id}}</td>
+                <td>{{description}}</td>
+                <td>
+                    <button type="button" class="btn btn-small btn-primary edit" href="#"> Edit</button>
+                    <button type="button" class="btn btn-small btn-danger delete" href="#"> Delete</button>
+                </td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

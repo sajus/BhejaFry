@@ -1,0 +1,87 @@
+/*
+    Here are the list of stylesheets included for writing all the styles which are common between different 
+    modules.
+*/
+@import "common/common.css";
+/*
+    Default stylesheet included.
+*/
+@import "../js/vendors/bootstrap/css/bootstrap.min.css";
+/*
+    Default responsive stylesheet included with Twitter Bootstrap Framework.
+    This stylesheet included for adding responsive nature of Bootstrap framework 
+    in your web applications.
+
+    NOTE: You can remove this stylesheet; If there is no requirement for responsive website.
+*/
+@import "../js/vendors/bootstrap/css/bootstrap-responsive.min.css";
+
+/*
+    This stylesheet included for overrite the default styles of Bootstrap framework.    
+*/
+@import "../js/vendors/bootstrap/css/bootstrap-custom.css";
+@import "../js/vendors/bootstrap/css/bootstrap-responsive-custom.css";
+
+@import "../js/vendors/bootstrap/plugins/fuelux/css/fuelux.min.css";
+@import "../js/vendors/bootstrap/plugins/fuelux/css/fuelux-responsive.min.css";
+@import "../js/vendors/bootstrap/plugins/fuelux/css/fuelux-custom.css";
+
+@import "../js/vendors/bootstrap/plugins/datepicker/datepicker.css";
+
+
+/*body {
+    background-color: #f5f5f5;
+}*/
+
+.form-signin {
+    max-width: 500px;
+    padding: 30px;
+    margin: 0 auto 20px;
+    background-color: #EEE;
+    border: 1px solid #FAFAFA;
+    -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+            box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+.form-signin .form-signin-heading, .form-signin .checkbox {
+    margin-bottom: 10px;
+}
+.form-signin input[type="text"], .form-signin input[type="password"] {
+    font-size: 16px;
+    height: auto;
+    margin-bottom: 15px;
+    padding: 7px 9px;
+}
+/* Custom container */
+      .container-narrow {
+        margin: 0 auto;
+        max-width: 700px;
+      }
+      .container-narrow > hr {
+        margin: 30px 0;
+      }
+
+      /* Main marketing message and sign up button */
+      .jumbotron {
+        margin: 60px 0;
+        text-align: center;
+      }
+      .jumbotron h1 {
+        font-size: 72px;
+        line-height: 1;
+      }
+      .jumbotron .btn {
+        font-size: 21px;
+        padding: 14px 24px;
+      }
+
+      /* Supporting marketing content */
+      .marketing {
+        margin: 60px 0;
+      }
+      .marketing p + h4 {
+        margin-top: 28px;
+      }

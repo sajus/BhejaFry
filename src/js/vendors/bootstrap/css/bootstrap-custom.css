@@ -1,0 +1,40 @@
+/* ==========================================================================
+   HTML ELEMENTS
+   ========================================================================== */
+textarea{
+	width: 275px;
+}
+
+
+.main-menu-container{
+  height: 50px;
+  margin-bottom:20px;
+}
+.control-group.error .help-block{
+	color: inherit;
+}
+
+.menubar a{
+	color: #000;
+}
+.addCategory{
+	cursor: pointer;
+}
+.loginContainer{
+	margin: 200px auto;
+	width: 700px;
+}
+.loginLegend {
+	background-image: url('../../../../imgs/favicon.png');
+	background-repeat: no-repeat;
+	text-align: center;
+	background-position-x: 170px;
+	line-height: 53px;
+}
+.alignCenter {
+	text-align: center;
+}
+.footer {
+	position: fixed;
+	bottom: 0;
+}

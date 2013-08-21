@@ -1,0 +1,20 @@
+{
+    "name": "interview",
+    "description": "Interview",
+    "version": "0.1.0",
+    "homepage": "http://localhost",
+    "author": {
+        "name": "cybage_ui_team",
+        "email": "cybage_ui_team@interview.com"
+    },
+    "src": "src",
+    "dependencies": {
+        "express": "~3.x.x",
+        "path": "~0.4.9",
+        "require": "~0.5.0",
+        "underscore": "~1.5.1",
+        "sequelize": "~1.7.0-alpha3",
+        "mysql": "~2.0.0-alpha8"
+    },
+    "engine": "node >= 0.8.0"
+}
