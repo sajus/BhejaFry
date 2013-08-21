@@ -1,134 +1,248 @@
-CREATE TABLE interviewer (
-	empid INT NOT NULL,
-	name VARCHAR( 30 ) NOT NULL,
-	CONSTRAINT pk_interviewer PRIMARY KEY (empid)
-);
-CREATE TABLE recruiter (
-	empid INT NOT NULL,
-	name VARCHAR( 30 ) NOT NULL,
-	CONSTRAINT pk_recruiter PRIMARY KEY (empid)
-);
-CREATE TABLE users (
-	empid INT NOT NULL,
-	firstname VARCHAR( 20 ) NOT NULL,
-	lastname VARCHAR( 20 ) NOT NULL,
-	password VARCHAR( 20 ) NOT NULL,	
-	CONSTRAINT pk_users PRIMARY KEY (empid)
-);
-CREATE TABLE status (
-	id INT NOT NULL AUTO_INCREMENT,
-	status_text VARCHAR( 30 ) NOT NULL,
-	CONSTRAINT pk_status PRIMARY KEY (id)
-);
-CREATE TABLE roundOfInterview (
-	id INT NOT NULL AUTO_INCREMENT,
-	round_text VARCHAR( 30 ) NOT NULL,
-	CONSTRAINT pk_round PRIMARY KEY (id)
-);
-CREATE TABLE modeOfInterview (
-	id INT NOT NULL AUTO_INCREMENT,
-	mode_text VARCHAR( 30 ) NOT NULL,
-	CONSTRAINT pk_mode PRIMARY KEY (id)
-);
+-- phpMyAdmin SQL Dump
+-- version 3.3.9
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Aug 21, 2013 at 07:04 AM
+-- Server version: 5.1.53
+-- PHP Version: 5.3.4
 
-CREATE TABLE interviewResponse (
-	id INT NOT NULL,
-	interviewer_1_id INT NOT NULL,
-	interviewer_2_id INT NULL,
-	recruiter_id INT NOT NULL,
-	status_id INT NOT NULL,
-	roundOfInterview_id INT NOT NULL,
-	modeOfInterview_id INT NOT NULL,	
-	interviewResponse_text VARCHAR( 100 ) NOT NULL,
-	CONSTRAINT pk_interviewResponse PRIMARY KEY (id)
-);
-
-ALTER TABLE interviewResponse ADD CONSTRAINT fk_IR_interviewer_1 FOREIGN KEY (interviewer_1_id) REFERENCES interviewer( empid ) ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE interviewResponse ADD CONSTRAINT fk_IR_interviewer_2 FOREIGN KEY (interviewer_2_id) REFERENCES interviewer( empid ) ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE interviewResponse ADD CONSTRAINT fk_IR_recruiter FOREIGN KEY (recruiter_id) REFERENCES recruiter( empid ) ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE interviewResponse ADD CONSTRAINT fk_IR_status FOREIGN KEY (status_id) REFERENCES status( id ) ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE interviewResponse ADD CONSTRAINT fk_IR_round FOREIGN KEY (roundOfInterview_id) REFERENCES roundOfInterview( id ) ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE interviewResponse ADD CONSTRAINT fk_IR_mode FOREIGN KEY (modeOfInterview_id) REFERENCES modeOfInterview( id ) ON DELETE NO ACTION ON UPDATE NO ACTION;
- 
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (7601,'Saju Sasidharan');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (7559,'Ajay Pawar');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (9484,'Ashish Kumar Thawait');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (4593,'Bhushan Joshi'); 
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (7988,'Gandharva Jadhav');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (9761,'Hardik Joshi');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (6536,'Jatin Patel');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (6672,'Jaydeep Tank'); 
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (6865,'Mahesh Sapkal');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (8679,'Manasi Bhagwat');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (7736,'Mayur Thakor');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (8119,'Navneet Shrivastava'); 
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (4996,'Nishant Joshi');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (6587,'Omkar Kulkarni');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (7087,'Pravin Sonawane');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (8101,'Shashank Lakhotia'); 
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (8972,'Snehal Bhapkar');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (10353,'Sonam Diwate');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (9554,'Swapna Purohit');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (6895,'Basavraj Keshatti');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (6735,'Ram Joshi');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (5995,'Satvashil Jagtap');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (11509,'Shravan Khare');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (3279,'Abhijit Sagade');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (5421,'Ajay Sajwan');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (5042,'Amarendra Samal');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (2762,'Ashish Chandugade');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (3508,'Awesh Shrivastava');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (5470,'Dhritee Rathore');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (1967,'Kamlesh Gaikwad');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (5689,'Kumar Kundan');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (3937,'Prachi Bhruguwar');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (4573,'Rakesh Thakor');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (3667,'Sachin Shinde');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (6815,'Shruti Kshatriya');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (6817,'Sudhir Nair');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (2435,'Vishal Chauhan');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (4003,'Yogesh Gaikwad');
-INSERT INTO `interviewer`(`empid`, `name`) VALUES (5426,'Yogesh Kodarkar');
-
-INSERT INTO `recruiter`(`empid`, `name`) VALUES (9846,'Abhinav Dingre');
-INSERT INTO `recruiter`(`empid`, `name`) VALUES (9758,'Amit Jain');
-INSERT INTO `recruiter`(`empid`, `name`) VALUES (9989,'Amruta Devale');
-INSERT INTO `recruiter`(`empid`, `name`) VALUES (8063,'Amruta Joshi');
-INSERT INTO `recruiter`(`empid`, `name`) VALUES (9637,'Deepika Gupta');
-INSERT INTO `recruiter`(`empid`, `name`) VALUES (9495,'Jitin Naidu');
-INSERT INTO `recruiter`(`empid`, `name`) VALUES (10344,'Ketaki Hebalkar');
-INSERT INTO `recruiter`(`empid`, `name`) VALUES (7461,'Ketan Simant');
-INSERT INTO `recruiter`(`empid`, `name`) VALUES (10772,'Kina Pandya');
-INSERT INTO `recruiter`(`empid`, `name`) VALUES (6523,'Kirti Namjoshi');
-INSERT INTO `recruiter`(`empid`, `name`) VALUES (10035,'Mavish Ajaney');
-INSERT INTO `recruiter`(`empid`, `name`) VALUES (11337,'Parul Shrivastav');
-INSERT INTO `recruiter`(`empid`, `name`) VALUES (4118,'Pooja Walia Garde');
-INSERT INTO `recruiter`(`empid`, `name`) VALUES (6201,'Prakash Vachhani');
-INSERT INTO `recruiter`(`empid`, `name`) VALUES (10859,'Raj Pillai');
-INSERT INTO `recruiter`(`empid`, `name`) VALUES (2635,'Shwetambari Salgar');
-INSERT INTO `recruiter`(`empid`, `name`) VALUES (3915,'Vikram Chopra');
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 
-INSERT INTO `users`(`empid`, `firstname`,`lastname`,`password`) VALUES (7601,'Saju', 'Sasidharan','sajus');
-INSERT INTO `users`(`empid`, `firstname`,`lastname`,`password`) VALUES (7602,'Ashwin', 'Hegde','ashwinh');
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
-INSERT INTO `status`(`status_text`) VALUES ('Rejected');
-INSERT INTO `status`(`status_text`) VALUES ('Call for F2F round');
-INSERT INTO `status`(`status_text`) VALUES ('OnHold');
-INSERT INTO `status`(`status_text`) VALUES ('Selected');
+--
+-- Database: `interview_db`
+--
 
-INSERT INTO `roundOfInterview`(`round_text`) VALUES ('1');
-INSERT INTO `roundOfInterview`(`round_text`) VALUES ('2');
-INSERT INTO `roundOfInterview`(`round_text`) VALUES ('3');
-INSERT INTO `roundOfInterview`(`round_text`) VALUES ('Final');
+-- --------------------------------------------------------
 
-INSERT INTO `modeOfInterview`(`mode_text`) VALUES ('Telephonic');
-INSERT INTO `modeOfInterview`(`mode_text`) VALUES ('VC/Skype');
-INSERT INTO `modeOfInterview`(`mode_text`) VALUES ('Personal');
+--
+-- Table structure for table `interviewer_tbl`
+--
 
+CREATE TABLE IF NOT EXISTS `interviewer_tbl` (
+  `empid` int(11) NOT NULL,
+  `firstname` varchar(30) NOT NULL,
+  `lastname` varchar(30) NOT NULL,
+  PRIMARY KEY (`empid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `interviewer_tbl`
+--
 
+INSERT INTO `interviewer_tbl` (`empid`, `firstname`, `lastname`) VALUES
+(1967, 'Kamlesh', 'Gaikwad'),
+(2435, 'Vishal', 'Chauhan'),
+(2762, 'Ashish', 'Chandugade'),
+(3279, 'Abhijit', 'Sagade'),
+(3508, 'Awesh', 'Shrivastava'),
+(3667, 'Sachin', 'Shinde'),
+(3937, 'Prachi', 'Bhruguwar'),
+(4003, 'Yogesh', 'Gaikwad'),
+(4573, 'Rakesh', 'Thakor'),
+(4593, 'Bhushan', 'Joshi'),
+(4996, 'Nishant', 'Joshi'),
+(5042, 'Amarendra', 'Samal'),
+(5421, 'Ajay', 'Sajwan'),
+(5426, 'Yogesh', 'Kodarkar'),
+(5470, 'Dhritee', 'Rathore'),
+(5689, 'Kumar', 'Kundan'),
+(5995, 'Satvashil', 'Jagtap'),
+(6536, 'Jatin', 'Patel'),
+(6587, 'Omkar', 'Kulkarni'),
+(6672, 'Jaydeep', 'Tank'),
+(6735, 'Ram', 'Joshi'),
+(6815, 'Shruti', 'Kshatriya'),
+(6817, 'Sudhir', 'Nair'),
+(6865, 'Mahesh', 'Sapkal'),
+(6895, 'Basavraj', 'Keshatti'),
+(7087, 'Pravin', 'Sonawane'),
+(7559, 'Ajay', 'Pawar'),
+(7601, 'Saju', 'Sasidharan'),
+(7736, 'Mayur', 'Thakor'),
+(7988, 'Gandharva', 'Jadhav'),
+(8101, 'Shashank', 'Lakhotia'),
+(8119, 'Navneet', 'Shrivastava'),
+(8679, 'Manasi', 'Bhagwat'),
+(8972, 'Snehal', 'Bhapkar'),
+(9484, 'Ashish Kumar', 'Thawait'),
+(9554, 'Swapna', 'Purohit'),
+(9761, 'Hardik', 'Joshi'),
+(10353, 'Sonam', 'Diwate'),
+(11509, 'Shravan', 'Khare');
 
- 
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `interviewmode_tbl`
+--
 
+CREATE TABLE IF NOT EXISTS `interviewmode_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mode` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `interviewmode_tbl`
+--
+
+INSERT INTO `interviewmode_tbl` (`id`, `mode`) VALUES
+(1, 'Telephonic'),
+(2, 'VC/Skype'),
+(3, 'Personal');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `interviewresponse_tbl`
+--
+
+CREATE TABLE IF NOT EXISTS `interviewresponse_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `candiateName` varchar(50) NOT NULL,
+  `interviewer_1_id` int(11) NOT NULL,
+  `interviewer_2_id` int(11) DEFAULT NULL,
+  `recruiter_id` int(11) NOT NULL,
+  `status_id` int(11) NOT NULL,
+  `round_id` int(11) NOT NULL,
+  `mode_id` int(11) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_IR_interviewer_1` (`interviewer_1_id`),
+  KEY `fk_IR_interviewer_2` (`interviewer_2_id`),
+  KEY `fk_IR_recruiter` (`recruiter_id`),
+  KEY `fk_IR_status` (`status_id`),
+  KEY `fk_IR_round` (`round_id`),
+  KEY `fk_IR_mode` (`mode_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `interviewresponse_tbl`
+--
+INSERT INTO `interviewresponse_tbl`(`candiateName`, `interviewer_1_id`, `interviewer_2_id`, `recruiter_id`, `status_id`, `round_id`, `mode_id`, `description`) VALUES 
+('Krishna Reddy',5421,7601,6523,1,2,1,'Does not have proper knowledge');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `interviewrounds_tbl`
+--
+
+CREATE TABLE IF NOT EXISTS `interviewrounds_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `round` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `interviewrounds_tbl`
+--
+
+INSERT INTO `interviewrounds_tbl` (`id`, `round`) VALUES
+(1, '1'),
+(2, '2'),
+(3, '3'),
+(4, 'Final');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `interviewstatus_tbl`
+--
+
+CREATE TABLE IF NOT EXISTS `interviewstatus_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `interviewstatus_tbl`
+--
+
+INSERT INTO `interviewstatus_tbl` (`id`, `status`) VALUES
+(1, 'Rejected'),
+(2, 'Call for F2F round'),
+(3, 'OnHold'),
+(4, 'Selected');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `recruiter_tbl`
+--
+
+CREATE TABLE IF NOT EXISTS `recruiter_tbl` (
+  `empid` int(11) NOT NULL,
+  `firstname` varchar(30) NOT NULL,
+  `lastname` varchar(30) NOT NULL,
+  PRIMARY KEY (`empid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `recruiter_tbl`
+--
+
+INSERT INTO `recruiter_tbl` (`empid`, `firstname`, `lastname`) VALUES
+(2635, 'Shwetambari', 'Salgar'),
+(3915, 'Vikram', 'Chopra'),
+(4118, 'Pooja Walia', 'Garde'),
+(6201, 'Prakash', 'Vachhani'),
+(6523, 'Kirti', 'Namjoshi'),
+(7461, 'Ketan', 'Simant'),
+(8063, 'Amruta', 'Joshi'),
+(9495, 'Jitin', 'Naidu'),
+(9637, 'Deepika', 'Gupta'),
+(9758, 'Amit', 'Jain'),
+(9846, 'Abhinav', 'Dingre'),
+(9989, 'Amruta', 'Devale'),
+(10035, 'Mavish', ' Ajaney'),
+(10344, 'Ketaki', 'Hebalkar'),
+(10772, 'Kina', 'Pandya'),
+(10859, 'Raj', 'Pillai'),
+(11337, 'Parul', 'Shrivastav');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_tbl`
+--
+
+CREATE TABLE IF NOT EXISTS `users_tbl` (
+  `empid` int(11) NOT NULL,
+  `email` varchar(40) NOT NULL,
+  `firstname` varchar(20) NOT NULL,
+  `lastname` varchar(20) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  PRIMARY KEY (`empid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users_tbl`
+--
+
+INSERT INTO `users_tbl` (`empid`, `email`, `firstname`, `lastname`, `password`) VALUES
+(7601, 'sajus@cybage.com', 'Saju', 'Sasidharan', 'sajus'),
+(10748, 'ashwinh@cybage.com', 'Ashwin', 'Hegde', 'ashwinh');
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `interviewresponse_tbl`
+--
+ALTER TABLE `interviewresponse_tbl`
+  ADD CONSTRAINT `fk_IR_mode` FOREIGN KEY (`mode_id`) REFERENCES `interviewmode_tbl` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_IR_interviewer_1` FOREIGN KEY (`interviewer_1_id`) REFERENCES `interviewer_tbl` (`empid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_IR_interviewer_2` FOREIGN KEY (`interviewer_2_id`) REFERENCES `interviewer_tbl` (`empid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_IR_recruiter` FOREIGN KEY (`recruiter_id`) REFERENCES `recruiter_tbl` (`empid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_IR_round` FOREIGN KEY (`round_id`) REFERENCES `interviewrounds_tbl` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_IR_status` FOREIGN KEY (`status_id`) REFERENCES `interviewstatus_tbl` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
