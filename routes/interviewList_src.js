@@ -15,7 +15,7 @@ exports.getInterviewList = function(req, res){
 };
 
 exports.getInterviewListById = function(req, res){
-	sequelize.query("SELECT * FROM users_tbl").success(function(rows) {
+	sequelize.query("SELECT * FROM interviewresponse_tbl WHERE id='"+req.params.id).success(function(rows) {
 		res.format({
 			json: function() {
 				res.send(rows);
@@ -28,16 +28,38 @@ exports.getInterviewListById = function(req, res){
 };
 
 exports.putInterviewListById = function(req, res){
-	sequelize.query("UPDATE users_tbl SET lastname='"+req.body.lastname+"' WHERE empid='"+req.params.id+"'").success(function() {
+	
+	var query = "UPDATE interviewresponse_tbl SET";
+	query +=" "+"candiateName = "+req.params.candiateName+",";
+	query +=" "+"interviewer_1_id = "+req.params.interviewer_1_id+",";
+	query +=" "+"interviewer_2_id = "+req.params.interviewer_2_id+",";
+	query +=" "+"recruiter_id = "+req.params.recruiter_id+",";
+	query +=" "+"status_id = "+req.params.status_id+",";
+	query +=" "+"round_id = "+req.params.round_id+",";
+	query +=" "+"mode_id = "+req.params.mode_id+",";
+	query +=" "+"description = "+req.params.description+"";
+	query +=" WHERE id ="+req.params.id+";"; 
+
+	sequelize.query(query).success(function(rows) {
 		console.log("Record updated successfully");
+		res.format({
+			json: function() {
+				res.send(rows);
+			}
+		});	 
 	}).error(function(error) {
 		console.log(error);
 	});
 };
 
 exports.delInterviewListById = function(req, res){
-	sequelize.query("DELETE FROM users_tbl WHERE empid='"+req.params.id+"'").success(function() {
+	sequelize.query("DELETE FROM interviewresponse_tbl WHERE id='"+req.params.id+"'").success(function(rows) {
 		console.log("Record deleted successfully");
+		res.format({
+			json: function() {
+				res.send(rows);
+			}
+		});	
 	}).error(function(error) {
 		console.log(error);
 	});
