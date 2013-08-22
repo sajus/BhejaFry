@@ -5,6 +5,6 @@ define(function() {
         userName: '',
         userRole: '',
         authType:'',
-        gateWayUrl:'http://172.27.12.58:90'
+        gateWayPort:'90'
     };
 });

@@ -26,7 +26,7 @@ define(['backbone',
         ){
 
     _.extend(Backbone.Model , {
-        gateWayUrl:Globals.gateWayUrl
+        gateWayUrl:"http://"+document.domain+":"+Globals.gateWayPort
     });
 
     var globals = {};
