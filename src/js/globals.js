@@ -5,6 +5,6 @@ define(function() {
         userName: '',
         userRole: '',
         authType:'',
-        gateWayUrl:'http://localhost:82'
+        gateWayUrl:'http://localhost:90'
     };
 });

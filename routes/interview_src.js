@@ -13,8 +13,8 @@ exports.postInterview = function(req, res){
 	query += req.body.mode_id +" ,";
 	query += " '" +req.body.description +"' )";
 
-	sequelize.query(query).success(function(rows) {
-		console.log("Record inserted successfully.")
+	sequelize.query(query).success(function() {
+		console.log("Record inserted successfully.");
 	}).error(function(error) {
 		console.log(error);
 	});
