@@ -47,6 +47,7 @@ define(function(require) {
                             "round_id": self.$el.find("#status").val(),
                             "description": self.$el.find("#remarks").val()
                         });
+
                     },
                     error: function() {
                         console.log("Error");
@@ -134,14 +135,17 @@ define(function(require) {
 
         render: function() {
             var self = this;
-
+            var addUserText = (this.model.get('id'))?"Save":"Add new interview";
+            var title = (this.model.get('id'))?"Update interview detail":"Add new interview detail"
             this.$el.html(interviewCreateEditPageTemplate({
                 mode: this.interviewmode,
                 interviewer1: this.interviewer,
                 interviewer2: this.interviewer,
                 recruiter: this.recruiter,
                 rounds: this.interviewrounds,
-                interviewStatus: this.interviewstatus
+                interviewStatus: this.interviewstatus,
+                addUserText:addUserText,
+                title:title
             }));
 
             if(this.model.get('id')!==undefined) {
@@ -161,6 +165,16 @@ define(function(require) {
         postData: function() {
             var self = this;
             if(this.model.get('id')!==undefined) {
+                self.interviewEditModel.set({
+                    "candiateName": self.$el.find("#candiateName").val(),
+                    "mode_id": self.$el.find("#mode").val(),
+                    "interviewer_1_id": self.$el.find("#interviewer1").val(),
+                    "interviewer_2_id": self.$el.find("#interviewer2").val(),
+                    "recruiter_id": self.$el.find("#recruiter").val(),
+                    "status_id": self.$el.find("#rounds").val(),
+                    "round_id": self.$el.find("#status").val(),
+                    "description": self.$el.find("#remarks").val()
+                });
                 self.interviewEditModel.save(self.interviewEditModel.toJSON(), {
                     success: function(model,response) {
                         Events.trigger("alert:success", [{

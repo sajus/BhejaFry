@@ -61,6 +61,7 @@ define(function(require) {
         },
 
         render: function () {
+            console.log('render');
             var self = this;
             this.collection.fetch({
                 success: function() {
@@ -85,14 +86,17 @@ define(function(require) {
         deleteInterview: function(e) {
             e.preventDefault();
             e.stopPropagation();
+            var self = this;
             var deleteId = this.$(e.target).closest('tr').attr('data-id');
             this.editDeleteInterviewModel.set({id:deleteId});
             this.editDeleteInterviewModel.destroy({
                 success: function() {
+                    //Events.trigger('deleteInterview');
+                    self.render();
                     Events.trigger("alert:success", [{
                         message: "Record deleted successfully"
                     }]);
-                    Events.trigger('deleteInterview');
+                    
                 },
                 error: function() {
                     Events.trigger("alert:error", [{
