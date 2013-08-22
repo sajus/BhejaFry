@@ -4,7 +4,9 @@ var Sequelize = require('sequelize')
 , db 		  = config.database;
 
 var sequelize = new Sequelize(db.name, db.host, db.password, {
-    dialect: 'mysql'
+    dialect: 'mysql',
+    // disable logging; default: console.log
+  	logging: false
 });
 
 exports.sequelize = sequelize;

@@ -10,6 +10,6 @@ exports.getMode = function(req, res){
 		});
 
 	}).error(function(error) {
-		console.log(error);
+		console.log("Query Error: " + error);
 	});
 };

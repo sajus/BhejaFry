@@ -16,6 +16,6 @@ exports.postInterview = function(req, res){
 	sequelize.query(query).success(function() {
 		console.log("Record inserted successfully.");
 	}).error(function(error) {
-		console.log(error);
+		console.log("Query Error: " + error);
 	});
 };

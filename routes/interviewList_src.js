@@ -10,7 +10,7 @@ exports.getInterviewList = function(req, res){
 		});
 		// res.jsonp(rows);
 	}).error(function(error) {
-		console.log(error);
+		console.log("Query Error: " + error);
 	});
 };
 
@@ -23,7 +23,7 @@ exports.getInterviewListById = function(req, res){
 		});
 		// res.jsonp(rows);
 	}).error(function(error) {
-		console.log(error);
+		console.log("Query Error: " + error);
 	});
 };
 
@@ -43,7 +43,7 @@ exports.putInterviewListById = function(req, res){
 	sequelize.query(query).success(function() {
 		console.log("Record updated successfully");
 	}).error(function(error) {
-		console.log(error);
+		console.log("Query Error: " + error);
 	});
 };
 
@@ -51,6 +51,6 @@ exports.delInterviewListById = function(req, res){
 	sequelize.query("DELETE FROM interviewresponse_tbl WHERE id='"+req.params.id+"'").success(function() {
 		console.log("Record deleted successfully");
 	}).error(function(error) {
-		console.log(error);
+		console.log("Query Error: " + error);
 	});
 };
