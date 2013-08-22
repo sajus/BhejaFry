@@ -9,6 +9,7 @@ define(function(require) {
     var Events = require('events');
     var BaseView = require('views/BaseView');
     var interviewCreateEditPageTemplate = require('template!templates/interview/interviewCreateEdit');
+    var InterviewEditModel = require('models/interview/interviewEditModel');
 
     require('modelBinder');
     require('bootstrapAlert');
@@ -20,6 +21,38 @@ define(function(require) {
 
         initialize: function() {
             this._modelBinder = new Backbone.ModelBinder();
+
+            if(this.model.get('id')!==undefined) {
+                this.interviewEditModel = new InterviewEditModel({id:this.model.get('id')});
+                var self = this;
+                self.interviewEditModel.fetch({
+                    success: function() {
+                        var object = self.interviewEditModel.toJSON();
+                        self.$el.find("#candiateName").val(object.candiateName);
+                        self.$el.find("#mode option[value='"+object.mode_id+"']").prop('selected', true);
+                        self.$el.find("#interviewer1 option[value='"+object.interviewer_1_id+"']").prop('selected', true);
+                        self.$el.find("#interviewer2 option[value='"+object.interviewer_2_id+"']").prop('selected', true);
+                        self.$el.find("#recruiter option[value='"+object.recruiter_id+"']").prop('selected', true);
+                        self.$el.find("#rounds option[value='"+object.status_id+"']").prop('selected', true);
+                        self.$el.find("#status option[value='"+object.round_id+"']").prop('selected', true);
+                        self.$el.find("#remarks").val(object.description);
+
+                        self.interviewEditModel.set({
+                            "candiateName": self.$el.find("#candiateName").val(),
+                            "mode_id": self.$el.find("#mode").val(),
+                            "interviewer_1_id": self.$el.find("#interviewer1").val(),
+                            "interviewer_2_id": self.$el.find("#interviewer2").val(),
+                            "recruiter_id": self.$el.find("#recruiter").val(),
+                            "status_id": self.$el.find("#rounds").val(),
+                            "round_id": self.$el.find("#status").val(),
+                            "description": self.$el.find("#remarks").val()
+                        });
+                    },
+                    error: function() {
+                        console.log("Error");
+                    }
+                });
+            }
 
             this.interviewmode_list = {};
             this.interviewmode = [];
@@ -35,16 +68,8 @@ define(function(require) {
 
             this.recruiter_list = {};
             this.recruiter = [];
-        },
-
-        events: {
-            'submit .form-horizontal': 'processForm',
-            'change :input, blue :input': 'processField',
-            'click #addCancel': 'addCancel'
-        },
-
-        render: function() {
             var self = this;
+
             _.each(Core.globals.interviewmode_list, function(data) {
                 self.interviewmode_list = _.object([
                         "id",
@@ -99,6 +124,16 @@ define(function(require) {
                     ]);
                 self.interviewstatus.push(self.interviewstatus_list);
             });
+        },
+
+        events: {
+            'submit .form-horizontal': 'processForm',
+            'change :input, blue :input': 'processField',
+            'click #addCancel': 'addCancel'
+        },
+
+        render: function() {
+            var self = this;
 
             this.$el.html(interviewCreateEditPageTemplate({
                 mode: this.interviewmode,
@@ -109,7 +144,11 @@ define(function(require) {
                 interviewStatus: this.interviewstatus
             }));
 
-            this._modelBinder.bind(this.model, this.el);
+            if(this.model.get('id')!==undefined) {
+                self._modelBinder.bind(self.interviewEditModel, self.interviewEditModel.el);
+            } else {
+                self._modelBinder.bind(self.model, self.el);
+            }
 
             Backbone.Validation.bind(this, {
                 invalid: this.showError,
@@ -121,26 +160,45 @@ define(function(require) {
 
         postData: function() {
             var self = this;
-            this.model.save(self.model.toJSON(), {
-                success: function(model,response) {
-                    console.log(response);
-                    Events.trigger("alert:success", [{
-                        message: "User created successfully."
-                    }]);
-                    Events.trigger("view:navigate", {
-                        path: "dashboard",
-                        options: {
-                            trigger: true
-                        }
-                    });
-                },
-                error: function(model,response) {
-                    console.log(response);
-                    Events.trigger("alert:error", [{
-                        message: "Some service error occured during data Saving."
-                    }]);
-                }
-            });
+            if(this.model.get('id')!==undefined) {
+                self.interviewEditModel.save(self.interviewEditModel.toJSON(), {
+                    success: function(model,response) {
+                        Events.trigger("alert:success", [{
+                            message: "Updated record successfully."
+                        }]);
+                        Events.trigger("view:navigate", {
+                            path: "dashboard",
+                            options: {
+                                trigger: true
+                            }
+                        });
+                    },
+                    error: function(model,response) {
+                        Events.trigger("alert:error", [{
+                            message: "Some service error occured during data Saving."
+                        }]);
+                    }
+                });
+            } else {
+                self.model.save(self.model.toJSON(), {
+                    success: function(model,response) {
+                        Events.trigger("alert:success", [{
+                            message: "Insert record successfully."
+                        }]);
+                        Events.trigger("view:navigate", {
+                            path: "dashboard",
+                            options: {
+                                trigger: true
+                            }
+                        });
+                    },
+                    error: function(model,response) {
+                        Events.trigger("alert:error", [{
+                            message: "Some service error occured during data Saving."
+                        }]);
+                    }
+                });
+            }
         },
 
         addCancel: function() {

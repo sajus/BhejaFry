@@ -27,7 +27,7 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
             'login': 'login',
             'dashboard':'dashboard',
             'interview': 'interview',
-            'interviewList/:id': 'interviewList',
+            'interview/:id': 'interview',
             'logout':'logout',
             'accessForbiden':'accessForbiden',
 
@@ -48,21 +48,21 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
             });
         });
 
-        router.on('route:interview', function () {
+        router.on('route:interview', function (id) {
             require(['views/interview/interviewCreateEditView','models/interview/interviewCreateEditModel'], function (InterviewPage, InterviewModel) {
                 var interviewModel = new InterviewModel();
-                var interviewPage = Core.create(appView, 'InterviewPage', InterviewPage, { model: interviewModel });
+                var interviewPage = Core.create(appView, 'InterviewPage', InterviewPage, { model: interviewModel.set('id',id) });
                 interviewPage.render();
             });
         });
 
-        router.on('route:interview', function () {
-            require(['views/interview/interviewCreateEditView','models/interview/interviewCreateEditModel'], function (InterviewPage, InterviewModel) {
-                var interviewModel = new InterviewModel();
-                var interviewPage = Core.create(appView, 'InterviewPage', InterviewPage, { model: interviewModel });
-                interviewPage.render();
-            });
-        });
+        // router.on('route:interview', function () {
+        //     require(['views/interview/interviewCreateEditView','models/interview/interviewCreateEditModel'], function (InterviewPage, InterviewModel) {
+        //         var interviewModel = new InterviewModel();
+        //         var interviewPage = Core.create(appView, 'InterviewPage', InterviewPage, { model: interviewModel });
+        //         interviewPage.render();
+        //     });
+        // });
 
         router.on('route:login', function () {
             require(['views/login/loginView','models/login/loginModel'], function (LoginPage, LoginModel) {

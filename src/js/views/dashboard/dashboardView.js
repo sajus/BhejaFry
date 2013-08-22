@@ -74,6 +74,12 @@ define(function(require) {
             e.preventDefault();
             e.stopPropagation();
             var editId = this.$(e.target).closest('tr').attr('data-id');
+            Events.trigger("view:navigate", {
+                path: "interview/" + editId,
+                options: {
+                    trigger: true
+                }
+            });
         },
 
         deleteInterview: function(e) {
