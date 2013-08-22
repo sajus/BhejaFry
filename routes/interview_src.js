@@ -13,8 +13,18 @@ exports.postInterview = function(req, res){
 	query += req.body.mode_id +" ,";
 	query += " '" +req.body.description +"' )";
 
+	var queryID = "SELECT * FROM  interviewresponse_tbl where id =20";
+
 	sequelize.query(query).success(function() {
-		console.log("Record inserted successfully.");
+		sequelize.query(queryID).success(function(rows){
+			res.format({
+				json: function() {
+					res.send(rows);
+				}
+			});
+		}).error(function(error){
+			console.log("Query Error: " + error);
+		});
 	}).error(function(error) {
 		console.log("Query Error: " + error);
 	});

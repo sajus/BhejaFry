@@ -122,12 +122,20 @@ define(function(require) {
         postData: function() {
             var self = this;
             this.model.save(self.model.toJSON(), {
-                success: function() {
+                success: function(model,response) {
+                    console.log(response);
                     Events.trigger("alert:success", [{
                         message: "User created successfully."
                     }]);
+                    Events.trigger("view:navigate", {
+                        path: "dashboard",
+                        options: {
+                            trigger: true
+                        }
+                    });
                 },
-                error: function() {
+                error: function(model,response) {
+                    console.log(response);
                     Events.trigger("alert:error", [{
                         message: "Some service error occured during data Saving."
                     }]);
