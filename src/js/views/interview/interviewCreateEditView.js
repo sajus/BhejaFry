@@ -44,7 +44,6 @@ define(function(require) {
         },
 
         render: function() {
-            console.log(Core.globals);
             var self = this;
             _.each(Core.globals.interviewmode_list, function(data) {
                 self.interviewmode_list = _.object([

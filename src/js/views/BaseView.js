@@ -35,7 +35,7 @@ define(function(require) {
                 this.postData();
             } else {
                 Events.trigger("alert:error", [{
-                    message: "The email or password you entered is incorrect."
+                    message: "Something went wrong!"
                 }]);
             }
         },
