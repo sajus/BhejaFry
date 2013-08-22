@@ -28,7 +28,6 @@ exports.getInterviewListById = function(req, res){
 };
 
 exports.putInterviewListById = function(req, res){
-
 	var query = "UPDATE interviewresponse_tbl SET";
 	query +=" "+"candiateName = "+req.params.candiateName+",";
 	query +=" "+"interviewer_1_id = "+req.params.interviewer_1_id+",";
@@ -41,16 +40,14 @@ exports.putInterviewListById = function(req, res){
 	query +=" WHERE id ="+req.params.id+";";
 
 	sequelize.query(query).success(function() {
-		console.log("Record updated successfully");
-	}).error(function(error) {
-		console.log("Query Error: " + error);
+		res.send(req.params);
+	}).error(function(error) {	 
 	});
 };
 
 exports.delInterviewListById = function(req, res){
 	sequelize.query("DELETE FROM interviewresponse_tbl WHERE id='"+req.params.id+"'").success(function() {
-		console.log("Record deleted successfully");
-	}).error(function(error) {
-		console.log("Query Error: " + error);
+		res.send(req.params);
+	}).error(function(error) {		
 	});
 };

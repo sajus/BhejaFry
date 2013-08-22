@@ -13,7 +13,7 @@ exports.postInterview = function(req, res){
 	query += req.body.mode_id +" ,";
 	query += " '" +req.body.description +"' )";
 
-	var queryID = "SELECT * FROM  interviewresponse_tbl where id =20";
+	var queryID = "SELECT * FROM interviewresponse_tbl ORDER BY id DESC LIMIT 1;";
 
 	sequelize.query(query).success(function() {
 		sequelize.query(queryID).success(function(rows){
