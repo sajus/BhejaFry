@@ -1,0 +1,6 @@
+publish 
+node_modules
+.komodotools
+*.log
+*.komodoproject
+ 
