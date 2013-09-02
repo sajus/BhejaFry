@@ -38,11 +38,21 @@ app.get('/interviewList/:id', interviewList.getInterviewListById);
 app.put('/interviewList/:id', interviewList.putInterviewListById);
 app.del('/interviewList/:id', interviewList.delInterviewListById);
 
-app.get('/interviewer', interviewer.getInterviewer);
 app.get('/mode', mode.getMode);
 app.get('/rounds', rounds.getRounds);
 app.get('/status', status.getStatus);
+
 app.get('/recruiter', recruiter.getRecruiter);
+app.post('/recruiter', recruiter.postRecruiter)
+app.get('/recruiter/:id', recruiter.getRecruiterById);
+app.put('/recruiter/:id', recruiter.putRecruiterById);
+app.del('/recruiter/:id', recruiter.delRecruiterById);
+
+app.get('/interviewer', interviewer.getInterviewer);
+app.post('/interviewer', interviewer.postInterviewer);
+app.get('/interviewer/:id', interviewer.getInterviewerById);
+app.put('/interviewer/:id', interviewer.putInterviewerById);
+app.del('/interviewer/:id', interviewer.delInterviewerById);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log("\n\n\tNode (Express) server listening on port " + app.get('port'))
