@@ -2,7 +2,7 @@ var sequelize = require('../dbconfig').sequelize
 ,           _ = require('../libresources').underscore;
 
 exports.getInterviewList = function(req, res){
-	sequelize.query("SELECT * FROM interviewresponse_tbl").success(function(rows) {
+	sequelize.query("SELECT * FROM interviewresponse_tbl ORDER BY candiateName").success(function(rows) {
 		res.format({
 			json: function() {
 				res.send(rows);
