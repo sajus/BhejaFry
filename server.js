@@ -13,7 +13,8 @@ var routes          = require('./routes')
   , mode            = require('./routes/mode_src')
   , rounds          = require('./routes/rounds_src')
   , status          = require('./routes/status_src')
-  , recruiter       = require('./routes/recruiter_src');
+  , recruiter       = require('./routes/recruiter_src')
+  , reports       = require('./routes/reports_src');
 
 var sequelize = require('./dbconfig').sequelize;
 config        = require("./dbresources");
@@ -41,6 +42,12 @@ app.del('/interviewList/:id', interviewList.delInterviewListById);
 app.get('/mode', mode.getMode);
 app.get('/rounds', rounds.getRounds);
 app.get('/status', status.getStatus);
+app.get('/reportStatus', reports.getInterviewStatusReport);
+app.get('/reportMode', reports.getInterviewModeReport);
+app.get('/interviewerStatusReport/:id', reports.getInterviewerStatusReport);
+app.get('/interviewerModeReport/:id', reports.getInterviewerModeReport);
+
+
 
 app.get('/recruiter', recruiter.getRecruiter);
 app.post('/recruiter', recruiter.postRecruiter)
