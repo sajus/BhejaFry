@@ -5,7 +5,7 @@ var sequelize = require('../dbconfig').sequelize
 	GET THE LIST OF ALL INTERVIEWER
 */
 exports.getInterviewer = function(req, res){
-	sequelize.query("SELECT * FROM  interviewer_tbl").success(function(rows) {
+	sequelize.query("SELECT * FROM  interviewer_tbl ORDER BY firstname").success(function(rows) {
 		res.format({
 			json: function() {
 				res.send(rows);
@@ -86,7 +86,7 @@ exports.putInterviewerById = function(req, res) {
 					res.send(rows);
 				}
 			});
-		});	
+		});
 	}).error(function(error) {
 		console.log("Query Error: " + error);
 	});

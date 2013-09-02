@@ -21,6 +21,7 @@ exports.getInterviewListById = function(req, res){
 				"candiateName",
 				"interviewer_1_id",
 				"interviewer_2_id",
+				"interviewDate",
 				"recruiter_id",
 				"status_id",
 				"round_id",
@@ -31,6 +32,7 @@ exports.getInterviewListById = function(req, res){
 				rows[0].candiateName,
 				rows[0].interviewer_1_id,
 				rows[0].interviewer_2_id,
+				rows[0].interviewDate,
 				rows[0].recruiter_id,
 				rows[0].status_id,
 				rows[0].round_id,
@@ -53,6 +55,7 @@ exports.putInterviewListById = function(req, res){
 	query +=" "+"candiateName = '"+req.body.candiateName+"',";
 	query +=" "+"interviewer_1_id = "+req.body.interviewer_1_id+",";
 	query +=" "+"interviewer_2_id = "+req.body.interviewer_2_id+",";
+	query +=" "+"interviewDate = "+req.body.interviewDate+",";
 	query +=" "+"recruiter_id = "+req.body.recruiter_id+",";
 	query +=" "+"status_id = "+req.body.status_id+",";
 	query +=" "+"round_id = "+req.body.round_id+",";

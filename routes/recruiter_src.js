@@ -5,7 +5,7 @@ var sequelize = require('../dbconfig').sequelize
 	GET THE LIST OF ALL RECRUITERS
 */
 exports.getRecruiter = function(req, res){
-	sequelize.query("SELECT * FROM  recruiter_tbl").success(function(rows) {
+	sequelize.query("SELECT * FROM  recruiter_tbl ORDER BY firstname").success(function(rows) {
 		res.format({
 			json: function() {
 				res.send(rows);

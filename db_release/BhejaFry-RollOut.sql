@@ -109,6 +109,7 @@ CREATE TABLE IF NOT EXISTS `interviewresponse_tbl` (
   `candiateName` varchar(50) NOT NULL,
   `interviewer_1_id` int(11) NOT NULL,
   `interviewer_2_id` int(11) DEFAULT NULL,
+  `interviewDate` int(50) NOT NULL,
   `recruiter_id` int(11) NOT NULL,
   `status_id` int(11) NOT NULL,
   `round_id` int(11) NOT NULL,
@@ -126,9 +127,8 @@ CREATE TABLE IF NOT EXISTS `interviewresponse_tbl` (
 --
 -- Dumping data for table `interviewresponse_tbl`
 --
-INSERT INTO `interviewresponse_tbl`(`candiateName`, `interviewer_1_id`, `interviewer_2_id`, `recruiter_id`, `status_id`, `round_id`, `mode_id`, `description`) VALUES 
-('Krishna Reddy',5421,7601,6523,1,2,1,'Does not have proper knowledge');
-
+INSERT INTO `interviewresponse_tbl`(`candiateName`, `interviewer_1_id`, `interviewer_2_id`,`interviewDate`, `recruiter_id`, `status_id`, `round_id`, `mode_id`, `description`) VALUES 
+('Krishna Reddy',5421,7601,1378130403,6523,1,2,1,'Does not have proper knowledge'); 
 -- --------------------------------------------------------
 
 --
@@ -146,9 +146,9 @@ CREATE TABLE IF NOT EXISTS `interviewrounds_tbl` (
 --
 
 INSERT INTO `interviewrounds_tbl` (`id`, `round`) VALUES
-(1, '1'),
-(2, '2'),
-(3, '3'),
+(1, '1st Round'),
+(2, '2ed Round'),
+(3, '3rd Round'),
 (4, 'Final');
 
 -- --------------------------------------------------------
