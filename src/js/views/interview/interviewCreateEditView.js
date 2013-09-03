@@ -2,14 +2,14 @@ define(function(require) {
 
     'use strict';
 
-    var $ = require('jquery');
-    var _ = require('underscore');
-    var Backbone = require('backbone');
-    var Core = require('core');
-    var Events = require('events');
-    var BaseView = require('views/BaseView');
-    var interviewCreateEditPageTemplate = require('template!templates/interview/interviewCreateEdit');
-    var InterviewEditModel = require('models/interview/interviewEditModel');
+    var $ = require('jquery'),
+    _ = require('underscore'),
+    Backbone = require('backbone'),
+    Core = require('core'),
+    Events = require('events'),
+    BaseView = require('views/BaseView'),
+    interviewCreateEditPageTemplate = require('template!templates/interview/interviewCreateEdit'),
+    InterviewEditModel = require('models/interview/interviewEditModel');
 
     require('modelBinder');
     require('bootstrapAlert');
@@ -217,7 +217,7 @@ define(function(require) {
 
         addCancel: function() {
             Events.trigger("view:navigate", {
-                path: "dashboard",
+                path: "interviewList",
                 options: {
                     trigger: true
                 }

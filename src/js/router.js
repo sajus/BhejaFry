@@ -26,6 +26,7 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
             '':'login',
             'login': 'login',
             'dashboard':'dashboard',
+            'interviewList':'interviewList',
             'interview': 'interview',
             'interview/:id': 'interview',
             'logout':'logout',
@@ -41,10 +42,16 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
         var router = new AppRouter(options);
 
         router.on('route:dashboard', function () {
-            require(['views/dashboard/dashboardView', 'collections/dashboard/dashboardCollection'], function (DashboardPage, DashboardCollection) {
-                var dashboardCollection = new DashboardCollection();
-                var dashboardPage = Core.create(appView, 'DashboardPage', DashboardPage, { collection: dashboardCollection });
+            require(['views/dashboard/dashboardView'], function (DashboardPage) {
+                var dashboardPage = Core.create(appView, 'DashboardPage', DashboardPage);
                 dashboardPage.render();
+            });
+        });
+
+        router.on('route:interviewList', function () {
+            require(['views/interviewList/interviewListView'], function (InterviewListPage) {
+                var interviewListPage = Core.create(appView, 'InterviewListPage', InterviewListPage);
+                interviewListPage.render();
             });
         });
 

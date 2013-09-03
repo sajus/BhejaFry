@@ -1,6 +1,13 @@
-define(['backbone', 'template!templates/header/menu','jqueryCookie'], function(Backbone, headerMenuTemplate){
+define(function(require) {
 
-    var HeaderMenuView = Backbone.View.extend({
+    'use strict';
+
+    var Backbone = require('backbone'),
+    headerMenuTemplate = require('template!templates/header/menu');
+
+    require('jqueryCookie');
+
+    return Backbone.View.extend({
 
         el: '.main-menu-container',
 
@@ -13,7 +20,6 @@ define(['backbone', 'template!templates/header/menu','jqueryCookie'], function(B
         render: function () {
             this.$el.html(headerMenuTemplate({email:this.email}));
         }
-    })
+    });
 
-    return HeaderMenuView;
 });

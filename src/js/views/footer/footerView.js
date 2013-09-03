@@ -1,6 +1,12 @@
-define(['backbone', 'events', 'template!templates/footer/footer'], function(Backbone, Events, footerTemplate){
+define(function(require) {
 
-    var FooterView = Backbone.View.extend({
+    'use strict';
+
+    var Backbone = require('backbone'),
+    Events = require('events'),
+    footerTemplate = require('template!templates/footer/footer');
+
+    return Backbone.View.extend({
 
         el: '.footer',
 
@@ -10,5 +16,4 @@ define(['backbone', 'events', 'template!templates/footer/footer'], function(Back
 
     });
 
-    return FooterView;
 });
