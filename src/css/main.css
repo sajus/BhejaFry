@@ -26,6 +26,8 @@
 @import "../js/vendors/bootstrap/plugins/fuelux/css/fuelux-responsive.min.css";
 @import "../js/vendors/bootstrap/plugins/fuelux/css/fuelux-custom.css";
 
+@import "../js/vendors/bootstrap/plugins/datepicker/datepicker.css";
+
 .form-signin {
     max-width: 500px;
     padding: 30px;

@@ -53,6 +53,7 @@ requirejs.config({
             'fueluxSearchBox': 'vendors/bootstrap/plugins/fuelux/search',
             'util': 'vendors/bootstrap/plugins/fuelux/util',
             'fueluxWizard': 'vendors/bootstrap/plugins/fuelux/wizard',
+            'datePicker': 'vendors/bootstrap/plugins/datepicker/datepicker',
 
         /* List of jQuery plugins */
             'jqueryCookie': 'vendors/jquery/plugins/jquery.cookie',
@@ -67,7 +68,7 @@ requirejs.config({
     */
     shim: {
         backbone: {
-            deps: ['jquery','underscore'],
+            deps: ['jquery', 'underscore'],
             exports: 'Backbone'
         },
         underscore: {
@@ -85,6 +86,9 @@ requirejs.config({
         modelBinder:{
             deps:['backbone'],
             exports:'Backbone.ModelBinder'
+        },
+        datePicker: {
+            deps: ['bootstrap', 'jquery']
         }
     }
 });

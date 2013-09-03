@@ -12,8 +12,10 @@ define(function(require) {
     InterviewEditModel = require('models/interview/interviewEditModel');
 
     require('modelBinder');
+    require('modelValidator');
     require('bootstrapAlert');
-    require('jqueryCookie');
+    require('datePicker');
+    require('moment');
 
     return BaseView.extend({
 
@@ -29,6 +31,7 @@ define(function(require) {
                     success: function() {
                         var object = self.interviewEditModel.toJSON();
                         self.$el.find("#candiateName").val(object.candiateName);
+                        self.$el.find("#interviewDate").val(moment(object.interviewDate).format('YYYY-MM-DD'));
                         self.$el.find("#mode option[value='"+object.mode_id+"']").prop('selected', true);
                         self.$el.find("#interviewer1 option[value='"+object.interviewer_1_id+"']").prop('selected', true);
                         self.$el.find("#interviewer2 option[value='"+object.interviewer_2_id+"']").prop('selected', true);
@@ -39,6 +42,7 @@ define(function(require) {
 
                         self.interviewEditModel.set({
                             "candiateName": self.$el.find("#candiateName").val(),
+                            "interviewDate": self.$el.find("#interviewDate").val(),
                             "mode_id": self.$el.find("#mode").val(),
                             "interviewer_1_id": self.$el.find("#interviewer1").val(),
                             "interviewer_2_id": self.$el.find("#interviewer2").val(),
@@ -129,14 +133,20 @@ define(function(require) {
 
         events: {
             'submit .form-horizontal': 'processForm',
-            'change :input, blue :input': 'processField',
-            'click #addCancel': 'addCancel'
+            'change :input select, blue :input select': 'processField',
+            'click #addCancel': 'addCancel',
+            'keypress #interviewDate': 'preventAction'
+        },
+
+        preventAction:function(e){
+            e.preventDefault();
         },
 
         render: function() {
             var self = this;
             var addUserText = (this.model.get('id'))?"Save":"Add new interview";
-            var title = (this.model.get('id'))?"Update interview detail":"Add new interview detail"
+            var title = (this.model.get('id'))?"Edit existing interview":"Add new interview"
+
             this.$el.html(interviewCreateEditPageTemplate({
                 mode: this.interviewmode,
                 interviewer1: this.interviewer,
@@ -147,6 +157,12 @@ define(function(require) {
                 addUserText:addUserText,
                 title:title
             }));
+
+            $('.date').datepicker({
+                "autoclose": true
+            }).on('changeDate', function(ev) {
+                console.log(ev.date.valueOf());
+            }).data('datepicker');
 
             if(this.model.get('id')!==undefined) {
                 self._modelBinder.bind(self.interviewEditModel, self.interviewEditModel.el);
@@ -167,6 +183,7 @@ define(function(require) {
             if(this.model.get('id')!==undefined) {
                 self.interviewEditModel.set({
                     "candiateName": self.$el.find("#candiateName").val(),
+                    "interviewDate": self.$el.find("#interviewDate").val(),
                     "mode_id": self.$el.find("#mode").val(),
                     "interviewer_1_id": self.$el.find("#interviewer1").val(),
                     "interviewer_2_id": self.$el.find("#interviewer2").val(),
@@ -181,7 +198,7 @@ define(function(require) {
                             message: "Updated record successfully."
                         }]);
                         Events.trigger("view:navigate", {
-                            path: "dashboard",
+                            path: "interviewList",
                             options: {
                                 trigger: true
                             }
@@ -200,7 +217,7 @@ define(function(require) {
                             message: "Insert record successfully."
                         }]);
                         Events.trigger("view:navigate", {
-                            path: "dashboard",
+                            path: "interviewList",
                             options: {
                                 trigger: true
                             }

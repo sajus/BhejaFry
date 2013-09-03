@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `interviewresponse_tbl` (
   `candiateName` varchar(50) NOT NULL,
   `interviewer_1_id` int(11) NOT NULL,
   `interviewer_2_id` int(11) DEFAULT NULL,
-  `interviewDate` int(50) NOT NULL,
+  `interviewDate` date NOT NULL,
   `recruiter_id` int(11) NOT NULL,
   `status_id` int(11) NOT NULL,
   `round_id` int(11) NOT NULL,
@@ -129,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `interviewresponse_tbl` (
 -- Dumping data for table `interviewresponse_tbl`
 --
 INSERT INTO `interviewresponse_tbl`(`candiateName`, `interviewer_1_id`, `interviewer_2_id`,`interviewDate`, `recruiter_id`, `status_id`, `round_id`, `mode_id`, `description`,`deleteFlag`) VALUES 
-('Krishna Reddy',5421,7601,1378130403,6523,1,2,1,'Does not have proper knowledge',0); 
+('Krishna Reddy',5421,7601,'2013-09-11',6523,1,2,1,'Does not have proper knowledge',0); 
 -- --------------------------------------------------------
 
 --

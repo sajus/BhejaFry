@@ -57,7 +57,7 @@ exports.putInterviewListById = function(req, res){
 	query +=" "+"candiateName = '"+req.body.candiateName+"',";
 	query +=" "+"interviewer_1_id = "+req.body.interviewer_1_id+",";
 	query +=" "+"interviewer_2_id = "+req.body.interviewer_2_id+",";
-	query +=" "+"interviewDate = "+req.body.interviewDate+",";
+	query +=" "+"interviewDate = '"+req.body.interviewDate+"',";
 	query +=" "+"recruiter_id = "+req.body.recruiter_id+",";
 	query +=" "+"status_id = "+req.body.status_id+",";
 	query +=" "+"round_id = "+req.body.round_id+",";

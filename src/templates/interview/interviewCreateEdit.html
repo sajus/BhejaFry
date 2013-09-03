@@ -3,15 +3,14 @@
 	    <ul class="nav nav-pills pull-right">
 	        <li><a href="#"><i class="icon-th-large"></i> Dashboard</a></li>
 	        <li><a href="#interviewList"><i class="icon-list"></i> Interview List</a></li>
-	        <li class="active"><a href="#interview"><i class="icon-file icon-white"></i> Add new interview</a></li>
+	        <li class="active"><a href="#interview"><i class="icon-file icon-white"></i> {{title}}</a></li>
 	    </ul>
-	    <h3 class="muted">List of interview's taken</h3>
 	</div>
 </div>
 
 <div id="createUser">
 	<form class="form-horizontal" id="userForm">
-		<legend>&nbsp;</legend>
+		<legend>Add new interview details</legend>
 
 		<!-- candiateName -->
 		<div class="control-group">
@@ -21,6 +20,18 @@
 				<span class="help-inline"></span>
 			</div>
 		</div>
+
+		<!-- Interview Date -->
+		<div class="control-group">
+            <label class="control-label" for="interviewDate">Interview Date</label>
+            <div class="controls">
+                <div class="input-append date" data-date-format="yyyy-mm-dd">
+                    <input type="text" class="input-xlarge" id="interviewDate" name="interviewDate" class="datepicker" readonly >
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+                </div>
+                <span class="help-inline"></span>
+            </div>
+        </div>
 
 		<!-- mode -->
 		<div class="control-group">
