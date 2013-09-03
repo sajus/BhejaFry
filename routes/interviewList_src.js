@@ -2,7 +2,7 @@ var sequelize = require('../dbconfig').sequelize
 ,           _ = require('../libresources').underscore;
 
 exports.getInterviewList = function(req, res){
-	sequelize.query("SELECT * FROM interviewresponse_tbl ORDER BY candiateName").success(function(rows) {
+	sequelize.query("SELECT * FROM interviewresponse_tbl WHERE deleteFlag=0 ORDER BY candiateName;").success(function(rows) {
 		res.format({
 			json: function() {
 				res.send(rows);
@@ -15,7 +15,7 @@ exports.getInterviewList = function(req, res){
 };
 
 exports.getInterviewListById = function(req, res){
-	sequelize.query("SELECT * FROM interviewresponse_tbl WHERE id="+req.params.id+" LIMIT 1").success(function(rows) {
+	sequelize.query("SELECT * FROM interviewresponse_tbl WHERE id="+req.params.id+" AND deleteFlag=0 LIMIT 1").success(function(rows) {
 		var userDetails = _.object([
 				"id",
 				"candiateName",
@@ -26,7 +26,8 @@ exports.getInterviewListById = function(req, res){
 				"status_id",
 				"round_id",
 				"mode_id",
-				"description"
+				"description",
+				"deleteFlag"
 			],[
 				rows[0].id,
 				rows[0].candiateName,
@@ -37,7 +38,8 @@ exports.getInterviewListById = function(req, res){
 				rows[0].status_id,
 				rows[0].round_id,
 				rows[0].mode_id,
-				rows[0].description
+				rows[0].description,
+				0
 			]);
 		res.format({
 			json: function() {
@@ -60,7 +62,8 @@ exports.putInterviewListById = function(req, res){
 	query +=" "+"status_id = "+req.body.status_id+",";
 	query +=" "+"round_id = "+req.body.round_id+",";
 	query +=" "+"mode_id = "+req.body.mode_id+",";
-	query +=" "+"description = '"+req.body.description+"'";
+	query +=" "+"description = '"+req.body.description+"',";
+	query +=" "+"deleteFlag = "+req.body.deleteFlag+""; //BACKBONE MODEL TEST
 	query +=" WHERE id ="+req.params.id+";";
 
 	sequelize.query(query).success(function() {
@@ -70,7 +73,10 @@ exports.putInterviewListById = function(req, res){
 };
 
 exports.delInterviewListById = function(req, res){
-	sequelize.query("DELETE FROM interviewresponse_tbl WHERE id="+req.params.id).success(function() {
+	var query = "UPDATE interviewresponse_tbl SET";
+	query +=" "+"deleteFlag = 1 WHERE id ="+req.params.id+";"
+
+	sequelize.query(query).success(function() {
 		res.send(req.params);
 	}).error(function(error) {
 	});

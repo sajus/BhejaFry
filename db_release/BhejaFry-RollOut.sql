@@ -115,6 +115,7 @@ CREATE TABLE IF NOT EXISTS `interviewresponse_tbl` (
   `round_id` int(11) NOT NULL,
   `mode_id` int(11) NOT NULL,
   `description` text NOT NULL,
+  `deleteFlag` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_IR_interviewer_1` (`interviewer_1_id`),
   KEY `fk_IR_interviewer_2` (`interviewer_2_id`),
@@ -127,8 +128,8 @@ CREATE TABLE IF NOT EXISTS `interviewresponse_tbl` (
 --
 -- Dumping data for table `interviewresponse_tbl`
 --
-INSERT INTO `interviewresponse_tbl`(`candiateName`, `interviewer_1_id`, `interviewer_2_id`,`interviewDate`, `recruiter_id`, `status_id`, `round_id`, `mode_id`, `description`) VALUES 
-('Krishna Reddy',5421,7601,1378130403,6523,1,2,1,'Does not have proper knowledge'); 
+INSERT INTO `interviewresponse_tbl`(`candiateName`, `interviewer_1_id`, `interviewer_2_id`,`interviewDate`, `recruiter_id`, `status_id`, `round_id`, `mode_id`, `description`,`deleteFlag`) VALUES 
+('Krishna Reddy',5421,7601,1378130403,6523,1,2,1,'Does not have proper knowledge',0); 
 -- --------------------------------------------------------
 
 --
