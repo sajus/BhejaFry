@@ -222,6 +222,7 @@ CREATE TABLE IF NOT EXISTS `users_tbl` (
   `firstname` varchar(20) NOT NULL,
   `lastname` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
+  `accesslevel` int(1) NOT NULL,
   PRIMARY KEY (`empid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -229,9 +230,9 @@ CREATE TABLE IF NOT EXISTS `users_tbl` (
 -- Dumping data for table `users_tbl`
 --
 
-INSERT INTO `users_tbl` (`empid`, `email`, `firstname`, `lastname`, `password`) VALUES
-(7601, 'sajus@cybage.com', 'Saju', 'Sasidharan', 'sajus'),
-(10748, 'ashwinh@cybage.com', 'Ashwin', 'Hegde', 'ashwinh');
+INSERT INTO `users_tbl` (`empid`, `email`, `firstname`, `lastname`, `password`,  `accesslevel`) VALUES
+(7601, 'sajus@cybage.com', 'Saju', 'Sasidharan', 'sajus', 1),
+(10748, 'ashwinh@cybage.com', 'Ashwin', 'Hegde', 'ashwinh', 0);
 
 --
 -- Constraints for dumped tables
