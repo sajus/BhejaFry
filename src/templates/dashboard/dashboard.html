@@ -13,10 +13,10 @@
 			<div class="panel-heading">
 				<div class="pull-right">
 					<label class="radio inline">
-						<input type="radio" name="overallReport" id="inlineCheckbox1" value="option1"> Status
+						<input type="radio" class = "selectType" name="overallReport" id="Status" value="option1"> Status
 					</label>
 					<label class="radio inline">
-						<input type="radio" name="overallReport" id="inlineCheckbox2" value="option1"> Mode
+						<input type="radio" class = "selectType" name="overallReport" id="Mode" value="option1"> Mode
 					</label>
 				</div>
 				<h6 class="panel-title lead">Interviews Status Report</h6>
@@ -33,12 +33,10 @@
 	<div class="span12">
 		<ul class="breadcrumb">
 			<li>
-				<select class="inline">
-					<option>User 1</option>
-					<option>User 2</option>
-					<option>User 3</option>
-					<option>User 4</option>
-					<option>User 5</option>
+				<select class="inline interviewerList">
+					{{#each interviewerList}}
+						<option value="{{empid}}">{{firstname}} {{lastname}}</option>
+					{{/each}}
 				</select>
 			</li>
 		</ul>
@@ -47,7 +45,10 @@
 				<h6 class="panel-title lead">User Report</h6>
 			</div>
 			<div class="panel-body">
-				<div id="piechart2"></div>
+				<div class="piechartEmpStatusLog"></div>
+				<div id="piechartEmpStatus"></div>
+				<div class="piechartEmpModeLog"></div>
+				<div id="piechartEmpMode"></div>
 			</div>
 			<div class="panel-footer">Footer
 			</div>

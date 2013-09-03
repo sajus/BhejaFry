@@ -20,12 +20,12 @@ exports.getInterviewStatusReport = function(req, res){
 				sequelize.query(query+"4").success(function(data) {
 					status_4 = data[0]['COUNT(status_id)'];
 					data = {data:[ 
-							['Interviews Status', 'Number'],
-							['Rejected', status_1],
-							['Call for F2F round', status_2],
-							['OnHold', status_3],
-							['Selected', status_4]
-						]};
+						['Interviews Status', 'Number'],
+						['Rejected', status_1],
+						['Call for F2F round', status_2],
+						['OnHold', status_3],
+						['Selected', status_4]
+					]};
 					res.format({
 						json: function() {
 							res.send(data);
@@ -84,13 +84,17 @@ exports.getInterviewerStatusReport = function(req, res){
 				status_3 = rows.length;
 				sequelize.query(query+"4").success(function(rows) {
 					status_4 = rows.length;
-					data = {data:[ 
+					if( status_1 === 0  && status_2 === 0 && status_3 === 0 && status_4 === 0){
+						data = {data:'There is no status record to Show'} 
+					}else{
+						data = {data:[ 
 							['Interviews Status', 'Number'],
 							['Rejected', status_1],
 							['Call for F2F round', status_2],
 							['OnHold', status_3],
 							['Selected', status_4]
 						]};
+					}
 					res.format({
 						json: function() {
 							res.send(data);
@@ -116,12 +120,16 @@ exports.getInterviewerModeReport = function(req, res){
 			status_2 = rows.length;
 			sequelize.query(query+"3").success(function(rows) {
 				status_3 = rows.length;
-				data = {data:[
+				if( status_1 === 0  && status_2 === 0 && status_3 === 0 ){
+						data = {data:'There is no mode record to Show'} 
+				}else{
+					data = {data:[
 						['Interviews Mode', 'Number'],
 						['Telephonic', status_1],
 						['VC/Skype', status_2],
 						['Personal', status_3]
 					]};
+				}
 				res.format({
 					json: function() {
 						res.send(data);
