@@ -29,8 +29,8 @@ define(function(require) {
 
         events: {
             'click .edit': 'editInterview',
-            'click .delete': 'deleteInterview'
-            // 'loaded #MyGrid': 'gridStyleFilter'
+            'click .delete': 'deleteInterview',
+            'loaded #MyGrid': 'gridStyleFilter'
         },
 
         render: function () {
@@ -240,23 +240,28 @@ define(function(require) {
                     pageSize: 5
                 },
                 stretchHeight: false
-            })
+            }) 
+        },
+
+        gridStyleFilter: function(e) {
+
+            $("#MyGrid tr").each(function(index, trList){
+
+                if($(trList).find('td').eq(4).text()==='OnHold') {
+                    $(trList).find('td').css('font-weight','bold');
+                    $(trList).find('td').eq(4).parent().addClass('warning text-warning');
+                } else if($(trList).find('td').eq(4).text()==='Selected') {
+                    $(trList).find('td').css('font-weight','bold');
+                    $(trList).find('td').eq(4).parent().addClass('success text-success');
+                } else if($(trList).find('td').eq(4).text()==='Call for F2F round') {
+                    $(trList).find('td').css('font-weight','bold');
+                    $(trList).find('td').eq(4).parent().addClass('info text-info');
+                } else if($(trList).find('td').eq(4).text()==='Rejected') {
+                    $(trList).find('td').css('font-weight','bold');
+                    $(trList).find('td').eq(4).parent().addClass('error text-error');
+                }
+            });
         }
-
-        // gridStyleFilter: function(e) {
-        //     var statusFilter = this.$(e.target).find('tr td span').attr('data-status');
-        //     var html = this.$(statusFilter).find('tr');
-        //     console.log(html);
-        //     if(statusFilter==='OnHold') {
-        //         this.$(html).addClass('warning')
-        //     } else if(statusFilter==='Selected') {
-
-        //     } else if(statusFilter==='Call for F2F round') {
-
-        //     } else if(statusFilter==='Rejected') {
-
-        //     }
-        // }
     });
 
     return InterviewListView;
