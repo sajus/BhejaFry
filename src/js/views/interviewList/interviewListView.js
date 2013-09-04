@@ -134,7 +134,7 @@ define(function(require) {
                 operationHTML += ' <button class="btn btn-small btn-danger delete" type="button"><i class="icon-trash icon-white"></i> Delete</button></span>';
                 var interviewer2 = self.getInterviewer(userlist.interviewer_2_id)
                 if(interviewer2===undefined) {
-                    userlist.interviewer_2_id = ''
+                    userlist.interviewer_2_id = 'N/A'
                 } else {
                     userlist.interviewer_2_id = interviewer2;
                 }

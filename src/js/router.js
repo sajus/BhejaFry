@@ -17,7 +17,7 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
             appView.render();
             if(options!==undefined && options.targetView!==undefined){
                 this.navigate("dashboard",{trigger:true});
-            }else{
+            } else {
                 this.navigate("dashboard",{trigger:true});
             }
         },
@@ -42,6 +42,7 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
         var router = new AppRouter(options);
 
         router.on('route:dashboard', function () {
+            $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a>");
             require(['views/dashboard/dashboardView'], function (DashboardPage) {
                 var dashboardPage = Core.create(appView, 'DashboardPage', DashboardPage);
                 dashboardPage.render();
@@ -49,6 +50,7 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
         });
 
         router.on('route:interviewList', function () {
+            $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> <i class='icon-list'></i> <a href='#interviewList'>Show List</a>");
             require(['views/interviewList/interviewListView'], function (InterviewListPage) {
                 var interviewListPage = Core.create(appView, 'InterviewListPage', InterviewListPage);
                 interviewListPage.render();
@@ -56,20 +58,13 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
         });
 
         router.on('route:interview', function (id) {
+            $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> <i class='icon-file'></i> <a href='#interviewList'>Add New</a>");
             require(['views/interview/interviewCreateEditView','models/interview/interviewCreateEditModel'], function (InterviewPage, InterviewModel) {
                 var interviewModel = new InterviewModel();
                 var interviewPage = Core.create(appView, 'InterviewPage', InterviewPage, { model: interviewModel.set('id',id) });
                 interviewPage.render();
             });
         });
-
-        // router.on('route:interview', function () {
-        //     require(['views/interview/interviewCreateEditView','models/interview/interviewCreateEditModel'], function (InterviewPage, InterviewModel) {
-        //         var interviewModel = new InterviewModel();
-        //         var interviewPage = Core.create(appView, 'InterviewPage', InterviewPage, { model: interviewModel });
-        //         interviewPage.render();
-        //     });
-        // });
 
         router.on('route:login', function () {
             require(['views/login/loginView','models/login/loginModel'], function (LoginPage, LoginModel) {

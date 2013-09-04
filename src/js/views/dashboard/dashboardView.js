@@ -81,6 +81,7 @@ define(function(require) {
             }).fail(function() {
             });
         },
+        
         selectTypeEvent:function(e){ 
             this.drawChart(e.currentTarget.id);
         },
@@ -91,6 +92,7 @@ define(function(require) {
                 'packages': ['corechart']
             });
             this.$el.html(dashboardTemplate({interviewerList:this.interviewer}));
+            this.$el.find('input:radio[name=overallReport]').filter('[value=getStatusReport]').prop('checked', true);
         },
 
         drawChart: function(_name) {

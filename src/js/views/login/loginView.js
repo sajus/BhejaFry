@@ -29,6 +29,7 @@ define(function(require) {
                 $('.main-menu-container').remove();
                 $('.footer').remove();
                 $('.alert-container').remove();
+                $('.sidemap').remove();
             }
         },
 

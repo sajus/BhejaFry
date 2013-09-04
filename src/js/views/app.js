@@ -1,4 +1,17 @@
-define(['jquery', 'backbone', 'core', 'events', 'template!templates/layout','utilities/alerts','views/alert'], function($, Backbone, Core, Events, layoutTemplate,alerts,AlertView) {
+define(function(require) {
+
+    'use strict';
+
+    var $ = require('jquery'),
+    _ = require('underscore'),
+    Backbone = require('backbone'),
+    Core = require('core'),
+    Events = require('events'),
+    layoutTemplate = require('template!templates/layout'),
+    alerts = require('utilities/alerts'),
+    AlertView = require('views/alert');
+
+    require('jqueryCookie');
 
     var AppView = Backbone.View.extend({
 
@@ -34,6 +47,7 @@ define(['jquery', 'backbone', 'core', 'events', 'template!templates/layout','uti
 
         render: function () {
             var self = this;
+
             this.$el.html(layoutTemplate);
 
             require(['views/header/menuView'], function (HeaderMenuView) {
@@ -48,6 +62,7 @@ define(['jquery', 'backbone', 'core', 'events', 'template!templates/layout','uti
                 var footerView = Core.create(self, 'FooterView', FooterView, {appView: self,skipAuthCheck:true});
                 footerView.render();
             });
+
         }
     });
 

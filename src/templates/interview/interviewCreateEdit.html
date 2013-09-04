@@ -1,22 +1,12 @@
-<div class="row">
-	<div class="masthead">
-	    <ul class="nav nav-pills pull-right">
-	        <li><a href="#"><i class="icon-th-large"></i> Dashboard</a></li>
-	        <li><a href="#interviewList"><i class="icon-list"></i> Interview List</a></li>
-	        <li class="active"><a href="#interview"><i class="icon-file icon-white"></i> {{title}}</a></li>
-	    </ul>
-	</div>
-</div>
-
 <div id="createUser">
 	<form class="form-horizontal" id="userForm">
-		<legend>Add new interview details</legend>
+		<legend>{{title}}</legend>
 
 		<!-- candiateName -->
 		<div class="control-group">
 			<label class="control-label" for="mode">Candiate Name </label>
 			<div class="controls">
-				<input type="text" id="candiateName" name="candiateName" class="input-xlarge" placeholder="eg. Candiate 1" />
+				<input type="text" id="candiateName" name="candiateName" maxlength="30" class="input-xlarge" placeholder="eg. Candiate Name" />
 				<span class="help-inline"></span>
 			</div>
 		</div>
@@ -121,7 +111,7 @@
 		</div>
 
 		<div class="form-actions">
-			<button type="submit" class="btn btn-primary" href="#" id="addUser"><i class="icon-thumbs-up icon-white"></i>{{addUserText}}</button>
+			<button type="submit" class="btn btn-primary" href="#" id="addUser"><i class="icon-thumbs-up icon-white"></i> {{addUserText}}</button>
 			<button type="button" class="btn" href="#" id="addCancel"><i class="icon-thumbs-down"></i> Cancel</button>
 		</div>
 

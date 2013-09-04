@@ -28,6 +28,7 @@
 
 @import "../js/vendors/bootstrap/plugins/datepicker/datepicker.css";
 
+/*body { padding-top: 60px;}*/
 .form-signin {
     max-width: 500px;
     padding: 30px;
@@ -255,3 +256,33 @@
 .panel-info > .panel-footer + .panel-collapse .panel-body {
   border-bottom-color: #bce8f1;
 }
+
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by it's height */
+  margin: 0 auto;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+  height: 40px;
+}
+#footer {
+  background-color: #f5f5f5;
+  border-top: 1px solid #BBB;
+  border-right: 1px solid #BBB;
+  border-left: 1px solid #BBB;
+}
+
+#footer .row .credit {
+    margin: 10px 0;
+  } 

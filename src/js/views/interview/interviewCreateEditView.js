@@ -144,8 +144,8 @@ define(function(require) {
 
         render: function() {
             var self = this;
-            var addUserText = (this.model.get('id'))?"Save":"Add new interview";
-            var title = (this.model.get('id'))?"Edit existing interview":"Add new interview"
+            var addUserText = (this.model.get('id'))?"Update":"Save";
+            var title = this.model.get('id')?"Edit existing interview":"Add new interview"
 
             this.$el.html(interviewCreateEditPageTemplate({
                 mode: this.interviewmode,
