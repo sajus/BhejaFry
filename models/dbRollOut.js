@@ -57,9 +57,9 @@
         tbl_interviewresponse
         .bulkCreate([
             { candiateName: 'Krishna Reddy',interviewer_1_id: 5421, interviewer_2_id: 7601, interviewDate:'2013-09-11', recruiter_id:6523, status_id:1, round_id:2, mode_id:1,description:'Does not have proper knowledge', deleteFlag: 0 },
-            { candiateName: 'Krishna Reddy',interviewer_1_id: 5421, interviewer_2_id: 7601, interviewDate:'2013-09-11', recruiter_id:6523, status_id:1, round_id:2, mode_id:1,description:'Does not have proper knowledge', deleteFlag: 0 },
-            { candiateName: 'Krishna Reddy',interviewer_1_id: 5421, interviewer_2_id: 7601, interviewDate:'2013-09-11', recruiter_id:6523, status_id:1, round_id:2, mode_id:1,description:'Does not have proper knowledge', deleteFlag: 0 },
-            { candiateName: 'Krishna Reddy',interviewer_1_id: 5421, interviewer_2_id: 7601, interviewDate:'2013-09-11', recruiter_id:6523, status_id:1, round_id:2, mode_id:1,description:'Does not have proper knowledge', deleteFlag: 0 }
+            { candiateName: 'Krishna Iyer',interviewer_1_id: 5421, interviewer_2_id: 7601, interviewDate:'2013-09-11', recruiter_id:6523, status_id:2, round_id:2, mode_id:1,description:'Does not have proper knowledge', deleteFlag: 0 },
+            { candiateName: 'Krishna Kumar',interviewer_1_id: 5421, interviewer_2_id: 7601, interviewDate:'2013-09-11', recruiter_id:6523, status_id:3, round_id:2, mode_id:1,description:'Does not have proper knowledge', deleteFlag: 0 },
+            { candiateName: 'Krishna Desai',interviewer_1_id: 5421, interviewer_2_id: 7601, interviewDate:'2013-09-11', recruiter_id:6523, status_id:4, round_id:2, mode_id:1,description:'Does not have proper knowledge', deleteFlag: 0 }
         ])
         .on('success', function() {
             console.log("Interview-Response table is ready");
