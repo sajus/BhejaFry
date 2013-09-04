@@ -22,7 +22,7 @@ define(function(require) {
         el: '.page',
 
         initialize: function() {
-            this._modelBinder = new Backbone.ModelBinder();
+            this.modelBinder = new Backbone.ModelBinder();
 
             if(this.model.get('id')!==undefined) {
                 this.interviewEditModel = new InterviewEditModel({id:this.model.get('id')});
@@ -30,15 +30,19 @@ define(function(require) {
                 self.interviewEditModel.fetch({
                     success: function() {
                         var object = self.interviewEditModel.toJSON();
+                        console.log(object);
+                        console.log("SID:" + object.status_id);
                         self.$el.find("#candiateName").val(object.candiateName);
                         self.$el.find("#interviewDate").val(moment(object.interviewDate).format('YYYY-MM-DD'));
                         self.$el.find("#mode option[value='"+object.mode_id+"']").prop('selected', true);
                         self.$el.find("#interviewer1 option[value='"+object.interviewer_1_id+"']").prop('selected', true);
                         self.$el.find("#interviewer2 option[value='"+object.interviewer_2_id+"']").prop('selected', true);
                         self.$el.find("#recruiter option[value='"+object.recruiter_id+"']").prop('selected', true);
-                        self.$el.find("#rounds option[value='"+object.status_id+"']").prop('selected', true);
-                        self.$el.find("#status option[value='"+object.round_id+"']").prop('selected', true);
+                        self.$el.find("#rounds option[value='"+object.round_id+"']").prop('selected', true);
+                        self.$el.find("#status option[value='"+object.status_id+"']").prop('selected', true);
                         self.$el.find("#remarks").val(object.description);
+
+                        //console.log("::" + self.$el.find("#status").val());
 
                         self.interviewEditModel.set({
                             "candiateName": self.$el.find("#candiateName").val(),
@@ -154,8 +158,8 @@ define(function(require) {
                 recruiter: this.recruiter,
                 rounds: this.interviewrounds,
                 interviewStatus: this.interviewstatus,
-                addUserText:addUserText,
-                title:title
+                addUserText: addUserText,
+                title: title
             }));
 
             $('.date').datepicker({
@@ -165,9 +169,9 @@ define(function(require) {
             }).data('datepicker');
 
             if(this.model.get('id')!==undefined) {
-                self._modelBinder.bind(self.interviewEditModel, self.interviewEditModel.el);
+                self.modelBinder.bind(self.interviewEditModel, self.interviewEditModel.el);
             } else {
-                self._modelBinder.bind(self.model, self.el);
+                self.modelBinder.bind(self.model, self.el);
             }
 
             Backbone.Validation.bind(this, {

@@ -58,7 +58,11 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
         });
 
         router.on('route:interview', function (id) {
-            $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> <i class='icon-file'></i> <a href='#interviewList'>Add New</a>");
+            if(id===undefined) {
+                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> <i class='icon-file'></i> <a href='#interviewList'>Add New</a>");
+            } else {
+                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> <i class='icon-file'></i> <a href='#interviewList/"+id+"'>Show List</a>");
+            }
             require(['views/interview/interviewCreateEditView','models/interview/interviewCreateEditModel'], function (InterviewPage, InterviewModel) {
                 var interviewModel = new InterviewModel();
                 var interviewPage = Core.create(appView, 'InterviewPage', InterviewPage, { model: interviewModel.set('id',id) });
