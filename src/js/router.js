@@ -5,6 +5,7 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
         initialize:function(){
             Events.on('page:navigate', this._navigatePage, this);
             Events.on('redirectToAuthPage', this._navigateAdmin, this);
+            Events.on('redirectUser', this._navigateUser, this);
             this.currentId = null;
         },
 
@@ -22,6 +23,16 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
             }
         },
 
+        _navigateUser:function(options){
+            var appView = Core.create({}, 'AppView', AppView,{skipAuthCheck:true});
+            appView.render();
+            if(options!==undefined && options.targetView!==undefined){
+                this.navigate("dashboard",{trigger:true});
+            }else{
+                this.navigate("dashboard",{trigger:true});
+            }
+        },
+
         routes: {
             '':'login',
             'login': 'login',
@@ -29,6 +40,7 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
             'interviewList':'interviewList',
             'interview': 'interview',
             'interview/:id': 'interview',
+            'mgnComponents': 'mgnComponents',
             'logout':'logout',
             'accessForbiden':'accessForbiden',
 
@@ -67,6 +79,14 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
                 var interviewModel = new InterviewModel();
                 var interviewPage = Core.create(appView, 'InterviewPage', InterviewPage, { model: interviewModel.set('id',id) });
                 interviewPage.render();
+            });
+        });
+
+        router.on('route:mgnComponents', function () {
+            $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> <i class='icon-th'></i> Manage Components");
+            require(['views/components/componentsView'], function (ConponentsPage) {
+                var conponentsPage = Core.create(appView, 'ConponentsPage', ConponentsPage);
+                conponentsPage.render();
             });
         });
 

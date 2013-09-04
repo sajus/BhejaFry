@@ -4,7 +4,7 @@ var sequelize = require('../dbconfig').sequelize
 exports.postAuthorization = function(req, res){
 	var email 		= req.body.email
 	,	password 	= req.body.password;
-	sequelize.query("SELECT email, firstname, lastname FROM users_tbl WHERE email='"+email+"' AND password='"+password+"' LIMIT 1 ").success(function(rows) {
+	sequelize.query("SELECT email, firstname, lastname, accesstype FROM users_tbl WHERE email='"+email+"' AND password='"+password+"' LIMIT 1 ").success(function(rows) {
 		var authorization = null;
 
 		if(rows.length===0) {
@@ -18,12 +18,14 @@ exports.postAuthorization = function(req, res){
 					"isAuthenticated",
 					"email",
 					"firstname",
-					"lastname"
+					"lastname",
+					"accesstype"
 				],[
 					true,
 					rows[0].email,
 					rows[0].firstname,
-					rows[0].lastname
+					rows[0].lastname,
+					rows[0].accesstype
 				]);
 		}
 

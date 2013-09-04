@@ -45,6 +45,7 @@ define(function(require) {
                     if(response.isAuthenticated) {
                         $.cookie('isAuthenticated', true);
                         $.cookie('email', response.email);
+                        $.cookie('accesstype', response.accesstype);
                         Events.trigger('redirectToAuthPage', self.options);
                     } else {
                         Events.trigger("alert:error", [{

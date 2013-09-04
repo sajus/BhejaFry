@@ -129,7 +129,7 @@ define(function(require) {
             var operationHTML = "";
 
             _.each(Userlist, function(userlist) {
-                operationHTML = '<span data-id='+userlist.id+' data-status='+self.getStatus(userlist.status_id)+'><button class="btn btn-small btn-primary edit" type="button"><i class="icon-edit icon-white"></i> Edit</button>';
+                operationHTML = '<span data-id='+userlist.id+' data-status='+self.getStatus(userlist.status_id)+'><button class="btn btn-small btn-primary edit" type="button"><i class="icon-edit icon-white"></i> Details</button>';
                 // operationHTML += ' <button class="btn btn-small btn-info detail" type="button"><i class="icon-share icon-white"></i> Detail</button></span>';
                 operationHTML += ' <button class="btn btn-small btn-danger delete" type="button"><i class="icon-trash icon-white"></i> Delete</button></span>';
                 var interviewer2 = self.getInterviewer(userlist.interviewer_2_id)
