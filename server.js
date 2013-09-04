@@ -7,7 +7,6 @@ var express   = require('express')
 
 var routes          = require('./routes')
   , authorization   = require('./routes/authorization_src')
-  , interview       = require('./routes/interview_src')
   , interviewList   = require('./routes/interviewList_src')
   , interviewer     = require('./routes/interviewer_src')
   , mode            = require('./routes/mode_src')
@@ -32,9 +31,8 @@ app.configure(function() {
 
 app.post('/checkAuthorization', authorization.postAuthorization);
 
-app.post('/interview', interview.postInterview);
-
 app.get('/interviewList', interviewList.getInterviewList)
+app.post('/interviewList', interviewList.postInterview);
 app.get('/interviewList/:id', interviewList.getInterviewListById);
 app.put('/interviewList/:id', interviewList.putInterviewListById);
 app.del('/interviewList/:id', interviewList.delInterviewListById);

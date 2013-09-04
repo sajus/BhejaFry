@@ -3,6 +3,7 @@ define(function(require) {
     'use strict';
     var Backbone = require('backbone');
     var _ = require('underscore');
+    require('modelBinder');
     require('modelValidator');
 
     return Backbone.Model.extend({

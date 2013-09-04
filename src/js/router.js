@@ -62,7 +62,7 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
         });
 
         router.on('route:interviewList', function () {
-            $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> <i class='icon-list'></i> <a href='#interviewList'>Show List</a>");
+            $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> <i class='icon-list'></i> Show List ");
             require(['views/interviewList/interviewListView'], function (InterviewListPage) {
                 var interviewListPage = Core.create(appView, 'InterviewListPage', InterviewListPage);
                 interviewListPage.render();
@@ -71,9 +71,9 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
 
         router.on('route:interview', function (id) {
             if(id===undefined) {
-                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> <i class='icon-file'></i> <a href='#interviewList'>Add New</a>");
+                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> <i class='icon-file'></i> Add New ");
             } else {
-                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> <i class='icon-file'></i> <a href='#interviewList/"+id+"'>Show List</a>");
+                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> <i class='icon-file'></i> Show List ");
             }
             require(['views/interview/interviewCreateEditView','models/interview/interviewCreateEditModel'], function (InterviewPage, InterviewModel) {
                 var interviewModel = new InterviewModel();

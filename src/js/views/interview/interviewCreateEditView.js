@@ -24,45 +24,6 @@ define(function(require) {
         initialize: function() {
             this.modelBinder = new Backbone.ModelBinder();
 
-            if(this.model.get('id')!==undefined) {
-                this.interviewEditModel = new InterviewEditModel({id:this.model.get('id')});
-                var self = this;
-                self.interviewEditModel.fetch({
-                    success: function() {
-                        var object = self.interviewEditModel.toJSON();
-                        console.log(object);
-                        console.log("SID:" + object.status_id);
-                        self.$el.find("#candiateName").val(object.candiateName);
-                        self.$el.find("#interviewDate").val(moment(object.interviewDate).format('YYYY-MM-DD'));
-                        self.$el.find("#mode option[value='"+object.mode_id+"']").prop('selected', true);
-                        self.$el.find("#interviewer1 option[value='"+object.interviewer_1_id+"']").prop('selected', true);
-                        self.$el.find("#interviewer2 option[value='"+object.interviewer_2_id+"']").prop('selected', true);
-                        self.$el.find("#recruiter option[value='"+object.recruiter_id+"']").prop('selected', true);
-                        self.$el.find("#rounds option[value='"+object.round_id+"']").prop('selected', true);
-                        self.$el.find("#status option[value='"+object.status_id+"']").prop('selected', true);
-                        self.$el.find("#remarks").val(object.description);
-
-                        //console.log("::" + self.$el.find("#status").val());
-
-                        self.interviewEditModel.set({
-                            "candiateName": self.$el.find("#candiateName").val(),
-                            "interviewDate": self.$el.find("#interviewDate").val(),
-                            "mode_id": self.$el.find("#mode").val(),
-                            "interviewer_1_id": self.$el.find("#interviewer1").val(),
-                            "interviewer_2_id": self.$el.find("#interviewer2").val(),
-                            "recruiter_id": self.$el.find("#recruiter").val(),
-                            "status_id": self.$el.find("#rounds").val(),
-                            "round_id": self.$el.find("#status").val(),
-                            "description": self.$el.find("#remarks").val()
-                        });
-
-                    },
-                    error: function() {
-                        console.log("Error");
-                    }
-                });
-            }
-
             this.interviewmode_list = {};
             this.interviewmode = [];
 
@@ -169,7 +130,11 @@ define(function(require) {
             }).data('datepicker');
 
             if(this.model.get('id')!==undefined) {
-                self.modelBinder.bind(self.interviewEditModel, self.interviewEditModel.el);
+                this.model.fetch({
+                    success:function(){
+                        self.modelBinder.bind(self.model, self.el);
+                    }
+                });
             } else {
                 self.modelBinder.bind(self.model, self.el);
             }
@@ -184,56 +149,25 @@ define(function(require) {
 
         postData: function() {
             var self = this;
-            if(this.model.get('id')!==undefined) {
-                self.interviewEditModel.set({
-                    "candiateName": self.$el.find("#candiateName").val(),
-                    "interviewDate": self.$el.find("#interviewDate").val(),
-                    "mode_id": self.$el.find("#mode").val(),
-                    "interviewer_1_id": self.$el.find("#interviewer1").val(),
-                    "interviewer_2_id": self.$el.find("#interviewer2").val(),
-                    "recruiter_id": self.$el.find("#recruiter").val(),
-                    "status_id": self.$el.find("#rounds").val(),
-                    "round_id": self.$el.find("#status").val(),
-                    "description": self.$el.find("#remarks").val()
-                });
-                self.interviewEditModel.save(self.interviewEditModel.toJSON(), {
-                    success: function(model,response) {
-                        Events.trigger("alert:success", [{
-                            message: "Updated record successfully."
-                        }]);
-                        Events.trigger("view:navigate", {
-                            path: "interviewList",
-                            options: {
-                                trigger: true
-                            }
-                        });
-                    },
-                    error: function(model,response) {
-                        Events.trigger("alert:error", [{
-                            message: "Some service error occured during data Saving."
-                        }]);
-                    }
-                });
-            } else {
-                self.model.save(self.model.toJSON(), {
-                    success: function(model,response) {
-                        Events.trigger("alert:success", [{
-                            message: "Insert record successfully."
-                        }]);
-                        Events.trigger("view:navigate", {
-                            path: "interviewList",
-                            options: {
-                                trigger: true
-                            }
-                        });
-                    },
-                    error: function(model,response) {
-                        Events.trigger("alert:error", [{
-                            message: "Some service error occured during data Saving."
-                        }]);
-                    }
-                });
-            }
+            self.model.save(self.model.toJSON(), {
+                success: function(model,response) {
+                    Events.trigger("alert:success", [{
+                        message: "Record successfully."
+                    }]);
+                    Events.trigger("view:navigate", {
+                        path: "interviewList",
+                        options: {
+                            trigger: true
+                        }
+                    });
+                },
+                error: function(model,response) {
+                    console.log(response)
+                    Events.trigger("alert:error", [{
+                        message: "Some service error occured during data Saving."
+                    }]);
+                }
+            });
         },
 
         addCancel: function() {
