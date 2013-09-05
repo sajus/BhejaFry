@@ -1,4 +1,5 @@
 var sequelize = require('../dbconfig').sequelize
+, PasswordGen = require('./AuthPassGenerator')
 ,           _ = require('../libresources').underscore;
 
 /*
@@ -43,8 +44,7 @@ exports.postUser = function(req, res){
 	query += " '"+req.body.firstname +"',";
 	query += " '"+req.body.lastname +"',";
 	query += " "+req.body.accesstype +",";
-	query += " '"+req.body.firstname +"Pass01" +"' )";
-
+	query += " '"+PasswordGen.generatePassword(req.body.firstname, req.body.lastname, req.body.empid)+"' )";
 	var queryID = "SELECT empid,firstname,lastname,accesstype FROM users_tbl Where empid="+req.body.empid;
 
 	sequelize.query(query).success(function(){
