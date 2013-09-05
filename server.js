@@ -13,7 +13,8 @@ var routes          = require('./routes')
   , rounds          = require('./routes/rounds_src')
   , status          = require('./routes/status_src')
   , recruiter       = require('./routes/recruiter_src')
-  , reports       = require('./routes/reports_src');
+  , reports         = require('./routes/reports_src')
+  , users           = require('./routes/users_src');
 
 var sequelize = require('./dbconfig').sequelize;
 config        = require("./dbresources");
@@ -31,6 +32,8 @@ app.configure(function() {
 
 app.post('/checkAuthorization', authorization.postAuthorization);
 
+app.get('/users', users.getUsers);
+
 app.get('/interviewList', interviewList.getInterviewList)
 app.post('/interviewList', interviewList.postInterview);
 app.get('/interviewList/:id', interviewList.getInterviewListById);
@@ -45,16 +48,16 @@ app.get('/reportMode', reports.getInterviewModeReport);
 app.get('/interviewerStatusReport/:id', reports.getInterviewerStatusReport);
 app.get('/interviewerModeReport/:id', reports.getInterviewerModeReport);
 
-
-
 app.get('/recruiter', recruiter.getRecruiter);
-app.post('/recruiter', recruiter.postRecruiter)
+app.post('/recruiter', recruiter.postRecruiter);
+
 app.get('/recruiter/:id', recruiter.getRecruiterById);
 app.put('/recruiter/:id', recruiter.putRecruiterById);
 app.del('/recruiter/:id', recruiter.delRecruiterById);
 
 app.get('/interviewer', interviewer.getInterviewer);
 app.post('/interviewer', interviewer.postInterviewer);
+
 app.get('/interviewer/:id', interviewer.getInterviewerById);
 app.put('/interviewer/:id', interviewer.putInterviewerById);
 app.del('/interviewer/:id', interviewer.delInterviewerById);
