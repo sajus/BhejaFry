@@ -147,7 +147,12 @@ define(function(require) {
 
         postData: function() {
             var self = this;
-            self.model.save(self.model.toJSON(), {
+            this.model.set('interviewer_1_id', parseInt(self.model.get('interviewer_1_id')));
+            this.model.set('interviewer_2_id', parseInt(self.model.get('interviewer_2_id')));
+            this.model.set('recruiter_id', parseInt(self.model.get('recruiter_id')));
+            this.model.set('round_id', parseInt(self.model.get('round_id')));
+            this.model.set('status_id', parseInt(self.model.get('status_id')));
+            this.model.save(self.model.toJSON(), {
                 success: function(model,response) {
                     Events.trigger("alert:success", [{
                         message: "Record successfully."
