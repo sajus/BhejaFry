@@ -1,14 +1,14 @@
-define(['backbone', 
-    'events', 
+define(['backbone',
+    'events',
     'globals',
     'views/login/loginView',
     'models/login/loginModel',
     'views/defaultAction/accessForbiden',
-    'models/interview/interviewerModel',
-    'models/interview/modeModel',
-    'models/interview/recruiterModel',
-    'models/interview/roundsModel',
-    'models/interview/statusModel',
+    'collections/interview/interviewerCollection',
+    'collections/interview/modeCollection',
+    'collections/interview/recruiterCollection',
+    'collections/interview/roundsCollection',
+    'collections/interview/statusCollection',
     'underscore',
     'jqueryCookie'
     ],
@@ -18,11 +18,11 @@ define(['backbone',
         LoginView,
         LoginModel,
         AccessForbidenView,
-        InterviewerModel,
-        ModeModel,
-        RecruiterModel,
-        RoundsModel,
-        StatusModel
+        InterviewerCollection,
+        ModeCollection,
+        RecruiterCollection,
+        RoundsCollection,
+        StatusCollection
         ){
 
     _.extend(Backbone.Model , {
@@ -30,39 +30,39 @@ define(['backbone',
     });
 
     var globals = {};
-  
-    var interviewerModel = new InterviewerModel();
-    var modeModel = new ModeModel();
-    var recruiterModel = new RecruiterModel();
-    var roundsModel = new RoundsModel();
-    var statusModel = new StatusModel();
 
-    interviewerModel.fetch({
+    var interviewerCollection = new InterviewerCollection();
+    var modeCollection = new ModeCollection();
+    var recruiterCollection = new RecruiterCollection();
+    var roundsCollection = new RoundsCollection();
+    var statusCollection = new StatusCollection();
+
+    interviewerCollection.fetch({
         success:function(){
-            globals.interviewer_list =  interviewerModel.toJSON();
+            globals.interviewer_list =  interviewerCollection.toJSON();
         }
     });
-    modeModel.fetch({
+    modeCollection.fetch({
         success:function(){
-            globals.interviewmode_list =  modeModel.toJSON();
+            globals.interviewmode_list =  modeCollection.toJSON();
         }
     });
-    recruiterModel.fetch({
+    recruiterCollection.fetch({
         success:function(){
-            globals.recruiter_list =  recruiterModel.toJSON();
+            globals.recruiter_list =  recruiterCollection.toJSON();
         }
     });
-    roundsModel.fetch({
+    roundsCollection.fetch({
         success:function(){
-            globals.interviewrounds_list =  roundsModel.toJSON();
+            globals.interviewrounds_list =  roundsCollection.toJSON();
         }
     });
-    statusModel.fetch({
+    statusCollection.fetch({
         success:function(){
-            globals.interviewstatus_list =  statusModel.toJSON();
+            globals.interviewstatus_list =  statusCollection.toJSON();
         }
     });
-     
+
     var views = {},
         user = ['UserAssesmentPage', 'DashboardPage', 'NewSurvey', 'SurveyDetailed', 'SurveyUserDetailed', 'ListSurvey', 'userPage'];
 

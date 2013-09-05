@@ -38,3 +38,7 @@ textarea{
 	position: fixed;
 	bottom: 0;
 }
+
+.fuelux .text-info {
+    color: #003300;
+}

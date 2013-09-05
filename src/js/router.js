@@ -34,15 +34,18 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
         },
 
         routes: {
-            '':'login',
+            '': 'login',
             'login': 'login',
-            'dashboard':'dashboard',
-            'interviewList':'interviewList',
-            'interview': 'interview',
-            'interview/:id': 'interview',
-            'mgnComponents': 'mgnComponents',
-            'logout':'logout',
-            'accessForbiden':'accessForbiden',
+            'dashboard': 'dashboard',
+            'interview(/:id)': 'interview',
+            'interviewList': 'interviewList',
+            'mgnInterviewers': 'mgnInterviewers',
+            'mgnInterviewersDetail(/:id)': 'mgnInterviewersDetail',
+            'mgnRecruiters': 'mgnRecruiters',
+            'mgnRecruitersDetail(/:id)': 'mgnRecruitersDetail',
+            'usersList': 'usersList',
+            'usersDetail(/:id)': 'usersDetail',
+            'logout': 'logout',            
 
             // Default - catch all
             '*actions': 'defaultAction'
@@ -53,6 +56,14 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
         var appView = options.appView;
         var router = new AppRouter(options);
 
+        router.on('route:login', function () {
+            require(['views/login/loginView','models/login/loginModel'], function (LoginPage, LoginModel) {
+                var loginModel = new LoginModel();
+                var loginPage = Core.create(appView, 'LoginPage', LoginPage,{model:loginModel,skipAuthCheck:true});
+                loginPage.render();
+            });
+        });
+
         router.on('route:dashboard', function () {
             $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a>");
             require(['views/dashboard/dashboardView'], function (DashboardPage) {
@@ -62,39 +73,83 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
         });
 
         router.on('route:interviewList', function () {
-            $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> <i class='icon-list'></i> Show List ");
-            require(['views/interviewList/interviewListView'], function (InterviewListPage) {
+            $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> Show List");
+            require(['views/interview/interviewListView'], function (InterviewListPage) {
                 var interviewListPage = Core.create(appView, 'InterviewListPage', InterviewListPage);
                 interviewListPage.render();
             });
         });
 
         router.on('route:interview', function (id) {
-            if(id===undefined) {
-                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> <i class='icon-file'></i> Add New ");
+            if(id===null) {
+                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> Add New ");
             } else {
-                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> <i class='icon-file'></i> Show List ");
+                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> Edit Existing");
             }
-            require(['views/interview/interviewCreateEditView','models/interview/interviewCreateEditModel'], function (InterviewPage, InterviewModel) {
-                var interviewModel = new InterviewModel();
-                var interviewPage = Core.create(appView, 'InterviewPage', InterviewPage, { model: interviewModel.set('id',id) });
-                interviewPage.render();
+            require(['views/interview/interviewListDetailView','models/interview/interviewListDetailModel'], function (InterviewListPage, InterviewListDetailModel) {
+                var interviewListDetailModel = new InterviewListDetailModel();
+                var interviewListPage = Core.create(appView, 'InterviewListPage', InterviewListPage, { model: interviewListDetailModel.set('id',id) });
+                interviewListPage.render();
             });
         });
 
-        router.on('route:mgnComponents', function () {
-            $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> <i class='icon-th'></i> Manage Components");
-            require(['views/components/componentsView'], function (ConponentsPage) {
-                var conponentsPage = Core.create(appView, 'ConponentsPage', ConponentsPage);
-                conponentsPage.render();
+        router.on('route:mgnInterviewers', function () {
+            $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Manage <i class='icon-random'></i> Interviewers");
+            require(['views/manage/interviewers/interviewersListView'], function (InterviewersListPage) {
+                var interviewersListPage = Core.create(appView, 'InterviewersListPage', InterviewersListPage);
+                interviewersListPage.render();
             });
         });
 
-        router.on('route:login', function () {
-            require(['views/login/loginView','models/login/loginModel'], function (LoginPage, LoginModel) {
-                var loginModel = new LoginModel();
-                var loginPage = Core.create(appView, 'LoginPage', LoginPage,{model:loginModel,skipAuthCheck:true});
-                loginPage.render();
+        router.on('route:mgnInterviewersDetail', function (id) {
+            if(id===null) {
+                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Manage <i class='icon-random'></i> <a href='#mgnInterviewers'>Interviewers</a> <span class='divider'>/</span> Add New");
+            } else {
+                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Manage <i class='icon-random'></i> <a href='#mgnInterviewers'>Interviewers</a> <span class='divider'>/</span> Edit Existing");
+            }
+            require(['views/manage/interviewers/interviewersListDetailView'], function (InterviewersListDetailPage) {
+                var interviewersListDetailPage = Core.create(appView, 'InterviewersListDetailPage', InterviewersListDetailPage);
+                interviewersListDetailPage.render();
+            });
+        });
+
+        router.on('route:mgnRecruiters', function () {
+            $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Manage <i class='icon-random'></i> Recruiters");
+            require(['views/manage/recruiters/recruitersListView'], function (RecruitersListPage) {
+                var recruitersListPage = Core.create(appView, 'RecruitersListPage', RecruitersListPage);
+                recruitersListPage.render();
+            });
+        });
+
+        router.on('route:mgnRecruitersDetail', function (id) {
+            if(id===null) {
+                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Manage <i class='icon-random'></i> <a href='#mgnRecruiters'>Recruiters</a> <span class='divider'>/</span> Add New");
+            } else {
+                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Manage <i class='icon-random'></i> <a href='#mgnRecruiters'>Recruiters</a> <span class='divider'>/</span> Edit Existing");
+            }
+            require(['views/manage/recruiters/recruitersListDetailView'], function (RecruitersListDetailPage) {
+                var recruitersListDetailPage = Core.create(appView, 'RecruitersListDetailPage', RecruitersListDetailPage);
+                recruitersListDetailPage.render();
+            });
+        });
+
+        router.on('route:usersList', function () {
+            $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Show List");
+            require(['views/users/usersView'], function (UsersPage) {
+                var usersPage = Core.create(appView, 'UsersPage', UsersPage);
+                usersPage.render();
+            });
+        });
+
+        router.on('route:usersDetail', function (id) {
+            if(id===null) {
+                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Add New");
+            } else {
+                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Edit Existing");
+            }
+            require(['views/users/usersDetailView'], function (UsersDetailPage) {
+                var usersDetailPage = Core.create(appView, 'UsersDetailPage', UsersDetailPage);
+                usersDetailPage.render();
             });
         });
 

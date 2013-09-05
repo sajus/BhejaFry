@@ -50,15 +50,12 @@ define(function(require) {
 
             this.$el.html(layoutTemplate);
 
-            require(['views/header/menuView'], function (HeaderMenuView) {
-                var headerMenuView = Core.create(self, 'HeaderMenuView', HeaderMenuView,{skipAuthCheck:true});
-                headerMenuView.render();
+            require(['views/master/header/headerView'], function (HeaderView) {
+                var headerView = Core.create(self, 'HeaderView', HeaderView,{skipAuthCheck:true});
+                headerView.render();
             });
 
-            require(['views/footer/footerView'], function (FooterView) {
-                /*
-                    Pass the appView down into the footer so we can render the visualisation
-                */
+            require(['views/master/footer/footerView'], function (FooterView) {
                 var footerView = Core.create(self, 'FooterView', FooterView, {appView: self,skipAuthCheck:true});
                 footerView.render();
             });

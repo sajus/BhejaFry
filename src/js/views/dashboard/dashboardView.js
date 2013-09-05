@@ -8,8 +8,6 @@ define(function(require) {
     Core = require('core'),
     dashboardTemplate = require('template!templates/dashboard/dashboard');
 
-    // ivStuReportCollection = require('collections/dashboard/')
-
     require('https://www.google.com/jsapi');
 
     var DashboardView = Backbone.View.extend({
@@ -46,7 +44,7 @@ define(function(require) {
             var chartEmpMode = new google.visualization.PieChart(document.getElementById('piechartEmpMode'));
             var self = this;
             var options = {
-                title: 'Interviewer - '+empText,
+                title: 'Interviewer Name: '+ empText,
                 is3D: true,
                 backgroundColor: '#EEE',
                 stroke: '#FAFAFA'

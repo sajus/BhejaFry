@@ -7,3 +7,6 @@
 #MyGrid td {
 	cursor: pointer;
 }
+
+.fuelux #MyGrid th, .fuelux #MyGrid tr td:last-child { text-align: center; }
+.fuelux #MyGrid td { font-weight: bold; }
