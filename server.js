@@ -33,9 +33,10 @@ app.configure(function() {
 app.post('/checkAuthorization', authorization.postAuthorization);
 
 app.get('/usersList', users.getUsers);
-// app.post('/usersList', users.postUsersById);
-// app.put('/usersList', users.putUsersById);
-// app.del('/usersList', users.delUsersById);
+app.post('/usersList', users.postUser);
+app.get('/usersList/:id', users.getUsersById);
+app.put('/usersList/:id', users.putUsersById);
+app.del('/usersList/:id', users.delUsersById);
 
 app.get('/interviewList', interviewList.getInterviewList)
 app.post('/interviewList', interviewList.postInterview);
