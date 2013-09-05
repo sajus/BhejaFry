@@ -17,7 +17,11 @@ define(function(require) {
     require('fueluxSelectBox');
     require('fueluxSearchBox');
 
+    var DataSource;
+
     var InterviewListView = Backbone.View.extend({
+        
+
         initialize: function() {
             this.deleteInterviewModel = new DeleteInterviewModel();
             this.collection = new InterviewListCollection();
@@ -28,7 +32,12 @@ define(function(require) {
         events: {
             'click .edit': 'editInterview',
             'click .delete': 'deleteInterview',
-            'loaded #MyGrid': 'gridStyleFilter'
+            'loaded #MyGrid': 'gridStyleFilter',
+            'click .export':'exportData'
+        },
+
+        exportData:function() {
+            console.log(DataSource._data);
         },
 
         render: function () {
@@ -174,7 +183,7 @@ define(function(require) {
         },
 
         createDataGrid: function(userslistObj){
-            var DataSource = new FuelUxDataSource({
+                DataSource = new FuelUxDataSource({
                 columns: [
                     // {
                     //     property: "selectrows",
