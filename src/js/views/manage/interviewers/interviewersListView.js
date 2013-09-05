@@ -5,6 +5,7 @@ define(function(require) {
     var $ = require('jquery'),
     _ = require('underscore'),
     Backbone = require('backbone'),
+    Events = require('events'),
     interviewersListTemplate = require('template!templates/manage/interviewers/interviewersList'),
     InterviewerCollection = require('collections/interview/interviewerCollection'),
     DeleteInterviewersModel = require('models/manage/interviewers/interviewersListDetailModel'),
@@ -44,7 +45,7 @@ define(function(require) {
             e.stopPropagation();
             var editId = this.$(e.target).closest('tr td span').attr('data-id');
             Events.trigger("view:navigate", {
-                //path: "interview/" + editId,
+                path: "mgnInterviewersDetail/" + editId,
                 options: {
                     trigger: true
                 }

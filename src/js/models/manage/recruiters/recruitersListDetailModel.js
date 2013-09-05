@@ -15,15 +15,15 @@ define(function(require) {
             }
         },
         validation: {
-            employeeId: {
+            empid: {
                 required: true,
                 msg: "Please specify employeeID."
             },
-            firstName: {
+            firstname: {
                 required: true,
                 msg: "Please specify first name."
             },
-            lastName: {
+            lastname: {
                 required: true,
                 msg: "Please specify last name."
             }

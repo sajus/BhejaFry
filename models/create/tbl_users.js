@@ -14,30 +14,30 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false,
 			validate: {
 				isEmail: true,
-				len: [7, 50]
+				len: [7, 40]
 			}
 		},
 		firstname: {
-			type: DataTypes.STRING(20),
+			type: DataTypes.STRING(30),
 			allowNull: false,
 			validate: {
 				isAlpha: true,
-				len: [2, 20]
+				len: [2, 30]
 			}
 		},
 		lastname: {
-			type: DataTypes.STRING(20),
+			type: DataTypes.STRING(30),
 			allowNull: false,
 			validate: {
 				isAlpha: true,
-				len: [2, 20]
+				len: [2, 30]
 			}
 		},
 		password: {
-			type: DataTypes.STRING(40),
+			type: DataTypes.STRING(50),
 			allowNull: false,
 			validate: {
-				len: [8, 40]
+				len: [8, 50]
 			}
 		},
 		accesstype: {

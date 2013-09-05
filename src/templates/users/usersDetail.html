@@ -2,18 +2,18 @@
 	<div class="span12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<div class="pull-right">					
+				<div class="pull-right">
 				</div>
-				<h6 class="panel-title lead">Add new user</h6>
+				<h6 class="panel-title lead"> {{title}}</h6>
 			</div>
 			<div class="panel-body">
 				<div id="createUser">
 					<form class="form-horizontal" id="userForm">
 						<!-- EmployeeID -->
 						<div class="control-group">
-							<label class="control-label" for="employeeId">Employee ID</label>
+							<label class="control-label" for="empid">Employee ID</label>
 							<div class="controls">
-								<input type="text" id="employeeId" name="employeeId" maxlength="8" class="input-xlarge" placeholder="eg. " />
+								<input type="text" id="empid" name="empid" maxlength="8" class="input-xlarge" placeholder="eg. " />
 								<span class="help-inline"></span>
 							</div>
 						</div>
@@ -22,38 +22,38 @@
 						<div class="control-group">
 							<label class="control-label" for="email">Email </label>
 							<div class="controls">
-								<input type="text" id="email" name="email" maxlength="8" class="input-xlarge" placeholder="eg. " />
+								<input type="text" id="email" name="email" maxlength="40" class="input-xlarge" placeholder="eg. " />
 								<span class="help-inline"></span>
 							</div>
 						</div>
 
 						<!-- FirstName -->
 						<div class="control-group">
-							<label class="control-label" for="firstName">First Name</label>
+							<label class="control-label" for="firstname">First Name</label>
 							<div class="controls">
-								<input type="text" id="firstName" name="firstName" maxlength="8" class="input-xlarge" placeholder="eg. " />
+								<input type="text" id="firstname" name="firstname" maxlength="30" class="input-xlarge" placeholder="eg. " />
 								<span class="help-inline"></span>
 							</div>
 						</div>
 
 						<!-- LastName -->
 						<div class="control-group">
-							<label class="control-label" for="lastName">Last Name</label>
+							<label class="control-label" for="lastname">Last Name</label>
 							<div class="controls">
-								<input type="text" id="lastName" name="lastName" maxlength="8" class="input-xlarge" placeholder="eg. " />
+								<input type="text" id="lastname" name="lastname" maxlength="30" class="input-xlarge" placeholder="eg. " />
 								<span class="help-inline"></span>
 							</div>
 						</div>
 
 						<!-- AccessType -->
 						<div class="control-group">
-							<label class="control-label" for="accessType">Access Type</label>
+							<label class="control-label" for="accesstype">Access Type</label>
 							<div class="controls">
 								<label class="radio inline">
-									<input type="radio" value="1" name="accessType"> Administrator
+									<input type="radio" value="1" name="accesstype"> Administrator
 								</label>
 								<label class="radio inline">
-									<input type="radio" value="0" name="accessType"> Users
+									<input type="radio" value="0" name="accesstype"> Users
 								</label>
 								<span class="help-inline"></span>
 							</div>
@@ -61,7 +61,7 @@
 
 						<div class="control-group">
 							<div class="controls">
-								<button type="submit" class="btn btn-primary" id="addUser"><i class="icon-thumbs-up icon-white"></i> Save</button>
+								<button type="submit" class="btn btn-primary" id="addUser"><i class="icon-thumbs-up icon-white"></i> {{addUserText}}</button>
 								<a type="button" class="btn" href="#usersList"><i class="icon-thumbs-down"></i> Cancel</a>
 							</div>
 						</div>

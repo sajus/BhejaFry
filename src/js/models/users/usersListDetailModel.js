@@ -9,29 +9,30 @@ define(function(require) {
     return Backbone.Model.extend({
         url: function() {
             if(this.get('id')){
-                //return Backbone.Model.gateWayUrl + '/interviewList/'+ this.get('id');
+                return Backbone.Model.gateWayUrl + '/usersList/'+ this.get('id');
             } else {
-                //return Backbone.Model.gateWayUrl + '/interviewList';
+                return Backbone.Model.gateWayUrl + '/usersList';
             }
         },
         validation: {
-            employeeId: {
+            empid: {
                 required: true,
                 msg: "Please specify employeeID."
             },
             email: {
                 required: true,
+                pattern: 'email',
                 msg: "Please specify email."
             },
-            firstName: {
+            firstname: {
                 required: true,
                 msg: "Please specify first name."
             },
-            lastName: {
+            lastname: {
                 required: true,
                 msg: "Please specify last name."
             },
-            accessType: {
+            accesstype: {
                 required: true,
                 msg: "Please select employee's access type."
             }

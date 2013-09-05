@@ -5,9 +5,10 @@ define(function(require) {
     var $ = require('jquery'),
     _ = require('underscore'),
     Backbone = require('backbone'),
+    Events = require('events'),
     usersListTemplate = require('template!templates/users/usersList'),
     UsersCollection = require('collections/users/usersCollection'),
-    // DeleteUsersModel = require('models/users/usersListDetailModel'),
+    DeleteUsersModel = require('models/users/usersListDetailModel'),
     FuelUxDataSource = require('fueluxDataSource');
 
     require('fueluxDataGrid');
@@ -19,7 +20,7 @@ define(function(require) {
         el: '.page',
 
         initialize: function() {
-            // this.deleteUsersModel = new DeleteUsersModel();
+            this.deleteUsersModel = new DeleteUsersModel();
         },
 
         events: {
@@ -44,7 +45,7 @@ define(function(require) {
             e.stopPropagation();
             var editId = this.$(e.target).closest('tr td span').attr('data-id');
             Events.trigger("view:navigate", {
-                //path: "interview/" + editId,
+                path: "usersDetail/" + editId,
                 options: {
                     trigger: true
                 }
@@ -54,24 +55,24 @@ define(function(require) {
         deleteInterviewers: function(e) {
             e.preventDefault();
             e.stopPropagation();
-            // var self = this;
-            // var deleteId = this.$(e.target).closest('tr td span').attr('data-id');
+            var self = this;
+            var deleteId = this.$(e.target).closest('tr td span').attr('data-id');
 
-            // this.deleteUsersModel.set({id:deleteId});
-            // this.deleteUsersModel.destroy({
-            //     success: function() {
-            //         self.render();
-            //         Events.trigger("alert:success", [{
-            //             message: "Record deleted successfully"
-            //         }]);
+            this.deleteUsersModel.set({id:deleteId});
+            this.deleteUsersModel.destroy({
+                success: function() {
+                    self.render();
+                    Events.trigger("alert:success", [{
+                        message: "Record deleted successfully"
+                    }]);
 
-            //     },
-            //     error: function() {
-            //         Events.trigger("alert:error", [{
-            //             message: "Some error got triggered white deleting record"
-            //         }]);
-            //     }
-            // })
+                },
+                error: function() {
+                    Events.trigger("alert:error", [{
+                        message: "Some error got triggered white deleting record"
+                    }]);
+                }
+            })
         },
 
         usersData: function(Userlist) {

@@ -97,7 +97,7 @@ define(function(require) {
 
         events: {
             'submit .form-horizontal': 'processForm',
-            'change :input select, blue :input select': 'processField',
+            'change :input select, blur :input select': 'processField',
             'keypress #interviewDate': 'preventAction'
         },
 

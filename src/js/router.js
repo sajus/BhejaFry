@@ -107,8 +107,9 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
             } else {
                 $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Manage <i class='icon-random'></i> <a href='#mgnInterviewers'>Interviewers</a> <span class='divider'>/</span> Edit Existing");
             }
-            require(['views/manage/interviewers/interviewersListDetailView'], function (InterviewersListDetailPage) {
-                var interviewersListDetailPage = Core.create(appView, 'InterviewersListDetailPage', InterviewersListDetailPage);
+            require(['views/manage/interviewers/interviewersListDetailView','models/manage/interviewers/interviewersListDetailModel'], function (InterviewersListDetailPage,InterviewersListDetailModel) {
+                var interviewersListDetailModel = new InterviewersListDetailModel();
+                var interviewersListDetailPage = Core.create(appView, 'InterviewersListDetailPage', InterviewersListDetailPage, { model: interviewersListDetailModel.set('id',id) });
                 interviewersListDetailPage.render();
             });
         });
@@ -127,8 +128,9 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
             } else {
                 $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Manage <i class='icon-random'></i> <a href='#mgnRecruiters'>Recruiters</a> <span class='divider'>/</span> Edit Existing");
             }
-            require(['views/manage/recruiters/recruitersListDetailView'], function (RecruitersListDetailPage) {
-                var recruitersListDetailPage = Core.create(appView, 'RecruitersListDetailPage', RecruitersListDetailPage);
+            require(['views/manage/recruiters/recruitersListDetailView','models/manage/recruiters/recruitersListDetailModel'], function (RecruitersListDetailPage,RecruitersListDetailModel) {
+                var recruitersListDetailModel = new RecruitersListDetailModel();
+                var recruitersListDetailPage = Core.create(appView, 'RecruitersListDetailPage', RecruitersListDetailPage, { model: recruitersListDetailModel.set('id',id) });
                 recruitersListDetailPage.render();
             });
         });
@@ -147,8 +149,9 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
             } else {
                 $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Edit Existing");
             }
-            require(['views/users/usersDetailView'], function (UsersDetailPage) {
-                var usersDetailPage = Core.create(appView, 'UsersDetailPage', UsersDetailPage);
+            require(['views/users/usersDetailView','models/users/usersListDetailModel'], function (UsersDetailPage,UsersListDetailModel) {
+                var usersListDetailModel = new UsersListDetailModel();
+                var usersDetailPage = Core.create(appView, 'UsersDetailPage', UsersDetailPage, { model: usersListDetailModel.set('id',id) });
                 usersDetailPage.render();
             });
         });
