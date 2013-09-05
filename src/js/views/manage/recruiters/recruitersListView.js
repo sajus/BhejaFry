@@ -7,6 +7,7 @@ define(function(require) {
     Backbone = require('backbone'),
     recruitersListTemplate = require('template!templates/manage/recruiters/recruitersList'),
     RecruiterCollection = require('collections/interview/recruiterCollection'),
+    DeleteRecruitersModel = require('models/manage/recruiters/recruitersListDetailModel'),
     FuelUxDataSource = require('fueluxDataSource');
 
     require('fueluxDataGrid');
@@ -16,6 +17,15 @@ define(function(require) {
     var RecruitersList = Backbone.View.extend({
 
         el: '.page',
+
+        initialize: function() {
+            this.deleteRecruitersModel = new DeleteRecruitersModel();
+        },
+
+        events: {
+            'click .edit': 'editInterviewers',
+            'click .delete': 'deleteInterviewers'
+        },
 
         render: function () {
             var self = this;
@@ -27,6 +37,41 @@ define(function(require) {
                 }
             });
             return this;
+        },
+
+        editInterviewers: function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var editId = this.$(e.target).closest('tr td span').attr('data-id');
+            Events.trigger("view:navigate", {
+                //path: "interview/" + editId,
+                options: {
+                    trigger: true
+                }
+            });
+        },
+
+        deleteInterviewers: function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var self = this;
+            var deleteId = this.$(e.target).closest('tr td span').attr('data-id');
+
+            this.deleteRecruitersModel.set({id:deleteId});
+            this.deleteRecruitersModel.destroy({
+                success: function() {
+                    self.render();
+                    Events.trigger("alert:success", [{
+                        message: "Record deleted successfully"
+                    }]);
+
+                },
+                error: function() {
+                    Events.trigger("alert:error", [{
+                        message: "Some error got triggered white deleting record"
+                    }]);
+                }
+            })
         },
 
         usersData: function(Userlist) {

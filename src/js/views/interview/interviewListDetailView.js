@@ -8,8 +8,7 @@ define(function(require) {
     Core = require('core'),
     Events = require('events'),
     BaseView = require('views/BaseView'),
-    interviewListDetailPageTemplate = require('template!templates/interview/interviewListDetail'),
-    InterviewEditModel = require('models/interview/interviewEditModel');
+    interviewListDetailPageTemplate = require('template!templates/interview/interviewListDetail');
 
     require('modelBinder');
     require('modelValidator');

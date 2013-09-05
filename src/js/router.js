@@ -45,7 +45,7 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
             'mgnRecruitersDetail(/:id)': 'mgnRecruitersDetail',
             'usersList': 'usersList',
             'usersDetail(/:id)': 'usersDetail',
-            'logout': 'logout',            
+            'logout': 'logout',
 
             // Default - catch all
             '*actions': 'defaultAction'

@@ -32,7 +32,10 @@ app.configure(function() {
 
 app.post('/checkAuthorization', authorization.postAuthorization);
 
-app.get('/users', users.getUsers);
+app.get('/usersList', users.getUsers);
+// app.post('/usersList', users.postUsersById);
+// app.put('/usersList', users.putUsersById);
+// app.del('/usersList', users.delUsersById);
 
 app.get('/interviewList', interviewList.getInterviewList)
 app.post('/interviewList', interviewList.postInterview);

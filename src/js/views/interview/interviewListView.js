@@ -6,7 +6,7 @@ define(function(require) {
     _ = require('underscore'),
     Backbone = require('backbone'),
     interviewListTemplate = require('template!templates/interview/interviewList'),
-    EditDeleteInterviewModel = require('models/interview/editDeleteInterviewModel'),
+    DeleteInterviewModel = require('models/interview/interviewListDetailModel'),
     InterviewListCollection = require('collections/interview/interviewListCollection'),
     Events = require('events'),
     Core = require('core'),
@@ -19,7 +19,7 @@ define(function(require) {
 
     var InterviewListView = Backbone.View.extend({
         initialize: function() {
-            this.editDeleteInterviewModel = new EditDeleteInterviewModel();
+            this.deleteInterviewModel = new DeleteInterviewModel();
             this.collection = new InterviewListCollection();
         },
 
@@ -97,8 +97,8 @@ define(function(require) {
             var self = this;
             var deleteId = this.$(e.target).closest('tr td span').attr('data-id');
 
-            this.editDeleteInterviewModel.set({id:deleteId});
-            this.editDeleteInterviewModel.destroy({
+            this.deleteInterviewModel.set({id:deleteId});
+            this.deleteInterviewModel.destroy({
                 success: function() {
                     self.render();
                     Events.trigger("alert:success", [{
