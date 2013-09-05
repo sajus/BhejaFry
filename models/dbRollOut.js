@@ -73,6 +73,7 @@
     function createInterviewer() {
         tbl_interviewer
         .bulkCreate([
+            { empid:0, firstname:' ', lastname:' ' },
             { empid:1967, firstname:'Kamlesh', lastname:'Gaikwad' },
             { empid:2435, firstname:'Vishal', lastname:'Chauhan' },
             { empid:2762, firstname:'Ashish', lastname:'Chandugade' },
