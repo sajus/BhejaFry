@@ -5,7 +5,6 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
         initialize:function(){
             Events.on('page:navigate', this._navigatePage, this);
             Events.on('redirectToAuthPage', this._navigateAdmin, this);
-            Events.on('redirectUser', this._navigateUser, this);
             this.currentId = null;
         },
 
@@ -19,16 +18,6 @@ define(['jquery', 'underscore','views/app', 'backbone', 'core','events','jqueryC
             if(options!==undefined && options.targetView!==undefined){
                 this.navigate("dashboard",{trigger:true});
             } else {
-                this.navigate("dashboard",{trigger:true});
-            }
-        },
-
-        _navigateUser:function(options){
-            var appView = Core.create({}, 'AppView', AppView,{skipAuthCheck:true});
-            appView.render();
-            if(options!==undefined && options.targetView!==undefined){
-                this.navigate("dashboard",{trigger:true});
-            }else{
                 this.navigate("dashboard",{trigger:true});
             }
         },

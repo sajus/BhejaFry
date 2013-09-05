@@ -14,6 +14,7 @@ define(function(require) {
         initialize:function(){
             if($.cookie('isAuthenticated')) {
                 this.email = $.cookie('email');
+                this.accesstype = $.cookie('accesstype');
             }
         },
 
@@ -22,7 +23,12 @@ define(function(require) {
         },
 
         render: function () {
-            this.$el.html(headerMenuTemplate({email:this.email}));
+            if(this.accesstype==='1') {
+                this.accesstype=true;
+            } else {
+                this.accesstype=false;
+            }
+            this.$el.html(headerMenuTemplate({email:this.email, type: this.accesstype}));
         },
 
         activeTracking: function(e) {
