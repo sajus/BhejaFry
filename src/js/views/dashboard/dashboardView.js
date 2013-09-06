@@ -30,6 +30,9 @@ define(function(require) {
 					]);
 				self.interviewer.push(self.interviewer_list);
 			});
+			if($.cookie('isAuthenticated')) {
+                this.accesstype = $.cookie('accesstype');
+            }
 		},
 
 		events: {
@@ -81,7 +84,12 @@ define(function(require) {
 				'callback': this.drawChart,
 				'packages': ['corechart']
 			});
-			this.$el.html(dashboardTemplate({interviewerList:this.interviewer}));
+			if(this.accesstype==='1') {
+                this.accesstype=true;
+            } else {
+                this.accesstype=false;
+            }
+			this.$el.html(dashboardTemplate({interviewerList:this.interviewer, type: this.accesstype}));
 			this.$el.find('input:radio[name=overallReport]').filter('[value=getStatusReport]').prop('checked', true);
 		},
 

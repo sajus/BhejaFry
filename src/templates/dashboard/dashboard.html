@@ -8,22 +8,24 @@
 						<li><a href="#interviewList"><i class="icon-list"></i> Show List</a></li>
 					</ul>
 				</li>
-				<li class="nav-header"><i class="icon-user"></i> User Operations
-					<ul class="nav nav-list">
-						<li><a href="#usersDetail"><i class="icon-file"></i> Add New</a></li>
-						<li><a href="#usersList"><i class="icon-list"></i> Show List</a></li>
-					</ul>
-				</li>
-				<li class="divider"></li>
-				<li>
-					<ul class="nav nav-list">
-						Manage
+				{{#if type}}
+					<li class="nav-header"><i class="icon-user"></i> User Operations
 						<ul class="nav nav-list">
-							<li><a href="#mgnInterviewers"><i class="icon-th"></i> Interviewers</a></li>
-							<li><a href="#mgnRecruiters"><i class="icon-th"></i> Recruiters</a></li>
+							<li><a href="#usersDetail"><i class="icon-file"></i> Add New</a></li>
+							<li><a href="#usersList"><i class="icon-list"></i> Show List</a></li>
 						</ul>
-					</ul>
-				</li>
+					</li>
+					<li class="divider"></li>
+					<li>
+						<ul class="nav nav-list">
+							Manage
+							<ul class="nav nav-list">
+								<li><a href="#mgnInterviewers"><i class="icon-th"></i> Interviewers</a></li>
+								<li><a href="#mgnRecruiters"><i class="icon-th"></i> Recruiters</a></li>
+							</ul>
+						</ul>
+					</li>
+				{{/if}}
 			</ul>
         </div>
 
@@ -51,7 +53,7 @@
 	                </div>
 	                <!-- /block -->
 	            </div>
-
+	
 	            <div class="row-fluid">
 	                <!-- block -->
 	                <div class="block">
