@@ -114,6 +114,7 @@ define(function(require) {
                 mode: this.interviewmode,
                 interviewer1: this.interviewer,
                 interviewer2: this.interviewer,
+                interviewDate: this.interviewDate,
                 recruiter: this.recruiter,
                 rounds: this.interviewrounds,
                 interviewStatus: this.interviewstatus,
@@ -152,6 +153,11 @@ define(function(require) {
             this.model.set('recruiter_id', parseInt(self.model.get('recruiter_id')));
             this.model.set('round_id', parseInt(self.model.get('round_id')));
             this.model.set('status_id', parseInt(self.model.get('status_id')));
+            var  date =  this.model.get('interviewDate');
+            date = date.substring(0 , 10);
+            console.log(date);
+            this.model.set('interviewDate', date);
+            
             this.model.save(self.model.toJSON(), {
                 success: function(model,response) {
                     Events.trigger("alert:success", [{
