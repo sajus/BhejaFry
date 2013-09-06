@@ -42,8 +42,8 @@ define(function(require) {
 			if(empId == 0){
 				this.$el.find("#piechartEmp").hide();
 				this.$el.find(".piechartEmpLog").hide();
-				return; 
-			} 
+				return;
+			}
 			var empText = this.$el.find("select.interviewerList option:selected").text();
 			var chartEmp = new google.visualization.PieChart(document.getElementById('piechartEmp'));
 			var self = this;
@@ -55,21 +55,21 @@ define(function(require) {
 			};
 
 			$.get('/interviewer'+defaultView+'Report/'+empId)
-			.success(function(data) { 
-				self.$el.find(".piechartEmp").hide(); 
-				self.$el.find("#piechartEmpLog").hide(); 
+			.success(function(data) {
+				self.$el.find("#piechartEmp").hide();
+				self.$el.find(".piechartEmpLog").hide();
 				if(typeof(data.data)=="string"){
 					self.$el.find(".piechartEmpLog").text(data.data);
 					self.$el.find(".piechartEmpLog").show();
 				}else{
 					self.$el.find("#piechartEmp").show();
-					chartEmp.draw(google.visualization.arrayToDataTable(data.data), options); 
+					chartEmp.draw(google.visualization.arrayToDataTable(data.data), options);
 				}
 			}).fail(function() {
 			});
 		},
-		
-		selectTypeEvent:function(e){ 
+
+		selectTypeEvent:function(e){
 			defaultView = e.currentTarget.id;
 			this.drawChart();
 			this.getReportByID()

@@ -98,17 +98,28 @@ define(function(require) {
         events: {
             'submit .form-horizontal': 'processForm',
             'change :input select, blur :input select': 'processField',
-            'keypress #interviewDate': 'preventAction'
+            'keypress #interviewDate': 'preventAction',
+            'mousedown .pickerShow': 'showPicker'
         },
 
         preventAction:function(e){
             e.preventDefault();
         },
 
+        showPicker: function(e) {
+            this.$el.find('.date').datepicker({
+                "autoclose": true
+            }).data('datepicker');
+        },
+
         render: function() {
             var self = this;
             var addUserText = (this.model.get('id'))?"Update":"Save";
             var title = this.model.get('id')?"Edit existing interview":"Add new interview"
+
+            this.$el.find('.date').datepicker({
+                "autoclose": true
+            }).data('datepicker');
 
             this.$el.html(interviewListDetailPageTemplate({
                 mode: this.interviewmode,
@@ -122,11 +133,6 @@ define(function(require) {
                 title: title
             }));
 
-            $('.date').datepicker({
-                "autoclose": true
-            }).on('changeDate', function(ev) {
-                console.log(ev.date.valueOf());
-            }).data('datepicker');
 
             if(this.model.get('id')!==undefined) {
                 this.model.fetch({
@@ -157,7 +163,7 @@ define(function(require) {
             date = date.substring(0 , 10);
             console.log(date);
             this.model.set('interviewDate', date);
-            
+
             this.model.save(self.model.toJSON(), {
                 success: function(model,response) {
                     Events.trigger("alert:success", [{
