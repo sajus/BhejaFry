@@ -1,15 +1,23 @@
-<table class="table table-bordered">
+<div class="masthead">
+    <ul class="nav nav-pills pull-right">
+        <li class="active"><a href="#"><i class="icon-list icon-white"></i> Interview List</a></li>
+        <li><a href="#interview"><i class="icon-file"></i> Add new interview</a></li>
+    </ul>
+    <h3 class="muted">List of interview's taken</h3>
+</div>
+
+<table class="table table-bordered table-hover">
     <thead>
-        <tr>
-            <th>Candiate Name</th>
-            <th>Interview 1</th>
-            <th>Interview 2</th>
-            <th>Recruiter</th>
-            <th>Status</th>
-            <th>Round</th>
-            <th>Mode</th>
-            <th>Remarks</th>
-            <th>Operation</th>
+        <tr style="background-color:#BDBDBD;">
+            <th style="text-align:center">Candiate Name</th>
+            <th style="text-align:center">Interview 1</th>
+            <th style="text-align:center">Interview 2</th>
+            <th style="text-align:center">Recruiter</th>
+            <th style="text-align:center">Status</th>
+            <th style="text-align:center">Round</th>
+            <th style="text-align:center">Mode</th>
+            <th style="text-align:center">Remarks</th>
+            <th style="text-align:center">Operation</th>
         </tr>
     </thead>
     <tbody>
@@ -19,13 +27,13 @@
                 <td>{{getInterviewer interviewer_1_id}}</td>
                 <td>{{getInterviewer interviewer_2_id}}</td>
                 <td>{{getRecruiter recruiter_id}}</td>
-                <td>{{getStatus status_id}}</td>
-                <td>{{getRound round_id}}</td>
-                <td>{{getMode mode_id}}</td>
+                <td style="text-align:center">{{getStatus status_id}}</td>
+                <td style="text-align:center">{{getRound round_id}}</td>
+                <td style="text-align:center">{{getMode mode_id}}</td>
                 <td>{{description}}</td>
-                <td>
-                    <button type="button" class="btn btn-small btn-primary edit" href="#"> Edit</button>
-                    <button type="button" class="btn btn-small btn-danger delete" href="#"> Delete</button>
+                <td style="text-align:center">
+                    <button type="button" class="btn btn-small btn-primary edit" href="#"><i class="icon-edit icon-white"></i> Edit</button>&nbsp;
+                    <button type="button" class="btn btn-small btn-danger delete" href="#"><i class="icon-trash icon-white"></i> Delete</button>
                 </td>
             </tr>
         {{/each}}
