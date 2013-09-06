@@ -10,11 +10,8 @@ module.exports = function(sequelize, DataTypes) {
             }
         },
         interviewDate: {
-            type: DataTypes.DATE,
-            allowNull: false,
-            validate: {
-                isDate: true
-            }
+            type: DataTypes.STRING(20),
+            allowNull: false
         },
         description: {
             type: DataTypes.TEXT,

@@ -157,7 +157,7 @@
         tbl_interviewrounds
         .bulkCreate([
             { round: '1st Round' },
-            { round: '2ed Round' },
+            { round: '2nd Round' },
             { round: '3rd Round' },
             { round: 'Final' }
         ])
