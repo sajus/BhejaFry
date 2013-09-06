@@ -36,6 +36,14 @@
 	                <div class="block">
 	                    <div class="navbar navbar-inner block-header">
 	                    	<div class="muted pull-left">Interview's Overall Report</div>
+	                    	 <div class="pull-right">
+                            	<label class="radio inline">
+									<input type="radio" class = "selectType" name="overallReport" id="Status" value="getStatusReport"> Status
+								</label>
+								<label class="radio inline">
+									<input type="radio" class = "selectType" name="overallReport" id="Mode" value="getModeReport"> Mode
+								</label>
+                            </div>
 	                    </div>
 	                    <div class="block-content collapse in">
 							<div id="piechart"></div>
@@ -49,14 +57,7 @@
 	                <div class="block">
 	                    <div class="navbar navbar-inner block-header">
 	                    	<div class="muted pull-left">User Report</div>
-                            <div class="pull-right">
-                            	<label class="radio inline">
-									<input type="radio" class = "selectType" name="overallReport" id="Status" value="getStatusReport"> Status
-								</label>
-								<label class="radio inline">
-									<input type="radio" class = "selectType" name="overallReport" id="Mode" value="getModeReport"> Mode
-								</label>
-                            </div>
+                           
                             <div class="pull-right space">
                             	<select class="inline interviewerList">
 									{{#each interviewerList}}
@@ -66,10 +67,8 @@
                             </div>
 	                    </div>
 	                    <div class="block-content collapse in">
-							<div class="piechartEmpStatusLog"></div>
-							<div id="piechartEmpStatus"></div>
-							<div class="piechartEmpModeLog"></div>
-							<div id="piechartEmpMode"></div>
+							<div class="piechartEmpLog"></div>
+							<div id="piechartEmp"></div>							 
 	                    </div>
 	                </div>
 	                <!-- /block -->

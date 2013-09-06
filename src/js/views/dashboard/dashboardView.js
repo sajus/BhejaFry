@@ -9,7 +9,7 @@ define(function(require) {
 	dashboardTemplate = require('template!templates/dashboard/dashboard');
 
 	require('https://www.google.com/jsapi');
-
+	var defaultView = "Status";
 	var DashboardView = Backbone.View.extend({
 
 		el: '.page',
@@ -37,58 +37,43 @@ define(function(require) {
 			'change .interviewerList':'getReportByID'
 		},
 
-		getReportByID:function(e){
+		getReportByID:function(){
 			var empId = this.$el.find("select.interviewerList option:selected").val();
 			if(empId == 0){
-				this.$el.find("#piechartEmpStatus").hide();
-				this.$el.find("#piechartEmpMode").hide(); 
-				this.$el.find(".piechartEmpStatusLog").hide();
-				this.$el.find(".piechartEmpModeLog").hide(); 
+				this.$el.find("#piechartEmp").hide();
+				this.$el.find(".piechartEmpLog").hide();
 				return; 
 			} 
 			var empText = this.$el.find("select.interviewerList option:selected").text();
-			var chartEmpStatus = new google.visualization.PieChart(document.getElementById('piechartEmpStatus'));
-			var chartEmpMode = new google.visualization.PieChart(document.getElementById('piechartEmpMode'));
+			var chartEmp = new google.visualization.PieChart(document.getElementById('piechartEmp'));
 			var self = this;
 			var options = {
-				title: 'Interviewer Name: '+ empText,
+				title: 'Interviewer '+defaultView+' : Name - '+ empText,
 				is3D: true,
 				backgroundColor: '#EEE',
 				stroke: '#FAFAFA'
 			};
 
-			$.get('/interviewerStatusReport/'+empId)
+			$.get('/interviewer'+defaultView+'Report/'+empId)
 			.success(function(data) { 
-				self.$el.find(".piechartEmpStatusLog").hide(); 
-				self.$el.find("#piechartEmpStatus").hide(); 
+				self.$el.find(".piechartEmp").hide(); 
+				self.$el.find("#piechartEmpLog").hide(); 
 				if(typeof(data.data)=="string"){
-					self.$el.find(".piechartEmpStatusLog").text(data.data);
-					self.$el.find(".piechartEmpStatusLog").show();
+					self.$el.find(".piechartEmpLog").text(data.data);
+					self.$el.find(".piechartEmpLog").show();
 				}else{
-					self.$el.find("#piechartEmpStatus").show();
-					chartEmpStatus.draw(google.visualization.arrayToDataTable(data.data), options); 
-				}
-			}).fail(function() {
-			});
-
-			$.get('/interviewerModeReport/'+empId)
-			.success(function(data) { 
-				self.$el.find(".piechartEmpModeLog").hide(); 
-				self.$el.find("#piechartEmpMode").hide(); 
-				
-				if(typeof(data.data)=="string"){
-				   self.$el.find(".piechartEmpModeLog").text(data.data); 
-				   self.$el.find(".piechartEmpModeLog").show();
-				}else{
-					self.$el.find("#piechartEmpMode").show();
-					chartEmpMode.draw(google.visualization.arrayToDataTable(data.data), options);
+					self.$el.find("#piechartEmp").show();
+					chartEmp.draw(google.visualization.arrayToDataTable(data.data), options); 
 				}
 			}).fail(function() {
 			});
 		},
 		
 		selectTypeEvent:function(e){ 
-			this.drawChart(e.currentTarget.id);
+			defaultView = e.currentTarget.id;
+			this.drawChart();
+			this.getReportByID()
+
 		},
 
 		render: function () {
@@ -100,16 +85,15 @@ define(function(require) {
 			this.$el.find('input:radio[name=overallReport]').filter('[value=getStatusReport]').prop('checked', true);
 		},
 
-		drawChart: function(_name) {
-			if(!_name) _name = "Status"; //DEFAULT VALUE IF THERE IS NO NAME;
+		drawChart: function() {
 			var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 			var options = {
-				title: 'Interviews '+_name,
+				title: 'Interviews '+defaultView,
 				is3D: true,
 				backgroundColor: '#EEE',
 				stroke: '#FAFAFA'
 			};
-			$.get('/report'+_name)
+			$.get('/report'+defaultView)
 			.success(function(data) {
 				chart.draw(google.visualization.arrayToDataTable(data.data), options);
 			}).fail(function() {
