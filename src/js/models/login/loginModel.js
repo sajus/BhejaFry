@@ -16,12 +16,10 @@ define(function(require) {
                 required: true,
                 pattern: 'email'
             },
-            password: [{
-                required: true
-            }, {
-                pattern: '^[a-z0-9_-]{3,15}$',
-                msg: 'Password should contain min 3 and max 15 characters.'
-            }]
+            password: {
+                required: true,
+                msg: 'Password should contain min 8 characters.'
+            } 
         }
     });
 });
