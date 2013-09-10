@@ -97,13 +97,19 @@ define(function(require) {
 
         events: {
             'submit .form-horizontal': 'processForm',
-            'change :input select, blur :input select': 'processField',
+            'change :input select': 'processField',
             'keypress #interviewDate': 'preventAction',
-            'mousedown .pickerShow': 'showPicker'
+            'mousedown .pickerShow': 'showPicker',
+            'click .addNewList': 'resetForm'
         },
 
         preventAction:function(e){
             e.preventDefault();
+        },
+
+        resetForm: function() {
+            this.$el.find('#candiateName').val('');
+            this.$el.find('#remarks').val('');
         },
 
         showPicker: function(e) {
@@ -125,7 +131,7 @@ define(function(require) {
                 mode: this.interviewmode,
                 interviewer1: this.interviewer,
                 interviewer2: this.interviewer,
-                interviewDate: this.interviewDate,
+                interviewDate: moment(this.interviewDate).format('DD-MMM-YYYY'),
                 recruiter: this.recruiter,
                 rounds: this.interviewrounds,
                 interviewStatus: this.interviewstatus,
@@ -159,22 +165,19 @@ define(function(require) {
             this.model.set('recruiter_id', parseInt(self.model.get('recruiter_id')));
             this.model.set('round_id', parseInt(self.model.get('round_id')));
             this.model.set('status_id', parseInt(self.model.get('status_id')));
-            var  date =  this.model.get('interviewDate');
-            date = date.substring(0 , 10);
-            console.log(date);
-            this.model.set('interviewDate', date);
-
+            this.model.set('interviewDate', this.$('#interviewDate').val());
+            
             this.model.save(self.model.toJSON(), {
                 success: function(model,response) {
                     Events.trigger("alert:success", [{
                         message: "Record successfully."
-                    }]);
-                    Events.trigger("view:navigate", {
-                        path: "interviewList",
-                        options: {
-                            trigger: true
-                        }
-                    });
+                    }]);                    
+                    // Events.trigger("view:navigate", {
+                    //     path: "interviewList",
+                    //     options: {
+                    //         trigger: true
+                    //     }
+                    // });
                 },
                 error: function(model,response) {
                     console.log(response)

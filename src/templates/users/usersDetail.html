@@ -11,43 +11,43 @@
 					<form class="form-horizontal" id="userForm">
 						<!-- EmployeeID -->
 						<div class="control-group">
-							<label class="control-label" for="empid">Employee ID</label>
+							<label class="control-label" for="empid">Employee ID<span class="text-error">*</span></label>
 							<div class="controls">
-								<input type="text" id="empid" name="empid" maxlength="8" class="input-xlarge" placeholder="eg. " />
+								<input type="text" id="empid" name="empid" maxlength="8" class="input-xlarge" placeholder="Only numeric allowed without space" />
 								<span class="help-inline"></span>
 							</div>
 						</div>
 
 						<!-- Email -->
 						<div class="control-group">
-							<label class="control-label" for="email">Email </label>
+							<label class="control-label" for="email">Email<span class="text-error">*</span></label>
 							<div class="controls">
-								<input type="text" id="email" name="email" maxlength="40" class="input-xlarge" placeholder="eg. " />
+								<input type="text" id="email" name="email" maxlength="40" class="input-xlarge" placeholder="Only valid email is allowed" />
 								<span class="help-inline"></span>
 							</div>
 						</div>
 
 						<!-- FirstName -->
 						<div class="control-group">
-							<label class="control-label" for="firstname">First Name</label>
+							<label class="control-label" for="firstname">First Name<span class="text-error">*</span></label>
 							<div class="controls">
-								<input type="text" id="firstname" name="firstname" maxlength="30" class="input-xlarge" placeholder="eg. " />
+								<input type="text" id="firstname" name="firstname" maxlength="30" class="input-xlarge" placeholder="Only alphabets allowed without space" />
 								<span class="help-inline"></span>
 							</div>
 						</div>
 
 						<!-- LastName -->
 						<div class="control-group">
-							<label class="control-label" for="lastname">Last Name</label>
+							<label class="control-label" for="lastname">Last Name<span class="text-error">*</span></label>
 							<div class="controls">
-								<input type="text" id="lastname" name="lastname" maxlength="30" class="input-xlarge" placeholder="eg. " />
+								<input type="text" id="lastname" name="lastname" maxlength="30" class="input-xlarge" placeholder="Only alphabets allowed without space" />
 								<span class="help-inline"></span>
 							</div>
 						</div>
 
 						<!-- AccessType -->
 						<div class="control-group">
-							<label class="control-label" for="accesstype">Access Type</label>
+							<label class="control-label" for="accesstype">Access Type<span class="text-error">*</span></label>
 							<div class="controls">
 								<label class="radio inline">
 									<input type="radio" value="1" name="accesstype"> Administrator
@@ -69,8 +69,7 @@
 					</form>
 				</div>
 			</div>
-			<div class="panel-footer">Footer
-			</div>
+			<div class="panel-footer"><span class="text-info">Notes: * indicates required field.</span></div>
 		</div>
 	</div>
 </div>

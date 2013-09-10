@@ -15,13 +15,16 @@ define(function(require) {
         },
 
         validation: {
-            candiateName: {
+            candiateName: [{
                 required: true,
-                msg: "Candiate name is required."
-            },
+                msg: "Please specify candidate name."
+            }, {
+                pattern: /^(([A-Za-z]+)(\s{0,2}[A-Za-z]+)?)$/gm,
+                msg: "Please specify valid candidate name."
+            }],
             interviewDate: {
                 required: true,
-                msg: "Interview date is required."
+                msg: "Please select interview date."
             },
             mode_id: {
                 required: true,

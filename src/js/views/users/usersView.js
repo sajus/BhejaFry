@@ -24,7 +24,7 @@ define(function(require) {
         },
 
         events: {
-            'click .edit': 'editInterviewers',
+            'click .editUser': 'editInterviewers',
             'click .delete': 'deleteInterviewers'
         },
 
@@ -82,7 +82,7 @@ define(function(require) {
             var operationHTML = "";
 
             _.each(Userlist, function(userlist) {
-                operationHTML = '<span data-id='+userlist.empid+'><button class="btn btn-small btn-primary edit" type="button"><i class="icon-edit icon-white"></i> Details</button>';
+                operationHTML = '<span data-id='+userlist.empid+'><button class="btn btn-small btn-primary editUser" type="button"><i class="icon-edit icon-white"></i> Details</button>';
                 // operationHTML += ' <button class="btn btn-small btn-info detail" type="button"><i class="icon-share icon-white"></i> Detail</button></span>';
                 operationHTML += ' <button class="btn btn-small btn-danger delete" type="button"><i class="icon-trash icon-white"></i> Delete</button></span>';
 

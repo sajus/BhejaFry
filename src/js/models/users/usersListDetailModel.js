@@ -15,23 +15,34 @@ define(function(require) {
             }
         },
         validation: {
-            empid: {
+            empid: [{
                 required: true,
                 msg: "Please specify employeeID."
-            },
-            email: {
+            }, {
+                pattern: /^\S\d+$(\.\d+)?/,
+                msg: "Please specify valid employeeID."
+            }],
+            email: [{
                 required: true,
-                pattern: 'email',
                 msg: "Please specify email."
-            },
-            firstname: {
+            }, {
+                pattern: 'email',
+                msg: "Please specify valid email."
+            }],
+            firstname: [{
                 required: true,
                 msg: "Please specify first name."
-            },
-            lastname: {
+            }, {
+                pattern: /^(([A-Za-z]+)(^\s[A-Za-z]+)?)$/gm,
+                msg: "Please specify valid first name."
+            }],
+            lastname: [{
                 required: true,
                 msg: "Please specify last name."
-            },
+            }, {
+                pattern: /^(([A-Za-z]+)(^\s[A-Za-z]+)?)$/gm,
+                msg: "Please specify valid last name."
+            }],
             accesstype: {
                 required: true,
                 msg: "Please select employee's access type."

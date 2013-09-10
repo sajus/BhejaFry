@@ -11,27 +11,27 @@
 					<form class="form-horizontal" id="userForm">
 						<!-- EmployeeID -->
 						<div class="control-group">
-							<label class="control-label" for="empid">Employee ID</label>
+							<label class="control-label" for="empid">Employee ID<span class="text-error">*</span></label>
 							<div class="controls">
-								<input type="text" id="empid" name="empid" maxlength="8" class="input-xlarge" placeholder="eg. 10748" />
+								<input type="text" id="empid" name="empid" maxlength="8" class="input-xlarge" placeholder="Only numeric allowed without space" />
 								<span class="help-inline"></span>
 							</div>
 						</div>
 
 						<!-- FirstName -->
 						<div class="control-group">
-							<label class="control-label" for="firstname">First Name</label>
+							<label class="control-label" for="firstname">First Name<span class="text-error">*</span></label>
 							<div class="controls">
-								<input type="text" id="firstname" name="firstname" maxlength="30" class="input-xlarge" placeholder="eg. " />
+								<input type="text" id="firstname" name="firstname" maxlength="30" class="input-xlarge" placeholder="Only alphabets allowed without space" />
 								<span class="help-inline"></span>
 							</div>
 						</div>
 
 						<!-- LastName -->
 						<div class="control-group">
-							<label class="control-label" for="lastname">Last Name</label>
+							<label class="control-label" for="lastname">Last Name<span class="text-error">*</span></label>
 							<div class="controls">
-								<input type="text" id="lastname" name="lastname" maxlength="30" class="input-xlarge" placeholder="eg. " />
+								<input type="text" id="lastname" name="lastname" maxlength="30" class="input-xlarge" placeholder="Only alphabets allowed without space" />
 								<span class="help-inline"></span>
 							</div>
 						</div>
@@ -45,8 +45,7 @@
 					</form>
 				</div>
 			</div>
-			<div class="panel-footer">Footer
-			</div>
+			<div class="panel-footer"><span class="text-info">Notes: * indicates required field.</span></div>
 		</div>
 	</div>
 </div>

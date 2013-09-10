@@ -3,6 +3,8 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<div class="pull-right">
+					<a href="#interviewList" class="btn btn-inverse"><i class="icon-list icon-white"></i> Show List</a>
+					<button type="button" class="btn btn-inverse addNewList"><i class="icon-file icon-white"></i> Add New</button>
 				</div>
 				<h6 class="panel-title lead">{{title}}</h6>
 			</div>
@@ -11,16 +13,16 @@
 					<form class="form-horizontal" id="userForm">
 						<!-- candiateName -->
 						<div class="control-group">
-							<label class="control-label" for="mode">Candiate Name </label>
+							<label class="control-label" for="mode">Candidate Name<span class="text-error">*</span></label>
 							<div class="controls">
-								<input type="text" id="candiateName" name="candiateName" maxlength="30" class="input-xlarge" placeholder="eg. Candiate Name" />
+								<input type="text" id="candiateName" name="candiateName" maxlength="30" class="input-xlarge" placeholder="Only alphabets allowed with max 1 space" />
 								<span class="help-inline"></span>
 							</div>
 						</div>
 
 						<!-- Interview Date -->
 						<div class="control-group">
-				            <label class="control-label" for="interviewDate">Interview Date</label>
+				            <label class="control-label" for="interviewDate">Interview Date<span class="text-error">*</span></label>
 				            <div class="controls">
 				                <div class="input-append date" data-date-format="dd-M-yyyy">
 				                    <input type="text" class="input-xlarge" id="interviewDate" name="interviewDate" class="datepicker" readonly>
@@ -32,7 +34,7 @@
 
 						<!-- mode -->
 						<div class="control-group">
-							<label class="control-label" for="mode">Mode </label>
+							<label class="control-label" for="mode">Mode<span class="text-error">*</span></label>
 							<div class="controls">
 								<select id="mode" name="mode_id" class="input-xlarge">
 									{{#each mode}}
@@ -45,7 +47,7 @@
 
 						<!-- interviewer 1 -->
 						<div class="control-group">
-							<label class="control-label" for="interviewer1">Interviewer 1</label>
+							<label class="control-label" for="interviewer1">Interviewer 1<span class="text-error">*</span></label>
 							<div class="controls">
 								<select id="interviewer1" name="interviewer_1_id" class="input-xlarge">
 									{{#each interviewer1}}
@@ -58,7 +60,7 @@
 
 						<!-- interviewer 2 -->
 						<div class="control-group">
-							<label class="control-label" for="interviewer2">Interviewer 2</label>
+							<label class="control-label" for="interviewer2">Interviewer 2<span class="text-error">*</span></label>
 							<div class="controls">
 								<select id="interviewer2" name="interviewer_2_id" class="input-xlarge">
 									{{#each interviewer2}}
@@ -71,7 +73,7 @@
 
 						<!-- recruiter -->
 						<div class="control-group">
-							<label class="control-label" for="recruiter">Recruiter </label>
+							<label class="control-label" for="recruiter">Recruiter<span class="text-error">*</span></label>
 							<div class="controls">
 								<select id="recruiter" name="recruiter_id" class="input-xlarge">
 									{{#each recruiter}}
@@ -84,7 +86,7 @@
 
 						<!-- rounds -->
 						<div class="control-group">
-							<label class="control-label" for="rounds">Rounds </label>
+							<label class="control-label" for="rounds">Rounds<span class="text-error">*</span></label>
 							<div class="controls">
 								<select id="rounds" name="round_id" class="input-xlarge">
 									{{#each rounds}}
@@ -97,7 +99,7 @@
 
 						<!-- status -->
 						<div class="control-group">
-							<label class="control-label" for="status">Status </label>
+							<label class="control-label" for="status">Status<span class="text-error">*</span></label>
 							<div class="controls">
 								<select id="status" name="status_id" class="input-xlarge">
 									{{#each interviewStatus}}
@@ -110,9 +112,9 @@
 
 						<!-- remarks -->
 						<div class="control-group">
-							<label class="control-label" for="status">Remarks </label>
+							<label class="control-label" for="status">Remarks<span class="text-error">*</span></label>
 							<div class="controls">
-								<textarea id="remarks" name="description"></textarea>
+								<textarea id="remarks" rows="5" name="description" placeholder="Alphabets, numeric and special characters are allowed"></textarea>
 								<span class="help-inline"></span>
 							</div>
 						</div>
@@ -126,8 +128,7 @@
 					</form>
 				</div>
 			</div>
-			<div class="panel-footer">Footer
-			</div>
+			<div class="panel-footer"><span class="text-info">Notes: * indicates required field.</span></div>
 		</div>
 	</div>
 </div>
