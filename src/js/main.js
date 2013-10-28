@@ -36,27 +36,27 @@ requirejs.config({
         'templates': '../templates',
 
         /* List of Backbone plugins */
-            'modelValidator':'vendors/backbone/plugins/backbone-validation',
-            'modelBinder':'vendors/backbone/plugins/backbone-modelbinder',
+        'modelValidator': 'vendors/backbone/plugins/backbone-validation',
+        'modelBinder': 'vendors/backbone/plugins/backbone-modelbinder',
         /* List of Require plugins */
-            'text': 'vendors/require/plugins/text',
+        'text': 'vendors/require/plugins/text',
 
         /* List of Bootstrap plugins */
-            'bootstrapAlert': 'vendors/bootstrap/js/bootstrap-alert',
-            'bootstrapDropdown': 'vendors/bootstrap/js/bootstrap-dropdown',
-            'bootstrapTransition': 'vendors/bootstrap/js/bootstrap-transition',
-            'fuelux': 'vendors/bootstrap/plugins/fuelux/all',
-            'fueluxDataGrid': 'vendors/bootstrap/plugins/fuelux/datagrid',
-            'fueluxDataSource': 'vendors/bootstrap/plugins/fuelux/datasource',
-            'fueluxComboBox': 'vendors/bootstrap/plugins/fuelux/combobox',
-            'fueluxSelectBox': 'vendors/bootstrap/plugins/fuelux/select',
-            'fueluxSearchBox': 'vendors/bootstrap/plugins/fuelux/search',
-            'util': 'vendors/bootstrap/plugins/fuelux/util',
-            'fueluxWizard': 'vendors/bootstrap/plugins/fuelux/wizard',
-            'datePicker': 'vendors/bootstrap/plugins/datepicker/datepicker',
+        'bootstrapAlert': 'vendors/bootstrap/js/bootstrap-alert',
+        'bootstrapDropdown': 'vendors/bootstrap/js/bootstrap-dropdown',
+        'bootstrapTransition': 'vendors/bootstrap/js/bootstrap-transition',
+        'fuelux': 'vendors/bootstrap/plugins/fuelux/all',
+        'fueluxDataGrid': 'vendors/bootstrap/plugins/fuelux/datagrid',
+        'fueluxDataSource': 'vendors/bootstrap/plugins/fuelux/datasource',
+        'fueluxComboBox': 'vendors/bootstrap/plugins/fuelux/combobox',
+        'fueluxSelectBox': 'vendors/bootstrap/plugins/fuelux/select',
+        'fueluxSearchBox': 'vendors/bootstrap/plugins/fuelux/search',
+        'util': 'vendors/bootstrap/plugins/fuelux/util',
+        'fueluxWizard': 'vendors/bootstrap/plugins/fuelux/wizard',
+        'datePicker': 'vendors/bootstrap/plugins/datepicker/datepicker',
 
         /* List of jQuery plugins */
-            'jqueryCookie': 'vendors/jquery/plugins/jquery.cookie',
+        'jqueryCookie': 'vendors/jquery/plugins/jquery.cookie',
 
     },
 
@@ -83,9 +83,9 @@ requirejs.config({
         bootstrapAlert: {
             deps: ['jquery']
         },
-        modelBinder:{
-            deps:['backbone'],
-            exports:'Backbone.ModelBinder'
+        modelBinder: {
+            deps: ['backbone'],
+            exports: 'Backbone.ModelBinder'
         },
         datePicker: {
             deps: ['bootstrap', 'jquery']
@@ -95,11 +95,15 @@ requirejs.config({
 
 /* Load app.js to initialize your application module. */
 require(['views/app', 'router', 'core'], function(AppView, Router, Core) {
-    var appView = Core.create({}, 'AppView', AppView,{skipAuthCheck:true});
+    var appView = Core.create({}, 'AppView', AppView, {
+        skipAuthCheck: true
+    });
     appView.render();
 
     /*
         The router now has a copy of all main appview
     */
-    Router.initialize({appView: appView});
+    Router.initialize({
+        appView: appView
+    });
 });

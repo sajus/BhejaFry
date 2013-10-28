@@ -6,7 +6,7 @@ var express   = require('express')
   , path      = require('path');
 
 var routes          = require('./routes')
-  , authorization   = require('./routes/authorization_src')
+  , authentication  = require('./routes/authentication_src')
   , interviewList   = require('./routes/interviewList_src')
   , interviewer     = require('./routes/interviewer_src')
   , mode            = require('./routes/mode_src')
@@ -30,7 +30,7 @@ app.configure(function() {
 
 // app.get('/', routes.index);
 
-app.post('/checkAuthorization', authorization.postAuthorization);
+app.post('/authenticate', authentication.postAuthentication);
 
 app.get('/usersList', users.getUsers);
 app.post('/usersList', users.postUser);

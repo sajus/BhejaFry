@@ -1,15 +1,14 @@
 define(function(require) {
-
     'use strict';
 
     var $ = require('jquery'),
-    _ = require('underscore'),
-    Backbone = require('backbone'),
-    Events = require('events'),
-    recruitersListTemplate = require('template!templates/manage/recruiters/recruitersList'),
-    RecruiterCollection = require('collections/interview/recruiterCollection'),
-    DeleteRecruitersModel = require('models/manage/recruiters/recruitersListDetailModel'),
-    FuelUxDataSource = require('fueluxDataSource');
+        _ = require('underscore'),
+        Backbone = require('backbone'),
+        Events = require('events'),
+        recruitersListTemplate = require('template!templates/manage/recruiters/recruitersList'),
+        RecruiterCollection = require('collections/interview/recruiterCollection'),
+        DeleteRecruitersModel = require('models/manage/recruiters/recruitersListDetailModel'),
+        FuelUxDataSource = require('fueluxDataSource');
 
     require('fueluxDataGrid');
     require('fueluxSelectBox');
@@ -21,6 +20,7 @@ define(function(require) {
 
         initialize: function() {
             this.deleteRecruitersModel = new DeleteRecruitersModel();
+            this.render();
         },
 
         events: {
@@ -28,7 +28,7 @@ define(function(require) {
             'click .delete': 'deleteInterviewers'
         },
 
-        render: function () {
+        render: function() {
             var self = this;
             this.$el.html(recruitersListTemplate);
             this.recruiterCollection = new RecruiterCollection();
@@ -58,7 +58,9 @@ define(function(require) {
             var self = this;
             var deleteId = this.$(e.target).closest('tr td span').attr('data-id');
 
-            this.deleteRecruitersModel.set({id:deleteId});
+            this.deleteRecruitersModel.set({
+                id: deleteId
+            });
             this.deleteRecruitersModel.destroy({
                 success: function() {
                     self.render();
@@ -72,7 +74,7 @@ define(function(require) {
                         message: "Some error got triggered white deleting record"
                     }]);
                 }
-            })
+            });
         },
 
         usersData: function(Userlist) {
@@ -82,7 +84,7 @@ define(function(require) {
             var operationHTML = "";
 
             _.each(Userlist, function(userlist) {
-                operationHTML = '<span data-id='+userlist.empid+'><button class="btn btn-small btn-primary editRecruiters" type="button"><i class="icon-edit icon-white"></i> Details</button>';
+                operationHTML = '<span data-id=' + userlist.empid + '><button class="btn btn-small btn-primary editRecruiters" type="button"><i class="icon-edit icon-white"></i> Details</button>';
                 // operationHTML += ' <button class="btn btn-small btn-info detail" type="button"><i class="icon-share icon-white"></i> Detail</button></span>';
                 operationHTML += ' <button class="btn btn-small btn-danger delete" type="button"><i class="icon-trash icon-white"></i> Delete</button></span>';
 
@@ -107,7 +109,7 @@ define(function(require) {
             return userslistObj;
         },
 
-        createDataGrid: function(userslistObj){
+        createDataGrid: function(userslistObj) {
             var DataSource = new FuelUxDataSource({
                 columns: [
                     // {
@@ -119,18 +121,15 @@ define(function(require) {
                         property: "empid",
                         label: "Employee ID",
                         sortable: true
-                    },
-                    {
+                    }, {
                         property: "firstName",
                         label: "First Name",
                         sortable: true
-                    },
-                    {
+                    }, {
                         property: "lastName",
                         label: "Last Name",
                         sortable: true
-                    },
-                    {
+                    }, {
                         property: "operations",
                         label: "Operations",
                         sortable: false
@@ -142,12 +141,12 @@ define(function(require) {
 
             $('#MyGrid').datagrid({
                 dataSource: DataSource,
-                dataOptions:{
+                dataOptions: {
                     pageIndex: 0,
                     pageSize: 5
                 },
                 stretchHeight: false
-            })
+            });
         }
     });
 

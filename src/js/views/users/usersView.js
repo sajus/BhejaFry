@@ -1,15 +1,14 @@
 define(function(require) {
-
     'use strict';
 
     var $ = require('jquery'),
-    _ = require('underscore'),
-    Backbone = require('backbone'),
-    Events = require('events'),
-    usersListTemplate = require('template!templates/users/usersList'),
-    UsersCollection = require('collections/users/usersCollection'),
-    DeleteUsersModel = require('models/users/usersListDetailModel'),
-    FuelUxDataSource = require('fueluxDataSource');
+        _ = require('underscore'),
+        Backbone = require('backbone'),
+        Events = require('events'),
+        usersListTemplate = require('template!templates/users/usersList'),
+        UsersCollection = require('collections/users/usersCollection'),
+        DeleteUsersModel = require('models/users/usersListDetailModel'),
+        FuelUxDataSource = require('fueluxDataSource');
 
     require('fueluxDataGrid');
     require('fueluxSelectBox');
@@ -21,6 +20,7 @@ define(function(require) {
 
         initialize: function() {
             this.deleteUsersModel = new DeleteUsersModel();
+            this.render();
         },
 
         events: {
@@ -28,7 +28,7 @@ define(function(require) {
             'click .delete': 'deleteInterviewers'
         },
 
-        render: function () {
+        render: function() {
             var self = this;
             this.$el.html(usersListTemplate);
             this.usersCollection = new UsersCollection();
@@ -58,7 +58,9 @@ define(function(require) {
             var self = this;
             var deleteId = this.$(e.target).closest('tr td span').attr('data-id');
 
-            this.deleteUsersModel.set({id:deleteId});
+            this.deleteUsersModel.set({
+                id: deleteId
+            });
             this.deleteUsersModel.destroy({
                 success: function() {
                     self.render();
@@ -72,7 +74,7 @@ define(function(require) {
                         message: "Some error got triggered white deleting record"
                     }]);
                 }
-            })
+            });
         },
 
         usersData: function(Userlist) {
@@ -82,12 +84,12 @@ define(function(require) {
             var operationHTML = "";
 
             _.each(Userlist, function(userlist) {
-                operationHTML = '<span data-id='+userlist.empid+'><button class="btn btn-small btn-primary editUser" type="button"><i class="icon-edit icon-white"></i> Details</button>';
+                operationHTML = '<span data-id=' + userlist.empid + '><button class="btn btn-small btn-primary editUser" type="button"><i class="icon-edit icon-white"></i> Details</button>';
                 // operationHTML += ' <button class="btn btn-small btn-info detail" type="button"><i class="icon-share icon-white"></i> Detail</button></span>';
                 operationHTML += ' <button class="btn btn-small btn-danger delete" type="button"><i class="icon-trash icon-white"></i> Delete</button></span>';
 
                 // userlist.selectRows = "<input type='checkbox' class='selectrows' data-id="+userlist.id+">";
-                userlist.accesstype = userlist.accesstype===0?"User":"Administrator";
+                userlist.accesstype = userlist.accesstype === 0 ? "User" : "Administrator";
 
                 userlistObj = _.object([
                     // "selectrows",
@@ -112,7 +114,7 @@ define(function(require) {
             return userslistObj;
         },
 
-        createDataGrid: function(userslistObj){
+        createDataGrid: function(userslistObj) {
             var DataSource = new FuelUxDataSource({
                 columns: [
                     // {
@@ -124,28 +126,23 @@ define(function(require) {
                         property: "empid",
                         label: "Employee ID",
                         sortable: true
-                    },
-                    {
+                    }, {
                         property: "email",
                         label: "Email",
                         sortable: true
-                    },
-                    {
+                    }, {
                         property: "firstName",
                         label: "First Name",
                         sortable: true
-                    },
-                    {
+                    }, {
                         property: "lastName",
                         label: "Last Name",
                         sortable: true
-                    },
-                    {
+                    }, {
                         property: "accessType",
                         label: "Access Level",
                         sortable: true
-                    },
-                    {
+                    }, {
                         property: "operations",
                         label: "Operations",
                         sortable: false
@@ -157,12 +154,12 @@ define(function(require) {
 
             $('#MyGrid').datagrid({
                 dataSource: DataSource,
-                dataOptions:{
+                dataOptions: {
                     pageIndex: 0,
                     pageSize: 5
                 },
                 stretchHeight: false
-            })
+            });
         }
     });
 

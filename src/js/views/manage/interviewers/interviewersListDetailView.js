@@ -1,13 +1,12 @@
 define(function(require) {
-
     'use strict';
 
     var $ = require('jquery'),
-    _ = require('underscore'),
-    Backbone = require('backbone'),
-    Events = require('events'),
-    BaseView = require('views/BaseView'),
-    interviewersListDetailTemplate = require('template!templates/manage/interviewers/interviewersListDetail');
+        _ = require('underscore'),
+        Backbone = require('backbone'),
+        Events = require('events'),
+        BaseView = require('views/BaseView'),
+        interviewersListDetailTemplate = require('template!templates/manage/interviewers/interviewersListDetail');
 
     require('modelBinder');
     require('modelValidator');
@@ -26,14 +25,14 @@ define(function(require) {
             'change :input': 'processField'
         },
 
-        render: function () {
+        render: function() {
             var self = this;
-            var addUserText = (this.model.get('id'))?"Update":"Save";
-            var title = this.model.get('id')?"Edit existing interviewer":"Add new interviewer"
+            var addUserText = (this.model.get('id')) ? "Update" : "Save";
+            var title = this.model.get('id') ? "Edit existing interviewer" : "Add new interviewer";
 
-            if(this.model.get('id')!==undefined) {
+            if (this.model.get('id') !== undefined) {
                 this.model.fetch({
-                    success:function(){
+                    success: function() {
                         var data = self.model.toJSON();
                         self.$el.html(interviewersListDetailTemplate({
                             empid: data.empid,
@@ -60,7 +59,7 @@ define(function(require) {
         postData: function() {
             var self = this;
             self.model.save(self.model.toJSON(), {
-                success: function(model,response) {
+                success: function(model, response) {
                     Events.trigger("alert:success", [{
                         message: "Record successfully."
                     }]);
@@ -71,8 +70,7 @@ define(function(require) {
                         }
                     });
                 },
-                error: function(model,response) {
-                    console.log(response)
+                error: function(model, response) {
                     Events.trigger("alert:error", [{
                         message: "Some service error occured during data Saving."
                     }]);

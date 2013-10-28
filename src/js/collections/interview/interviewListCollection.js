@@ -1,10 +1,9 @@
 define(['backbone', 'models/dashboard/dashboardModel'], function(Backbone, dashboardModel) {
+	'use strict';
 
-    var DashboardCollection = Backbone.Collection.extend({
-    	url: function() {
-            return Backbone.Model.gateWayUrl + '/interviewList';
-        }
-    });
-
-    return DashboardCollection;
+	return Backbone.Collection.extend({
+		url: function() {
+			return Backbone.Model.gateWayUrl + '/interviewList';
+		}
+	});
 });

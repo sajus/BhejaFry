@@ -1,6 +1,6 @@
 define(function(require) {
-
     'use strict';
+
     var Backbone = require('backbone');
 
     require('modelBinder');
@@ -8,8 +8,8 @@ define(function(require) {
 
     return Backbone.Model.extend({
         url: function() {
-            if(this.get('id')){
-                return Backbone.Model.gateWayUrl + '/usersList/'+ this.get('id');
+            if (this.get('id')) {
+                return Backbone.Model.gateWayUrl + '/usersList/' + this.get('id');
             } else {
                 return Backbone.Model.gateWayUrl + '/usersList';
             }

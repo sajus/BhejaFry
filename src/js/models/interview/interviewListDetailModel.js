@@ -1,15 +1,15 @@
 define(function(require) {
-
     'use strict';
+
     var Backbone = require('backbone');
     require('modelBinder');
     require('modelValidator');
 
     return Backbone.Model.extend({
         url: function() {
-            if(this.get('id')){
-                return Backbone.Model.gateWayUrl + '/interviewList/'+ this.get('id');
-            }else{
+            if (this.get('id')) {
+                return Backbone.Model.gateWayUrl + '/interviewList/' + this.get('id');
+            } else {
                 return Backbone.Model.gateWayUrl + '/interviewList';
             }
         },
@@ -50,7 +50,7 @@ define(function(require) {
                 msg: "Please specify the interview status."
             },
             description: {
-            	required: true,
+                required: true,
                 msg: "Please give some remarks based on your experience."
             }
         }

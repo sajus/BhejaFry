@@ -1,12 +1,14 @@
-define(function (require) {
+define(function(require) {
+    'use strict';
 
     var AlertModel = require('models/alerts');
 
-    var _render = function(alert){
-        console.log(alert.messages[0]);
-        var message = [{message: alert.messages}];
+    var _render = function(alert) {
+        var message = [{
+            message: alert.messages
+        }];
 
-        if(alert.messages[0].message) {
+        if (alert.messages[0].message) {
             message = alert.messages;
         }
 

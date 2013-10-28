@@ -1,13 +1,12 @@
 define(function(require) {
-
     'use strict';
 
     var $ = require('jquery'),
-    _ = require('underscore'),
-    Backbone = require('backbone'),
-    Events = require('events'),
-    BaseView = require('views/BaseView'),
-    usersListTemplate = require('template!templates/users/usersDetail');
+        _ = require('underscore'),
+        Backbone = require('backbone'),
+        Events = require('events'),
+        BaseView = require('views/BaseView'),
+        usersListTemplate = require('template!templates/users/usersDetail');
 
     require('modelBinder');
     require('modelValidator');
@@ -26,14 +25,14 @@ define(function(require) {
             'change :input': 'processField'
         },
 
-        render: function () {
+        render: function() {
             var self = this;
-            var addUserText = (this.model.get('id'))?"Update":"Save";
-            var title = this.model.get('id')?"Edit existing user":"Add new user"
+            var addUserText = (this.model.get('id')) ? "Update" : "Save";
+            var title = this.model.get('id') ? "Edit existing user" : "Add new user";
 
-            if(this.model.get('id')!==undefined) {
+            if (this.model.get('id') !== undefined) {
                 this.model.fetch({
-                    success:function(){
+                    success: function() {
                         var data = self.model.toJSON();
                         self.$el.html(usersListTemplate({
                             empid: data.empid,
@@ -45,7 +44,7 @@ define(function(require) {
                             title: title
                         }));
                         self.modelBinder.bind(self.model, self.el);
-                        self.$el.find('input:radio[name=accesstype]').filter('[value='+data.accesstype+']').prop('checked', true);
+                        self.$el.find('input:radio[name=accesstype]').filter('[value=' + data.accesstype + ']').prop('checked', true);
                     }
                 });
             } else {
@@ -63,7 +62,7 @@ define(function(require) {
         postData: function() {
             var self = this;
             self.model.save(self.model.toJSON(), {
-                success: function(model,response) {
+                success: function(model, response) {
                     Events.trigger("alert:success", [{
                         message: "Record successfully."
                     }]);
@@ -74,8 +73,7 @@ define(function(require) {
                         }
                     });
                 },
-                error: function(model,response) {
-                    console.log(response)
+                error: function(model, response) {
                     Events.trigger("alert:error", [{
                         message: "Some service error occured during data Saving."
                     }]);

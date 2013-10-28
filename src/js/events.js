@@ -1,7 +1,5 @@
-define(['underscore', 'backbone'], function(_, Backbone){
+define(['underscore', 'backbone'], function(_, Backbone) {
+	'use strict';
 
-	var event = _.extend({}, Backbone.Events);
-
-	return event;
-
+	return _.extend({}, Backbone.Events);
 });

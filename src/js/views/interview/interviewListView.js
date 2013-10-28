@@ -1,16 +1,15 @@
 define(function(require) {
-
     'use strict';
 
     var $ = require('jquery'),
-    _ = require('underscore'),
-    Backbone = require('backbone'),
-    interviewListTemplate = require('template!templates/interview/interviewList'),
-    DeleteInterviewModel = require('models/interview/interviewListDetailModel'),
-    InterviewListCollection = require('collections/interview/interviewListCollection'),
-    Events = require('events'),
-    Core = require('core'),
-    FuelUxDataSource = require('fueluxDataSource');
+        _ = require('underscore'),
+        Backbone = require('backbone'),
+        interviewListTemplate = require('template!templates/interview/interviewList'),
+        DeleteInterviewModel = require('models/interview/interviewListDetailModel'),
+        InterviewListCollection = require('collections/interview/interviewListCollection'),
+        Events = require('events'),
+        Core = require('core'),
+        FuelUxDataSource = require('fueluxDataSource');
 
     require('jqueryCookie');
     require('fueluxDataGrid');
@@ -20,11 +19,11 @@ define(function(require) {
     var DataSource;
 
     var InterviewListView = Backbone.View.extend({
-        
 
         initialize: function() {
             this.deleteInterviewModel = new DeleteInterviewModel();
             this.collection = new InterviewListCollection();
+            this.render();
         },
 
         el: '.page',
@@ -33,14 +32,14 @@ define(function(require) {
             'click .edit': 'editInterview',
             'click .delete': 'deleteInterview',
             'loaded #MyGrid': 'gridStyleFilter',
-            'click .export':'exportData'
+            'click .export': 'exportData'
         },
 
-        exportData:function() {
+        exportData: function() {
             console.log(DataSource._data);
         },
 
-        render: function () {
+        render: function() {
             var self = this;
             this.collection.fetch({
                 success: function() {
@@ -52,39 +51,39 @@ define(function(require) {
         },
 
         getInterviewer: function(empID) {
-            if(empID!==null) {
+            if (empID !== null) {
                 var emp = _.find(Core.globals.interviewer_list, function(interviewer) {
                     return interviewer.empid == empID;
-                })
-                return emp.firstname+" "+emp.lastname;
+                });
+                return emp.firstname + " " + emp.lastname;
             }
         },
 
         getRecruiter: function(empID) {
             var emp = _.find(Core.globals.recruiter_list, function(recruiter) {
                 return recruiter.empid == empID;
-            })
-            return emp.firstname+" "+emp.lastname;
+            });
+            return emp.firstname + " " + emp.lastname;
         },
 
         getStatus: function(statusID) {
-            var stat = _.find(Core.globals.interviewstatus_list, function(status){
+            var stat = _.find(Core.globals.interviewstatus_list, function(status) {
                 return status.id == statusID;
-            })
+            });
             return stat.status;
         },
 
         getRound: function(roundID) {
-            var rnd = _.find(Core.globals.interviewrounds_list, function(rounds){
+            var rnd = _.find(Core.globals.interviewrounds_list, function(rounds) {
                 return rounds.id == roundID;
-            })
+            });
             return rnd.round;
         },
 
         getMode: function(modeID) {
-            var mod = _.find(Core.globals.interviewmode_list, function(modes){
+            var mod = _.find(Core.globals.interviewmode_list, function(modes) {
                 return modes.id == modeID;
-            })
+            });
             return mod.mode;
         },
 
@@ -106,7 +105,9 @@ define(function(require) {
             var self = this;
             var deleteId = this.$(e.target).closest('tr td span').attr('data-id');
 
-            this.deleteInterviewModel.set({id:deleteId});
+            this.deleteInterviewModel.set({
+                id: deleteId
+            });
             this.deleteInterviewModel.destroy({
                 success: function() {
                     self.render();
@@ -120,7 +121,7 @@ define(function(require) {
                         message: "Some error got triggered white deleting record"
                     }]);
                 }
-            })
+            });
         },
 
         usersData: function(Userlist) {
@@ -129,19 +130,19 @@ define(function(require) {
             var self = this;
             var operationHTML = "";
 
-            if($.cookie('isAuthenticated')) {
+            if ($.cookie('isAuthenticated')) {
                 this.accesstype = $.cookie('accesstype');
             }
 
 
             _.each(Userlist, function(userlist) {
-                operationHTML = '<span data-id='+userlist.id+' data-status='+self.getStatus(userlist.status_id)+'><button class="btn btn-small btn-primary edit" type="button"><i class="icon-edit icon-white"></i> Details</button>';
-                if(self.accesstype==='1') {
+                operationHTML = '<span data-id=' + userlist.id + ' data-status=' + self.getStatus(userlist.status_id) + '><button class="btn btn-small btn-primary edit" type="button"><i class="icon-edit icon-white"></i> Details</button>';
+                if (self.accesstype === '1') {
                     operationHTML += ' <button class="btn btn-small btn-danger delete" type="button"><i class="icon-trash icon-white"></i> Delete</button></span>';
                 }
-                var interviewer2 = self.getInterviewer(userlist.interviewer_2_id)
-                if(interviewer2===undefined) {
-                    userlist.interviewer_2_id = 'N/A'
+                var interviewer2 = self.getInterviewer(userlist.interviewer_2_id);
+                if (interviewer2 === undefined) {
+                    userlist.interviewer_2_id = 'N/A';
                 } else {
                     userlist.interviewer_2_id = interviewer2;
                 }
@@ -182,8 +183,8 @@ define(function(require) {
             return userslistObj;
         },
 
-        createDataGrid: function(userslistObj){
-                DataSource = new FuelUxDataSource({
+        createDataGrid: function(userslistObj) {
+            DataSource = new FuelUxDataSource({
                 columns: [
                     // {
                     //     property: "selectrows",
@@ -194,33 +195,27 @@ define(function(require) {
                         property: "candiateName",
                         label: "Candiate Name",
                         sortable: true
-                    },
-                    {
+                    }, {
                         property: "interviewer_1_id",
                         label: "Interview 1",
                         sortable: true
-                    },
-                    {
+                    }, {
                         property: "interviewer_2_id",
                         label: "Interview 2",
                         sortable: true
-                    },
-                    {
+                    }, {
                         property: "recruiter_id",
                         label: "Recruiter",
                         sortable: true
-                    },
-                    {
+                    }, {
                         property: "status_id",
                         label: "Status",
                         sortable: true
-                    },
-                    {
+                    }, {
                         property: "round_id",
                         label: "Round",
                         sortable: true
-                    },
-                    {
+                    }, {
                         property: "mode_id",
                         label: "Mode",
                         sortable: true
@@ -242,23 +237,23 @@ define(function(require) {
 
             $('#MyGrid').datagrid({
                 dataSource: DataSource,
-                dataOptions:{
+                dataOptions: {
                     pageIndex: 0,
                     pageSize: 5
                 },
                 stretchHeight: false
-            })
+            });
         },
 
         gridStyleFilter: function(e) {
-            $("#MyGrid tr").each(function(index, trList){
-                if($(trList).find('td').eq(4).text()==='OnHold') {
+            $("#MyGrid tr").each(function(index, trList) {
+                if ($(trList).find('td').eq(4).text() === 'OnHold') {
                     $(trList).find('td').eq(4).parent().addClass('warning text-warning');
-                } else if($(trList).find('td').eq(4).text()==='Selected') {
+                } else if ($(trList).find('td').eq(4).text() === 'Selected') {
                     $(trList).find('td').eq(4).parent().addClass('success text-success');
-                } else if($(trList).find('td').eq(4).text()==='Call for F2F round') {
+                } else if ($(trList).find('td').eq(4).text() === 'Call for F2F round') {
                     $(trList).find('td').eq(4).parent().addClass('info text-info');
-                } else if($(trList).find('td').eq(4).text()==='Rejected') {
+                } else if ($(trList).find('td').eq(4).text() === 'Rejected') {
                     $(trList).find('td').eq(4).parent().addClass('error text-error');
                 }
             });

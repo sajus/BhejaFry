@@ -1,9 +1,11 @@
 define(function(require) {
-
     'use strict';
 
-    var Backbone = require('backbone');
-    var Events = require('events');
+    var $ = require('jquery'),
+        _ = require('underscore'),
+        Backbone = require('backbone'),
+        Events = require('events');
+
     require('jqueryCookie');
 
     return Backbone.View.extend({
@@ -26,7 +28,7 @@ define(function(require) {
                 $(".help-inline").text("");
             }
             this.$('[data-name=option]').slice(2).each(function(index) {
-                var targetParent$ = $(this).closest('.control-group')
+                var targetParent$ = $(this).closest('.control-group');
                 if ($.trim($(this).val()) === '') {
                     targetParent$.remove();
                 }

@@ -1,20 +1,20 @@
 var sequelize = require('../dbconfig').sequelize
 ,           _ = require('../libresources').underscore;
 
-exports.postAuthorization = function(req, res){
+exports.postAuthentication = function(req, res){
 	var email 		= req.body.email
 	,	password 	= req.body.password;
 	sequelize.query("SELECT email, firstname, lastname, accesstype FROM users_tbl WHERE email='"+email+"' AND password='"+password+"' LIMIT 1 ").success(function(rows) {
-		var authorization = null;
+		var authentication = null;
 
 		if(rows.length===0) {
-			var authorization = _.object([
+			authentication = _.object([
 					"isAuthenticated"
 				], [
 					false
 				]);
 		} else {
-			var authorization = _.object([
+			authentication = _.object([
 					"isAuthenticated",
 					"email",
 					"firstname",
@@ -31,7 +31,7 @@ exports.postAuthorization = function(req, res){
 
 		res.format({
 			json: function() {
-				res.send(authorization);
+				res.send(authentication);
 			}
 		});
 	}).error(function(error) {

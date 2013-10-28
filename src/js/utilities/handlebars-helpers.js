@@ -1,8 +1,11 @@
 /**
  * Set of generic handlebars helpers
  */
-define(['handlebars', 'moment'], function(Handlebars, moment) {
+define(function(require) {
+    'use strict';
 
+    var Handlebars = require('handlebars'),
+        moment = require('moment');
     /**
      * This helper provides a more fluent syntax for inline ifs. i.e. if
      * embedded in quoted strings and provide optional else support
@@ -116,11 +119,11 @@ define(['handlebars', 'moment'], function(Handlebars, moment) {
     Handlebars.registerHelper('for', function(start, end, options) {
         var fn = options.fn,
             inverse = options.inverse;
-        var isStartValid = (start !== undefined && !isNaN(parseInt(start,10)) && start >= 0);
-        var isEndValid = (end !== undefined && !isNaN(parseInt(end,10)) && end >= 0);
+        var isStartValid = (start !== undefined && !isNaN(parseInt(start, 10)) && start >= 0);
+        var isEndValid = (end !== undefined && !isNaN(parseInt(end, 10)) && end >= 0);
         var ret = "";
 
-        if (isStartValid && isEndValid && parseInt(start,10) <= parseInt(end,10)) {
+        if (isStartValid && isEndValid && parseInt(start, 10) <= parseInt(end, 10)) {
             for (var i = start; i <= end; i++) {
                 ret = ret + fn(i);
             }

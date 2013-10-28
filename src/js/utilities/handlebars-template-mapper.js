@@ -1,9 +1,10 @@
 define(['module'], function(module) {
+    'use strict';
 
     var masterConfig = (module.config && module.config()) || {};
 
     var html = {
-        load: function (name, req, load, config) {
+        load: function(name, req, load, config) {
             config = config || {};
 
             var extension = masterConfig.extension;
@@ -13,7 +14,7 @@ define(['module'], function(module) {
             extension = extension || 'html';
             var textName = 'text!' + name + '.' + extension;
 
-            return req(['handlebars', textName], function (Handlebars, template) {
+            return req(['handlebars', textName], function(Handlebars, template) {
                 template = Handlebars.compile(template);
                 load(template);
             });

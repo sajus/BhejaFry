@@ -1,11 +1,10 @@
 define(function(require) {
-
     'use strict';
 
     var Backbone = require('backbone'),
-    Events = require('events'),
-    BaseView = require('views/BaseView'),
-    loginPageTemplate = require('template!templates/login/login');
+        Events = require('events'),
+        BaseView = require('views/BaseView'),
+        loginPageTemplate = require('template!templates/login/login');
 
     require('modelBinder');
     require('bootstrapAlert');
@@ -13,7 +12,7 @@ define(function(require) {
 
     return BaseView.extend({
 
-        el: '.page',
+        el: 'body',
 
         initialize: function() {
             this._modelBinder = new Backbone.ModelBinder();
@@ -25,11 +24,6 @@ define(function(require) {
                         trigger: true
                     }
                 });
-            } else {
-                $('.main-menu-container').remove();
-                $('.footer').remove();
-                $('.alert-container').remove();
-                $('.sidemap').remove();
             }
         },
 
@@ -42,7 +36,7 @@ define(function(require) {
             var self = this;
             this.model.save(this.model.toJSON(), {
                 success: function(model, response) {
-                    if(response.isAuthenticated) {
+                    if (response.isAuthenticated) {
                         $.cookie('isAuthenticated', true);
                         $.cookie('email', response.email);
                         $.cookie('accesstype', response.accesstype);
@@ -58,6 +52,8 @@ define(function(require) {
 
         render: function() {
             this.$el.html(loginPageTemplate);
+            this.$el.find('#email').focus();
+
             this._modelBinder.bind(this.model, this.el);
 
             Backbone.Validation.bind(this, {
@@ -65,11 +61,11 @@ define(function(require) {
                 valid: this.removeError
             });
 
-            if(this.options.authorizationFailed===true){
-                Events.trigger("alert:error", [{
-                    message: "You are not authorized to view this page."
-                }]);
-            }
+            // if (this.options.authorizationFailed === true) {
+            //     Events.trigger("alert:error", [{
+            //         message: "You are not authorized to view this page."
+            //     }]);
+            // }
 
             return this;
         },

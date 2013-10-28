@@ -1,12 +1,11 @@
 define(function(require) {
+	'use strict';
 
-    'use strict';
+	var Backbone = require('backbone');
 
-    var Backbone = require('backbone');
+	require('modelValidator');
 
-    require('modelValidator');
+	return Backbone.Model.extend({
 
-    return Backbone.Model.extend({
-
-    });
+	});
 });

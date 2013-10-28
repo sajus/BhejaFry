@@ -1,10 +1,10 @@
 define(function() {
+	'use strict';
 
-    'use strict';
-    return {
-        userName: '',
-        userRole: '',
-        authType:'',
-        gateWayPort:'90'
-    };
+	return {
+		userName: '',
+		userRole: '',
+		authType: '',
+		gateWayPort: '90'
+	};
 });

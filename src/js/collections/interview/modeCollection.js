@@ -1,11 +1,11 @@
 define(function(require) {
+	'use strict';
 
-    'use strict';
-    var Backbone = require('backbone');
+	var Backbone = require('backbone');
 
-    return Backbone.Collection.extend({
-        url: function() {
-            return Backbone.Model.gateWayUrl + '/mode';
-        }
-    });
+	return Backbone.Collection.extend({
+		url: function() {
+			return Backbone.Model.gateWayUrl + '/mode';
+		}
+	});
 });

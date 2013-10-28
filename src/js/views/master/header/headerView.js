@@ -1,9 +1,8 @@
 define(function(require) {
-
     'use strict';
 
     var Backbone = require('backbone'),
-    headerMenuTemplate = require('template!templates/master/header/header');
+        headerMenuTemplate = require('template!templates/master/header/header');
 
     require('jqueryCookie');
 
@@ -11,30 +10,35 @@ define(function(require) {
 
         el: '.main-menu-container',
 
-        initialize:function(){
-            if($.cookie('isAuthenticated')) {
+        initialize: function() {
+            if ($.cookie('isAuthenticated')) {
                 this.email = $.cookie('email');
                 this.accesstype = $.cookie('accesstype');
             }
+            this.render();
         },
 
         events: {
             'click .masthead li': 'activeTracking'
         },
 
-        render: function () {
-            if(this.accesstype==='1') {
-                this.accesstype=true;
+        render: function() {
+            if (this.accesstype === '1') {
+                this.accesstype = true;
             } else {
-                this.accesstype=false;
+                this.accesstype = false;
             }
-            this.$el.html(headerMenuTemplate({email:this.email, type: this.accesstype}));
+            this.$el.html(headerMenuTemplate({
+                email: this.email,
+                type: this.accesstype
+            }));
+            return this;
         },
 
         activeTracking: function(e) {
             this.$el.find('.masthead li.active').removeClass('active');
             var $target = $(e.target);
-            if( $target.parent("li") ) {
+            if ($target.parent("li")) {
                 $target.parent().addClass('active');
             }
         }
