@@ -6,6 +6,7 @@ define(function(require) {
         BaseView = require('views/BaseView'),
         loginPageTemplate = require('template!templates/login/login');
 
+    require('css!../../../css/modules/login/login.css');
     require('modelBinder');
     require('bootstrapAlert');
     require('jqueryCookie');
@@ -28,8 +29,8 @@ define(function(require) {
         },
 
         events: {
-            'submit .form-signin': 'processForm',
-            'change :input, blue :input': 'processField'
+            'submit .signInForm': 'processForm',
+            'change :input, blur :input': 'processField'
         },
 
         isAuthorized: function() {
@@ -52,7 +53,7 @@ define(function(require) {
 
         render: function() {
             this.$el.html(loginPageTemplate);
-            this.$el.find('#email').focus();
+            this.$el.find('input[name="email"]').focus();
 
             this._modelBinder.bind(this.model, this.el);
 

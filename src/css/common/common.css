@@ -1,3 +1,9 @@
+.toolbar {
+    display: inline-table;
+    float: right;
+    margin-top: -2px;
+}
+
 .checkGroup,
 .inputGroup{ display: none;}
 .fuelux .collapse.in{min-height: 145px;}
@@ -29,3 +35,4 @@
 .block-header div {
 	padding-top: 10px;
 }
+

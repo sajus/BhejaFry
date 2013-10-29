@@ -73,7 +73,7 @@ define(function(require) {
         });
 
         router.on('route:dashboard', function() {
-            $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a>");
+            // $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a>");
             if ($.cookie('isAuthenticated')) {
                 require(['views/dashboard/dashboardView'], function(DashboardPage) {
                     Core.create(appView, 'DashboardPage', DashboardPage);
@@ -86,7 +86,7 @@ define(function(require) {
         });
 
         router.on('route:interviewList', function() {
-            $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> Show List");
+            // $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> Show List");
             if ($.cookie('isAuthenticated')) {
                 require(['views/interview/interviewListView'], function(InterviewListPage) {
                     Core.create(appView, 'InterviewListPage', InterviewListPage);
@@ -99,11 +99,11 @@ define(function(require) {
         });
 
         router.on('route:interview', function(id) {
-            if (id === null) {
-                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> Add New ");
-            } else {
-                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> Edit Existing");
-            }
+            // if (id === null) {
+            //     $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> Add New ");
+            // } else {
+            //     $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>Interview Operations <span class='divider'>/</span> Edit Existing");
+            // }
             if ($.cookie('isAuthenticated')) {
                 require(['views/interview/interviewListDetailView', 'models/interview/interviewListDetailModel'], function(InterviewListPage, InterviewListDetailModel) {
                     var interviewListDetailModel = new InterviewListDetailModel();
@@ -120,7 +120,7 @@ define(function(require) {
         });
 
         router.on('route:mgnInterviewers', function() {
-            $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Manage <i class='icon-random'></i> Interviewers");
+            // $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Manage <i class='icon-random'></i> Interviewers");
             if ($.cookie('isAuthenticated')) {
                 require(['views/manage/interviewers/interviewersListView'], function(InterviewersListPage) {
                     Core.create(appView, 'InterviewersListPage', InterviewersListPage);
@@ -133,11 +133,11 @@ define(function(require) {
         });
 
         router.on('route:mgnInterviewersDetail', function(id) {
-            if (id === null) {
-                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Manage <i class='icon-random'></i> <a href='#mgnInterviewers'>Interviewers</a> <span class='divider'>/</span> Add New");
-            } else {
-                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Manage <i class='icon-random'></i> <a href='#mgnInterviewers'>Interviewers</a> <span class='divider'>/</span> Edit Existing");
-            }
+            // if (id === null) {
+            //     $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Manage <i class='icon-random'></i> <a href='#mgnInterviewers'>Interviewers</a> <span class='divider'>/</span> Add New");
+            // } else {
+            //     $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Manage <i class='icon-random'></i> <a href='#mgnInterviewers'>Interviewers</a> <span class='divider'>/</span> Edit Existing");
+            // }
             if ($.cookie('isAuthenticated')) {
                 require(['views/manage/interviewers/interviewersListDetailView', 'models/manage/interviewers/interviewersListDetailModel'], function(InterviewersListDetailPage, InterviewersListDetailModel) {
                     var interviewersListDetailModel = new InterviewersListDetailModel();
@@ -154,7 +154,7 @@ define(function(require) {
         });
 
         router.on('route:mgnRecruiters', function() {
-            $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Manage <i class='icon-random'></i> Recruiters");
+            // $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Manage <i class='icon-random'></i> Recruiters");
             if ($.cookie('isAuthenticated')) {
                 require(['views/manage/recruiters/recruitersListView'], function(RecruitersListPage) {
                     Core.create(appView, 'RecruitersListPage', RecruitersListPage);
@@ -167,11 +167,11 @@ define(function(require) {
         });
 
         router.on('route:mgnRecruitersDetail', function(id) {
-            if (id === null) {
-                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Manage <i class='icon-random'></i> <a href='#mgnRecruiters'>Recruiters</a> <span class='divider'>/</span> Add New");
-            } else {
-                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Manage <i class='icon-random'></i> <a href='#mgnRecruiters'>Recruiters</a> <span class='divider'>/</span> Edit Existing");
-            }
+            // if (id === null) {
+            //     $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Manage <i class='icon-random'></i> <a href='#mgnRecruiters'>Recruiters</a> <span class='divider'>/</span> Add New");
+            // } else {
+            //     $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Manage <i class='icon-random'></i> <a href='#mgnRecruiters'>Recruiters</a> <span class='divider'>/</span> Edit Existing");
+            // }
             if ($.cookie('isAuthenticated')) {
                 require(['views/manage/recruiters/recruitersListDetailView', 'models/manage/recruiters/recruitersListDetailModel'], function(RecruitersListDetailPage, RecruitersListDetailModel) {
                     var recruitersListDetailModel = new RecruitersListDetailModel();
@@ -188,7 +188,7 @@ define(function(require) {
         });
 
         router.on('route:usersList', function() {
-            $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Show List");
+            // $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Show List");
             if ($.cookie('isAuthenticated')) {
                 require(['views/users/usersView'], function(UsersPage) {
                     Core.create(appView, 'UsersPage', UsersPage);
@@ -201,11 +201,11 @@ define(function(require) {
         });
 
         router.on('route:usersDetail', function(id) {
-            if (id === null) {
-                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Add New");
-            } else {
-                $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Edit Existing");
-            }
+            // if (id === null) {
+            //     $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Add New");
+            // } else {
+            //     $('.sidemap .breadcrumb li').html("<i class='icon-th-large'></i> <a href='#'>Dashboard</a><span class='divider'>/</span>User Operations <span class='divider'>/</span> Edit Existing");
+            // }
             if ($.cookie('isAuthenticated')) {
                 require(['views/users/usersDetailView', 'models/users/usersListDetailModel'], function(UsersDetailPage, UsersListDetailModel) {
                     var usersListDetailModel = new UsersListDetailModel();

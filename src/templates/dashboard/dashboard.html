@@ -1,74 +1,71 @@
-<div class='container'>
-    <div class='row-fluid'>
-    	<div class='span3 well sidebar-nav'>
-            <ul class='nav nav-list'>
-				<li class='nav-header'>Interview Operations
+<div class='row-fluid'>
+	<div class='span3 well sidebar-nav'>
+        <ul class='nav nav-list'>
+			<li class='nav-header'>Interview Operations
+				<ul class='nav nav-list'>
+					<li><a href='#interview'>Add New</a></li>
+					<li><a href='#interviewList'>Show List</a></li>
+				</ul>
+			</li>
+			{{#if type}}
+				<li class='nav-header'>User Operations
 					<ul class='nav nav-list'>
-						<li><a href='#interview'>Add New</a></li>
-						<li><a href='#interviewList'>Show List</a></li>
+						<li><a href='#usersDetail'>Add New</a></li>
+						<li><a href='#usersList'>Show List</a></li>
 					</ul>
 				</li>
-				{{#if type}}
-					<li class='nav-header'>User Operations
+				<li class='divider'></li>
+				<li>
+					<ul class='nav nav-list'>
+						Manage
 						<ul class='nav nav-list'>
-							<li><a href='#usersDetail'>Add New</a></li>
-							<li><a href='#usersList'>Show List</a></li>
+							<li><a href='#mgnInterviewers'>Interviewers</a></li>
+							<li><a href='#mgnRecruiters'>Recruiters</a></li>
 						</ul>
-					</li>
-					<li class='divider'></li>
-					<li>
-						<ul class='nav nav-list'>
-							Manage
-							<ul class='nav nav-list'>
-								<li><a href='#mgnInterviewers'>Interviewers</a></li>
-								<li><a href='#mgnRecruiters'>Recruiters</a></li>
-							</ul>
-						</ul>
-					</li>
-				{{/if}}
-			</ul>
-        </div>
-        <div class='span9' id='content'>
+					</ul>
+				</li>
+			{{/if}}
+		</ul>
+    </div>
+    <div class='span9' id='content'>
+        <div class='row-fluid'>
             <div class='row-fluid'>
+                <div class='block'>
+                    <div class='navbar navbar-inner block-header'>
+                    	<div class='muted pull-left'>Interview's Overall Report</div>
+                    	 <div class='pull-right'>
+                        	<label class='radio inline'>
+								<input type='radio' class = 'selectType' name='overallReport' id='Status' value='getStatusReport'> Status
+							</label>
+							<label class='radio inline'>
+								<input type='radio' class = 'selectType' name='overallReport' id='Mode' value='getModeReport'> Mode
+							</label>
+                        </div>
+                    </div>
+                    <div class='block-content collapse in'>
+						<div id='piechart'></div>
+                    </div>
+                </div>
+            </div>
 
-	            <div class='row-fluid'>
-	                <div class='block'>
-	                    <div class='navbar navbar-inner block-header'>
-	                    	<div class='muted pull-left'>Interview's Overall Report</div>
-	                    	 <div class='pull-right'>
-                            	<label class='radio inline'>
-									<input type='radio' class = 'selectType' name='overallReport' id='Status' value='getStatusReport'> Status
-								</label>
-								<label class='radio inline'>
-									<input type='radio' class = 'selectType' name='overallReport' id='Mode' value='getModeReport'> Mode
-								</label>
-                            </div>
-	                    </div>
-	                    <div class='block-content collapse in'>
-							<div id='piechart'></div>
-	                    </div>
-	                </div>
-	            </div>
-
-	            <div class='row-fluid'>
-	                <div class='block'>
-	                    <div class='navbar navbar-inner block-header'>
-	                    	<div class='muted pull-left'>User Report</div>
-                            <div class='pull-right space'>
-                            	<select class='inline interviewerList'>
-									{{#each interviewerList}}
-										<option value='{{empid}}'>{{firstname}} {{lastname}}</option>
-									{{/each}}
-								</select>
-                            </div>
-	                    </div>
-	                    <div class='block-content collapse in'>
-							<div class='piechartEmpLog'></div>
-							<div id='piechartEmp'></div>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-	</div>
+            <div class='row-fluid'>
+                <div class='block'>
+                    <div class='navbar navbar-inner block-header'>
+                    	<div class='muted pull-left'>User Report</div>
+                        <div class='pull-right space'>
+                        	<select class='inline interviewerList'>
+								{{#each interviewerList}}
+									<option value='{{empid}}'>{{firstname}} {{lastname}}</option>
+								{{/each}}
+							</select>
+                        </div>
+                    </div>
+                    <div class='block-content collapse in'>
+						<div class='piechartEmpLog'></div>
+						<div id='piechartEmp'></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
