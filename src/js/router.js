@@ -35,6 +35,7 @@ define(function(require) {
         routes: {
             '': 'login',
             'login': 'login',
+            'loginIssue': 'loginIssue',
             'dashboard': 'dashboard',
             'interview(/:id)': 'interview',
             'interviewList': 'interviewList',
@@ -68,6 +69,21 @@ define(function(require) {
                         skipAuthCheck: true
                     });
                     loginPage.render();
+                });
+            }
+        });
+
+        router.on('route:loginIssue', function() {
+            if ($.cookie('isAuthenticated')) {
+                this.navigate("dashboard", {
+                    trigger: true,
+                    replace: true
+                });
+            } else {
+                require(['views/login/loginIssueView'], function(LoginIssuePage) {
+                    Core.create(appView, 'LoginIssuePage', LoginIssuePage, {
+                        skipAuthCheck: true
+                    });
                 });
             }
         });

@@ -43,8 +43,7 @@ requirejs.config({
 
         /* List of Bootstrap plugins */
         'bootstrapAlert': 'vendors/bootstrap/js/bootstrap-alert',
-        'bootstrapDropdown': 'vendors/bootstrap/js/bootstrap-dropdown',
-        'bootstrapTransition': 'vendors/bootstrap/js/bootstrap-transition',
+        'bootstrapTooltip': 'vendors/bootstrap/js/bootstrap-tooltip',
         'fuelux': 'vendors/bootstrap/plugins/fuelux/all',
         'fueluxDataGrid': 'vendors/bootstrap/plugins/fuelux/datagrid',
         'fueluxDataSource': 'vendors/bootstrap/plugins/fuelux/datasource',
