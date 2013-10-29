@@ -22,6 +22,8 @@
 
 @import "../js/vendors/bootstrap/plugins/datepicker/datepicker.css";
 
+@import "../js/vendors/bootstrap/plugins/font-awesome/css/font-awesome.min.css";
+
 html,
 body {
   margin-top: 30px;

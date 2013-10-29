@@ -3,33 +3,60 @@
         <div class='container'>
             <a class='brand' href='#dashboard'>Cybage UI - IMS</a>
             <div class='nav-collapse collapse'>
-              <ul class='nav'>
-                    <li class='divider-vertical'></li>
-                    <li><a href='#dashboard'>Dashboard</a></li>
-                    <li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>Interview Operations <b class='caret'></b></a>
+                <ul class='nav'>
+                    <li class="divider-vertical"></li>
+                    <li>
+                        <a href='#dashboard'>Dashboard</a>
+                    </li>
+                    <li class='dropdown'>
+                        <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Interview Operations <b class="caret"></b></a>
                         <ul class='dropdown-menu'>
-                            <li><a href='#interview'>Add New</a></li>
-                            <li><a href='#interviewList'>Show List</a></li>
+                            <li>
+                                <a href='#interview'>Add New</a>
+                            </li>
+                            <li>
+                                <a href='#interviewList'>Show List</a>
+                            </li>
                         </ul>
                     </li>
-                    {{#if type}}
-                        <li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>User Operations <b class='caret'></b></a>
-                            <ul class='dropdown-menu'>
-                                <li><a href='#usersDetail'>Add New</a></li>
-                                <li><a href='#usersList'>Show List</a></li>
-                                <li class='divider'></li>
-                                <li class='nav-header'>Manage</li>
-                                <li><a href='#mgnInterviewers'>Interviewers</a></li>
-                                <li><a href='#mgnRecruiters'>Recruiters</a></li>
-                            </ul>
-                        </li>
-                    {{/if}}
-              </ul>
+                    <li style="list-style: none">{{#if type}}
+                    </li>
+                    <li class='dropdown'>
+                        <a href='#' class='dropdown-toggle' data-toggle='dropdown'>User Operations <b class="caret"></b></a>
+                        <ul class='dropdown-menu'>
+                            <li>
+                                <a href='#usersDetail'>Add New</a>
+                            </li>
+                            <li>
+                                <a href='#usersList'>Show List</a>
+                            </li>
+                            <li class='nav-header'>Manage
+                            </li>
+                            <li>
+                                <a href='#mgnInterviewers'>Interviewers</a>
+                            </li>
+                            <li>
+                                <a href='#mgnRecruiters'>Recruiters</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li style="list-style: none">{{/if}}
+                    </li>
+                </ul>
                 <div class='pull-right'>
                     <ul class='nav pull-right'>
-                        <li><a href='#'>Welcome, {{email}}</a></li>
-                        <li class='divider-vertical'></li>
-                        <li><a href='#logout'><i class='icon-off icon-white'></i></a></li>
+                        <li class='dropdown'>
+                            <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Welcome, {{email}} <b class="caret"></b></a>
+                            <ul class='dropdown-menu'>
+                                <li>
+                                    <a href='#changePass'>Change Password</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="divider-vertical"></li>
+                        <li>
+                            <a href='#logout'><i class="fa fa-sign-out"></i></a>
+                        </li>
                     </ul>
                 </div>
             </div>
