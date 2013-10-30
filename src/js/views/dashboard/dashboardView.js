@@ -18,9 +18,9 @@ define(function(require) {
 		initialize: function() {
 			this.interviewer_list = {};
 			this.interviewer = [];
-			var self = this;
+			var view = this;
 			_.each(Core.globals.interviewer_list, function(data) {
-				self.interviewer_list = _.object([
+				view.interviewer_list = _.object([
 					"empid",
 					"firstname",
 					"lastname"
@@ -29,7 +29,7 @@ define(function(require) {
 					data.firstname,
 					data.lastname
 				]);
-				self.interviewer.push(self.interviewer_list);
+				view.interviewer.push(view.interviewer_list);
 			});
 			if ($.cookie('isAuthenticated')) {
 				this.accesstype = $.cookie('accesstype');
@@ -51,7 +51,7 @@ define(function(require) {
 			}
 			var empText = this.$el.find("select.interviewerList option:selected").text();
 			var chartEmp = new google.visualization.PieChart(document.getElementById('piechartEmp'));
-			var self = this;
+			var view = this;
 			var options = {
 				title: 'Interviewer ' + defaultView + ' : Name - ' + empText,
 				is3D: true,
@@ -61,13 +61,13 @@ define(function(require) {
 
 			$.get('/interviewer' + defaultView + 'Report/' + empId)
 				.success(function(data) {
-					self.$el.find("#piechartEmp").hide();
-					self.$el.find(".piechartEmpLog").hide();
+					view.$el.find("#piechartEmp").hide();
+					view.$el.find(".piechartEmpLog").hide();
 					if (typeof(data.data) == "string") {
-						self.$el.find(".piechartEmpLog").text(data.data);
-						self.$el.find(".piechartEmpLog").show();
+						view.$el.find(".piechartEmpLog").text(data.data);
+						view.$el.find(".piechartEmpLog").show();
 					} else {
-						self.$el.find("#piechartEmp").show();
+						view.$el.find("#piechartEmp").show();
 						chartEmp.draw(google.visualization.arrayToDataTable(data.data), options);
 					}
 				}).fail(function() {});

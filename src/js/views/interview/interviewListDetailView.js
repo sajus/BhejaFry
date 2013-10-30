@@ -36,20 +36,20 @@ define(function(require) {
 
             this.recruiter_list = {};
             this.recruiter = [];
-            var self = this;
+            var view = this;
 
             _.each(Core.globals.interviewmode_list, function(data) {
-                self.interviewmode_list = _.object([
+                view.interviewmode_list = _.object([
                     "id",
                     "mode"
                 ], [
                     data.id,
                     data.mode
                 ]);
-                self.interviewmode.push(self.interviewmode_list);
+                view.interviewmode.push(view.interviewmode_list);
             });
             _.each(Core.globals.interviewer_list, function(data) {
-                self.interviewer_list = _.object([
+                view.interviewer_list = _.object([
                     "empid",
                     "firstname",
                     "lastname"
@@ -58,20 +58,20 @@ define(function(require) {
                     data.firstname,
                     data.lastname
                 ]);
-                self.interviewer.push(self.interviewer_list);
+                view.interviewer.push(view.interviewer_list);
             });
             _.each(Core.globals.interviewrounds_list, function(data) {
-                self.interviewrounds_list = _.object([
+                view.interviewrounds_list = _.object([
                     "id",
                     "round"
                 ], [
                     data.id,
                     data.round
                 ]);
-                self.interviewrounds.push(self.interviewrounds_list);
+                view.interviewrounds.push(view.interviewrounds_list);
             });
             _.each(Core.globals.recruiter_list, function(data) {
-                self.recruiter_list = _.object([
+                view.recruiter_list = _.object([
                     "empid",
                     "firstname",
                     "lastname"
@@ -80,17 +80,17 @@ define(function(require) {
                     data.firstname,
                     data.lastname
                 ]);
-                self.recruiter.push(self.recruiter_list);
+                view.recruiter.push(view.recruiter_list);
             });
             _.each(Core.globals.interviewstatus_list, function(data) {
-                self.interviewstatus_list = _.object([
+                view.interviewstatus_list = _.object([
                     "id",
                     "status"
                 ], [
                     data.id,
                     data.status
                 ]);
-                self.interviewstatus.push(self.interviewstatus_list);
+                view.interviewstatus.push(view.interviewstatus_list);
             });
         },
 
@@ -118,7 +118,7 @@ define(function(require) {
         },
 
         render: function() {
-            var self = this;
+            var view = this;
             var addUserText = (this.model.get('id')) ? "Update" : "Save";
             var title = this.model.get('id') ? "Edit existing interview" : "Add new interview";
 
@@ -142,11 +142,11 @@ define(function(require) {
             if (this.model.get('id') !== undefined) {
                 this.model.fetch({
                     success: function() {
-                        self.modelBinder.bind(self.model, self.el);
+                        view.modelBinder.bind(view.model, view.el);
                     }
                 });
             } else {
-                self.modelBinder.bind(self.model, self.el);
+                view.modelBinder.bind(view.model, view.el);
             }
 
             Backbone.Validation.bind(this, {
@@ -158,15 +158,15 @@ define(function(require) {
         },
 
         postData: function() {
-            var self = this;
-            this.model.set('interviewer_1_id', parseInt(self.model.get('interviewer_1_id'), 10));
-            this.model.set('interviewer_2_id', parseInt(self.model.get('interviewer_2_id'), 10));
-            this.model.set('recruiter_id', parseInt(self.model.get('recruiter_id'), 10));
-            this.model.set('round_id', parseInt(self.model.get('round_id'), 10));
-            this.model.set('status_id', parseInt(self.model.get('status_id'), 10));
+            var view = this;
+            this.model.set('interviewer_1_id', parseInt(view.model.get('interviewer_1_id'), 10));
+            this.model.set('interviewer_2_id', parseInt(view.model.get('interviewer_2_id'), 10));
+            this.model.set('recruiter_id', parseInt(view.model.get('recruiter_id'), 10));
+            this.model.set('round_id', parseInt(view.model.get('round_id'), 10));
+            this.model.set('status_id', parseInt(view.model.get('status_id'), 10));
             this.model.set('interviewDate', this.$('#interviewDate').val());
 
-            this.model.save(self.model.toJSON(), {
+            this.model.save(view.model.toJSON(), {
                 success: function(model, response) {
                     Events.trigger("alert:success", [{
                         message: "Record successfully."

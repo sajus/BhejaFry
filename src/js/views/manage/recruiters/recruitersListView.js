@@ -29,12 +29,12 @@ define(function(require) {
         },
 
         render: function() {
-            var self = this;
+            var view = this;
             this.$el.html(recruitersListTemplate);
             this.recruiterCollection = new RecruiterCollection();
             this.recruiterCollection.fetch({
                 success: function() {
-                    self.createDataGrid(self.usersData(self.recruiterCollection.toJSON()));
+                    view.createDataGrid(view.usersData(view.recruiterCollection.toJSON()));
                 }
             });
             return this;
@@ -55,7 +55,7 @@ define(function(require) {
         deleteInterviewers: function(e) {
             e.preventDefault();
             e.stopPropagation();
-            var self = this;
+            var view = this;
             var deleteId = this.$(e.target).closest('tr td span').attr('data-id');
 
             this.deleteRecruitersModel.set({
@@ -63,7 +63,7 @@ define(function(require) {
             });
             this.deleteRecruitersModel.destroy({
                 success: function() {
-                    self.render();
+                    view.render();
                     Events.trigger("alert:success", [{
                         message: "Record deleted successfully"
                     }]);
@@ -80,7 +80,7 @@ define(function(require) {
         usersData: function(Userlist) {
             var userlistObj = {};
             var userslistObj = [];
-            var self = this;
+            var view = this;
             var operationHTML = "";
 
             _.each(Userlist, function(userlist) {

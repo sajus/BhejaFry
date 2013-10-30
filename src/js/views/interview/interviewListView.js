@@ -40,11 +40,11 @@ define(function(require) {
         },
 
         render: function() {
-            var self = this;
+            var view = this;
             this.collection.fetch({
                 success: function() {
-                    self.$el.html(interviewListTemplate);
-                    self.createDataGrid(self.usersData(self.collection.toJSON()));
+                    view.$el.html(interviewListTemplate);
+                    view.createDataGrid(view.usersData(view.collection.toJSON()));
                 }
             });
             return this;
@@ -102,7 +102,7 @@ define(function(require) {
         deleteInterview: function(e) {
             e.preventDefault();
             e.stopPropagation();
-            var self = this;
+            var view = this;
             var deleteId = this.$(e.target).closest('tr td span').attr('data-id');
 
             this.deleteInterviewModel.set({
@@ -110,7 +110,7 @@ define(function(require) {
             });
             this.deleteInterviewModel.destroy({
                 success: function() {
-                    self.render();
+                    view.render();
                     Events.trigger("alert:success", [{
                         message: "Record deleted successfully"
                     }]);
@@ -127,7 +127,7 @@ define(function(require) {
         usersData: function(Userlist) {
             var userlistObj = {};
             var userslistObj = [];
-            var self = this;
+            var view = this;
             var operationHTML = "";
 
             if ($.cookie('isAuthenticated')) {
@@ -136,23 +136,23 @@ define(function(require) {
 
 
             _.each(Userlist, function(userlist) {
-                operationHTML = '<span data-id=' + userlist.id + ' data-status=' + self.getStatus(userlist.status_id) + '><button class="btn btn-small btn-primary edit" type="button"><i class="icon-edit icon-white"></i> Details</button>';
-                if (self.accesstype === '1') {
+                operationHTML = '<span data-id=' + userlist.id + ' data-status=' + view.getStatus(userlist.status_id) + '><button class="btn btn-small btn-primary edit" type="button"><i class="icon-edit icon-white"></i> Details</button>';
+                if (view.accesstype === '1') {
                     operationHTML += ' <button class="btn btn-small btn-danger delete" type="button"><i class="icon-trash icon-white"></i> Delete</button></span>';
                 }
-                var interviewer2 = self.getInterviewer(userlist.interviewer_2_id);
+                var interviewer2 = view.getInterviewer(userlist.interviewer_2_id);
                 if (interviewer2 === undefined) {
                     userlist.interviewer_2_id = 'N/A';
                 } else {
                     userlist.interviewer_2_id = interviewer2;
                 }
                 // userlist.selectRows = "<input type='checkbox' class='selectrows' data-id="+userlist.id+">";
-                userlist.interviewer_1_id = self.getInterviewer(userlist.interviewer_1_id);
+                userlist.interviewer_1_id = view.getInterviewer(userlist.interviewer_1_id);
                 userlist.interviewer_2_id = userlist.interviewer_2_id;
-                userlist.recruiter_id = self.getRecruiter(userlist.recruiter_id);
-                userlist.status_id = self.getStatus(userlist.status_id);
-                userlist.round_id = self.getRound(userlist.round_id);
-                userlist.mode_id = self.getMode(userlist.mode_id);
+                userlist.recruiter_id = view.getRecruiter(userlist.recruiter_id);
+                userlist.status_id = view.getStatus(userlist.status_id);
+                userlist.round_id = view.getRound(userlist.round_id);
+                userlist.mode_id = view.getMode(userlist.mode_id);
 
                 userlistObj = _.object([
                     // "selectrows",

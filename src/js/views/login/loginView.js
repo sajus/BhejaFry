@@ -34,14 +34,14 @@ define(function(require) {
         },
 
         isAuthorized: function() {
-            var self = this;
+            var view = this;
             this.model.save(this.model.toJSON(), {
                 success: function(model, response) {
                     if (response.isAuthenticated) {
                         $.cookie('isAuthenticated', true);
                         $.cookie('email', response.email);
                         $.cookie('accesstype', response.accesstype);
-                        Events.trigger('redirectToAuthPage', self.options);
+                        Events.trigger('redirectToAuthPage', view.options);
                     } else {
                         Events.trigger("alert:error", [{
                             message: "The email or password you entered is incorrect."

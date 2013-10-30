@@ -26,15 +26,15 @@ define(function(require) {
         },
 
         render: function() {
-            var self = this;
+            var view = this;
             var addUserText = (this.model.get('id')) ? "Update" : "Save";
             var title = this.model.get('id') ? "Edit existing user" : "Add new user";
 
             if (this.model.get('id') !== undefined) {
                 this.model.fetch({
                     success: function() {
-                        var data = self.model.toJSON();
-                        self.$el.html(usersListTemplate({
+                        var data = view.model.toJSON();
+                        view.$el.html(usersListTemplate({
                             empid: data.empid,
                             email: data.email,
                             firstname: data.firstname,
@@ -43,12 +43,12 @@ define(function(require) {
                             addUserText: addUserText,
                             title: title
                         }));
-                        self.modelBinder.bind(self.model, self.el);
-                        self.$el.find('input:radio[name=accesstype]').filter('[value=' + data.accesstype + ']').prop('checked', true);
+                        view.modelBinder.bind(view.model, view.el);
+                        view.$el.find('input:radio[name=accesstype]').filter('[value=' + data.accesstype + ']').prop('checked', true);
                     }
                 });
             } else {
-                self.modelBinder.bind(self.model, self.el);
+                view.modelBinder.bind(view.model, view.el);
             }
 
             Backbone.Validation.bind(this, {
@@ -60,8 +60,8 @@ define(function(require) {
         },
 
         postData: function() {
-            var self = this;
-            self.model.save(self.model.toJSON(), {
+            var view = this;
+            view.model.save(view.model.toJSON(), {
                 success: function(model, response) {
                     Events.trigger("alert:success", [{
                         message: "Record successfully."

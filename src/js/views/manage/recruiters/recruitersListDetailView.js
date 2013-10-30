@@ -26,26 +26,26 @@ define(function(require) {
         },
 
         render: function() {
-            var self = this;
+            var view = this;
             var addUserText = (this.model.get('id')) ? "Update" : "Save";
             var title = this.model.get('id') ? "Edit existing recruiter" : "Add new recruiter";
 
             if (this.model.get('id') !== undefined) {
                 this.model.fetch({
                     success: function() {
-                        var data = self.model.toJSON();
-                        self.$el.html(recruitersListDetailTemplate({
+                        var data = view.model.toJSON();
+                        view.$el.html(recruitersListDetailTemplate({
                             empid: data.empid,
                             firstname: data.firstname,
                             lastname: data.lastname,
                             addUserText: addUserText,
                             title: title
                         }));
-                        self.modelBinder.bind(self.model, self.el);
+                        view.modelBinder.bind(view.model, view.el);
                     }
                 });
             } else {
-                self.modelBinder.bind(self.model, self.el);
+                view.modelBinder.bind(view.model, view.el);
             }
 
             Backbone.Validation.bind(this, {
@@ -57,8 +57,8 @@ define(function(require) {
         },
 
         postData: function() {
-            var self = this;
-            self.model.save(self.model.toJSON(), {
+            var view = this;
+            view.model.save(view.model.toJSON(), {
                 success: function(model, response) {
                     Events.trigger("alert:success", [{
                         message: "Record successfully."

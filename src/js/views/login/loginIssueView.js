@@ -28,7 +28,6 @@ define(function(require) {
         },
 
         isAuthentication: function() {
-            var self = this;
             this.model.save(this.model.toJSON(), {
                 success: function(model, response) {
                     if(!response.isAuthenticated) {
