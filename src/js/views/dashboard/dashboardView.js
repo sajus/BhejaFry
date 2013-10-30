@@ -8,6 +8,8 @@ define(function(require) {
 		dashboardTemplate = require('template!templates/dashboard/dashboard');
 
 	require('https://www.google.com/jsapi');
+	require('chosen');
+
 	var defaultView = "Status";
 	var DashboardView = Backbone.View.extend({
 
@@ -92,6 +94,7 @@ define(function(require) {
 				type: this.accesstype
 			}));
 			this.$el.find('input:radio[name=overallReport]').filter('[value=getStatusReport]').prop('checked', true);
+			this.$el.find('.interviewerList').chosen({allow_single_deselect: true});
 			return this;
 		},
 

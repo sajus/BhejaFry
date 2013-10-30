@@ -8,11 +8,7 @@ define(function(require) {
         Events = require('events'),
         LoginView = require('views/login/loginView'),
         LoginModel = require('models/login/loginModel'),
-        InterviewerCollection = require('collections/interview/interviewerCollection'),
-        ModeCollection = require('collections/interview/modeCollection'),
-        RecruiterCollection = require('collections/interview/recruiterCollection'),
-        RoundsCollection = require('collections/interview/roundsCollection'),
-        StatusCollection = require('collections/interview/statusCollection');
+        globals = {};
 
     require('jqueryCookie');
 
@@ -20,52 +16,49 @@ define(function(require) {
         gateWayUrl: "http://" + document.domain + ":" + Globals.gateWayPort
     });
 
-    var globals = {},
-        interviewerCollection = new InterviewerCollection(),
-        modeCollection = new ModeCollection(),
-        recruiterCollection = new RecruiterCollection(),
-        roundsCollection = new RoundsCollection(),
-        statusCollection = new StatusCollection();
-
-    interviewerCollection.fetch({
-        success: function() {
-            globals.interviewer_list = interviewerCollection.toJSON();
-        }
+    $.ajax({
+        url: Backbone.Model.gateWayUrl + '/interviewer'
+    }).done(function(interviewer) {
+        globals.interviewer_list = interviewer;
     });
 
-    modeCollection.fetch({
-        success: function() {
-            globals.interviewmode_list = modeCollection.toJSON();
-        }
-    });
-    recruiterCollection.fetch({
-        success: function() {
-            globals.recruiter_list = recruiterCollection.toJSON();
-        }
-    });
-    roundsCollection.fetch({
-        success: function() {
-            globals.interviewrounds_list = roundsCollection.toJSON();
-        }
-    });
-    statusCollection.fetch({
-        success: function() {
-            globals.interviewstatus_list = statusCollection.toJSON();
-        }
+    $.ajax({
+        url: Backbone.Model.gateWayUrl + '/mode'
+    }).done(function(mode) {
+        globals.interviewmode_list = mode;
     });
 
-    var views = {},
-        user = ['UserAssesmentPage', 'DashboardPage', 'NewSurvey', 'SurveyDetailed', 'SurveyUserDetailed', 'ListSurvey', 'userPage'];
+    $.ajax({
+        url: Backbone.Model.gateWayUrl + '/recruiter'
+    }).done(function(recruiter) {
+        globals.recruiter_list = recruiter;
+    });
 
-    var create = function(context, name, View, options) {
+    $.ajax({
+        url: Backbone.Model.gateWayUrl + '/rounds'
+    }).done(function(rounds) {
+        globals.interviewrounds_list = rounds;
+    });
+
+    $.ajax({
+        url: Backbone.Model.gateWayUrl + '/status'
+    }).done(function(status) {
+        globals.interviewstatus_list = status;
+    });
+
+    // var views = {},
+    //     user = ['UserAssesmentPage', 'DashboardPage', 'NewSurvey', 'SurveyDetailed', 'SurveyUserDetailed', 'ListSurvey', 'userPage'];
+
+    var create = function(context, viewName, View, options) {
+        var views = {}, view;
         /*
             View clean up isn't actually implemented yet,
             but will simply call .clean, .remove and .unbind
         */
-        if (typeof views[name] !== 'undefined') {
-            views[name].undelegateEvents();
-            if (typeof views[name].clean === 'function') {
-                views[name].clean();
+        if (typeof views[viewName] !== 'undefined') {
+            views[viewName].undelegateEvents();
+            if (typeof views[viewName].clean === 'function') {
+                views[viewName].clean();
             }
         }
         var skipAuthCheck = false;
@@ -76,25 +69,25 @@ define(function(require) {
         }
         var accesslevel = $.cookie('accesslevel');
         if (!$.cookie('isAuthenticated') && !skipAuthCheck) {
-            var loginModel = new LoginModel(),
-                view = new LoginView({
-                    model: loginModel,
-                    authorizationFailed: !skipAuthCheck,
-                    targetView: View,
-                    targetOptions: options
-                });
+            var loginModel = new LoginModel();
+            view = new LoginView({
+                model: loginModel,
+                authorizationFailed: !skipAuthCheck,
+                targetView: View,
+                targetOptions: options
+            });
         } else {
-            var view = new View(options);
+            view = new View(options);
         }
 
-        views[name] = view;
+        views[viewName] = view;
 
         if (context !== undefined) {
             if (typeof context.children === 'undefined') {
                 context.children = {};
-                context.children[name] = view;
+                context.children[viewName] = view;
             } else {
-                context.children[name] = view;
+                context.children[viewName] = view;
             }
         }
 

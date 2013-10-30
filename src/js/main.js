@@ -20,7 +20,6 @@ requirejs.config({
       See http://requirejs.org/docs/api.html#config-paths for details.
     */
     paths: {
-
         /* List of frameworks/libraries to be included in this architecture. */
         'jquery': 'vendors/jquery/jquery',
         'underscore': 'vendors/underscore/underscore',
@@ -31,7 +30,6 @@ requirejs.config({
 
         /* List of custom files to be loaded in this architecture. */
         'template': 'utilities/handlebars-template-mapper',
-        'formHelpers': 'utilities/formHelpers',
         'handlebars_Helpers': 'utilities/handlebars-helpers',
         'templates': '../templates',
 
@@ -56,7 +54,7 @@ requirejs.config({
 
         /* List of jQuery plugins */
         'jqueryCookie': 'vendors/jquery/plugins/jquery.cookie',
-
+        'chosen': 'vendors/jquery/plugins/chosen/chosen.jquery.min'
     },
 
     /*
@@ -80,7 +78,7 @@ requirejs.config({
             deps: ['jquery']
         },
         bootstrapAlert: {
-            deps: ['jquery']
+            deps: ['bootstrap']
         },
         modelBinder: {
             deps: ['backbone'],
@@ -88,6 +86,9 @@ requirejs.config({
         },
         datePicker: {
             deps: ['bootstrap', 'jquery']
+        },
+        chosen: {
+            deps: ['jquery']
         }
     }
 });
