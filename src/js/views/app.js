@@ -19,6 +19,7 @@ define(function(require) {
             Events.on('view:navigate', this.navigate, this);
             Events.on('alert:success', this.alertSuccess, this);
             Events.on('alert:error', this.alertError, this);
+            this.render();
         },
 
         navigate: function(navigationData) {

@@ -46,9 +46,6 @@ define(function(require) {
         globals.interviewstatus_list = status;
     });
 
-    // var views = {},
-    //     user = ['UserAssesmentPage', 'DashboardPage', 'NewSurvey', 'SurveyDetailed', 'SurveyUserDetailed', 'ListSurvey', 'userPage'];
-
     var create = function(context, viewName, View, options) {
         var views = {}, view;
         /*
@@ -98,6 +95,5 @@ define(function(require) {
         create: create,
         globals: globals
     };
-
 
 });
