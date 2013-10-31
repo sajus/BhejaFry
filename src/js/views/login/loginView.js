@@ -8,7 +8,7 @@ define(function(require) {
 
     require('css!../../../css/modules/login/login.css');
     require('modelBinder');
-    require('bootstrapAlert');
+    require('bsAlert');
     require('jqueryCookie');
 
     return BaseView.extend({
@@ -26,6 +26,7 @@ define(function(require) {
                     }
                 });
             }
+            this.render();
         },
 
         events: {
@@ -40,6 +41,8 @@ define(function(require) {
                     if (response.isAuthenticated) {
                         $.cookie('isAuthenticated', true);
                         $.cookie('email', response.email);
+                        $.cookie('firstName', response.firstname);
+                        $.cookie('lastName', response.lastname);
                         $.cookie('accesstype', response.accesstype);
                         Events.trigger('redirectToAuthPage', view.options);
                     } else {

@@ -10,9 +10,10 @@ define(function(require) {
         interviewListDetailPageTemplate = require('template!templates/interview/interviewListDetail'),
         moment = require('moment');
 
+    require('css!vendors/bootstrap/plugins/datepicker/datepicker.css');
     require('modelBinder');
     require('modelValidator');
-    require('bootstrapAlert');
+    require('bsAlert');
     require('datePicker');
 
     return BaseView.extend({
@@ -92,6 +93,7 @@ define(function(require) {
                 ]);
                 view.interviewstatus.push(view.interviewstatus_list);
             });
+            this.render();
         },
 
         events: {

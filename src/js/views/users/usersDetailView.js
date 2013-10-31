@@ -10,7 +10,7 @@ define(function(require) {
 
     require('modelBinder');
     require('modelValidator');
-    require('bootstrapAlert');
+    require('bsAlert');
 
     return BaseView.extend({
 
@@ -18,6 +18,7 @@ define(function(require) {
 
         initialize: function() {
             this.modelBinder = new Backbone.ModelBinder();
+            this.render();
         },
 
         events: {

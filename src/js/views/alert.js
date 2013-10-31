@@ -7,20 +7,24 @@ define(function(require) {
         template = require('template!templates/alert'),
         Events = require('events');
 
-    require('bootstrap');
+    require('bsAlert');
 
-    var _metadata = {
+    var metadata = {
         'success': {
             typeClass: 'alert-success',
             title: 'Success!'
         },
         'error': {
-            typeClass: 'alert-error',
+            typeClass: 'alert-danger',
             title: 'Error!'
         },
         'warning': {
             typeClass: 'alert-warning',
             title: 'Warning!'
+        },
+        'info': {
+            typeClass: 'alert-info',
+            title: 'Information!'
         }
     };
 
@@ -71,7 +75,7 @@ define(function(require) {
                 $el = modalEl.find('.modalAlertContainer');
             }
 
-            this.model.set(_metadata[type]);
+            this.model.set(metadata[type]);
 
             $.each(this.model.get('messages'), function(index, message) {
                 if (message.elementSelector) {

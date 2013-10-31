@@ -1,33 +1,9 @@
-/*
-    Here are the list of stylesheets included for writing all the styles which are common between different
-    modules.
+/***
+ * Here are the list of stylesheets included for writing all the styles which are common between different
+ * modules.
 */
 @import 'common/common.css';
-/*
-    Default stylesheet included.
-*/
+
+/*** Default stylesheet included for Bootstrap 3.x ***/
 @import '../js/vendors/bootstrap/css/bootstrap.min.css';
-
-/*
-    This stylesheet included for overrite the default styles of Bootstrap framework.
-*/
-@import '../js/vendors/bootstrap/css/bootstrap-custom.css';
-
-@import '../js/vendors/bootstrap/plugins/fuelux/css/fuelux.min.css';
-@import '../js/vendors/bootstrap/plugins/fuelux/css/fuelux-responsive.min.css';
-@import '../js/vendors/bootstrap/plugins/fuelux/css/fuelux-custom.css';
-
-@import '../js/vendors/bootstrap/plugins/components/list-group.css';
-@import '../js/vendors/bootstrap/plugins/components/panels.css';
-
-@import '../js/vendors/bootstrap/plugins/datepicker/datepicker.css';
-
-@import '../js/vendors/bootstrap/plugins/font-awesome/css/font-awesome.min.css';
-
-@import '../js/vendors/jquery/plugins/chosen/chosen.min.css';
-
-html,
-body {
-  margin-top: 30px;
-  /* The html and body elements cannot have any padding or margin. */
-}
+@import '../js/vendors/bootstrap/css/bootstrap-theme.min.css';

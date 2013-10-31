@@ -1,65 +1,44 @@
-<div class='navbar navbar-inverse nav navbar-fixed-top'>
-    <div class='navbar-inner'>
-        <div class='container'>
-            <a class='brand' href='#dashboard'>Cybage UI - IMS</a>
-            <div class='nav-collapse collapse'>
-                <ul class='nav'>
-                    <li class="divider-vertical"></li>
-                    <li>
-                        <a href='#dashboard'>Dashboard</a>
-                    </li>
-                    <li class='dropdown'>
-                        <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Interview Operations <b class="caret"></b></a>
-                        <ul class='dropdown-menu'>
-                            <li>
-                                <a href='#interview'>Add New</a>
-                            </li>
-                            <li>
-                                <a href='#interviewList'>Show List</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li style="list-style: none">{{#if type}}
-                    </li>
-                    <li class='dropdown'>
-                        <a href='#' class='dropdown-toggle' data-toggle='dropdown'>User Operations <b class="caret"></b></a>
-                        <ul class='dropdown-menu'>
-                            <li>
-                                <a href='#usersDetail'>Add New</a>
-                            </li>
-                            <li>
-                                <a href='#usersList'>Show List</a>
-                            </li>
-                            <li class='nav-header'>Manage
-                            </li>
-                            <li>
-                                <a href='#mgnInterviewers'>Interviewers</a>
-                            </li>
-                            <li>
-                                <a href='#mgnRecruiters'>Recruiters</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li style="list-style: none">{{/if}}
-                    </li>
-                </ul>
-                <div class='pull-right'>
-                    <ul class='nav pull-right'>
-                        <li class='dropdown'>
-                            <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Welcome, {{email}} <b class="caret"></b></a>
-                            <ul class='dropdown-menu'>
-                                <li>
-                                    <a href='#changePass'>Change Password</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="divider-vertical"></li>
-                        <li>
-                            <a href='#logout'><i class="fa fa-sign-out"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle"></button> <a class="navbar-brand" href="#">Cybage UI - IMS <sup><small>Beta v3.0</small></sup></a>
         </div>
+        <ul class='nav navbar-nav'>
+            <li><a href='#dashboard'>Dashboard</a></li>
+            <li class='dropdown'>
+                <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Interview Operations <b class="caret"></b></a>
+                <ul class='dropdown-menu'>
+                    <li><a href='#interview'>Add New Interview</a></li>
+                    <li><a href='#interviewList'>Interviews List</a></li>
+                </ul>
+            </li>
+            {{#if type}}
+                <li class='dropdown'>
+                    <a href='#' class='dropdown-toggle' data-toggle='dropdown'>User Operations <b class="caret"></b></a>
+                    <ul class='dropdown-menu'>
+                        <li><a href='#usersDetail'>Add New User</a></li>
+                        <li><a href='#usersList'>Users List</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Manage</li>
+                        <li><a href='#mgnInterviewers'>Interviewers</a></li>
+                        <li><a href='#mgnRecruiters'>Recruiters</a></li>
+                    </ul>
+                </li>
+            {{/if}}
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href='#' class='dropdown-toggle' data-toggle='dropdown'><i class="fa fa-cogs"></i><b class="caret"></b></a>
+                <ul class='dropdown-menu'>
+                    <li><a href='#changePass'>Change Password</a></li>
+                    <li><a href='#profile'>Profile</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#feedback">Feedback</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#logout" class="logout"><i class="fa fa-sign-out"></i></a>
+            </li>
+        </ul>
     </div>
 </div>

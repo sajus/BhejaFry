@@ -1,16 +1,18 @@
 define(function(require) {
     'use strict';
 
-    var Backbone = require('backbone');
-    var Events = require('events');
-    var BaseView = require('views/BaseView');
-    var loginIssuePageTemplate = require('template!templates/login/loginIssue');
-    var LoginIssueModel = require('models/login/loginIssueModel');
+    var $ = require('jquery'),
+        _ = require('underscore'),
+        Backbone = require('backbone'),
+        Events = require('events'),
+        BaseView = require('views/BaseView'),
+        loginIssuePageTemplate = require('template!templates/login/loginIssue'),
+        LoginIssueModel = require('models/login/loginIssueModel');
 
     require('css!../../../css/modules/login/login.css');
     require('modelBinder');
-    require('bootstrapAlert');
-    require('bootstrapTooltip');
+    require('bsAlert');
+    require('bsTooltip');
     require('jqueryCookie');
 
     return BaseView.extend({
@@ -30,7 +32,7 @@ define(function(require) {
         isAuthentication: function() {
             this.model.save(this.model.toJSON(), {
                 success: function(model, response) {
-                    if(!response.isAuthenticated) {
+                    if (!response.isAuthenticated) {
                         Events.trigger("alert:error", [{
                             message: "The email you specified does not exist.<br>To request an account, please contact your Cybage UI - IMS administrators."
                         }]);

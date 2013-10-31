@@ -5,21 +5,17 @@ define(function(require) {
         headerMenuTemplate = require('template!templates/master/header/header');
 
     require('jqueryCookie');
+    require('bsDropdown');
 
     return Backbone.View.extend({
 
-        el: '.main-menu-container',
+        el: '.mainMenu',
 
         initialize: function() {
             if ($.cookie('isAuthenticated')) {
-                this.email = $.cookie('email');
                 this.accesstype = $.cookie('accesstype');
             }
             this.render();
-        },
-
-        events: {
-            'click .masthead li': 'activeTracking'
         },
 
         render: function() {
@@ -29,18 +25,9 @@ define(function(require) {
                 this.accesstype = false;
             }
             this.$el.html(headerMenuTemplate({
-                email: this.email,
                 type: this.accesstype
             }));
             return this;
-        },
-
-        activeTracking: function(e) {
-            this.$el.find('.masthead li.active').removeClass('active');
-            var $target = $(e.target);
-            if ($target.parent("li")) {
-                $target.parent().addClass('active');
-            }
         }
     });
 
