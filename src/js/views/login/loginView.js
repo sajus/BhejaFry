@@ -47,7 +47,7 @@ define(function(require) {
                         Events.trigger('redirectToAuthPage', view.options);
                     } else {
                         Events.trigger("alert:error", [{
-                            message: "The email or password you entered is incorrect."
+                            message: "The credentials you provided are invalid."
                         }]);
                     }
                 }

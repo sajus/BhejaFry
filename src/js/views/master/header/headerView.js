@@ -5,6 +5,7 @@ define(function(require) {
         headerMenuTemplate = require('template!templates/master/header/header');
 
     require('jqueryCookie');
+    require('bsTooltip');
     require('bsDropdown');
 
     return Backbone.View.extend({
@@ -27,6 +28,23 @@ define(function(require) {
             this.$el.html(headerMenuTemplate({
                 type: this.accesstype
             }));
+
+            this.$el.find('.logout').tooltip({
+                title: 'Logout',
+                animation: true,
+                placement: 'bottom'
+            });
+            this.$el.find('.setting').tooltip({
+                title: 'User setting',
+                animation: true,
+                placement: 'left'
+            });
+            this.$el.find('.logout').tooltip({
+                title: 'Logout',
+                animation: true,
+                placement: 'bottom'
+            });
+
             return this;
         }
     });

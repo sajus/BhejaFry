@@ -10,6 +10,7 @@ define(function(require) {
 	require('css!vendors/bootstrap/plugins/font-awesome/css/font-awesome.min.css');
 	require('css!vendors/jquery/plugins/chosen/chosen.min.css');
 	require('chosen');
+	require('bsTooltip');
 	require('https://www.google.com/jsapi');
 
 	var defaultView = 'Status';
@@ -43,7 +44,20 @@ define(function(require) {
 
 		events: {
 			'click .selectType': 'selectTypeEvent',
-			'change .interviewerList': 'getReportByID'
+			'change .interviewerList': 'getReportByID',
+			'click .minWindow, .maxWindow': 'dockWindow'
+		},
+
+		dockWindow: function(e) {
+			if (this.$el.find(e.target).hasClass('minWindow')) {
+				this.$el.find(e.target).removeClass('minWindow').addClass('maxWindow');
+				this.$el.find(e.target).find('.fa-chevron-up').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+				this.$el.find(e.target).parent().parent().parent().find('div[class="panel-body"]').hide('slow');
+			} else {
+				this.$el.find(e.target).removeClass('maxWindow').addClass('minWindow');
+				this.$el.find(e.target).find('.fa-chevron-down').removeClass('fa-chevron-down').addClass('fa-chevron-up');
+				this.$el.find(e.target).parent().parent().parent().find('div[class="panel-body"]').show('slow');
+			}
 		},
 
 		getReportByID: function() {
@@ -59,8 +73,8 @@ define(function(require) {
 			var options = {
 				title: 'Interviewer ' + defaultView + ' : Name - ' + empText,
 				is3D: true,
-				backgroundColor: '#EEE',
-				stroke: '#FAFAFA'
+				backgroundColor: '#f5f5f5',
+				stroke: '#f6f6f6'
 			};
 
 			$.get('/interviewer' + defaultView + 'Report/' + empId)
@@ -100,6 +114,21 @@ define(function(require) {
 			this.$el.find('input:radio[name=overallReport]').filter('[value=getStatusReport]').prop('checked', true);
 			this.$el.find('.interviewerList').chosen({
 				allow_single_deselect: true
+			});
+			this.$el.find('.minWindow').tooltip({
+				title: 'Provide control to minimize & maximize this panel window',
+				animation: true,
+				placement: 'left'
+			});
+			this.$el.find('.downloadChart').tooltip({
+				title: 'Download this chart',
+				animation: true,
+				placement: 'left'
+			});
+			this.$el.find('.printChart').tooltip({
+				title: 'Provide control to print the graph in this panel window',
+				animation: true,
+				placement: 'left'
 			});
 			return this;
 		},
