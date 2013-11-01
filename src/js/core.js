@@ -8,12 +8,13 @@ define(function(require) {
         Events = require('events'),
         LoginView = require('views/login/loginView'),
         LoginModel = require('models/login/loginModel'),
-        globals = {};
+        globals = {},
+        views = {};
 
     require('jqueryCookie');
 
     _.extend(Backbone.Model, {
-        gateWayUrl: "http://" + document.domain + ":" + Globals.gateWayPort
+        gateWayUrl: 'http://' + document.domain + ':' + Globals.gateWayPort
     });
 
     $.ajax({
@@ -46,16 +47,16 @@ define(function(require) {
         globals.interviewstatus_list = status;
     });
 
-    var create = function(context, viewName, View, options) {
-        var views = {}, view;
+    var create = function(context, name, View, options) {
+        var view = null;
         /*
             View clean up isn't actually implemented yet,
             but will simply call .clean, .remove and .unbind
         */
-        if (typeof views[viewName] !== 'undefined') {
-            views[viewName].undelegateEvents();
-            if (typeof views[viewName].clean === 'function') {
-                views[viewName].clean();
+        if (typeof views[name] !== 'undefined') {
+            views[name].undelegateEvents();
+            if (typeof views[name].clean === 'function') {
+                views[name].clean();
             }
         }
         var skipAuthCheck = false;
@@ -77,14 +78,14 @@ define(function(require) {
             view = new View(options);
         }
 
-        views[viewName] = view;
+        views[name] = view;
 
         if (context !== undefined) {
             if (typeof context.children === 'undefined') {
                 context.children = {};
-                context.children[viewName] = view;
+                context.children[name] = view;
             } else {
-                context.children[viewName] = view;
+                context.children[name] = view;
             }
         }
 
@@ -95,5 +96,4 @@ define(function(require) {
         create: create,
         globals: globals
     };
-
 });
