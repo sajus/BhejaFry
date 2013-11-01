@@ -19,7 +19,73 @@ define(function(require) {
             Events.on('view:navigate', this.navigate, this);
             Events.on('alert:success', this.alertSuccess, this);
             Events.on('alert:error', this.alertError, this);
-            this.render();
+            if (this.handleAjaxResponse()) {
+                this.render();
+            }
+        },
+
+        handleAjaxResponse: function() {
+            $.ajaxSetup({
+                statusCode: {
+                    200: function() {
+                        // OK
+                        return true;
+                    },
+                    204: function() {
+                        // 204 No Content
+                        return true;
+                    },
+                    401: function() {
+                        // 401 Unauthorized
+                        Events.trigger("alert:error", [{
+                            message: "Unauthorized"
+                        }]);
+                        return false;
+                    },
+                    403: function() {
+                        // 403 Forbidden
+                        Events.trigger("alert:error", [{
+                            message: "Forbidden"
+                        }]);
+                        return false;
+                    },
+                    404: function() {
+                        // 404 Not Found
+                        Events.trigger("alert:error", [{
+                            message: "Not Found"
+                        }]);
+                        return false;
+                    },
+                    500: function() {
+                        // 500 Internal Server Error
+                        Events.trigger("alert:error", [{
+                            message: "Internal Server Error"
+                        }]);
+                        return false;
+                    },
+                    501: function() {
+                        // 501 Not Implemented
+                        Events.trigger("alert:error", [{
+                            message: "Not Implemented"
+                        }]);
+                        return false;
+                    },
+                    503: function() {
+                        // 503 Service Unavailable
+                        Events.trigger("alert:error", [{
+                            message: "Service Unavailable"
+                        }]);
+                        return false;
+                    },
+                    522: function() {
+                        // 522 Connection timed out
+                        Events.trigger("alert:error", [{
+                            message: "Connection timed out"
+                        }]);
+                        return false;
+                    }
+                }
+            });
         },
 
         navigate: function(navigationData) {
