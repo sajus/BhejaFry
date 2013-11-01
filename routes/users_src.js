@@ -1,11 +1,11 @@
-var sequelize = require('../dbconfig').sequelize
-, PasswordGen = require('./AuthPassGenerator')
-,           _ = require('../libresources').underscore;
+var sequelize = require('../dbconfig').sequelize,
+	PasswordGen = require('./AuthPassGenerator'),
+	_ = require('../libresources').underscore;
 
 /*
 	GET THE LIST OF ALL USERS
 */
-exports.getUsers = function(req, res){
+exports.getUsers = function(req, res) {
 	sequelize.query("SELECT empid, email, firstname, lastname, accesstype FROM  users_tbl ORDER BY firstname").success(function(rows) {
 		res.format({
 			json: function() {
@@ -21,8 +21,8 @@ exports.getUsers = function(req, res){
 /*
 	GET THE DETAILS OF THE USERS WITH EMP ID
 */
-exports.getUsersById = function(req,res){
-	sequelize.query("SELECT empid, email, firstname, lastname, accesstype FROM  users_tbl Where empid="+req.params.id+" LIMIT 1").success(function(rows) {
+exports.getUsersById = function(req, res) {
+	sequelize.query("SELECT empid, email, firstname, lastname, accesstype FROM  users_tbl Where empid=" + req.params.id + " LIMIT 1").success(function(rows) {
 		res.format({
 			json: function() {
 				res.send(rows[0]);
@@ -36,25 +36,25 @@ exports.getUsersById = function(req,res){
 /*
 	ADD THE NEW RECRUITER WITH EMP ID
 */
-exports.postUser = function(req, res){
+exports.postUser = function(req, res) {
 	var query = "INSERT INTO users_tbl (empid,email,firstname,lastname,accesstype,password)";
 	query += "VALUES (";
-	query += req.body.empid +",";
-	query += " '"+req.body.email +"',";
-	query += " '"+req.body.firstname +"',";
-	query += " '"+req.body.lastname +"',";
-	query += " "+req.body.accesstype +",";
-	query += " '"+PasswordGen.generatePassword(req.body.firstname, req.body.lastname, req.body.empid)+"' )";
-	var queryID = "SELECT empid,firstname,lastname,accesstype FROM users_tbl Where empid="+req.body.empid;
+	query += req.body.empid + ",";
+	query += " '" + req.body.email + "',";
+	query += " '" + req.body.firstname + "',";
+	query += " '" + req.body.lastname + "',";
+	query += " " + req.body.accesstype + ",";
+	query += " '" + PasswordGen.generatePassword(req.body.firstname, req.body.lastname, req.body.empid) + "' )";
+	var queryID = "SELECT empid,firstname,lastname,accesstype FROM users_tbl Where empid=" + req.body.empid;
 
-	sequelize.query(query).success(function(){
-		sequelize.query(queryID).success(function(rows){
+	sequelize.query(query).success(function() {
+		sequelize.query(queryID).success(function(rows) {
 			res.format({
-				json: function(){
+				json: function() {
 					res.send(rows);
 				}
 			});
-		}).error(function(error){
+		}).error(function(error) {
 			console.log("Query Error: " + error);
 		});
 	}).error(function(error) {
@@ -65,8 +65,8 @@ exports.postUser = function(req, res){
 /*
 	DELETE THE USER WITH EMP ID
 */
-exports.delUsersById = function(req, res){
-	sequelize.query("DELETE FROM users_tbl WHERE empid="+req.params.id).success(function() {
+exports.delUsersById = function(req, res) {
+	sequelize.query("DELETE FROM users_tbl WHERE empid=" + req.params.id).success(function() {
 		res.send(req.params);
 	}).error(function(error) {
 		console.log("Query Error: " + error);
@@ -78,15 +78,15 @@ exports.delUsersById = function(req, res){
 */
 exports.putUsersById = function(req, res) {
 	var query = "UPDATE users_tbl SET";
-	query +=" "+"firstname='"+req.body.firstname+"',";
-	query +=" "+"lastname='"+req.body.lastname+"',";
-	query +=" "+"accesstype='"+req.body.accesstype+"'";
-	query +=" WHERE empid="+req.params.id+";";
+	query += " " + "firstname='" + req.body.firstname + "',";
+	query += " " + "lastname='" + req.body.lastname + "',";
+	query += " " + "accesstype='" + req.body.accesstype + "'";
+	query += " WHERE empid=" + req.params.id + ";";
 
-	var queryID = "SELECT empid,firstname,lastname,accesstype FROM users_tbl Where empid="+req.params.id;
+	var queryID = "SELECT empid,firstname,lastname,accesstype FROM users_tbl Where empid=" + req.params.id;
 
 	sequelize.query(query).success(function() {
-		sequelize.query(queryID).success(function(rows){
+		sequelize.query(queryID).success(function(rows) {
 			res.format({
 				json: function() {
 					res.send(rows);

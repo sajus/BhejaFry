@@ -218,18 +218,27 @@ define(function(require) {
 
         /*** Router configuration for 'logout' routes ***/
         router.on('route:logout', function() {
-            $.removeCookie('isAuthenticated');
-            $.removeCookie('email');
-            $.removeCookie('firstName');
-            $.removeCookie('lastName');
-            $.removeCookie('accesstype');
-            Events.trigger("view:navigate", {
-                path: "login",
-                options: {
-                    trigger: true,
-                    skipAuthCheck: true
-                }
-            });
+            if ($.cookie('isAuthenticated')) {
+                $.removeCookie('isAuthenticated');
+                $.removeCookie('email');
+                $.removeCookie('firstName');
+                $.removeCookie('lastName');
+                $.removeCookie('accesstype');
+                $.ajax({
+                    url: Backbone.Model.gateWayUrl + '/logout'
+                }).done(function() {
+                    Events.trigger("view:navigate", {
+                        path: "login",
+                        options: {
+                            trigger: true
+                        }
+                    });
+                });
+            } else {
+                this.navigate("login", {
+                    trigger: true
+                });
+            }
         });
 
         Backbone.history.start();
