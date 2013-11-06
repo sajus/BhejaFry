@@ -31,7 +31,17 @@ define(function(require) {
 
         events: {
             'submit .signInForm': 'processForm',
-            'change :input, blur :input': 'processField'
+            'change :input, blur :input': 'processField',
+            'click .unableToAccess': 'unableToAccess'
+        },
+
+        unableToAccess: function() {
+            Events.trigger("view:navigate", {
+                path: "loginIssue",
+                options: {
+                    trigger: true
+                }
+            });
         },
 
         isAuthorized: function() {

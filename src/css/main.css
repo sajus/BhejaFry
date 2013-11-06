@@ -7,3 +7,5 @@
 /*** Default stylesheet included for Bootstrap 3.x ***/
 @import '../js/vendors/bootstrap/css/bootstrap.min.css';
 @import '../js/vendors/bootstrap/css/bootstrap-theme.min.css';
+
+@import '../js/vendors/bootstrap/plugins/font-awesome/css/font-awesome.min.css';

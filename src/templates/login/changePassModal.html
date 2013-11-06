@@ -1,0 +1,32 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times-circle-o"></i></button>
+            <h4 class="modal-title text-primary">
+                Change your password
+            </h4>
+        </div>
+        <div class="modal-body">
+            <div class="alert-container"></div>
+            <form role="form" class="signInForm">
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control" placeholder="Type your old password">
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="password" name="renewPassword" class="form-control" placeholder="Type your new password">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default keygen" type="button"><i class="fa fa-key"></i></button>
+                        </span>
+                    </div> 
+                </div>                      
+            </form>
+        </div>
+        <div class="modal-footer">
+            <label class="checkbox-inline pull-left">
+                <input type="checkbox" class="showPassToggle" value="hide"> <span class="toggleMsg">Show</span> Password
+            </label>
+            <button type="submit" data-loading-text="Loading..." data-dismiss="modal" class="btn btn-primary changePass">Yes! Change It</button>
+        </div>
+    </div>
+</div>

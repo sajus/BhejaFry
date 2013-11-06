@@ -7,92 +7,60 @@ define(function(require) {
         interviewListTemplate = require('template!templates/interview/interviewList'),
         DeleteInterviewModel = require('models/interview/interviewListDetailModel'),
         InterviewListCollection = require('collections/interview/interviewListCollection'),
+        ConfirmDelModal = require('views/interview/listDelConfirmModal'),
         Events = require('events'),
-        Core = require('core'),
-        FuelUxDataSource = require('fueluxDataSource');
+        Core = require('core');
 
+    require('css!vendors/jquery/plugins/datatables/css/jquery.dataTables.css');
     require('jqueryCookie');
-    require('fueluxDataGrid');
-    require('fueluxSelectBox');
-    require('fueluxSearchBox');
+    require('DT_bootstrap');
 
-    var DataSource;
-
-    var InterviewListView = Backbone.View.extend({
+    return Backbone.View.extend({
 
         initialize: function() {
-            this.deleteInterviewModel = new DeleteInterviewModel();
-            this.collection = new InterviewListCollection();
+            this.interviewListCollection = new InterviewListCollection();
             this.render();
         },
 
         el: '.page',
 
         events: {
-            'click .edit': 'editInterview',
-            'click .delete': 'deleteInterview',
-            'loaded #MyGrid': 'gridStyleFilter',
-            'click .export': 'exportData'
+            'click .editInterview': 'editInterview',
+            'click .delInterview': 'deleteInterview'
         },
 
-        exportData: function() {
-            console.log(DataSource._data);
+        fetchInterviewList: function() {
+            return this.interviewListCollection.fetch();
+        },
+
+        domElementsSetup: function() {
+            $('.viewTitle').html('<h1>Interviews List</h1>');
         },
 
         render: function() {
             var view = this;
-            this.collection.fetch({
-                success: function() {
-                    view.$el.html(interviewListTemplate);
-                    view.createDataGrid(view.usersData(view.collection.toJSON()));
-                }
-            });
-            return this;
-        },
-
-        getInterviewer: function(empID) {
-            if (empID !== null) {
-                var emp = _.find(Core.globals.interviewer_list, function(interviewer) {
-                    return interviewer.empid == empID;
+            $.when(this.fetchInterviewList())
+                .done(function(data) {
+                    view.$el.html(interviewListTemplate({
+                        interviews: data
+                    }));
+                    view.$el.find('.interviews').dataTable({});
+                    view.$el.find('#dataTable_filter :input').addClass('form-control').prop('placeholder', 'Search');
+                })
+                .fail(function(error) {
+                    console.log('Error: ' + error);
                 });
-                return emp.firstname + " " + emp.lastname;
-            }
-        },
 
-        getRecruiter: function(empID) {
-            var emp = _.find(Core.globals.recruiter_list, function(recruiter) {
-                return recruiter.empid == empID;
-            });
-            return emp.firstname + " " + emp.lastname;
-        },
+            this.domElementsSetup();
 
-        getStatus: function(statusID) {
-            var stat = _.find(Core.globals.interviewstatus_list, function(status) {
-                return status.id == statusID;
-            });
-            return stat.status;
-        },
-
-        getRound: function(roundID) {
-            var rnd = _.find(Core.globals.interviewrounds_list, function(rounds) {
-                return rounds.id == roundID;
-            });
-            return rnd.round;
-        },
-
-        getMode: function(modeID) {
-            var mod = _.find(Core.globals.interviewmode_list, function(modes) {
-                return modes.id == modeID;
-            });
-            return mod.mode;
+            return this;
         },
 
         editInterview: function(e) {
             e.preventDefault();
             e.stopPropagation();
-            var editId = this.$(e.target).closest('tr td span').attr('data-id');
             Events.trigger("view:navigate", {
-                path: "interview/" + editId,
+                path: "interview/" + this.$(e.target).closest('tr').attr('data-id'),
                 options: {
                     trigger: true
                 }
@@ -102,163 +70,11 @@ define(function(require) {
         deleteInterview: function(e) {
             e.preventDefault();
             e.stopPropagation();
-            var view = this;
-            var deleteId = this.$(e.target).closest('tr td span').attr('data-id');
 
-            this.deleteInterviewModel.set({
-                id: deleteId
-            });
-            this.deleteInterviewModel.destroy({
-                success: function() {
-                    view.render();
-                    Events.trigger("alert:success", [{
-                        message: "Record deleted successfully"
-                    }]);
-
-                },
-                error: function() {
-                    Events.trigger("alert:error", [{
-                        message: "Some error got triggered white deleting record"
-                    }]);
-                }
-            });
-        },
-
-        usersData: function(Userlist) {
-            var userlistObj = {};
-            var userslistObj = [];
-            var view = this;
-            var operationHTML = "";
-
-            if ($.cookie('isAuthenticated')) {
-                this.accesstype = $.cookie('accesstype');
-            }
-
-
-            _.each(Userlist, function(userlist) {
-                operationHTML = '<span data-id=' + userlist.id + ' data-status=' + view.getStatus(userlist.status_id) + '><button class="btn btn-small btn-primary edit" type="button"><i class="icon-edit icon-white"></i> Details</button>';
-                if (view.accesstype === '1') {
-                    operationHTML += ' <button class="btn btn-small btn-danger delete" type="button"><i class="icon-trash icon-white"></i> Delete</button></span>';
-                }
-                var interviewer2 = view.getInterviewer(userlist.interviewer_2_id);
-                if (interviewer2 === undefined) {
-                    userlist.interviewer_2_id = 'N/A';
-                } else {
-                    userlist.interviewer_2_id = interviewer2;
-                }
-                // userlist.selectRows = "<input type='checkbox' class='selectrows' data-id="+userlist.id+">";
-                userlist.interviewer_1_id = view.getInterviewer(userlist.interviewer_1_id);
-                userlist.interviewer_2_id = userlist.interviewer_2_id;
-                userlist.recruiter_id = view.getRecruiter(userlist.recruiter_id);
-                userlist.status_id = view.getStatus(userlist.status_id);
-                userlist.round_id = view.getRound(userlist.round_id);
-                userlist.mode_id = view.getMode(userlist.mode_id);
-
-                userlistObj = _.object([
-                    // "selectrows",
-                    "candiateName",
-                    "interviewer_1_id",
-                    "interviewer_2_id",
-                    "recruiter_id",
-                    "status_id",
-                    "round_id",
-                    "mode_id",
-                    // "description",
-                    "operations"
-                ], [
-                    // userlist.selectRows,
-                    userlist.candiateName,
-                    userlist.interviewer_1_id,
-                    userlist.interviewer_2_id,
-                    userlist.recruiter_id,
-                    userlist.status_id,
-                    userlist.round_id,
-                    userlist.mode_id,
-                    // userlist.description,
-                    operationHTML
-                ]);
-                userslistObj.push(userlistObj);
-            });
-
-            return userslistObj;
-        },
-
-        createDataGrid: function(userslistObj) {
-            DataSource = new FuelUxDataSource({
-                columns: [
-                    // {
-                    //     property: "selectrows",
-                    //     label: "<input type='checkbox' id='selectUsersAtOnce'>",
-                    //     sortable: false
-                    // },
-                    {
-                        property: "candiateName",
-                        label: "Candiate Name",
-                        sortable: true
-                    }, {
-                        property: "interviewer_1_id",
-                        label: "Interview 1",
-                        sortable: true
-                    }, {
-                        property: "interviewer_2_id",
-                        label: "Interview 2",
-                        sortable: true
-                    }, {
-                        property: "recruiter_id",
-                        label: "Recruiter",
-                        sortable: true
-                    }, {
-                        property: "status_id",
-                        label: "Status",
-                        sortable: true
-                    }, {
-                        property: "round_id",
-                        label: "Round",
-                        sortable: true
-                    }, {
-                        property: "mode_id",
-                        label: "Mode",
-                        sortable: true
-                    },
-                    // {
-                    //     property: "description",
-                    //     label: "Remarks",
-                    //     sortable: false
-                    // },
-                    {
-                        property: "operations",
-                        label: "Operations",
-                        sortable: false
-                    }
-                ],
-                data: userslistObj,
-                delay: 250
-            });
-
-            $('#MyGrid').datagrid({
-                dataSource: DataSource,
-                dataOptions: {
-                    pageIndex: 0,
-                    pageSize: 5
-                },
-                stretchHeight: false
-            });
-        },
-
-        gridStyleFilter: function(e) {
-            $("#MyGrid tr").each(function(index, trList) {
-                if ($(trList).find('td').eq(4).text() === 'OnHold') {
-                    $(trList).find('td').eq(4).parent().addClass('warning text-warning');
-                } else if ($(trList).find('td').eq(4).text() === 'Selected') {
-                    $(trList).find('td').eq(4).parent().addClass('success text-success');
-                } else if ($(trList).find('td').eq(4).text() === 'Call for F2F round') {
-                    $(trList).find('td').eq(4).parent().addClass('info text-info');
-                } else if ($(trList).find('td').eq(4).text() === 'Rejected') {
-                    $(trList).find('td').eq(4).parent().addClass('error text-error');
-                }
-            });
+            var confirmDelModal = new ConfirmDelModal();
+            this.$('.modal-container').html(confirmDelModal.render(this.$(e.target).closest('tr').attr('data-id')).el);
+            this.$('.modal-container .modal').modal('show');
         }
-    });
 
-    return InterviewListView;
+    });
 });

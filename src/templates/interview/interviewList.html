@@ -1,4 +1,4 @@
-<div class='fuelux'>
+<!-- <div class='fuelux'>
     <table id='MyGrid' class='table table-bordered datagrid'>
         <thead>
             <tr>
@@ -19,13 +19,6 @@
                     <div class='datagrid-header-right'>
                         <a class='btn btn-inverse btn-small print pull-right export' href='javascript:window.print()'>Print</a>
                     </div>
-                    <!-- <div class='rows pull-right'>
-                        <div class='btn-group'>
-                            <button class='btn sendEmail disabled'><i class='icon-envelope'></i> Send Email</button>
-                            <button class='btn btn-danger userDelete disabled' disabled='true'><i class='icon-trash icon-white'></i> Delete</button>
-                        </div>
-                        <button class='btn btn-inverse summary'><i class='icon-list-alt icon-white'></i> Summary</button>
-                    </div> -->
                 </th>
             </tr>
         </thead>
@@ -71,6 +64,39 @@
                 </th>
             </tr>
         </tfoot>
+    </table>
+</div> -->
+<div class="row">
+    <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped interviews">
+        <thead>
+            <tr>
+                <th>Candidate Name</th>
+                <th>1<sup>st</sup> Interviewer</th>
+                <th>2<sup>nd</sup> Interviewer</th>
+                <th>Recruiter</th>
+                <th>Mode</th>
+                <th>Status</th>
+                <th>Round</th>
+                <th>Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each interviews}}
+                <tr data-id={{id}}>
+                    <td>{{candiateName}}</td>
+                    <td>{{ivofirstname}} {{ivolastname}}</td>
+                    <td>{{ivtfirstname}} {{ivtlastname}}</td>
+                    <td>{{rcfirstname}} {{rclastname}}</td>
+                    <td>{{mode}}</td>
+                    <td>{{status}}</td>
+                    <td>{{round}}</td>
+                    <td>
+                        <button class="btn btn-primary btn-xs editInterview">Edit</button>
+                        <button class="btn btn-danger btn-xs delInterview">Delete</button>
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
     </table>
 </div>
 <div class='modal-container'></div>

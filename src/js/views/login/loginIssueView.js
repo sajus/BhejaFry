@@ -26,7 +26,17 @@ define(function(require) {
         },
 
         events: {
-            'submit .signInIssueForm': 'processForm'
+            'submit .signInIssueForm': 'processForm',
+            'click .login': 'login'
+        },
+
+        login: function() {
+            Events.trigger("view:navigate", {
+                path: "login",
+                options: {
+                    trigger: true
+                }
+            });
         },
 
         isAuthentication: function() {

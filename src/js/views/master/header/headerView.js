@@ -2,10 +2,12 @@ define(function(require) {
     'use strict';
 
     var Backbone = require('backbone'),
-        headerMenuTemplate = require('template!templates/master/header/header');
+        headerMenuTemplate = require('template!templates/master/header/header'),
+        ChangePassModalView = require('views/login/changePassModalView');
 
     require('jqueryCookie');
     require('bsTooltip');
+    require('bsModal');
     require('bsDropdown');
 
     return Backbone.View.extend({
@@ -17,6 +19,18 @@ define(function(require) {
                 this.accesstype = $.cookie('accesstype');
             }
             this.render();
+        },
+
+        events: {
+            'click .changePass': 'changePass'
+        },
+
+        changePass: function() {
+            console.log('Change Password');
+            var changePassModalView = new ChangePassModalView();
+            this.$('.modal-container').html(changePassModalView.render().el);
+            this.$('.modal-container .modal').modal('show');
+            this.$el.find('input[name="password"]').focus();
         },
 
         render: function() {

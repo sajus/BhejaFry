@@ -11,7 +11,9 @@ define(function(require) {
         moment = require('moment');
 
     require('css!vendors/bootstrap/plugins/datepicker/datepicker.css');
+    require('css!vendors/jquery/plugins/chosen/chosen.min.css');
     require('modelBinder');
+    require('chosen');
     require('modelValidator');
     require('bsAlert');
     require('datePicker');
@@ -151,10 +153,33 @@ define(function(require) {
                 view.modelBinder.bind(view.model, view.el);
             }
 
+            this.$('#interviewer1').chosen({
+                allow_single_deselect: true,
+                max_selected_options: 2
+            });
+            this.$('#mode').chosen({
+                allow_single_deselect: true
+            });
+            this.$('#recruiter').chosen({
+                allow_single_deselect: true
+            });
+            this.$('#rounds').chosen({
+                allow_single_deselect: true
+            });
+            this.$('#status').chosen({
+                allow_single_deselect: true
+            });
+            // this.$('#interviewer1').css('width', '55%');
+            this.$('.chosen-container').css({
+                'margin-top': '5px'
+            });
+
             Backbone.Validation.bind(this, {
                 invalid: this.showError,
                 valid: this.removeError
             });
+
+            $('.viewTitle').html('<h1>Interviews Detail</h1>');
 
             return this;
         },

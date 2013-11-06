@@ -5,12 +5,13 @@ define(function(require) {
 		_ = require('underscore'),
 		Backbone = require('backbone'),
 		Core = require('core'),
-		dashboardTemplate = require('template!templates/dashboard/dashboard');
+		dashboardTemplate = require('template!templates/dashboard/dashboard'),
+		WhatsNewModalView = require('views/dashboard/whatsNewModalView');
 
-	require('css!vendors/bootstrap/plugins/font-awesome/css/font-awesome.min.css');
 	require('css!vendors/jquery/plugins/chosen/chosen.min.css');
 	require('chosen');
 	require('bsTooltip');
+	require('bsModal');
 	require('https://www.google.com/jsapi');
 
 	var defaultView = 'Status';
@@ -111,6 +112,7 @@ define(function(require) {
 				interviewerList: this.interviewer,
 				type: this.accesstype
 			}));
+
 			this.$el.find('input:radio[name=overallReport]').filter('[value=getStatusReport]').prop('checked', true);
 			this.$el.find('.interviewerList').chosen({
 				allow_single_deselect: true
@@ -130,6 +132,14 @@ define(function(require) {
 				animation: true,
 				placement: 'left'
 			});
+
+			var whatsNewModalView = new WhatsNewModalView();
+			this.$('.modal-container').html(whatsNewModalView.render().el);
+			this.$('.modal-container .modal').modal('show');
+			this.$('.chosen-container-single').css('width', '55%');
+
+			$('.viewTitle').html('<h1>Dashboard</h1>');
+
 			return this;
 		},
 
