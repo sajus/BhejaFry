@@ -3,7 +3,9 @@ define(function(require) {
 
     var Backbone = require('backbone'),
         headerMenuTemplate = require('template!templates/master/header/header'),
-        ChangePassModalView = require('views/login/changePassModalView');
+        WhatsNewModalView = require('views/release/whatsNewModalView'),
+        ChangePassModalView = require('views/login/changePassModalView'),
+        FeedbackModalView = require('views/feedback/feedbackModalView');
 
     require('jqueryCookie');
     require('bsTooltip');
@@ -22,15 +24,9 @@ define(function(require) {
         },
 
         events: {
-            'click .changePass': 'changePass'
-        },
-
-        changePass: function() {
-            console.log('Change Password');
-            var changePassModalView = new ChangePassModalView();
-            this.$('.modal-container').html(changePassModalView.render().el);
-            this.$('.modal-container .modal').modal('show');
-            this.$el.find('input[name="password"]').focus();
+            'click .changePass': 'changePass',
+            'click .whatsNew': 'whatsNew',
+            'click .feedback': 'feedback'
         },
 
         render: function() {
@@ -60,6 +56,25 @@ define(function(require) {
             });
 
             return this;
+        },
+
+        changePass: function() {
+            this.renderModal(ChangePassModalView);
+            this.$el.find('input[name="password"]').focus();
+        },
+
+        whatsNew: function() {
+            this.renderModal(WhatsNewModalView);
+        },
+
+        feedback: function() {
+            this.renderModal(FeedbackModalView);
+        },
+
+        renderModal: function(ModalView) {
+            var modalView = new ModalView();
+            this.$('.modal-container').html(modalView.render().el);
+            this.$('.modal-container .modal').modal('show');
         }
     });
 

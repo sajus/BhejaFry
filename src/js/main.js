@@ -50,21 +50,13 @@ requirejs.config({
         'text': 'vendors/require/plugins/text',
 
         /*** List of Bootstrap plugins ***/
-        // 'fuelux': 'vendors/bootstrap/plugins/fuelux/all.min',
-        // 'fueluxDataGrid': 'vendors/bootstrap/plugins/fuelux/datagrid',
-        // 'fueluxDataSource': 'vendors/bootstrap/plugins/fuelux/datasource',
-        // 'fueluxSelectBox': 'vendors/bootstrap/plugins/fuelux/select',
-        // 'fueluxSearchBox': 'vendors/bootstrap/plugins/fuelux/search',
-        // 'util': 'vendors/bootstrap/plugins/fuelux/util',
-        // 'fueluxWizard': 'vendors/bootstrap/plugins/fuelux/wizard',
         'datePicker': 'vendors/bootstrap/plugins/datepicker/datepicker',
 
         /*** List of jQuery plugins ***/
         'jqueryCookie': 'vendors/jquery/plugins/jquery.cookie',
         'chosen': 'vendors/jquery/plugins/chosen/chosen.jquery.min',
         'strength': 'vendors/jquery/plugins/strength',
-        'dataTables': 'vendors/jquery/plugins/datatables/js/jquery.dataTables.min',
-        'DT_bootstrap': 'vendors/jquery/plugins/datatables/js/DT_bootstrap'
+        'dataTables': 'vendors/jquery/plugins/datatables/js/jquery.dataTables'
     },
 
     /***
@@ -111,9 +103,6 @@ requirejs.config({
         },
         dataTables: {
             deps: ['jquery']
-        },
-        DT_bootstrap: {
-            deps: ['dataTables']
         }
     }
 });

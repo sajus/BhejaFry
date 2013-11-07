@@ -6,7 +6,7 @@ define(function(require) {
 		Backbone = require('backbone'),
 		Core = require('core'),
 		dashboardTemplate = require('template!templates/dashboard/dashboard'),
-		WhatsNewModalView = require('views/dashboard/whatsNewModalView');
+		WhatsNewModalView = require('views/release/whatsNewModalView');
 
 	require('css!vendors/jquery/plugins/chosen/chosen.min.css');
 	require('chosen');

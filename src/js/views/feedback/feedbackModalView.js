@@ -2,7 +2,7 @@ define(function(require) {
     "use strict";
 
     var Backbone = require('backbone'),
-        whatsNewModalTemplate = require('template!templates/release/whatsNewModal');
+        feedbackModalTemplate = require('template!templates/feedback/feedbackModal');
 
     require('bsCollapse');
 
@@ -10,8 +10,8 @@ define(function(require) {
         className: "modal fade",
 
         render: function() {
-            this.$el.html(whatsNewModalTemplate());
-            this.$el.find('.modal-dialog').css('width','1000px');
+            this.$el.html(feedbackModalTemplate());
+            // this.$el.find('.modal-dialog').css('width','1000px');
             return this;
         }
     });

@@ -12,8 +12,10 @@ define(function(require) {
         Core = require('core');
 
     require('css!vendors/jquery/plugins/datatables/css/jquery.dataTables.css');
+    require('css!vendors/jquery/plugins/datatables/css/dataTables_themeroller.css');
+    require('css!vendors/jquery/plugins/datatables/css/smoothness/jquery-ui-1.8.4.custom.css');
     require('jqueryCookie');
-    require('DT_bootstrap');
+    require('dataTables');
 
     return Backbone.View.extend({
 
@@ -26,7 +28,9 @@ define(function(require) {
 
         events: {
             'click .editInterview': 'editInterview',
-            'click .delInterview': 'deleteInterview'
+            'click .delInterview': 'deleteInterview',
+            'mouseover .interviews tbody tr': 'showRowElements',
+            'mouseleave .interviews tbody tr': 'hideRowElements'
         },
 
         fetchInterviewList: function() {
@@ -44,8 +48,27 @@ define(function(require) {
                     view.$el.html(interviewListTemplate({
                         interviews: data
                     }));
-                    view.$el.find('.interviews').dataTable({});
-                    view.$el.find('#dataTable_filter :input').addClass('form-control').prop('placeholder', 'Search');
+                    view.$el.find('.interviews').dataTable({
+                        "bProcessing": true,
+                        "bJQueryUI": true,
+                        "sPaginationType": "full_numbers",
+                        "sScrollY": "200px",
+                        "sScrollX": "100%",
+                        "sScrollXInner": "110%",
+                        "bScrollCollapse": true,
+                        "language": {
+                            "search": ""
+                        },
+                        "aoColumnDefs": [{
+                            "bSortable": false,
+                            "aTargets": [0, 6]
+                        }, {
+                            "asSorting": ["asc", "dec"],
+                            "aTargets": [1]
+                        }],
+                        "bLengthChange": false
+                    });
+                    view.$el.find('#dataTable_filter :input').addClass('form-control').prop('placeholder', 'Search all columns').focus();
                 })
                 .fail(function(error) {
                     console.log('Error: ' + error);
@@ -74,7 +97,14 @@ define(function(require) {
             var confirmDelModal = new ConfirmDelModal();
             this.$('.modal-container').html(confirmDelModal.render(this.$(e.target).closest('tr').attr('data-id')).el);
             this.$('.modal-container .modal').modal('show');
-        }
+        },
 
+        showRowElements: function(e) {
+            this.$(e.target).closest('tr').find('.delInterview').css('visibility', 'visible');
+        },
+
+        hideRowElements: function(e) {
+            this.$(e.target).closest('tr').find('.delInterview').css('visibility', 'hidden');
+        }
     });
 });
