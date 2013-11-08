@@ -95,8 +95,8 @@ define(function(require) {
             e.stopPropagation();
 
             var confirmDelModal = new ConfirmDelModal();
-            this.$('.modal-container').html(confirmDelModal.render(this.$(e.target).closest('tr').attr('data-id')).el);
-            this.$('.modal-container .modal').modal('show');
+            $('.modal-container').html(confirmDelModal.render(this.$(e.target).closest('tr').attr('data-id')).el);
+            $('.modal-container .modal').modal('show');
         },
 
         showRowElements: function(e) {

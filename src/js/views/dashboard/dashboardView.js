@@ -134,8 +134,9 @@ define(function(require) {
 			});
 
 			var whatsNewModalView = new WhatsNewModalView();
-			this.$('.modal-container').html(whatsNewModalView.render().el);
-			this.$('.modal-container .modal').modal('show');
+			$('.modal-container').html(whatsNewModalView.render().el);
+			$('.modal-container .modal').modal('show');
+
 			this.$('.chosen-container-single').css('width', '55%');
 
 			$('.viewTitle').html('<h1>Dashboard</h1>');

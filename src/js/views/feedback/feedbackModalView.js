@@ -2,9 +2,10 @@ define(function(require) {
     "use strict";
 
     var Backbone = require('backbone'),
+        Events = require('events'),
         feedbackModalTemplate = require('template!templates/feedback/feedbackModal');
 
-    require('bsCollapse');
+    require('bsModal');
 
     return Backbone.View.extend({
         className: "modal fade",
