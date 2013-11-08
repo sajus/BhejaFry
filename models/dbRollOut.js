@@ -73,7 +73,6 @@
     function createInterviewer() {
         tbl_interviewer
         .bulkCreate([
-            { empid:0, firstname:' ', lastname:' ' },
             { empid:1967, firstname:'Kamlesh', lastname:'Gaikwad' },
             { empid:2435, firstname:'Vishal', lastname:'Chauhan' },
             { empid:2762, firstname:'Ashish', lastname:'Chandugade' },
@@ -206,8 +205,8 @@
     sequelize.sync({force:true}).on('success', function() {
         tbl_users
         .bulkCreate([
-            { empid:7601, email:'sajus@cybage.com', firstname: 'Saju', lastname:'Sasidharan', password:'sajuspass', accesstype: 1 },
-            { empid:10748, email:'ashwinh@cybage.com', firstname: 'Ashwin', lastname:'Hegde', password:'ashwinpass', accesstype: 0 }
+            { empid:7601, email:'sajus@cybage.com', firstname: 'Saju', lastname:'Sasidharan', password:'sajuspass', accesstype: 1, unlock: 0, reset: 0 },
+            { empid:10748, email:'ashwinh@cybage.com', firstname: 'Ashwin', lastname:'Hegde', password:'ashwinpass', accesstype: 0, unlock: 0, reset: 0 }
         ])
         .on('success', function() {
             console.log("Users table is ready");

@@ -6,7 +6,8 @@ define(function(require) {
         Backbone = require('backbone'),
         Core = require('core'),
         Events = require('events'),
-        layoutTemplate = require('template!templates/master/layout/layout');
+        layoutTemplate = require('template!templates/master/layout/layout'),
+        ProfileModalView = require('views/profile/profileModalView');
 
     require('jqueryCookie');
 
@@ -24,16 +25,8 @@ define(function(require) {
             this.render();
         },
 
-        render: function() {
-            this.$el.html(layoutTemplate({
-                email: this.email,
-                username: this.firstName + " " + this.lastName,
-                type: this.accesstype
-            }));
-            this.renderHeader();
-            this.renderFooter();
-
-            return this;
+        events: {
+            'click .editProfile': 'editProfile'
         },
 
         renderHeader: function() {
@@ -50,6 +43,24 @@ define(function(require) {
                     skipAuthCheck: true
                 });
             });
+        },
+
+        render: function() {
+            this.$el.html(layoutTemplate({
+                email: this.email,
+                username: this.firstName + " " + this.lastName,
+                type: this.accesstype
+            }));
+            this.renderHeader();
+            this.renderFooter();
+
+            return this;
+        },
+
+        editProfile: function() {
+            var profileModalView = new ProfileModalView();
+            this.$('.modal-container').html(profileModalView.render().el);
+            this.$('.modal-container .modal').modal('show');
         }
     });
 });

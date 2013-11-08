@@ -2,10 +2,12 @@ define(function(require) {
     'use strict';
 
     var Backbone = require('backbone'),
+        Events = require('events'),
         headerMenuTemplate = require('template!templates/master/header/header'),
         WhatsNewModalView = require('views/release/whatsNewModalView'),
         ChangePassModalView = require('views/login/changePassModalView'),
-        FeedbackModalView = require('views/feedback/feedbackModalView');
+        FeedbackModalView = require('views/feedback/feedbackModalView'),
+        ProfileModalView = require('views/profile/profileModalView');
 
     require('jqueryCookie');
     require('bsTooltip');
@@ -26,7 +28,8 @@ define(function(require) {
         events: {
             'click .changePass': 'changePass',
             'click .whatsNew': 'whatsNew',
-            'click .feedback': 'feedback'
+            'click .feedback': 'feedback',
+            'click .profile': 'profile'
         },
 
         render: function() {
@@ -71,10 +74,14 @@ define(function(require) {
             this.renderModal(FeedbackModalView);
         },
 
+        profile: function() {
+            this.renderModal(ProfileModalView);
+        },
+
         renderModal: function(ModalView) {
             var modalView = new ModalView();
-            this.$('.modal-container').html(modalView.render().el);
-            this.$('.modal-container .modal').modal('show');
+            $('.modal-container').html(modalView.render().el);
+            $('.modal-container .modal').modal('show');
         }
     });
 
