@@ -103,6 +103,9 @@ requirejs.config({
         },
         dataTables: {
             deps: ['jquery']
+        },
+        strength: {
+            deps: ['jquery']
         }
     }
 });

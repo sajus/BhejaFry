@@ -48,22 +48,22 @@
                     thismeter.removeClass().html('');
                 }else if (total <= 1) {
                     thismeter.removeClass();
-                    thismeter.addClass('progress progress-danger').html('<div class="bar" style="width: 100%">Strength: <span class="label label-important">Very weak</span></div>');
+                    thismeter.addClass('progress').css('margin-top','5px').html('<div class="progress-bar progress-bar-danger text-danger" style="width:100%; line-height:20px;">Password strength is very weak</div>');
                 } else if (total == 2){
                     thismeter.removeClass();
-                    thismeter.addClass('progress progress-warning').html('<div class="bar" style="width: 100%">Strength: <span class="label label-warning">Weak</span></div>');
+                    thismeter.addClass('progress').css('margin-top','5px').html('<div class="progress-bar progress-bar-warning text-warning" style="width:100%; line-height:20px;">Password strength is weak</div>');
                 } else if (total == 3){
                     thismeter.removeClass();
-                    thismeter.addClass('progress progress-info').html('<div class="bar" style="width: 100%">Strength: <span class="label label-info">Medium</span></div>');
+                    thismeter.addClass('progress').css('margin-top','5px').html('<div class="progress-bar progress-bar-info text-info" style="width:100%; line-height:20px;">Password strength is medium</div>');
                 } else {
                     thismeter.removeClass();
-                    thismeter.addClass('progress progress-success').html('<div class="bar" style="width: 100%">Strength: <span class="label label-success">Strong</span></div>');
+                    thismeter.addClass('progress').css('margin-top','5px').html('<div class="progress-bar progress-bar-success text-success" style="width:100%; line-height:20px;">Password strength is strong</div>');
                 }
             }
 
             thisid = this.$elem.attr('id');
 
-            this.$elem.addClass(this.options.strengthClass).attr('data-password',thisid).after('<input placeholder="Password" style="display:none" class="input-block-level '+this.options.strengthClass+'" data-password="'+thisid+'" type="text" name="" value=""><div data-meter="'+thisid+'"></div>');
+            this.$elem.addClass(this.options.strengthClass).attr('data-password',thisid).after('<input placeholder="Specify your new password" id="newPassword" style="display:none" class="form-control '+this.options.strengthClass+'" data-password="'+thisid+'" type="text" name="" value=""><div data-meter="'+thisid+'"></div>');
              
             this.$elem.bind('keyup keydown change', function(event) {
                 thisval = $('#'+thisid).val();
