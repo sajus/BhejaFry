@@ -33,6 +33,9 @@ app.configure(function() {
 // app.get('/', routes.index);
 
 app.post('/authenticate', authentication.postAuthentication);
+app.put('/authReset', authentication.putResetAuthentication);
+app.put('/appRelease', authentication.putRelease);
+app.put('/authUnlock', authentication.putAuthUnlock);
 app.get('/logout', authentication.getDestroyAuthentication);
 
 app.get('/usersList', users.getUsers);
@@ -72,7 +75,6 @@ app.del('/interviewer/:id', interviewer.delInterviewerById);
 http.createServer(app).listen(app.get('port'), function() {
     console.log("\n\n\tNode (Express) server listening on port " + app.get('port'))
 });
-
 
 function sessionAuth(req, res, next) {
     if (!req.session.user_id) {

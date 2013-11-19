@@ -44,7 +44,7 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.BOOLEAN,
 			allowNull: false
 		},
-		unlock: {
+		block: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
 			validate: {
@@ -57,6 +57,13 @@ module.exports = function(sequelize, DataTypes) {
 			validate: {
                 isNumeric: true
             }
+		},
+		appRelease: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
+			validate: {
+				isNumeric: true
+			}
 		}
 	}, {
 		tableName: 'users_tbl'
