@@ -56,7 +56,9 @@ requirejs.config({
         'jqueryCookie': 'vendors/jquery/plugins/jquery.cookie',
         'chosen': 'vendors/jquery/plugins/chosen/chosen.jquery.min',
         'strength': 'vendors/jquery/plugins/strength',
-        'dataTables': 'vendors/jquery/plugins/datatables/js/jquery.dataTables'
+        'dataTables': 'vendors/jquery/plugins/datatables/js/jquery.dataTables',
+        'highcharts': 'vendors/jquery/plugins/highcharts/js/highcharts',
+        'exportings': 'vendors/jquery/plugins/highcharts/js/modules/exporting'
     },
 
     /***
@@ -106,6 +108,12 @@ requirejs.config({
         },
         strength: {
             deps: ['jquery']
+        },
+        highcharts: {
+            deps: ['jquery']
+        },
+        exportings: {
+            deps: ['highcharts']
         }
     }
 });

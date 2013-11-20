@@ -12,40 +12,42 @@ define(function(require) {
 	require('chosen');
 	require('bsTooltip');
 	require('bsModal');
-	require('https://www.google.com/jsapi');
+	require('highcharts');
+	require('exportings');
+	// require('https://www.google.com/jsapi');
 
-	var defaultView = 'Status';
+	// var defaultView = 'Status';
 	var DashboardView = Backbone.View.extend({
 
 		el: '.page',
 
 		initialize: function() {
-			var view = this,
-				interviewer_list = {};
-			this.interviewer = [];
+			// var view = this,
+			// 	interviewer_list = {};
+			// this.interviewer = [];
 
-			_.each(Core.globals.interviewer_list, function(interviewer) {
-				interviewer_list = _.object([
-					'empid',
-					'firstname',
-					'lastname'
-				], [
-					interviewer.empid,
-					interviewer.firstname,
-					interviewer.lastname
-				]);
-				view.interviewer.push(interviewer_list);
-			});
-			if ($.cookie('isAuthenticated')) {
-				this.accesstype = $.cookie('accesstype');
-			}
+			// _.each(Core.globals.interviewer_list, function(interviewer) {
+			// 	interviewer_list = _.object([
+			// 		'empid',
+			// 		'firstname',
+			// 		'lastname'
+			// 	], [
+			// 		interviewer.empid,
+			// 		interviewer.firstname,
+			// 		interviewer.lastname
+			// 	]);
+			// 	view.interviewer.push(interviewer_list);
+			// });
+			// if ($.cookie('isAuthenticated')) {
+			// 	this.accesstype = $.cookie('accesstype');
+			// }
 
 			this.render();
 		},
 
 		events: {
-			'click .selectType': 'selectTypeEvent',
-			'change .interviewerList': 'getReportByID',
+			// 'click .selectType': 'selectTypeEvent',
+			// 'change .interviewerList': 'getReportByID',
 			'click .minWindow, .maxWindow': 'dockWindow'
 		},
 
@@ -61,102 +63,155 @@ define(function(require) {
 			}
 		},
 
-		getReportByID: function() {
-			var empId = this.$el.find('select.interviewerList option:selected').val();
-			if (empId === 0) {
-				this.$el.find('#piechartEmp').hide();
-				this.$el.find('#piechartEmpLog').hide();
-				return;
-			}
-			var empText = this.$el.find('select.interviewerList option:selected').text();
-			var chartEmp = new google.visualization.PieChart(document.getElementById('piechartEmp'));
-			var view = this;
-			var options = {
-				title: 'Interviewer ' + defaultView + ' : Name - ' + empText,
-				is3D: true,
-				backgroundColor: '#f5f5f5',
-				stroke: '#f6f6f6'
-			};
+		// getReportByID: function() {
+		// 	var empId = this.$el.find('select.interviewerList option:selected').val();
+		// 	if (empId === 0) {
+		// 		this.$el.find('#piechartEmp').hide();
+		// 		this.$el.find('#piechartEmpLog').hide();
+		// 		return;
+		// 	}
+		// 	var empText = this.$el.find('select.interviewerList option:selected').text();
+		// 	var chartEmp = new google.visualization.PieChart(document.getElementById('piechartEmp'));
+		// 	var view = this;
+		// 	var options = {
+		// 		title: 'Interviewer ' + defaultView + ' : Name - ' + empText,
+		// 		is3D: true,
+		// 		backgroundColor: '#f5f5f5',
+		// 		stroke: '#f6f6f6'
+		// 	};
 
-			$.get('/interviewer' + defaultView + 'Report/' + empId)
-				.success(function(data) {
-					view.$el.find('#piechartEmp').hide();
-					view.$el.find('#piechartEmpLog').hide();
-					if (typeof(data.data) == 'string') {
-						view.$el.find('#piechartEmpLog').text(data.data);
-						view.$el.find('#piechartEmpLog').show();
-					} else {
-						view.$el.find('#piechartEmp').show();
-						chartEmp.draw(google.visualization.arrayToDataTable(data.data), options);
-					}
-				}).fail(function() {});
-		},
+		// 	$.get('/interviewer' + defaultView + 'Report/' + empId)
+		// 		.success(function(data) {
+		// 			view.$el.find('#piechartEmp').hide();
+		// 			view.$el.find('#piechartEmpLog').hide();
+		// 			if (typeof(data.data) == 'string') {
+		// 				view.$el.find('#piechartEmpLog').text(data.data);
+		// 				view.$el.find('#piechartEmpLog').show();
+		// 			} else {
+		// 				view.$el.find('#piechartEmp').show();
+		// 				chartEmp.draw(google.visualization.arrayToDataTable(data.data), options);
+		// 			}
+		// 		}).fail(function() {});
+		// },
 
-		selectTypeEvent: function(e) {
-			defaultView = e.currentTarget.id;
-			this.drawChart();
-			this.getReportByID();
-		},
+		// selectTypeEvent: function(e) {
+		// 	defaultView = e.currentTarget.id;
+		// 	this.drawChart();
+		// 	this.getReportByID();
+		// },
 
 		render: function() {
-			google.load('visualization', '1', {
-				'callback': this.drawChart,
-				'packages': ['corechart']
-			});
-			if (this.accesstype === '1') {
-				this.accesstype = true;
-			} else {
-				this.accesstype = false;
-			}
-			this.$el.html(dashboardTemplate({
-				interviewerList: this.interviewer,
-				type: this.accesstype
-			}));
+			// google.load('visualization', '1', {
+			// 	'callback': this.drawChart,
+			// 	'packages': ['corechart']
+			// });
+			// if (this.accesstype === '1') {
+			// 	this.accesstype = true;
+			// } else {
+			// 	this.accesstype = false;
+			// }
 
-			this.$el.find('input:radio[name=overallReport]').filter('[value=getStatusReport]').prop('checked', true);
-			this.$el.find('.interviewerList').chosen({
-				allow_single_deselect: true
-			});
-			this.$el.find('.minWindow').tooltip({
-				title: 'Provide control to minimize & maximize this panel window',
-				animation: true,
-				placement: 'left'
-			});
-			this.$el.find('.downloadChart').tooltip({
-				title: 'Download this chart',
-				animation: true,
-				placement: 'left'
-			});
-			this.$el.find('.printChart').tooltip({
-				title: 'Provide control to print the graph in this panel window',
-				animation: true,
-				placement: 'left'
-			});
+			this.$el.html(dashboardTemplate);
+			this.setChartPreferences();
+			// this.$el.html(dashboardTemplate({
+			// 	interviewerList: this.interviewer,
+			// 	type: this.accesstype
+			// }));
+
+			// this.$el.find('input:radio[name=overallReport]').filter('[value=getStatusReport]').prop('checked', true);
+			// this.$el.find('.interviewerList').chosen({
+			// 	allow_single_deselect: true
+			// });
+			// this.$el.find('.minWindow').tooltip({
+			// 	title: 'Provide control to minimize & maximize this panel window',
+			// 	animation: true,
+			// 	placement: 'left'
+			// });
+			// this.$el.find('.downloadChart').tooltip({
+			// 	title: 'Download this chart',
+			// 	animation: true,
+			// 	placement: 'left'
+			// });
+			// this.$el.find('.printChart').tooltip({
+			// 	title: 'Provide control to print the graph in this panel window',
+			// 	animation: true,
+			// 	placement: 'left'
+			// });
 
 			var whatsNewModalView = new WhatsNewModalView();
 			$('.modal-container').html(whatsNewModalView.render().el);
 			$('.modal-container .modal').modal('show');
 
-			this.$('.chosen-container-single').css('width', '55%');
+			// this.$('.chosen-container-single').css('width', '55%');
 
 			$('.viewTitle').html('<h1>Dashboard</h1>');
 
 			return this;
 		},
 
-		drawChart: function() {
-			var chart = new google.visualization.PieChart(document.getElementById('overallChartReport'));
-			var options = {
-				title: 'Interviews ' + defaultView,
-				is3D: true,
-				backgroundColor: '#EEE',
-				stroke: '#FAFAFA'
-			};
-			$.get('/report' + defaultView)
-				.success(function(data) {
-					chart.draw(google.visualization.arrayToDataTable(data.data), options);
-				}).fail(function() {});
+		setChartPreferences: function() {
+			this.renderPieChart('overallChartReport');
+			this.renderPieChart('piechartEmpLog');
+		},
+
+		renderPieChart: function(id) {
+			this.$el.find('#' + id).highcharts({
+				chart: {
+					plotBackgroundColor: null,
+					plotBorderWidth: null,
+					plotShadow: false
+				},
+				title: {
+					text: 'Browser market shares at a specific website, 2010'
+				},
+				tooltip: {
+					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+				},
+				plotOptions: {
+					pie: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+						dataLabels: {
+							enabled: true,
+							color: '#000000',
+							connectorColor: '#000000',
+							format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+						},
+						showInLegend: true
+					}
+				},
+				series: [{
+					type: 'pie',
+					name: 'Browser share',
+					data: [
+						['Firefox', 45.0],
+						['IE', 26.8], {
+							name: 'Chrome',
+							y: 12.8,
+							sliced: true,
+							selected: true
+						},
+						['Safari', 8.5],
+						['Opera', 6.2],
+						['Others', 0.7]
+					]
+				}]
+			});
 		}
+
+		// drawChart: function() {
+		// 	var chart = new google.visualization.PieChart(document.getElementById('overallChartReport'));
+		// 	var options = {
+		// 		title: 'Interviews ' + defaultView,
+		// 		is3D: true,
+		// 		backgroundColor: '#EEE',
+		// 		stroke: '#FAFAFA'
+		// 	};
+		// 	$.get('/report' + defaultView)
+		// 		.success(function(data) {
+		// 			chart.draw(google.visualization.arrayToDataTable(data.data), options);
+		// 		}).fail(function() {});
+		// }
 	});
 
 	return DashboardView;

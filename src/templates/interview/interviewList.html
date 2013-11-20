@@ -2,7 +2,14 @@
     <table id='dataTable' class='table table-bordered table-condensed table-hover table-striped interviews'>
         <thead>
             <tr>
-                <th class='center' rowspan='2'><input type='checkbox' class='selectedRow' style='left:-4px; position:relative;'></th>
+                <td colspan='7'>
+                    <button class="btn btn-primary refresh"><i class="fa fa-refresh"></i></button>
+                    <button class="btn btn-danger delAtOnces" style='visibility:hidden;'><i class='fa fa-trash-o'></i></button>                    
+                    <button class="btn btn-primary pull-right print"><i class="fa fa-print"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <th class='center' rowspan='2'><input type='checkbox' class='selectedRowHeader' style='left:-4px; position:relative;'></th>
                 <th rowspan='2'>Candidate Name</th>
                 <th colspan='2' style='text-align:center;'>Interviewers</th>
                 <th rowspan='2'>Recruiter</th>

@@ -16,6 +16,7 @@ define(function(require) {
     require('css!vendors/jquery/plugins/datatables/css/smoothness/jquery-ui-1.8.4.custom.css');
     require('jqueryCookie');
     require('dataTables');
+    require('bsTooltip');
 
     return Backbone.View.extend({
 
@@ -30,7 +31,9 @@ define(function(require) {
             'click .editInterview': 'editInterview',
             'click .delInterview': 'deleteInterview',
             'mouseover .interviews tbody tr': 'showRowElements',
-            'mouseleave .interviews tbody tr': 'hideRowElements'
+            'mouseleave .interviews tbody tr': 'hideRowElements',
+            'click .selectedRow': 'selectedRow',
+            'click .selectedRowHeader': 'selectedRowHeader'
         },
 
         fetchInterviewList: function() {
@@ -39,6 +42,18 @@ define(function(require) {
 
         domElementsSetup: function() {
             $('.viewTitle').html('<h1>Interviews List</h1>');
+
+            $(".refresh").tooltip({
+                title: 'Refresh',
+                animation: true,
+                placement: 'top'
+            });
+
+            this.$el.find(".delAtOnces").tooltip({
+                title: 'Remove one or multiple interviews',
+                animation: true,
+                placement: 'top'
+            });
         },
 
         render: function() {
@@ -105,6 +120,47 @@ define(function(require) {
 
         hideRowElements: function(e) {
             this.$(e.target).closest('tr').find('.delInterview').css('visibility', 'hidden');
+        },
+
+        selectedRow: function(e) {
+            e.stopPropagation();
+            var selectedRow = e.target.parentNode.parentNode;
+            var view = this;
+            this.$($(e.target).closest('input[type="checkbox"]')).prop('checked', function() {
+                if (this.checked) {
+                    view.$(selectedRow).addClass('warning');
+                } else {
+                    view.$(selectedRow).removeClass('warning');
+                    view.$('.selectedRowHeader').prop("checked", false);
+                }
+            });
+            if (this.$el.find('.selectedRow').length === this.$el.find('.selectedRow:checked').length) {
+                view.$('.selectedRowHeader').prop("checked", true);
+            }
+            if (this.$el.find('.selectedRow:checked').length > 1) {
+                this.$el.find('.delAtOnces').css('visibility', 'visible');
+            } else {
+                this.$el.find('.delAtOnces').css('visibility', 'hidden');
+            }
+        },
+
+        selectedRowHeader: function(e) {
+            e.stopPropagation();
+            var view = this;
+
+            this.$($(e.target).closest('input[type="checkbox"]')).prop('checked', function() {
+                if (this.checked) {
+                    view.$('.interviews tbody tr').addClass('warning');
+                    view.$(this).prop("checked", true);
+                    view.$('.selectedRow').prop("checked", true);
+                    view.$el.find('.delAtOnces').css('visibility', 'visible');
+                } else {
+                    view.$('.interviews tbody tr').removeClass('warning');
+                    view.$(this).prop("checked", false);
+                    view.$('.selectedRow').prop("checked", false);
+                    view.$el.find('.delAtOnces').css('visibility', 'hidden');
+                }
+            });
         }
     });
 });

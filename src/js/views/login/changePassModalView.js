@@ -39,7 +39,7 @@ define(function(require) {
                 strengthMeterClass: 'strength_meter',
                 strengthButtonClass: 'button_strength'
             });
-            this.$el.find('.showPassToggle').prop('disabled', true)
+            this.$el.find('.showPassToggle').prop('disabled', true);
 
             return this;
         },
@@ -69,7 +69,7 @@ define(function(require) {
                 temp = '',
                 plength = 12;
             for (var i = 0; i < plength; i++) {
-                temp += keylist.charAt(Math.floor(Math.random() * keylist.length))
+                temp += keylist.charAt(Math.floor(Math.random() * keylist.length));
             }
             this.$el.find('.strength').val(temp).change();
         }
