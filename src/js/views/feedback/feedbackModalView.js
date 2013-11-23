@@ -12,7 +12,7 @@ define(function(require) {
 
         render: function() {
             this.$el.html(feedbackModalTemplate());
-            // this.$el.find('.modal-dialog').css('width','1000px');
+            this.$el.find('.modal-dialog').css('width','1000px');
             return this;
         }
     });
