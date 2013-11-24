@@ -150,11 +150,23 @@ define(function(require) {
 		},
 
 		setChartPreferences: function() {
-			this.renderPieChart('overallChartReport');
-			this.renderPieChart('piechartEmpLog');
+			var view = this;
+			$.get('/reportStatus')
+			.success(function(seriesData) {
+				view.renderPieChart('overallChartReport', 'Overall candidate status', seriesData);
+			})
+			.fail(function() {});
+
+			
+			// this.renderPieChart('piechartEmpLog', 'Browser market shares at a specific website, 2010', 'seriesData');
 		},
 
-		renderPieChart: function(id) {
+		/***
+		 * @params: id, titleText, seriesData
+		 *	
+		*/
+		renderPieChart: function(id, titleText, seriesData) {
+			console.log(seriesData);
 			this.$el.find('#' + id).highcharts({
 				chart: {
 					plotBackgroundColor: null,
@@ -162,7 +174,7 @@ define(function(require) {
 					plotShadow: false
 				},
 				title: {
-					text: 'Browser market shares at a specific website, 2010'
+					text: titleText
 				},
 				tooltip: {
 					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -183,18 +195,7 @@ define(function(require) {
 				series: [{
 					type: 'pie',
 					name: 'Browser share',
-					data: [
-						['Firefox', 45.0],
-						['IE', 26.8], {
-							name: 'Chrome',
-							y: 12.8,
-							sliced: true,
-							selected: true
-						},
-						['Safari', 8.5],
-						['Opera', 6.2],
-						['Others', 0.7]
-					]
+					data: seriesData
 				}]
 			});
 		}

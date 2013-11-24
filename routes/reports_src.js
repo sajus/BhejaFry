@@ -5,36 +5,22 @@ var sequelize = require('../dbconfig').sequelize,
 	GET THE INTERVIEW STATUS REPORT
 */
 exports.getInterviewStatusReport = function(req, res) {
-	var status_1 = 0
-	status_2 = 0
-	status_3 = 0
-	status_4 = 0
-	data = {};
-	var query = "SELECT COUNT(status_id) FROM interviewresponse_tbl Where deleteFlag=0 AND status_id=";
-	sequelize.query(query + "1").success(function(data) {
-		status_1 = data[0]['COUNT(status_id)']
-		sequelize.query(query + "2").success(function(data) {
-			status_2 = data[0]['COUNT(status_id)'];
-			sequelize.query(query + "3").success(function(data) {
-				status_3 = data[0]['COUNT(status_id)'];
-				sequelize.query(query + "4").success(function(data) {
-					status_4 = data[0]['COUNT(status_id)'];
-					data = {
-						data: [
-							['Interviews Status', 'Number'],
-							['Rejected', status_1],
-							['Call for F2F round', status_2],
-							['OnHold', status_3],
-							['Selected', status_4]
-						]
-					};
-					res.format({
-						json: function() {
-							res.send(data);
-						}
-					});
-				});
-			});
+	var reportQuery = "SELECT COUNT(a.status_id) as statusCount, b.status FROM interviewresponse_tbl a, interviewstatus_tbl b WHERE a.status_id = b.id GROUP BY b.status";
+	sequelize.query(reportQuery).success(function(tblRes) {
+		var srcRes = [];
+		
+		_.each(tblRes, function(data) {
+			var setStatus = [];
+			setStatus.push(data.status);
+			setStatus.push(data.statusCount);
+			srcRes.push(setStatus);
+			setStatus = [];
+		});
+
+		res.format({
+			json: function() {
+				res.send(srcRes);
+			}
 		});
 	});
 };

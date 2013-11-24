@@ -53,8 +53,6 @@ app.del('/interviewList/:id', interviewList.delInterviewListById);
 app.get('/mode', mode.getMode);
 app.get('/rounds', rounds.getRounds);
 app.get('/status', status.getStatus);
-app.get('/reportStatus', reports.getInterviewStatusReport);
-app.get('/reportMode', reports.getInterviewModeReport);
 app.get('/interviewerStatusReport/:id', reports.getInterviewerStatusReport);
 app.get('/interviewerModeReport/:id', reports.getInterviewerModeReport);
 
@@ -71,6 +69,9 @@ app.post('/interviewer', interviewer.postInterviewer);
 app.get('/interviewer/:id', interviewer.getInterviewerById);
 app.put('/interviewer/:id', interviewer.putInterviewerById);
 app.del('/interviewer/:id', interviewer.delInterviewerById);
+
+app.get('/reportStatus', reports.getInterviewStatusReport);
+app.get('/reportMode', reports.getInterviewModeReport);
 
 http.createServer(app).listen(app.get('port'), function() {
     console.log("\n\n\tNode (Express) server listening on port " + app.get('port'))
