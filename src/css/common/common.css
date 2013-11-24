@@ -8,6 +8,10 @@ html, body {
     float: right;
 }
 
+.toolbar .btn {
+	margin-left: 5px;
+}
+
 .checkGroup,
 .inputGroup{ display: none;}
 .fuelux .collapse.in{min-height: 145px;}

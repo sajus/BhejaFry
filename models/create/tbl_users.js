@@ -45,25 +45,16 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false
 		},
 		block: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-			validate: {
-                isNumeric: true
-            }
+			type: DataTypes.BOOLEAN,
+			allowNull: false
 		},
 		reset: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-			validate: {
-                isNumeric: true
-            }
+			type: DataTypes.BOOLEAN,
+			allowNull: false
 		},
 		appRelease: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-			validate: {
-				isNumeric: true
-			}
+			type: DataTypes.BOOLEAN,
+			allowNull: false
 		}
 	}, {
 		tableName: 'users_tbl'

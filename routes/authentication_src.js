@@ -55,8 +55,17 @@ exports.putResetAuthentication = function(req, res) {
 };
 
 exports.putRelease = function(req, res) {
-	sequelize.query("UPDATE users_tbl SET appRelease = 1 WHERE email='" + req.body.email + "'").success(function() {
+	sequelize.query("UPDATE users_tbl SET appRelease = " + req.body.turnOff + " WHERE email='" + req.body.email + "'").success(function() {
 		res.send(req.params);
+	}).error(function(error) {
+		console.log("Query Error: " + error);
+	});
+};
+
+exports.getRelease = function(req, res) {
+	sequelize.query("SELECT appRelease FROM users_tbl WHERE email ='" + req.query.email + "'").success(function(rows) {
+		console.log(rows[0].appRelease);
+		res.send(rows[0].appRelease);
 	}).error(function(error) {
 		console.log("Query Error: " + error);
 	});

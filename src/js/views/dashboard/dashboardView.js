@@ -153,11 +153,11 @@ define(function(require) {
 			var view = this;
 			$.get('/reportStatus')
 			.success(function(seriesData) {
-				view.renderPieChart('overallChartReport', 'Overall candidate status', seriesData);
+				view.renderPieChart('overallChartReport', 'Overall candidate\'s status as per interview status', seriesData);
 			})
 			.fail(function() {});
 
-			
+
 			// this.renderPieChart('piechartEmpLog', 'Browser market shares at a specific website, 2010', 'seriesData');
 		},
 
