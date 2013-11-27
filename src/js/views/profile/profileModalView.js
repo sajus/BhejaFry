@@ -2,7 +2,6 @@ define(function(require) {
     "use strict";
 
     var Backbone = require('backbone'),
-        Events = require('events'),
         profileModalTemplate = require('template!templates/profile/profileModal');
 
     require('bsModal');

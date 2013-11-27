@@ -1,9 +1,7 @@
 define(function(require) {
     'use strict';
 
-    var $ = require('jquery'),
-        _ = require('underscore'),
-        Backbone = require('backbone'),
+    var Backbone = require('backbone'),
         Events = require('events'),
         BaseView = require('views/BaseView'),
         interviewersListDetailTemplate = require('template!templates/manage/interviewers/interviewersListDetail');
@@ -60,7 +58,7 @@ define(function(require) {
         postData: function() {
             var view = this;
             view.model.save(view.model.toJSON(), {
-                success: function(model, response) {
+                success: function() {
                     Events.trigger("alert:success", [{
                         message: "Record successfully."
                     }]);
@@ -71,7 +69,7 @@ define(function(require) {
                         }
                     });
                 },
-                error: function(model, response) {
+                error: function() {
                     Events.trigger("alert:error", [{
                         message: "Some service error occured during data Saving."
                     }]);

@@ -5,9 +5,9 @@ module.exports = function(grunt) {
         jshint: {
             all: ['src/js/**/*.js'],
             options: {
-                ignores: ['src/js/core.js', 'src/js/main.js', 'src/js/vendors/**/*.js', 'src/js/utilities/**/*.js'],
+                ignores: ['src/js/main.js', 'src/js/vendors/**/*.js'],
                 "strict": true,
-				"curly": true,
+                "curly": true,
                 "eqeqeq": true,
                 "immed": true,
                 "latedef": true,
@@ -48,9 +48,9 @@ module.exports = function(grunt) {
                 }
             }
         },
-		csslint: {
+        csslint: {
             strict: {
-				src: [
+                src: [
                     "src/css/**/*.css"
                 ],
                 options: {
@@ -89,15 +89,15 @@ module.exports = function(grunt) {
                     "unqualified-attributes": false,
                     "vendor-prefix": true,
                     "zero-units": false
-                }                
+                }
             }
         },
     });
-	
-	// Load Task
+
+    // Load Task
     grunt.loadNpmTasks("grunt-contrib-jshint");
-	grunt.loadNpmTasks("grunt-contrib-csslint");
-	
-	// Load Default Task.
+    grunt.loadNpmTasks("grunt-contrib-csslint");
+
+    // Load Default Task.
     grunt.registerTask("default", ["jshint", "csslint"]);
 };

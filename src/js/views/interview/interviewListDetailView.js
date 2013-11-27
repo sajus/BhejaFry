@@ -115,7 +115,7 @@ define(function(require) {
             this.$el.find('#remarks').val('');
         },
 
-        showPicker: function(e) {
+        showPicker: function() {
             this.$el.find('.date').datepicker({
                 "autoclose": true
             }).data('datepicker');
@@ -194,7 +194,7 @@ define(function(require) {
             this.model.set('interviewDate', this.$('#interviewDate').val());
 
             this.model.save(view.model.toJSON(), {
-                success: function(model, response) {
+                success: function() {
                     Events.trigger("alert:success", [{
                         message: "Record successfully."
                     }]);
@@ -205,7 +205,7 @@ define(function(require) {
                     //     }
                     // });
                 },
-                error: function(model, response) {
+                error: function() {
                     Events.trigger("alert:error", [{
                         message: "Some service error occured during data Saving."
                     }]);

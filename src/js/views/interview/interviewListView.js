@@ -2,14 +2,11 @@ define(function(require) {
     'use strict';
 
     var $ = require('jquery'),
-        _ = require('underscore'),
         Backbone = require('backbone'),
         interviewListTemplate = require('template!templates/interview/interviewList'),
-        DeleteInterviewModel = require('models/interview/interviewListDetailModel'),
         InterviewListCollection = require('collections/interview/interviewListCollection'),
         ConfirmDelModal = require('views/interview/listDelConfirmModal'),
-        Events = require('events'),
-        Core = require('core');
+        Events = require('events');
 
     require('css!vendors/jquery/plugins/datatables/css/jquery.dataTables.css');
     require('css!vendors/jquery/plugins/datatables/css/dataTables_themeroller.css');

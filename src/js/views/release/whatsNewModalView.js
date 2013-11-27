@@ -18,7 +18,7 @@ define(function(require) {
 
         turnOffCheck: function() {
             return $.ajax({
-                url: "\appRelease?email=" + $.cookie('email')
+                url: "/appRelease?email=" + $.cookie('email')
             });
         },
 
@@ -27,7 +27,7 @@ define(function(require) {
             this.$el.html(whatsNewModalTemplate());
             this.$el.find('.modal-dialog').css('width', '1000px');
             this.turnOffCheck().done(function(data) {
-                if(data.appRelease) {
+                if (data.appRelease) {
                     console.log('T');
                     view.$el.find('#turnItOff').prop("checked", true);
                 } else {
@@ -39,11 +39,12 @@ define(function(require) {
         },
 
         turnItOff: function(e) {
-            var view = this;
+            var view = this,
+                email = null;
             this.$($(e.target).closest('input[type="checkbox"]')).prop('checked', function() {
                 if (this.checked) {
                     view.$(this).prop("checked", true);
-                    var email = _.object([
+                    email = _.object([
                         'email',
                         'turnOff'
                     ], [
@@ -51,7 +52,7 @@ define(function(require) {
                         true
                     ]);
                     $.ajax({
-                        url: "\appRelease",
+                        url: "/appRelease",
                         type: "put",
                         data: email,
                         dataType: 'json'
@@ -60,7 +61,7 @@ define(function(require) {
                     });
                 } else {
                     view.$(this).prop("checked", false);
-                    var email = _.object([
+                    email = _.object([
                         'email',
                         'turnOff'
                     ], [
@@ -68,7 +69,7 @@ define(function(require) {
                         false
                     ]);
                     $.ajax({
-                        url: "\appRelease",
+                        url: "/appRelease",
                         type: "put",
                         data: email,
                         dataType: 'json'

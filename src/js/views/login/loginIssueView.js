@@ -1,9 +1,7 @@
 define(function(require) {
     'use strict';
 
-    var $ = require('jquery'),
-        _ = require('underscore'),
-        Backbone = require('backbone'),
+    var Backbone = require('backbone'),
         Events = require('events'),
         BaseView = require('views/BaseView'),
         loginIssuePageTemplate = require('template!templates/login/loginIssue'),

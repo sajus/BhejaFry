@@ -23,26 +23,24 @@ define(function(require) {
         },
 
         confirmDelete: function() {
-            console.log('hide');
-            this.$el.modal('hide');
-            // var deleteInterviewModel = new DeleteInterviewModel();
+            var deleteInterviewModel = new DeleteInterviewModel();
 
-            // deleteInterviewModel.set({
-            //     id: this.delUserId
-            // });
+            deleteInterviewModel.set({
+                id: this.delUserId
+            });
 
-            // deleteInterviewModel.destroy({
-            //     success: function() {
-            //         Events.trigger("alert:success", [{
-            //             message: "Record deleted successfully"
-            //         }]);
-            //     },
-            //     error: function() {
-            //         Events.trigger("alert:error", [{
-            //             message: "Some error got triggered white deleting record"
-            //         }]);
-            //     }
-            // });
+            deleteInterviewModel.destroy({
+                success: function() {
+                    Events.trigger("alert:success", [{
+                        message: "Record deleted successfully"
+                    }]);
+                },
+                error: function() {
+                    Events.trigger("alert:error", [{
+                        message: "Some error got triggered white deleting record"
+                    }]);
+                }
+            });
         }
     });
 });

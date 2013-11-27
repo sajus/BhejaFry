@@ -2,7 +2,6 @@ define(function(require) {
     'use strict';
 
     var $ = require('jquery'),
-        _ = require('underscore'),
         Backbone = require('backbone'),
         Events = require('events');
 
@@ -27,7 +26,7 @@ define(function(require) {
             if ($(".help-inline").text().length !== 0) {
                 $(".help-inline").text("");
             }
-            this.$('[data-name=option]').slice(2).each(function(index) {
+            this.$('[data-name=option]').slice(2).each(function() {
                 var targetParent$ = $(this).closest('.control-group');
                 if ($.trim($(this).val()) === '') {
                     targetParent$.remove();
@@ -61,7 +60,7 @@ define(function(require) {
         redundantError: function(errorFullText, error) {
             var errorList = errorFullText.split(", "),
                 returnValue = false;
-            errorList.forEach(function(value, index) {
+            errorList.forEach(function(value) {
                 if (value.toLowerCase() === error.toLowerCase()) {
                     returnValue = true;
                 }

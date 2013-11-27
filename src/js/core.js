@@ -5,7 +5,6 @@ define(function(require) {
         _ = require('underscore'),
         Backbone = require('backbone'),
         Globals = require('globals'),
-        Events = require('events'),
         LoginView = require('views/login/loginView'),
         LoginModel = require('models/login/loginModel'),
         globals = {},
@@ -65,7 +64,6 @@ define(function(require) {
                 skipAuthCheck = true;
             }
         }
-        var accesslevel = $.cookie('accesslevel');
         if (!$.cookie('isAuthenticated') && !skipAuthCheck) {
             var loginModel = new LoginModel();
             view = new LoginView({

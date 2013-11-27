@@ -2,7 +2,6 @@ define(function(require) {
     "use strict";
 
     var Backbone = require('backbone'),
-        Events = require('events'),
         BaseView = require('views/BaseView'),
         ChangePassModel = require('models/login/changePassModel'),
         changePassTemplate = require('template!templates/login/changePassModal');
@@ -49,7 +48,7 @@ define(function(require) {
                 this.$el.find('.showPassToggle').prop('disabled', true);
             } else {
                 this.$el.find('.showPassToggle').prop('disabled', false);
-            }            
+            }
         },
 
         showPassToggle: function(e) {

@@ -2,7 +2,6 @@ define(function(require) {
     'use strict';
 
     var $ = require('jquery'),
-        _ = require('underscore'),
         Backbone = require('backbone'),
         Core = require('core'),
         Events = require('events'),
@@ -21,7 +20,7 @@ define(function(require) {
             this.navigate(navigationData.path, navigationData.options);
         },
 
-        _navigateAdmin: function(options) {
+        _navigateAdmin: function() {
             Core.create({}, 'AppView', AppView, {
                 skipAuthCheck: true
             });

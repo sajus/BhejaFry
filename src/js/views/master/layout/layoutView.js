@@ -2,10 +2,8 @@ define(function(require) {
     'use strict';
 
     var $ = require('jquery'),
-        _ = require('underscore'),
         Backbone = require('backbone'),
         Core = require('core'),
-        Events = require('events'),
         layoutTemplate = require('template!templates/master/layout/layout'),
         ProfileModalView = require('views/profile/profileModalView');
 

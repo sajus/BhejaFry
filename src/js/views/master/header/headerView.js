@@ -2,7 +2,6 @@ define(function(require) {
     'use strict';
 
     var Backbone = require('backbone'),
-        Events = require('events'),
         headerMenuTemplate = require('template!templates/master/header/header'),
         WhatsNewModalView = require('views/release/whatsNewModalView'),
         ChangePassModalView = require('views/login/changePassModalView'),

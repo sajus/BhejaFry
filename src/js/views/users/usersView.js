@@ -80,7 +80,6 @@ define(function(require) {
         usersData: function(Userlist) {
             var userlistObj = {};
             var userslistObj = [];
-            var view = this;
             var operationHTML = "";
 
             _.each(Userlist, function(userlist) {

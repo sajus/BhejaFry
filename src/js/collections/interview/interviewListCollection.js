@@ -1,4 +1,4 @@
-define(['backbone', 'models/dashboard/dashboardModel'], function(Backbone, dashboardModel) {
+define(['backbone'], function(Backbone) {
 	'use strict';
 
 	return Backbone.Collection.extend({
