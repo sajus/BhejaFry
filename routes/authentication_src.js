@@ -64,7 +64,6 @@ exports.putRelease = function(req, res) {
 
 exports.getRelease = function(req, res) {
 	sequelize.query("SELECT appRelease FROM users_tbl WHERE email ='" + req.query.email + "'").success(function(rows) {
-		console.log(rows[0].appRelease);
 		res.send(rows[0].appRelease);
 	}).error(function(error) {
 		console.log("Query Error: " + error);

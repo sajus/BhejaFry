@@ -27,7 +27,6 @@ define(function(require) {
             this.$el.html(whatsNewModalTemplate());
             this.$el.find('.modal-dialog').css('width', '1000px');
             this.turnOffCheck().done(function(data) {
-                console.log(data);
                 if(data.appRelease) {
                     console.log('T');
                     view.$el.find('#turnItOff').prop("checked", true);

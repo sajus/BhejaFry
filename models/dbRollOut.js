@@ -205,8 +205,8 @@
     sequelize.sync({force:true}).on('success', function() {
         tbl_users
         .bulkCreate([
-            { empid:7601, email:'sajus@cybage.com', firstname: 'Saju', lastname:'Sasidharan', password:'sajuspass', accesstype: 1, block: 0, reset: 0, appRelease: 0 },
-            { empid:10748, email:'ashwinh@cybage.com', firstname: 'Ashwin', lastname:'Hegde', password:'ashwinpass', accesstype: 0, block: 0, reset: 0, appRelease: 0 }
+            { empid:7601, email:'sajus@cybage.com', firstname: 'Saju', lastname:'Sasidharan', password:'sajuspass', accesstype: 1, block: false, reset: false, appRelease: false },
+            { empid:10748, email:'ashwinh@cybage.com', firstname: 'Ashwin', lastname:'Hegde', password:'ashwinpass', accesstype: 0, block: false, reset: false, appRelease: false }
         ])
         .on('success', function() {
             console.log("Users table is ready");
