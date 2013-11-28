@@ -39,7 +39,7 @@ app.configure(function() {
 app.post('/authenticate', authentication.postAuthentication);
 app.put('/authReset', authentication.putResetAuthentication);
 app.put('/appRelease', authentication.putRelease);
-app.get('/appRelease', authentication.getRelease);
+app.post('/appRelease', authentication.postRelease);
 app.put('/authUnlock', authentication.putAuthUnlock);
 app.get('/logout', authentication.getDestroyAuthentication);
 

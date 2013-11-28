@@ -22,7 +22,7 @@ var sequelize = new Sequelize(db.name, db.host, db.password, {
 	/**
 	 * Disable logging; default: console.log
 	 ***/
-	logging: false,
+	logging: console.log,
 
 	/**
 	 * Specify options, which are used when sequelize.define is called.

@@ -34,6 +34,7 @@ requirejs.config({
         'bsCollapse': 'vendors/bootstrap/js/collapse',
         'bsModal': 'vendors/bootstrap/js/modal',
         'moment': 'vendors/moment/moment',
+        'keygen': 'vendors/others/keygen.min',
 
         /*** List of custom utility files. ***/
         'template': 'utilities/handlebars-template-mapper',

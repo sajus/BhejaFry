@@ -17,8 +17,16 @@ define(function(require) {
         },
 
         turnOffCheck: function() {
+            var email = _.object([
+                'email'
+            ], [
+                $.cookie('email')
+            ]);
             return $.ajax({
-                url: "/appRelease?email=" + $.cookie('email')
+                url: "/appRelease",
+                type: "post",
+                data: email,
+                dataType: 'json'
             });
         },
 

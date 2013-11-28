@@ -9,6 +9,7 @@ define(function(require) {
     require('bsModal');
     require('modelBinder');
     require('strength');
+    require('keygen');
 
     return BaseView.extend({
 
@@ -44,7 +45,7 @@ define(function(require) {
         },
 
         enableShowPass: function() {
-            if( this.$el.find('#newPassword').val().length === 0 ) {
+            if (this.$el.find('#newPassword').val().length === 0) {
                 this.$el.find('.showPassToggle').prop('disabled', true);
             } else {
                 this.$el.find('.showPassToggle').prop('disabled', false);
@@ -64,13 +65,7 @@ define(function(require) {
         },
 
         keygenPass: function() {
-            var keylist = "abcdefghijklmnopqrstuvwxyz123456789",
-                temp = '',
-                plength = 12;
-            for (var i = 0; i < plength; i++) {
-                temp += keylist.charAt(Math.floor(Math.random() * keylist.length));
-            }
-            this.$el.find('.strength').val(temp).change();
+            this.$el.find('.strength').val(generatePassword(12, false)).change();
         }
     });
 });

@@ -42,27 +42,45 @@ define(function(require) {
 			this.$el.html(dashboardTemplate);
 			this.setChartPreferences();
 
-			var whatsNewModalView = new WhatsNewModalView();
-			$('.modal-container').html(whatsNewModalView.render().el);
-			$('.modal-container .modal').modal('show');
+			this.turnOffCheck().done(function(data) {
+				if (!data.appRelease) {
+					var whatsNewModalView = new WhatsNewModalView();
+					$('.modal-container').html(whatsNewModalView.render().el);
+					$('.modal-container .modal').modal('show');
+				}
+			});
 
 			$('.viewTitle').html('<h1>Dashboard</h1>');
 
 			return this;
 		},
 
+		turnOffCheck: function() {
+			var email = _.object([
+				'email'
+			], [
+				$.cookie('email')
+			]);
+			return $.ajax({
+				url: "/appRelease",
+				type: "post",
+				data: email,
+				dataType: 'json'
+			});
+		},
+
 		setChartPreferences: function() {
 			var view = this;
 			$.get('/reportStatus')
-			.success(function(seriesData) {
-				view.renderPieChart('overallChartReport', 'Overall candidate\'s status as per interview status', seriesData);
-			})
-			.fail(function() {});
+				.success(function(seriesData) {
+					view.renderPieChart('overallChartReport', 'Overall candidate\'s status as per interview status', seriesData);
+				})
+				.fail(function() {});
 		},
 
 		/***
 		 * @params: id, titleText, seriesData
-		*/
+		 */
 		renderPieChart: function(id, titleText, seriesData) {
 			this.$el.find('#' + id).highcharts({
 				chart: {

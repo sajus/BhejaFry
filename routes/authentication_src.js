@@ -5,7 +5,7 @@ exports.postAuthentication = function(req, res) {
 	var email = req.body.email,
 		password = req.body.password;
 
-	sequelize.query("SELECT empid, email, firstname, lastname, accesstype FROM users_tbl WHERE email='" + email + "' AND password='" + password + "' LIMIT 1 ").success(function(rows) {
+	sequelize.query("SELECT empid, email, firstname, lastname, accesstype, appRelease FROM users_tbl WHERE email='" + email + "' AND password='" + password + "' LIMIT 1 ").success(function(rows) {
 		var authentication = null;
 
 		if (rows.length === 0) {
@@ -21,13 +21,15 @@ exports.postAuthentication = function(req, res) {
 				"email",
 				"firstname",
 				"lastname",
-				"accesstype"
+				"accesstype",
+				"appRelease"
 			], [
 				true,
 				rows[0].email,
 				rows[0].firstname,
 				rows[0].lastname,
-				rows[0].accesstype
+				rows[0].accesstype,
+				rows[0].appRelease
 			]);
 		}
 
@@ -62,9 +64,13 @@ exports.putRelease = function(req, res) {
 	});
 };
 
-exports.getRelease = function(req, res) {
-	sequelize.query("SELECT appRelease FROM users_tbl WHERE email ='" + req.query.email + "'").success(function(rows) {
-		res.send(rows[0].appRelease);
+exports.postRelease = function(req, res) {
+	sequelize.query("SELECT appRelease FROM users_tbl WHERE email ='" + req.body.email + "' LIMIT 1 ").success(function(rows) {
+		res.format({
+			json: function() {
+				res.send(rows[0]);
+			}
+		});
 	}).error(function(error) {
 		console.log("Query Error: " + error);
 	});
