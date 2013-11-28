@@ -1,5 +1,5 @@
-var sequelize = require('../config/dbconfig').sequelize,
-	_ = require('../config/libresources').underscore;
+var sequelize = require('../config/dbConfig').sequelize,
+	_ = require('../config/npmResources').underscore;
 
 /*
 	GET THE LIST OF ALL INTERVIEWER

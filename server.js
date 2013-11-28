@@ -1,5 +1,5 @@
 /**
- *
+ * This file will start you server
  ***/
 
 var express = require('express'),
@@ -20,8 +20,8 @@ var routes = require('./routes'),
     reports = require('./routes/reports_src'),
     users = require('./routes/users_src');
 
-var sequelize = require('./config/dbconfig').sequelize;
-config = require("./config/dbresources");
+var sequelize = require('./config/dbConfig').sequelize;
+config = require("./config/dbResources");
 db = config.database;
 
 app.configure(function() {

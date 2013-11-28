@@ -1,5 +1,5 @@
-var sequelize = require('../config/dbconfig').sequelize,
-	_ = require('../config/libresources').underscore;
+var sequelize = require('../config/dbConfig').sequelize,
+	_ = require('../config/npmResources').underscore;
 
 exports.getMode = function(req, res) {
 	sequelize.query("SELECT * FROM  interviewmode_tbl").success(function(rows) {

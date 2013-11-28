@@ -2,7 +2,7 @@
 
     "use strict";
 
-    var sequelize = require('../config/dbconfig').sequelize,
+    var sequelize = require('../config/dbConfig').sequelize,
         tbl_interviewer = sequelize.import(__dirname + '/create/tbl_interviewer'),
         tbl_interviewmode = sequelize.import(__dirname + '/create/tbl_interviewmode'),
         tbl_interviewstatus = sequelize.import(__dirname + '/create/tbl_interviewstatus'),

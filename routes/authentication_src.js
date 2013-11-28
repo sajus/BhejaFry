@@ -1,5 +1,5 @@
-var sequelize = require('../config/dbconfig').sequelize,
-	_ = require('../config/libresources').underscore;
+var sequelize = require('../config/dbConfig').sequelize,
+	_ = require('../config/npmResources').underscore;
 
 exports.postAuthentication = function(req, res) {
 	var email = req.body.email,

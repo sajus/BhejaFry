@@ -1,3 +1,7 @@
+/**
+ * Database connection configuration file
+ ***/
+
 module.exports = {
 	database: {
 		name: "interview_db",

@@ -1,6 +1,10 @@
+/**
+ * Sequelize-ORM configuration file
+ ***/
+
 var Sequelize = require('sequelize'),
 	mysql = require('mysql'),
-	config = require("./dbresources"),
+	config = require("./dbResources"),
 	db = config.database;
 
 var sequelize = new Sequelize(db.name, db.host, db.password, {

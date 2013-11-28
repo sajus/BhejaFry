@@ -34,7 +34,8 @@
         "grunt-contrib-csslint": "~0.1.2",
         "grunt-contrib-less": "~0.7.0",
         "grunt-contrib-watch": "~0.5.3",
-        "grunt-recess": "~0.3.3"
+        "grunt-recess": "~0.3.3",
+        "password-generator": "~0.2.1"
     },
     "license": [{
         "type": "MIT",
