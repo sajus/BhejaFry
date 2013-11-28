@@ -64,7 +64,6 @@ define(function(require) {
 		 * @params: id, titleText, seriesData
 		*/
 		renderPieChart: function(id, titleText, seriesData) {
-			console.log(seriesData);
 			this.$el.find('#' + id).highcharts({
 				chart: {
 					plotBackgroundColor: null,

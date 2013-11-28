@@ -1,6 +1,6 @@
-var sequelize = require('../dbconfig').sequelize
-moment = require('moment'),
-	_ = require('../libresources').underscore;
+var sequelize = require('../config/dbconfig').sequelize
+moment = require('../config/libresources').moment,
+	_ = require('../config/libresources').underscore;
 
 
 exports.getInterviewList = function(req, res) {

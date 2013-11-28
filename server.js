@@ -1,3 +1,7 @@
+/**
+ *
+ ***/
+
 var express = require('express'),
     http = require('http'),
     app = express(),
@@ -16,8 +20,8 @@ var routes = require('./routes'),
     reports = require('./routes/reports_src'),
     users = require('./routes/users_src');
 
-var sequelize = require('./dbconfig').sequelize;
-config = require("./dbresources");
+var sequelize = require('./config/dbconfig').sequelize;
+config = require("./config/dbresources");
 db = config.database;
 
 app.configure(function() {

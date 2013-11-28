@@ -1,15 +1,15 @@
-var sequelize = require('../dbconfig').sequelize,
-	_ = require('../libresources').underscore;
+var sequelize = require('../config/dbconfig').sequelize,
+	_ = require('../config/libresources').underscore;
 
 
 /***
  * Overall candidate report as per interview status.
-*/
+ */
 exports.getInterviewStatusReport = function(req, res) {
 	var reportQuery = "SELECT COUNT(a.status_id) as statusCount, b.status FROM interviewresponse_tbl a, interviewstatus_tbl b WHERE a.status_id = b.id GROUP BY b.status";
 	sequelize.query(reportQuery).success(function(tblRes) {
 		var srcRes = [];
-		
+
 		_.each(tblRes, function(data) {
 			var setStatus = [];
 			setStatus.push(data.status);
@@ -28,12 +28,12 @@ exports.getInterviewStatusReport = function(req, res) {
 
 /***
  * Overall candidate report as per interview mode.
-*/
+ */
 exports.getInterviewModeReport = function(req, res) {
 	var reportQuery = "SELECT COUNT(a.mode_id) as modeCount, b.mode FROM interviewresponse_tbl a, interviewmode_tbl b WHERE a.mode_id = b.id GROUP BY b.mode";
 	sequelize.query(reportQuery).success(function(tblRes) {
 		var srcRes = [];
-		
+
 		_.each(tblRes, function(data) {
 			var setMode = [];
 			setMode.push(data.mode);
@@ -52,12 +52,12 @@ exports.getInterviewModeReport = function(req, res) {
 
 /***
  * Overall candidate report as per interview rounds.
-*/
+ */
 exports.getInterviewRoundReport = function(req, res) {
 	var reportQuery = "SELECT COUNT(a.round_id) as roundCount, b.round FROM interviewresponse_tbl a, interviewrounds_tbl b WHERE a.round_id = b.id GROUP BY b.round";
 	sequelize.query(reportQuery).success(function(tblRes) {
 		var srcRes = [];
-		
+
 		_.each(tblRes, function(data) {
 			var setRound = [];
 			setRound.push(data.round);

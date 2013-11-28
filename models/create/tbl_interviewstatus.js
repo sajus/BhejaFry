@@ -1,4 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
+
 	return sequelize.define("InterviewStatus", {
 		status: {
 			type: DataTypes.STRING(30),

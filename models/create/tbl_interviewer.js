@@ -1,4 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
+
 	return sequelize.define("Interviewer", {
 		empid: {
 			type: DataTypes.INTEGER,

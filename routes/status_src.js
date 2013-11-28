@@ -1,5 +1,5 @@
-var sequelize = require('../dbconfig').sequelize,
-	_ = require('../libresources').underscore;
+var sequelize = require('../config/dbconfig').sequelize,
+	_ = require('../config/libresources').underscore;
 
 exports.getStatus = function(req, res) {
 	sequelize.query("SELECT * FROM  interviewstatus_tbl").success(function(rows) {

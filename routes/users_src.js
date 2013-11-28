@@ -1,6 +1,6 @@
-var sequelize = require('../dbconfig').sequelize,
-	PasswordGen = require('./AuthPassGenerator'),
-	_ = require('../libresources').underscore;
+var sequelize = require('../config/dbconfig').sequelize,
+	passwordGen = require('./keygen'),
+	_ = require('../config/libresources').underscore;
 
 /*
 	GET THE LIST OF ALL USERS
@@ -44,7 +44,7 @@ exports.postUser = function(req, res) {
 	query += " '" + req.body.firstname + "',";
 	query += " '" + req.body.lastname + "',";
 	query += " " + req.body.accesstype + ",";
-	query += " '" + PasswordGen.generatePassword(req.body.firstname, req.body.lastname, req.body.empid) + "' )";
+	query += " '" + passwordGen.generatePassword(req.body.firstname, req.body.lastname, req.body.empid) + "' )";
 	var queryID = "SELECT empid,firstname,lastname,accesstype FROM users_tbl Where empid=" + req.body.empid;
 
 	sequelize.query(query).success(function() {

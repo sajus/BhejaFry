@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
 
-  return sequelize.define("InterviewResponse", {
+    return sequelize.define("InterviewResponse", {
         candiateName: {
             type: DataTypes.STRING(30),
             allowNull: false,

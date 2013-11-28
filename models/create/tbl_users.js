@@ -5,9 +5,9 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.INTEGER,
 			allowNull: false,
 			unique: true,
-            validate: {
-                isNumeric: true
-            }
+			validate: {
+				isNumeric: true
+			}
 		},
 		email: {
 			type: DataTypes.STRING(40),
