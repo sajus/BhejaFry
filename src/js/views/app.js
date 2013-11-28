@@ -24,14 +24,6 @@ define(function(require) {
         handleAjaxResponse: function() {
             $.ajaxSetup({
                 statusCode: {
-                    200: function() {
-                        // 200 OK
-                        return true;
-                    },
-                    204: function() {
-                        // 204 No Content
-                        return true;
-                    },
                     401: function() {
                         // 401 Unauthorized
                         Events.trigger('alert:error', [{
@@ -71,13 +63,6 @@ define(function(require) {
                         // 503 Service Unavailable
                         Events.trigger('alert:error', [{
                             message: 'Service Unavailable'
-                        }]);
-                        return false;
-                    },
-                    522: function() {
-                        // 522 Connection timed out
-                        Events.trigger('alert:error', [{
-                            message: "Connection timed out"
                         }]);
                         return false;
                     }

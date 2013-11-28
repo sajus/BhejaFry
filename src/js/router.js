@@ -45,7 +45,7 @@ define(function(require) {
             'logout': 'logout',
 
             // Default - catch all
-            // '*actions': 'defaultAction'
+            '*actions': 'notFound'
         }
     });
 
@@ -232,6 +232,19 @@ define(function(require) {
                             trigger: true
                         }
                     });
+                });
+            } else {
+                this.navigate("login", {
+                    trigger: true
+                });
+            }
+        });
+
+        /*** Router configuration for 'notFound' routes ***/
+        router.on('route:notFound', function() {
+            if ($.cookie('isAuthenticated')) {
+                require(['views/statusCodes/notFound'], function(StatusCodePage) {
+                    Core.create(appView, 'StatusCodePage', StatusCodePage);
                 });
             } else {
                 this.navigate("login", {
