@@ -4,7 +4,6 @@ define(function(require) {
     var $ = require('jquery'),
         _ = require('underscore'),
         Backbone = require('backbone'),
-        Core = require('core'),
         Events = require('events'),
         BaseView = require('views/BaseView'),
         interviewListDetailPageTemplate = require('template!templates/interview/interviewListDetail'),
@@ -25,77 +24,113 @@ define(function(require) {
         initialize: function() {
             this.modelBinder = new Backbone.ModelBinder();
 
-            this.interviewmode_list = {};
-            this.interviewmode = [];
-
-            this.interviewer_list = {};
             this.interviewer = [];
+            // this.interviewmode = [];
+            // this.interviewrounds = [];
+            // this.interviewstatus = [];
+            // this.recruiter = [];
 
-            this.interviewrounds_list = {};
-            this.interviewrounds = [];
+            // this.populateMode();
+            // this.populateRounds();
+            // this.populateStatus();
+            // this.populateRecruiter();
 
-            this.interviewstatus_list = {};
-            this.interviewstatus = [];
+            this.populateInterviewer();
 
-            this.recruiter_list = {};
-            this.recruiter = [];
-            var view = this;
-
-            _.each(Core.globals.interviewmode_list, function(data) {
-                view.interviewmode_list = _.object([
-                    "id",
-                    "mode"
-                ], [
-                    data.id,
-                    data.mode
-                ]);
-                view.interviewmode.push(view.interviewmode_list);
-            });
-            _.each(Core.globals.interviewer_list, function(data) {
-                view.interviewer_list = _.object([
-                    "empid",
-                    "firstname",
-                    "lastname"
-                ], [
-                    data.empid,
-                    data.firstname,
-                    data.lastname
-                ]);
-                view.interviewer.push(view.interviewer_list);
-            });
-            _.each(Core.globals.interviewrounds_list, function(data) {
-                view.interviewrounds_list = _.object([
-                    "id",
-                    "round"
-                ], [
-                    data.id,
-                    data.round
-                ]);
-                view.interviewrounds.push(view.interviewrounds_list);
-            });
-            _.each(Core.globals.recruiter_list, function(data) {
-                view.recruiter_list = _.object([
-                    "empid",
-                    "firstname",
-                    "lastname"
-                ], [
-                    data.empid,
-                    data.firstname,
-                    data.lastname
-                ]);
-                view.recruiter.push(view.recruiter_list);
-            });
-            _.each(Core.globals.interviewstatus_list, function(data) {
-                view.interviewstatus_list = _.object([
-                    "id",
-                    "status"
-                ], [
-                    data.id,
-                    data.status
-                ]);
-                view.interviewstatus.push(view.interviewstatus_list);
-            });
             this.render();
+        },
+
+        fetchData: function(service) {
+            return $.ajax({
+                url: Backbone.Model.gateWayUrl + '/' + service
+            });
+        },
+
+        populateInterviewer: function() {
+            var view = this;
+            this.fetchData('interviewer').done(function(interviewer_list) {
+                _.each(interviewer_list, function(data) {
+                    view.interviewer.push(_.object([
+                        "empid",
+                        "firstname",
+                        "lastname"
+                    ], [
+                        data.empid,
+                        data.firstname,
+                        data.lastname
+                    ]));
+                });
+            });
+        },
+
+        populateMode: function() {
+            var view = this;
+            this.fetchData('mode').done(function(interviewmode_list) {
+                var interviewmode = [];
+                _.each(interviewmode_list, function(data) {
+                    interviewmode.push(_.object([
+                        "id",
+                        "mode"
+                    ], [
+                        data.id,
+                        data.mode
+                    ]));
+                });
+                return interviewmode;
+            });
+        },
+
+        populateStatus: function() {
+            var view = this;
+            this.fetchData('status').done(function(interviewstatus_list) {
+                var interviewstatus = [];
+                _.each(interviewstatus_list, function(data) {
+                    interviewstatus.push(_.object([
+                        "id",
+                        "status"
+                    ], [
+                        data.id,
+                        data.status
+                    ]));
+                });
+                return interviewstatus;
+            });
+        },
+
+        populateRounds: function() {
+            var view = this;
+            this.fetchData('rounds').done(function(interviewrounds_list) {
+                var interviewrounds = [];
+                _.each(interviewrounds_list, function(data) {
+                    interviewrounds.push(_.object([
+                        "id",
+                        "round"
+                    ], [
+                        data.id,
+                        data.round
+                    ]));
+                });
+                return interviewrounds;
+            });
+        },
+
+        populateRecruiter: function() {
+            var view = this;
+            this.fetchData('recruiter').done(function(recruiter_list) {
+                var recruiter = [];
+                _.each(recruiter_list, function(data) {
+                    recruiter.push(_.object([
+                        "empid",
+                        "firstname",
+                        "lastname"
+                    ], [
+                        data.empid,
+                        data.firstname,
+                        data.lastname
+                    ]));
+                });
+                return recruiter;
+            });
         },
 
         events: {
@@ -122,6 +157,7 @@ define(function(require) {
         },
 
         render: function() {
+            console.log(this.interviewer);
             var view = this;
             var addUserText = (this.model.get('id')) ? "Update" : "Save";
             var title = this.model.get('id') ? "Edit existing interview" : "Add new interview";

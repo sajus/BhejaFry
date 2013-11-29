@@ -7,43 +7,12 @@ define(function(require) {
         Globals = require('globals'),
         LoginView = require('views/login/loginView'),
         LoginModel = require('models/login/loginModel'),
-        globals = {},
         views = {};
 
     require('jqueryCookie');
 
     _.extend(Backbone.Model, {
         gateWayUrl: 'http://' + document.domain + ':' + Globals.gateWayPort
-    });
-
-    $.ajax({
-        url: Backbone.Model.gateWayUrl + '/interviewer'
-    }).done(function(interviewer) {
-        globals.interviewer_list = interviewer;
-    });
-
-    $.ajax({
-        url: Backbone.Model.gateWayUrl + '/mode'
-    }).done(function(mode) {
-        globals.interviewmode_list = mode;
-    });
-
-    $.ajax({
-        url: Backbone.Model.gateWayUrl + '/recruiter'
-    }).done(function(recruiter) {
-        globals.recruiter_list = recruiter;
-    });
-
-    $.ajax({
-        url: Backbone.Model.gateWayUrl + '/rounds'
-    }).done(function(rounds) {
-        globals.interviewrounds_list = rounds;
-    });
-
-    $.ajax({
-        url: Backbone.Model.gateWayUrl + '/status'
-    }).done(function(status) {
-        globals.interviewstatus_list = status;
     });
 
     var create = function(context, name, View, options) {
@@ -91,7 +60,6 @@ define(function(require) {
     };
 
     return {
-        create: create,
-        globals: globals
+        create: create
     };
 });
