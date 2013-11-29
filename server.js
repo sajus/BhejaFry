@@ -9,8 +9,8 @@ var express = require('express'),
     _ = require('underscore'),
     path = require('path');
 
-var routes = require('./routes'),
-    authentication = require('./routes/authentication_src'),
+var authentication = require('./routes/authentication_src'),
+    userAccount = require('./routes/userAccount_src'),
     interviewList = require('./routes/interviewList_src'),
     interviewer = require('./routes/interviewer_src'),
     mode = require('./routes/mode_src'),
@@ -24,6 +24,10 @@ var sequelize = require('./config/dbConfig').sequelize;
 config = require("./config/dbResources");
 db = config.database;
 
+
+/**
+ * Application Configurations
+ ***/
 app.configure(function() {
     app.set('port', process.env.PORT || db.port);
     app.use(express.bodyParser());
@@ -34,54 +38,81 @@ app.configure(function() {
     app.use(express.static(__dirname + '/src'));
 });
 
-// app.get('/', routes.index);
-
+/**
+ * Service routes for user authentication
+ ***/
 app.post('/authenticate', authentication.postAuthentication);
-app.put('/authReset', authentication.putResetAuthentication);
-app.put('/appRelease', authentication.putRelease);
-app.post('/appRelease', authentication.postRelease);
-app.put('/authUnlock', authentication.putAuthUnlock);
-app.get('/logout', authentication.getDestroyAuthentication);
+app.get('/logout', authentication.getCloseAuthentication);
 
+/**
+ * Service routes for user account
+ ***/
+app.put('/userReset', userAccount.putReset);
+app.put('/userBlock', userAccount.putBlock);
+app.put('/appRelease', userAccount.putRelease);
+app.post('/appRelease', userAccount.postRelease);
+
+/**
+ * Service routes for CURD users
+ ***/
 app.get('/usersList', users.getUsers);
 app.post('/usersList', users.postUser);
 app.get('/usersList/:id', users.getUsersById);
 app.put('/usersList/:id', users.putUsersById);
 app.del('/usersList/:id', users.delUsersById);
 
+/**
+ * Service routes for CURD interviews
+ ***/
 app.get('/interviewList', interviewList.getInterviewList)
 app.post('/interviewList', interviewList.postInterview);
 app.get('/interviewList/:id', interviewList.getInterviewListById);
 app.put('/interviewList/:id', interviewList.putInterviewListById);
 app.del('/interviewList/:id', interviewList.delInterviewListById);
 
+/**
+ * Service routes for CURD interview components
+ ***/
 app.get('/mode', mode.getMode);
 app.get('/rounds', rounds.getRounds);
 app.get('/status', status.getStatus);
 app.get('/interviewerStatusReport/:id', reports.getInterviewerStatusReport);
 app.get('/interviewerModeReport/:id', reports.getInterviewerModeReport);
 
+/**
+ * Service routes for CURD recruiters
+ ***/
 app.get('/recruiter', recruiter.getRecruiter);
 app.post('/recruiter', recruiter.postRecruiter);
-
 app.get('/recruiter/:id', recruiter.getRecruiterById);
 app.put('/recruiter/:id', recruiter.putRecruiterById);
 app.del('/recruiter/:id', recruiter.delRecruiterById);
 
+/**
+ * Service routes for CURD interviewers
+ ***/
 app.get('/interviewer', interviewer.getInterviewer);
 app.post('/interviewer', interviewer.postInterviewer);
-
 app.get('/interviewer/:id', interviewer.getInterviewerById);
 app.put('/interviewer/:id', interviewer.putInterviewerById);
 app.del('/interviewer/:id', interviewer.delInterviewerById);
 
+/**
+ * Service routes for reports
+ ***/
 app.get('/reportStatus', reports.getInterviewStatusReport);
 app.get('/reportMode', reports.getInterviewModeReport);
 
+/**
+ * Start a UNIX socket server listening for connections on the given path.
+ ***/
 http.createServer(app).listen(app.get('port'), function() {
     console.log("\n\n\tNode (Express) server listening on port " + app.get('port'))
 });
 
+/**
+ * Service session authentication
+ ***/
 function sessionAuth(req, res, next) {
     if (!req.session.user_id) {
         res.status(401).send({
