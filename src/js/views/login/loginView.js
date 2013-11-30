@@ -16,9 +16,9 @@ define(function(require) {
         el: 'body',
 
         initialize: function() {
-            this._modelBinder = new Backbone.ModelBinder();
-            this._isAuthenticated = $.cookie('isAuthenticated');
-            if (this._isAuthenticated) {
+            this.modelBinder = new Backbone.ModelBinder();
+            this.isAuthenticated = $.cookie('isAuthenticated');
+            if (this.isAuthenticated) {
                 Events.trigger("view:navigate", {
                     path: "dashboard",
                     options: {
@@ -68,7 +68,7 @@ define(function(require) {
             this.$el.html(loginPageTemplate);
             this.$el.find('input[name="email"]').focus();
 
-            this._modelBinder.bind(this.model, this.el);
+            this.modelBinder.bind(this.model, this.el);
 
             Backbone.Validation.bind(this, {
                 invalid: this.showError,

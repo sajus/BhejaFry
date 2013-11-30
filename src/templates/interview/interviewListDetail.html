@@ -2,95 +2,99 @@
 	<div class='col-md-12'>
 		<div class='panel panel-default'>
 			<div class='panel-heading'>
-				<!-- <div class='pull-right'>
-					<a href='#interviewList' class='btn btn-inverse'>Show List</a>
-					<button type='button' class='btn btn-inverse addNewList'>Add New</button>
-				</div> -->
 				<h6 class='panel-title lead'>{{title}}</h6>
 			</div>
 			<div class='panel-body'>
 				<div id='createInterview'>
 					<form class='form-horizontal' id='userForm'>
 						<div class='control-group'>
-							<label class='control-label' for='mode'>Candidate Name<span class='text-error'>*</span></label>
-							<input type='text' id='candiateName' name='candiateName' maxlength='30' class='form-control' placeholder='Only alphabets allowed with max 1 space' />
-							<span class='help-inline'></span>
-						</div>
-						<div class='control-group'>
+							<div class="col-md-10">
 				            <label class='control-label' for='interviewDate'>Interview Date<span class='text-error'>*</span></label>
-			            	<div class='input-append date' data-date-format='dd-M-yyyy'>
-			                    <input type='text' class='form-control' id='interviewDate' name='interviewDate' class='datepicker' readonly>
-			                    <span class='add-on pickerShow'><i class='icon-calendar'></i></span>
-			                </div>
+			  	            	<div class='input-group date' data-date-format='dd MM yyyy, DD'>
+				                    <input type='text' class='form-control' id='interviewDate' name='interviewDate' class='datepicker' readonly>
+				                    <span class='input-group-addon pickerShow'><i class="fa fa-calendar"></i></span>
+				                </div>
+				            </div>
 			                <span class='help-inline'></span>
 				        </div>
 						<div class='control-group'>
-							<label class='control-label' for='mode'>Mode<span class='text-error'>*</span></label>
-							<select id='mode' name='mode_id' data-placeholder='Choose a Mode' class='form-control'>
-								{{#each mode}}
-									<option value='{{id}}'>{{mode}}</option>
-								{{/each}}
-							</select>
-							<span class='help-inline'></span>
+							<div class="col-md-6">
+								<label class='control-label' for='mode'>Candidate Name<span class='text-error'>*</span></label>
+								<input type='text' id='candiateName' name='candiateName' maxlength='30' class='form-control' placeholder='Only alphabets allowed with max 1 space' />
+								<span class='help-inline'></span>
+							</div>
 						</div>
 						<div class='control-group'>
-							<label class='control-label' for='interviewer'>Interviewers<span class='text-error'>*</span></label>
-							<select id='interviewer1' data-placeholder='Choose Interviewers' multiple name='interviewer_1_id' class='form-control'>
-								{{#each interviewer1}}
-									<option value='{{empid}}'>{{firstname}} {{lastname}}</option>
-								{{/each}}
-							</select>
-							<span class='help-inline'></span>
-						</div>
-						<!-- <div class='control-group'>
-							<label class='control-label' for='interviewer2'>Interviewer 2<span class='text-error'>*</span></label>
-							<select id='interviewer2' name='interviewer_2_id' class='form-control'>
-								{{#each interviewer2}}
-									<option value='{{empid}}'>{{firstname}} {{lastname}}</option>
-								{{/each}}
-							</select>
-							<span class='help-inline'></span>
-						</div> -->
-						<div class='control-group'>
-							<label class='control-label' for='recruiter'>Recruiter<span class='text-error'>*</span></label>
-							<select id='recruiter' data-placeholder='Choose a recruiter' name='recruiter_id' class='form-control'>
-								{{#each recruiter}}
-									<option value='{{empid}}'>{{firstname}} {{lastname}}</option>
-								{{/each}}
-							</select>
-							<span class='help-inline'></span>
+							<div class="col-md-6">
+								<label class='control-label' for='mode'>Mode<span class='text-error'>*</span></label>
+								<select id='mode' name='mode_id' data-placeholder='Choose a Mode' class='form-control'>
+									{{#each mode}}
+										<option value='{{id}}'>{{mode}}</option>
+									{{/each}}
+								</select>
+								<span class='help-inline'></span>
+							</div>
 						</div>
 						<div class='control-group'>
-							<label class='control-label' for='rounds'>Rounds<span class='text-error'>*</span></label>
-							<select id='rounds' data-placeholder='Choose a round' name='round_id' class='form-control'>
-								{{#each rounds}}
-									<option value='{{id}}'>{{round}}</option>
-								{{/each}}
-							</select>
-							<span class='help-inline'></span>
+							<div class="col-md-6">
+								<label class='control-label' for='interviewer'>Interviewers<span class='text-error'>*</span></label>
+								<select id='interviewer1' data-placeholder='Choose Interviewers' multiple name='interviewer_1_id' class='form-control'>
+									{{#each interviewer1}}
+										<option value='{{empid}}'>{{firstname}} {{lastname}}</option>
+									{{/each}}
+								</select>
+								<span class='help-inline'></span>
+							</div>
 						</div>
 						<div class='control-group'>
-							<label class='control-label' for='status'>Status<span class='text-error'>*</span></label>
-							<select id='status' data-placeholder='Choose a status' name='status_id' class='form-control'>
-								{{#each interviewStatus}}
-									<option value='{{id}}'>{{status}}</option>
-								{{/each}}
-							</select>
-							<span class='help-inline'></span>
+							<div class="col-md-6">
+								<label class='control-label' for='rounds'>Rounds<span class='text-error'>*</span></label>
+								<select id='rounds' data-placeholder='Choose a round' name='round_id' class='form-control'>
+									{{#each rounds}}
+										<option value='{{id}}'>{{round}}</option>
+									{{/each}}
+								</select>
+								<span class='help-inline'></span>
+							</div>
 						</div>
 						<div class='control-group'>
-							<label class='control-label' for='status'>Remarks<span class='text-error'>*</span></label>
-							<textarea id='remarks' class="form-control" name='description' placeholder='Alphabets, numeric and special characters are allowed'></textarea>
-							<span class='help-inline'></span>
+							<div class="col-md-6">
+								<label class='control-label' for='recruiter'>Recruiter<span class='text-error'>*</span></label>
+								<select id='recruiter' data-placeholder='Choose a recruiter' name='recruiter_id' class='form-control'>
+									{{#each recruiter}}
+										<option value='{{empid}}'>{{firstname}} {{lastname}}</option>
+									{{/each}}
+								</select>
+								<span class='help-inline'></span>
+							</div>
+						</div>
+						
+						<div class='control-group'>
+							<div class="col-md-6">
+								<label class='control-label' for='status'>Status<span class='text-error'>*</span></label>
+								<select id='status' data-placeholder='Choose a status' name='status_id' class='form-control'>
+									{{#each interviewStatus}}
+										<option value='{{id}}'>{{status}}</option>
+									{{/each}}
+								</select>
+								<span class='help-inline'></span>
+							</div>
 						</div>
 						<div class='control-group'>
-							<button type='submit' class='btn btn-primary' id='addUser'>{{addUserText}}</button>
-							<a type='button' class='btn' href='#interviewList' id='addCancel'>Cancel</a>
+							<div class="col-md-11">
+								<label class='control-label' for='status'>Remarks<span class='text-error'>*</span></label>
+								<textarea rows="8" id='remarks' class="form-control" name='description' placeholder='Alphabets, numeric and special characters are allowed'></textarea>
+								<span class='help-inline'></span>
+							</div>
 						</div>
 					</form>
 				</div>
 			</div>
-			<div class='panel-footer'><span class='text-info'>Notes: * indicates required field.</span></div>
+			<div class='panel-footer'>
+				<button type='submit' class='btn btn-primary addInterview'>{{addUserText}}</button>
+				<button type='button' class='btn cancelInterviewForm'>Cancel</a>
+				<!-- <span class='text-info'>Notes: * indicates required field.</span> -->
+			</div>
 		</div>
 	</div>
 </div>

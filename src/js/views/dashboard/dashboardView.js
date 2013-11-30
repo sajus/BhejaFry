@@ -73,9 +73,16 @@ define(function(require) {
 			var view = this;
 			$.get('/reportStatus')
 				.success(function(seriesData) {
-					view.renderPieChart('overallChartReport', 'Overall candidate\'s status as per interview status', seriesData);
-				})
-				.fail(function() {});
+					view.renderPieChart('overallAsPerStatus', 'Shows overall interview conducted status, grouped by a interviewed status', seriesData);
+				});
+			$.get('/reportMode')
+				.success(function(seriesData) {
+					view.renderPieChart('overallAsPerMode', 'Shows overall interview conducted status, grouped by a interviewed mode', seriesData);
+				});
+			$.get('/reportRounds')
+				.success(function(seriesData) {
+					view.renderPieChart('overallAsPerRounds', 'Shows overall interview conducted status, grouped by a interviewed rounds', seriesData);
+				});
 		},
 
 		/***

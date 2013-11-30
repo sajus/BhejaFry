@@ -24,20 +24,18 @@ define(function(require) {
         initialize: function() {
             this.modelBinder = new Backbone.ModelBinder();
 
+            var view = this;
             this.interviewer = [];
-            // this.interviewmode = [];
-            // this.interviewrounds = [];
-            // this.interviewstatus = [];
-            // this.recruiter = [];
+            this.interviewmode = [];
+            this.interviewrounds = [];
+            this.interviewstatus = [];
+            this.recruiter = [];
 
-            // this.populateMode();
-            // this.populateRounds();
-            // this.populateStatus();
-            // this.populateRecruiter();
+            // $.when(this.populateInterviewer(), this.populateMode(), this.populateRounds(), this.populateStatus(), this.populateRecruiter()).then(this.render());
 
-            this.populateInterviewer();
-
-            this.render();
+            var dfd = $.Deferred();
+            dfd.done(this.populateInterviewer(), this.populateMode(), this.populateRounds(), this.populateStatus(), this.populateRecruiter()).done(this.render());
+            // dfd.resolve();
         },
 
         fetchData: function(service) {
@@ -66,9 +64,8 @@ define(function(require) {
         populateMode: function() {
             var view = this;
             this.fetchData('mode').done(function(interviewmode_list) {
-                var interviewmode = [];
                 _.each(interviewmode_list, function(data) {
-                    interviewmode.push(_.object([
+                    view.interviewmode.push(_.object([
                         "id",
                         "mode"
                     ], [
@@ -76,16 +73,14 @@ define(function(require) {
                         data.mode
                     ]));
                 });
-                return interviewmode;
             });
         },
 
         populateStatus: function() {
             var view = this;
             this.fetchData('status').done(function(interviewstatus_list) {
-                var interviewstatus = [];
                 _.each(interviewstatus_list, function(data) {
-                    interviewstatus.push(_.object([
+                    view.interviewstatus.push(_.object([
                         "id",
                         "status"
                     ], [
@@ -93,16 +88,14 @@ define(function(require) {
                         data.status
                     ]));
                 });
-                return interviewstatus;
             });
         },
 
         populateRounds: function() {
             var view = this;
             this.fetchData('rounds').done(function(interviewrounds_list) {
-                var interviewrounds = [];
                 _.each(interviewrounds_list, function(data) {
-                    interviewrounds.push(_.object([
+                    view.interviewrounds.push(_.object([
                         "id",
                         "round"
                     ], [
@@ -110,16 +103,14 @@ define(function(require) {
                         data.round
                     ]));
                 });
-                return interviewrounds;
             });
         },
 
         populateRecruiter: function() {
             var view = this;
             this.fetchData('recruiter').done(function(recruiter_list) {
-                var recruiter = [];
                 _.each(recruiter_list, function(data) {
-                    recruiter.push(_.object([
+                    view.recruiter.push(_.object([
                         "empid",
                         "firstname",
                         "lastname"
@@ -129,7 +120,6 @@ define(function(require) {
                         data.lastname
                     ]));
                 });
-                return recruiter;
             });
         },
 
@@ -170,7 +160,7 @@ define(function(require) {
                 mode: this.interviewmode,
                 interviewer1: this.interviewer,
                 interviewer2: this.interviewer,
-                interviewDate: moment(this.interviewDate).format('DD-MMM-YYYY'),
+                interviewDate: moment(this.interviewDate).format('DD-MMMM-YYYY, dddd'),
                 recruiter: this.recruiter,
                 rounds: this.interviewrounds,
                 interviewStatus: this.interviewstatus,

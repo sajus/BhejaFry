@@ -48,6 +48,8 @@ app.get('/logout', authentication.getCloseAuthentication);
  * Service routes for user account
  ***/
 app.put('/userReset', userAccount.putReset);
+app.post('/userChange/:email', userAccount.postUserChange);
+
 app.put('/userBlock', userAccount.putBlock);
 app.put('/appRelease', userAccount.putRelease);
 app.post('/appRelease', userAccount.postRelease);
@@ -76,9 +78,6 @@ app.del('/interviewList/:id', interviewList.delInterviewListById);
 app.get('/mode', mode.getMode);
 app.get('/rounds', rounds.getRounds);
 app.get('/status', status.getStatus);
-app.get('/interviewerStatusReport/:id', reports.getInterviewerStatusReport);
-app.get('/interviewerModeReport/:id', reports.getInterviewerModeReport);
-
 /**
  * Service routes for CURD recruiters
  ***/
@@ -102,6 +101,7 @@ app.del('/interviewer/:id', interviewer.delInterviewerById);
  ***/
 app.get('/reportStatus', reports.getInterviewStatusReport);
 app.get('/reportMode', reports.getInterviewModeReport);
+app.get('/reportRounds', reports.getInterviewRoundReport);
 
 /**
  * Start a UNIX socket server listening for connections on the given path.

@@ -3,6 +3,7 @@ define(function(require) {
 
     var Backbone = require('backbone'),
         BaseView = require('views/BaseView'),
+        Events = require('events'),
         ChangePassModel = require('models/login/changePassModel'),
         changePassTemplate = require('template!templates/login/changePassModal');
 
@@ -15,7 +16,7 @@ define(function(require) {
 
         initialize: function() {
             this.model = new ChangePassModel();
-            this._modelBinder = new Backbone.ModelBinder();
+            this.modelBinder = new Backbone.ModelBinder();
         },
 
         className: "modal fade",
@@ -30,7 +31,12 @@ define(function(require) {
 
         render: function() {
             this.$el.html(changePassTemplate());
-            this._modelBinder.bind(this.model, this.el);
+            this.modelBinder.bind(this.model, this.el);
+
+            Backbone.Validation.bind(this, {
+                invalid: this.showError,
+                valid: this.removeError
+            });
 
             this.$el.find('.modal-dialog').css('width', '600px');
 
@@ -66,6 +72,21 @@ define(function(require) {
 
         keygenPass: function() {
             this.$el.find('.strength').val(generatePassword(12, false)).change();
+        },
+
+        postData: function() {
+            this.model.save(this.model.toJSON(), {
+                success: function() {
+                    Events.trigger("alert:success", [{
+                        message: "Your password has been changed successfully"
+                    }]);
+                },
+                error: function() {
+                    Events.trigger("alert:error", [{
+                        message: "The current password you provided are invalid."
+                    }]);
+                }
+            });
         }
     });
 });
