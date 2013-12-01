@@ -51,7 +51,7 @@ requirejs.config({
         'text': 'vendors/require/plugins/text',
 
         /*** List of Bootstrap plugins ***/
-        'datePicker': 'vendors/bootstrap/plugins/datepicker/datepicker',
+        'datePicker': 'vendors/bootstrap/plugins/datepicker/js/bootstrap-datepicker',
 
         /*** List of jQuery plugins ***/
         'jqueryCookie': 'vendors/jquery/plugins/jquery.cookie',

@@ -9,7 +9,7 @@ define(function(require) {
         interviewListDetailPageTemplate = require('template!templates/interview/interviewListDetail'),
         moment = require('moment');
 
-    require('css!vendors/bootstrap/plugins/datepicker/datepicker.css');
+    require('css!vendors/bootstrap/plugins/datepicker/css/datepicker3.css');
     require('css!vendors/jquery/plugins/chosen/chosen.min.css');
     require('modelBinder');
     require('chosen');
@@ -24,18 +24,17 @@ define(function(require) {
         initialize: function() {
             this.modelBinder = new Backbone.ModelBinder();
 
-            var view = this;
             this.interviewer = [];
             this.interviewmode = [];
             this.interviewrounds = [];
             this.interviewstatus = [];
             this.recruiter = [];
 
-            // $.when(this.populateInterviewer(), this.populateMode(), this.populateRounds(), this.populateStatus(), this.populateRecruiter()).then(this.render());
-
-            var dfd = $.Deferred();
-            dfd.done(this.populateInterviewer(), this.populateMode(), this.populateRounds(), this.populateStatus(), this.populateRecruiter()).done(this.render());
-            // dfd.resolve();
+            this.populateInterviewer();
+            this.populateMode();
+            this.populateRounds();
+            this.populateStatus();
+            this.populateRecruiter();
         },
 
         fetchData: function(service) {
@@ -120,14 +119,16 @@ define(function(require) {
                         data.lastname
                     ]));
                 });
+                view.render();
             });
+            
         },
 
         events: {
             'submit .form-horizontal': 'processForm',
             'change :input select': 'processField',
             'keypress #interviewDate': 'preventAction',
-            'mousedown .pickerShow': 'showPicker',
+            // 'mousedown .pickerShow': 'showPicker',
             'click .addNewList': 'resetForm'
         },
 
@@ -140,27 +141,17 @@ define(function(require) {
             this.$el.find('#remarks').val('');
         },
 
-        showPicker: function() {
-            this.$el.find('.date').datepicker({
-                "autoclose": true
-            }).data('datepicker');
-        },
-
         render: function() {
             console.log(this.interviewer);
             var view = this;
             var addUserText = (this.model.get('id')) ? "Update" : "Save";
             var title = this.model.get('id') ? "Edit existing interview" : "Add new interview";
 
-            this.$el.find('.date').datepicker({
-                "autoclose": true
-            }).data('datepicker');
-
             this.$el.html(interviewListDetailPageTemplate({
                 mode: this.interviewmode,
                 interviewer1: this.interviewer,
                 interviewer2: this.interviewer,
-                interviewDate: moment(this.interviewDate).format('DD-MMMM-YYYY, dddd'),
+                interviewDate: moment(this.interviewDate).format('DD MMMM YYYY, dddd'),
                 recruiter: this.recruiter,
                 rounds: this.interviewrounds,
                 interviewStatus: this.interviewstatus,
@@ -168,6 +159,11 @@ define(function(require) {
                 title: title
             }));
 
+            this.$el.find('#interviewDate').datepicker({
+                "autoclose": true,
+                "format": 'dd MM yyyy, DD',
+            }).data('datepicker');
+            this.$el.find('#interviewDate').datepicker('update');
 
             if (this.model.get('id') !== undefined) {
                 this.model.fetch({

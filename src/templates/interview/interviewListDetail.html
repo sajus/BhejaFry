@@ -10,8 +10,8 @@
 						<div class='control-group'>
 							<div class="col-md-10">
 				            <label class='control-label' for='interviewDate'>Interview Date<span class='text-error'>*</span></label>
-			  	            	<div class='input-group date' data-date-format='dd MM yyyy, DD'>
-				                    <input type='text' class='form-control' id='interviewDate' name='interviewDate' class='datepicker' readonly>
+			  	            	<div class='input-group date'>
+				                    <input type='text' class='form-control' id='interviewDate' name='interviewDate' class='datepicker' data-date-format='dd MM yyyy, DD' readonly>
 				                    <span class='input-group-addon pickerShow'><i class="fa fa-calendar"></i></span>
 				                </div>
 				            </div>
@@ -28,6 +28,7 @@
 							<div class="col-md-6">
 								<label class='control-label' for='mode'>Mode<span class='text-error'>*</span></label>
 								<select id='mode' name='mode_id' data-placeholder='Choose a Mode' class='form-control'>
+									<option value=""></option>
 									{{#each mode}}
 										<option value='{{id}}'>{{mode}}</option>
 									{{/each}}
@@ -39,6 +40,7 @@
 							<div class="col-md-6">
 								<label class='control-label' for='interviewer'>Interviewers<span class='text-error'>*</span></label>
 								<select id='interviewer1' data-placeholder='Choose Interviewers' multiple name='interviewer_1_id' class='form-control'>
+									<option value=""></option>
 									{{#each interviewer1}}
 										<option value='{{empid}}'>{{firstname}} {{lastname}}</option>
 									{{/each}}
@@ -50,6 +52,7 @@
 							<div class="col-md-6">
 								<label class='control-label' for='rounds'>Rounds<span class='text-error'>*</span></label>
 								<select id='rounds' data-placeholder='Choose a round' name='round_id' class='form-control'>
+									<option value=""></option>
 									{{#each rounds}}
 										<option value='{{id}}'>{{round}}</option>
 									{{/each}}
@@ -61,6 +64,7 @@
 							<div class="col-md-6">
 								<label class='control-label' for='recruiter'>Recruiter<span class='text-error'>*</span></label>
 								<select id='recruiter' data-placeholder='Choose a recruiter' name='recruiter_id' class='form-control'>
+									<option value=""></option>
 									{{#each recruiter}}
 										<option value='{{empid}}'>{{firstname}} {{lastname}}</option>
 									{{/each}}
@@ -73,6 +77,7 @@
 							<div class="col-md-6">
 								<label class='control-label' for='status'>Status<span class='text-error'>*</span></label>
 								<select id='status' data-placeholder='Choose a status' name='status_id' class='form-control'>
+									<option value=""></option>
 									{{#each interviewStatus}}
 										<option value='{{id}}'>{{status}}</option>
 									{{/each}}
