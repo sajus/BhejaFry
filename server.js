@@ -1,13 +1,13 @@
 /**
- * This file will start you server
+ * Build-in | Third party module dependencies.
  ***/
 
 var express = require('express'),
     http = require('http'),
-    app = express(),
-    http = require('http'),
     _ = require('underscore'),
     path = require('path');
+
+var app = express();
 
 var authentication = require('./routes/authentication_src'),
     userAccount = require('./routes/userAccount_src'),
@@ -20,9 +20,9 @@ var authentication = require('./routes/authentication_src'),
     reports = require('./routes/reports_src'),
     users = require('./routes/users_src');
 
-var sequelize = require('./config/dbConfig').sequelize;
-config = require("./config/dbResources");
-db = config.database;
+var sequelize = require('./config/dbConfig').sequelize,
+    config = require("./config/dbResources"),
+    db = config.database;
 
 
 /**
@@ -31,11 +31,13 @@ db = config.database;
 app.configure(function() {
     app.set('port', process.env.PORT || db.port);
     app.use(express.bodyParser());
+    app.use(express.json());
+    app.use(express.urlencoded());
     app.set(express.methodOverride());
     app.use(express.cookieParser('kqsdjfmlksdhfhzirzeoibrzecrbzuzefcuercazeafxzeokwdfzeijfxcerig'));
     app.use(express.session());
     app.set(express.router);
-    app.use(express.static(__dirname + '/src'));
+    app.use(express.static(path.join(__dirname, 'src')));
 });
 
 /**
