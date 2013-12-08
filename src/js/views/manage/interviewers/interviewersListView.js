@@ -7,19 +7,21 @@ define(function(require) {
         Events = require('events'),
         interviewersListTemplate = require('template!templates/manage/interviewers/interviewersList'),
         InterviewerCollection = require('collections/interview/interviewerCollection'),
-        DeleteInterviewersModel = require('models/manage/interviewers/interviewersListDetailModel'),
-        FuelUxDataSource = require('fueluxDataSource');
+        ConfirmDelModal = require('views/interview/listDelConfirmModal'),
+        DeleteInterviewersModel = require('models/manage/interviewers/interviewersListDetailModel');
 
-    require('fueluxDataGrid');
-    require('fueluxSelectBox');
-    require('fueluxSearchBox');
+    require('css!vendors/jquery/plugins/datatables/css/jquery.dataTables.css');
+    require('css!vendors/jquery/plugins/datatables/css/dataTables_themeroller.css');
+    require('css!vendors/jquery/plugins/datatables/css/smoothness/jquery-ui-1.8.4.custom.css');
+    require('dataTables');
 
-    var InterviewersListView = Backbone.View.extend({
+    return Backbone.View.extend({
 
         el: '.page',
 
         initialize: function() {
             this.deleteInterviewersModel = new DeleteInterviewersModel();
+            this.interviewerCollection = new InterviewerCollection();
             this.render();
         },
 
@@ -28,15 +30,42 @@ define(function(require) {
             'click .delete': 'deleteInterviewers'
         },
 
+        fetchInterviewersList: function() {
+            return this.interviewerCollection.fetch();
+        },
+
         render: function() {
             var view = this;
-            this.$el.html(interviewersListTemplate);
-            this.interviewerCollection = new InterviewerCollection();
-            this.interviewerCollection.fetch({
-                success: function() {
-                    view.createDataGrid(view.usersData(view.interviewerCollection.toJSON()));
-                }
-            });
+            $.when(this.fetchInterviewersList())
+                .done(function(data) {
+                    view.$el.html(interviewersListTemplate({
+                        interviewers: data
+                    }));
+                    view.$el.find('.userslist').dataTable({
+                        "bProcessing": true,
+                        "bJQueryUI": true,
+                        "sPaginationType": "full_numbers",
+                        "sScrollY": "200px",
+                        "sScrollX": "100%",
+                        "sScrollXInner": "110%",
+                        "bScrollCollapse": true,
+                        "language": {
+                            "search": ""
+                        },
+                        "aoColumnDefs": [{
+                            "bSortable": false,
+                            "aTargets": [0, 4]
+                        }, {
+                            "asSorting": ["asc", "dec"],
+                            "aTargets": [1]
+                        }],
+                        "bLengthChange": false
+                    });
+                    view.$el.find('#dataTable_filter :input').addClass('form-control').prop('placeholder', 'Search all columns').focus();
+                })
+                .fail(function(error) {
+                    console.log('Error: ' + error);
+                });
             return this;
         },
 
@@ -77,77 +106,72 @@ define(function(require) {
             });
         },
 
-        usersData: function(Userlist) {
-            var userlistObj = {};
-            var userslistObj = [];
-            var operationHTML = "";
-
-            _.each(Userlist, function(userlist) {
-                operationHTML = '<span data-id=' + userlist.empid + '><button class="btn btn-small btn-primary editInterviewer" type="button"><i class="icon-edit icon-white"></i> Details</button>';
-                // operationHTML += ' <button class="btn btn-small btn-info detail" type="button"><i class="icon-share icon-white"></i> Detail</button></span>';
-                operationHTML += ' <button class="btn btn-small btn-danger delete" type="button"><i class="icon-trash icon-white"></i> Delete</button></span>';
-
-                // userlist.selectRows = "<input type='checkbox' class='selectrows' data-id="+userlist.id+">";
-
-                userlistObj = _.object([
-                    // "selectrows",
-                    "empid",
-                    "firstName",
-                    "lastName",
-                    "operations"
-                ], [
-                    // userlist.selectRows,
-                    userlist.empid,
-                    userlist.firstname,
-                    userlist.lastname,
-                    operationHTML
-                ]);
-                userslistObj.push(userlistObj);
+        editUser: function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            Events.trigger("view:navigate", {
+                path: "usersDetail/" + this.$(e.target).closest('tr').attr('data-id'),
+                options: {
+                    trigger: true
+                }
             });
-
-            return userslistObj;
         },
 
-        createDataGrid: function(userslistObj) {
-            var DataSource = new FuelUxDataSource({
-                columns: [
-                    // {
-                    //     property: "selectrows",
-                    //     label: "<input type='checkbox' id='selectUsersAtOnce'>",
-                    //     sortable: false
-                    // },
-                    {
-                        property: "empid",
-                        label: "Employee ID",
-                        sortable: true
-                    }, {
-                        property: "firstName",
-                        label: "First Name",
-                        sortable: true
-                    }, {
-                        property: "lastName",
-                        label: "Last Name",
-                        sortable: true
-                    }, {
-                        property: "operations",
-                        label: "Operations",
-                        sortable: false
-                    }
-                ],
-                data: userslistObj,
-                delay: 250
-            });
+        deleteUser: function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var confirmDelModal = new ConfirmDelModal();
+            $('.modal-container').html(confirmDelModal.render(this.$(e.target).closest('tr').attr('data-id')).el);
+            $('.modal-container .modal').modal('show');
+        },
 
-            $('#MyGrid').datagrid({
-                dataSource: DataSource,
-                dataOptions: {
-                    pageIndex: 0,
-                    pageSize: 5
-                },
-                stretchHeight: false
+        showRowElements: function(e) {
+            this.$(e.target).closest('tr').find('.delUser').css('visibility', 'visible');
+        },
+
+        hideRowElements: function(e) {
+            this.$(e.target).closest('tr').find('.delUser').css('visibility', 'hidden');
+        },
+
+        selectedRow: function(e) {
+            e.stopPropagation();
+            var selectedRow = e.target.parentNode.parentNode;
+            var view = this;
+            this.$($(e.target).closest('input[type="checkbox"]')).prop('checked', function() {
+                if (this.checked) {
+                    view.$(selectedRow).addClass('warning');
+                } else {
+                    view.$(selectedRow).removeClass('warning');
+                    view.$('.selectedRowHeader').prop("checked", false);
+                }
+            });
+            if (this.$el.find('.selectedRow').length === this.$el.find('.selectedRow:checked').length) {
+                view.$('.selectedRowHeader').prop("checked", true);
+            }
+            if (this.$el.find('.selectedRow:checked').length > 1) {
+                this.$el.find('.delAtOnces').css('visibility', 'visible');
+            } else {
+                this.$el.find('.delAtOnces').css('visibility', 'hidden');
+            }
+        },
+
+        selectedRowHeader: function(e) {
+            e.stopPropagation();
+            var view = this;
+
+            this.$($(e.target).closest('input[type="checkbox"]')).prop('checked', function() {
+                if (this.checked) {
+                    view.$('.userslist tbody tr').addClass('warning');
+                    view.$(this).prop("checked", true);
+                    view.$('.selectedRow').prop("checked", true);
+                    view.$el.find('.delAtOnces').css('visibility', 'visible');
+                } else {
+                    view.$('.userslist tbody tr').removeClass('warning');
+                    view.$(this).prop("checked", false);
+                    view.$('.selectedRow').prop("checked", false);
+                    view.$el.find('.delAtOnces').css('visibility', 'hidden');
+                }
             });
         }
     });
-
-    return InterviewersListView;
 });

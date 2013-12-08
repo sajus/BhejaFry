@@ -7,12 +7,13 @@ define(function(require) {
         Events = require('events'),
         usersListTemplate = require('template!templates/users/usersList'),
         UsersCollection = require('collections/users/usersCollection'),
-        DeleteUsersModel = require('models/users/usersListDetailModel'),
-        FuelUxDataSource = require('fueluxDataSource');
+        ConfirmDelModal = require('views/interview/listDelConfirmModal'),
+        DeleteUsersModel = require('models/users/usersListDetailModel');
 
-    require('fueluxDataGrid');
-    require('fueluxSelectBox');
-    require('fueluxSearchBox');
+    require('css!vendors/jquery/plugins/datatables/css/jquery.dataTables.css');
+    require('css!vendors/jquery/plugins/datatables/css/dataTables_themeroller.css');
+    require('css!vendors/jquery/plugins/datatables/css/smoothness/jquery-ui-1.8.4.custom.css');
+    require('dataTables');
 
     var UsersListView = Backbone.View.extend({
 
@@ -20,144 +21,123 @@ define(function(require) {
 
         initialize: function() {
             this.deleteUsersModel = new DeleteUsersModel();
+            this.usersCollection = new UsersCollection();
             this.render();
         },
 
         events: {
-            'click .editUser': 'editInterviewers',
-            'click .delete': 'deleteInterviewers'
+            'click .editUser': 'editUser',
+            'click .delUser': 'deleteUser',
+            'mouseover .userslist tbody tr': 'showRowElements',
+            'mouseleave .userslist tbody tr': 'hideRowElements',
+            'click .selectedRow': 'selectedRow',
+            'click .selectedRowHeader': 'selectedRowHeader'
+        },
+
+        fetchUsersList: function() {
+            return this.usersCollection.fetch();
         },
 
         render: function() {
             var view = this;
-            this.$el.html(usersListTemplate);
-            this.usersCollection = new UsersCollection();
-            this.usersCollection.fetch({
-                success: function() {
-                    view.createDataGrid(view.usersData(view.usersCollection.toJSON()));
-                }
-            });
+            $.when(this.fetchUsersList())
+                .done(function(data) {
+                    view.$el.html(usersListTemplate({
+                        users: data
+                    }));
+                    view.$el.find('.userslist').dataTable({
+                        "bProcessing": true,
+                        "bJQueryUI": true,
+                        "sPaginationType": "full_numbers",
+                        "sScrollY": "200px",
+                        "sScrollX": "100%",
+                        "sScrollXInner": "110%",
+                        "bScrollCollapse": true,
+                        "language": {
+                            "search": ""
+                        },
+                        "aoColumnDefs": [{
+                            "bSortable": false,
+                            "aTargets": [0, 4]
+                        }, {
+                            "asSorting": ["asc", "dec"],
+                            "aTargets": [1]
+                        }],
+                        "bLengthChange": false
+                    });
+                    view.$el.find('#dataTable_filter :input').addClass('form-control').prop('placeholder', 'Search all columns').focus();
+                })
+                .fail(function(error) {
+                    console.log('Error: ' + error);
+                });
             return this;
         },
 
-        editInterviewers: function(e) {
+        editUser: function(e) {
             e.preventDefault();
             e.stopPropagation();
-            var editId = this.$(e.target).closest('tr td span').attr('data-id');
             Events.trigger("view:navigate", {
-                path: "usersDetail/" + editId,
+                path: "usersDetail/" + this.$(e.target).closest('tr').attr('data-id'),
                 options: {
                     trigger: true
                 }
             });
         },
 
-        deleteInterviewers: function(e) {
+        deleteUser: function(e) {
             e.preventDefault();
             e.stopPropagation();
+            var confirmDelModal = new ConfirmDelModal();
+            $('.modal-container').html(confirmDelModal.render(this.$(e.target).closest('tr').attr('data-id')).el);
+            $('.modal-container .modal').modal('show');
+        },
+
+        showRowElements: function(e) {
+            this.$(e.target).closest('tr').find('.delUser').css('visibility', 'visible');
+        },
+
+        hideRowElements: function(e) {
+            this.$(e.target).closest('tr').find('.delUser').css('visibility', 'hidden');
+        },
+
+        selectedRow: function(e) {
+            e.stopPropagation();
+            var selectedRow = e.target.parentNode.parentNode;
             var view = this;
-            var deleteId = this.$(e.target).closest('tr td span').attr('data-id');
-
-            this.deleteUsersModel.set({
-                id: deleteId
-            });
-            this.deleteUsersModel.destroy({
-                success: function() {
-                    view.render();
-                    Events.trigger("alert:success", [{
-                        message: "Record deleted successfully"
-                    }]);
-
-                },
-                error: function() {
-                    Events.trigger("alert:error", [{
-                        message: "Some error got triggered white deleting record"
-                    }]);
+            this.$($(e.target).closest('input[type="checkbox"]')).prop('checked', function() {
+                if (this.checked) {
+                    view.$(selectedRow).addClass('warning');
+                } else {
+                    view.$(selectedRow).removeClass('warning');
+                    view.$('.selectedRowHeader').prop("checked", false);
                 }
             });
+            if (this.$el.find('.selectedRow').length === this.$el.find('.selectedRow:checked').length) {
+                view.$('.selectedRowHeader').prop("checked", true);
+            }
+            if (this.$el.find('.selectedRow:checked').length > 1) {
+                this.$el.find('.delAtOnces').css('visibility', 'visible');
+            } else {
+                this.$el.find('.delAtOnces').css('visibility', 'hidden');
+            }
         },
 
-        usersData: function(Userlist) {
-            var userlistObj = {};
-            var userslistObj = [];
-            var operationHTML = "";
+        selectedRowHeader: function(e) {
+            e.stopPropagation();
+            var view = this;
 
-            _.each(Userlist, function(userlist) {
-                operationHTML = '<span data-id=' + userlist.empid + '><button class="btn btn-small btn-primary editUser" type="button"><i class="icon-edit icon-white"></i> Details</button>';
-                // operationHTML += ' <button class="btn btn-small btn-info detail" type="button"><i class="icon-share icon-white"></i> Detail</button></span>';
-                operationHTML += ' <button class="btn btn-small btn-danger delete" type="button"><i class="icon-trash icon-white"></i> Delete</button></span>';
-
-                // userlist.selectRows = "<input type='checkbox' class='selectrows' data-id="+userlist.id+">";
-                userlist.accesstype = userlist.accesstype === 0 ? "User" : "Administrator";
-
-                userlistObj = _.object([
-                    // "selectrows",
-                    "empid",
-                    "email",
-                    "firstName",
-                    "lastName",
-                    "accessType",
-                    "operations"
-                ], [
-                    // userlist.selectRows,
-                    userlist.empid,
-                    userlist.email,
-                    userlist.firstname,
-                    userlist.lastname,
-                    userlist.accesstype,
-                    operationHTML
-                ]);
-                userslistObj.push(userlistObj);
-            });
-
-            return userslistObj;
-        },
-
-        createDataGrid: function(userslistObj) {
-            var DataSource = new FuelUxDataSource({
-                columns: [
-                    // {
-                    //     property: "selectrows",
-                    //     label: "<input type='checkbox' id='selectUsersAtOnce'>",
-                    //     sortable: false
-                    // },
-                    {
-                        property: "empid",
-                        label: "Employee ID",
-                        sortable: true
-                    }, {
-                        property: "email",
-                        label: "Email",
-                        sortable: true
-                    }, {
-                        property: "firstName",
-                        label: "First Name",
-                        sortable: true
-                    }, {
-                        property: "lastName",
-                        label: "Last Name",
-                        sortable: true
-                    }, {
-                        property: "accessType",
-                        label: "Access Level",
-                        sortable: true
-                    }, {
-                        property: "operations",
-                        label: "Operations",
-                        sortable: false
-                    }
-                ],
-                data: userslistObj,
-                delay: 250
-            });
-
-            $('#MyGrid').datagrid({
-                dataSource: DataSource,
-                dataOptions: {
-                    pageIndex: 0,
-                    pageSize: 5
-                },
-                stretchHeight: false
+            this.$($(e.target).closest('input[type="checkbox"]')).prop('checked', function() {
+                if (this.checked) {
+                    view.$('.userslist tbody tr').addClass('warning');
+                    view.$(this).prop("checked", true);
+                    view.$('.selectedRow').prop("checked", true);
+                    view.$el.find('.delAtOnces').css('visibility', 'visible');
+                } else {
+                    view.$('.userslist tbody tr').removeClass('warning');
+                    view.$(this).prop("checked", false);
+                    view.$('.selectedRow').prop("checked", false);
+                    view.$el.find('.delAtOnces').css('visibility', 'hidden');
+                }
             });
         }
     });
