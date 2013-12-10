@@ -2,7 +2,7 @@
  * Build-in | Third party module dependencies.
  ***/
 
-var express = require('express'),
+var express = require('express.io'),
     http = require('http'),
     _ = require('underscore'),
     path = require('path');
