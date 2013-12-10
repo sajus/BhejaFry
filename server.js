@@ -39,66 +39,66 @@ app.configure(function() {
  * Service routes for user authentication
  ***/
 app.post('/authenticate', authentication.postAuthentication);
-app.get('/logout', authentication.getCloseAuthentication);
+app.get('/logout', sessionAuth, authentication.getCloseAuthentication);
 
 /**
  * Service routes for user account
  ***/
-app.put('/userReset', userAccount.putReset);
-app.post('/userChange/:email', userAccount.postUserChange);
+app.put('/userReset', sessionAuth, userAccount.putReset);
+app.post('/userChange/:email', sessionAuth, userAccount.postUserChange);
 
-app.put('/userBlock', userAccount.putBlock);
-app.put('/appRelease', userAccount.putRelease);
-app.post('/appRelease', userAccount.postRelease);
+app.put('/userBlock', sessionAuth, userAccount.putBlock);
+app.put('/appRelease', sessionAuth, userAccount.putRelease);
+app.post('/appRelease', sessionAuth, userAccount.postRelease);
 
 /**
  * Service routes for CURD users
  ***/
-app.get('/usersList', users.getUsers);
-app.post('/usersList', users.postUser);
-app.get('/usersList/:id', users.getUsersById);
-app.put('/usersList/:id', users.putUsersById);
-app.del('/usersList/:id', users.delUsersById);
+app.get('/usersList', sessionAuth, users.getUsers);
+app.post('/usersList', sessionAuth, users.postUser);
+app.get('/usersList/:id', sessionAuth, users.getUsersById);
+app.put('/usersList/:id', sessionAuth, users.putUsersById);
+app.del('/usersList/:id', sessionAuth, users.delUsersById);
 
 /**
  * Service routes for CURD interviews
  ***/
-app.get('/interviewList', interviewList.getInterviewList)
-app.post('/interviewList', interviewList.postInterview);
-app.get('/interviewList/:id', interviewList.getInterviewListById);
-app.put('/interviewList/:id', interviewList.putInterviewListById);
-app.del('/interviewList/:id', interviewList.delInterviewListById);
+app.get('/interviewList', sessionAuth, interviewList.getInterviewList)
+app.post('/interviewList', sessionAuth, interviewList.postInterview);
+app.get('/interviewList/:id', sessionAuth, interviewList.getInterviewListById);
+app.put('/interviewList/:id', sessionAuth, interviewList.putInterviewListById);
+app.del('/interviewList/:id', sessionAuth, interviewList.delInterviewListById);
 
 /**
  * Service routes for CURD interview components
  ***/
-app.get('/mode', mode.getMode);
-app.get('/rounds', rounds.getRounds);
-app.get('/status', status.getStatus);
+app.get('/mode', sessionAuth, mode.getMode);
+app.get('/rounds', sessionAuth, rounds.getRounds);
+app.get('/status', sessionAuth, status.getStatus);
 /**
  * Service routes for CURD recruiters
  ***/
-app.get('/recruiter', recruiter.getRecruiter);
-app.post('/recruiter', recruiter.postRecruiter);
-app.get('/recruiter/:id', recruiter.getRecruiterById);
-app.put('/recruiter/:id', recruiter.putRecruiterById);
-app.del('/recruiter/:id', recruiter.delRecruiterById);
+app.get('/recruiter', sessionAuth, recruiter.getRecruiter);
+app.post('/recruiter', sessionAuth, recruiter.postRecruiter);
+app.get('/recruiter/:id', sessionAuth, recruiter.getRecruiterById);
+app.put('/recruiter/:id', sessionAuth, recruiter.putRecruiterById);
+app.del('/recruiter/:id', sessionAuth, recruiter.delRecruiterById);
 
 /**
  * Service routes for CURD interviewers
  ***/
-app.get('/interviewer', interviewer.getInterviewer);
-app.post('/interviewer', interviewer.postInterviewer);
-app.get('/interviewer/:id', interviewer.getInterviewerById);
-app.put('/interviewer/:id', interviewer.putInterviewerById);
-app.del('/interviewer/:id', interviewer.delInterviewerById);
+app.get('/interviewer', sessionAuth, interviewer.getInterviewer);
+app.post('/interviewer', sessionAuth, interviewer.postInterviewer);
+app.get('/interviewer/:id', sessionAuth, interviewer.getInterviewerById);
+app.put('/interviewer/:id', sessionAuth, interviewer.putInterviewerById);
+app.del('/interviewer/:id', sessionAuth, interviewer.delInterviewerById);
 
 /**
  * Service routes for reports
  ***/
-app.get('/reportStatus', reports.getInterviewStatusReport);
-app.get('/reportMode', reports.getInterviewModeReport);
-app.get('/reportRounds', reports.getInterviewRoundReport);
+app.get('/reportStatus', sessionAuth, reports.getInterviewStatusReport);
+app.get('/reportMode', sessionAuth, reports.getInterviewModeReport);
+app.get('/reportRounds', sessionAuth, reports.getInterviewRoundReport);
 
 /**
  * Start a UNIX socket server listening for connections on the given path.
