@@ -1,5 +1,5 @@
-var sequelize = require('../config/dbConfig').sequelize,
-	_ = require('../config/npmResources').underscore;
+var sequelize = require('../config/sqlzConfig').sequelize,
+	_ = require('../config/npmConfig').underscore;
 
 exports.putReset = function(req, res) {
 	sequelize.query("UPDATE users_tbl SET reset = 1 WHERE email='" + req.body.email + "'").success(function() {

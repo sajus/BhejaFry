@@ -1,10 +1,13 @@
 /**
- * Sequelize-ORM configuration file
+ * Sequelize-ORM configuration setup.
  ***/
 
+/**
+ * Load build-in | third-party module dependencies.
+ ***/
 var Sequelize = require('sequelize'),
 	mysql = require('mysql'),
-	config = require("./dbResources"),
+	config = require("./appsConfig"),
 	db = config.database;
 
 var sequelize = new Sequelize(db.name, db.host, db.password, {

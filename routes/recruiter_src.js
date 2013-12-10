@@ -1,5 +1,5 @@
-var sequelize = require('../config/dbConfig').sequelize,
-	_ = require('../config/npmResources').underscore;
+var sequelize = require('../config/sqlzConfig').sequelize,
+	_ = require('../config/npmConfig').underscore;
 
 /*
 	GET THE LIST OF ALL RECRUITERS

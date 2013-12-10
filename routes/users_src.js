@@ -1,6 +1,6 @@
-var sequelize = require('../config/dbConfig').sequelize,
-	keygen = require('../config/npmResources').keygen,
-	_ = require('../config/npmResources').underscore;
+var sequelize = require('../config/sqlzConfig').sequelize,
+	keygen = require('../config/npmConfig').keygen,
+	_ = require('../config/npmConfig').underscore;
 
 /*
 	GET THE LIST OF ALL USERS
