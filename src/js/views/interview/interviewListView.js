@@ -64,7 +64,6 @@ define(function(require) {
                         "bProcessing": true,
                         "bJQueryUI": true,
                         "sPaginationType": "full_numbers",
-                        "sScrollY": "200px",
                         "sScrollX": "100%",
                         "sScrollXInner": "110%",
                         "bScrollCollapse": true,

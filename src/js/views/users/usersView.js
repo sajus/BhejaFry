@@ -142,7 +142,7 @@ define(function(require) {
         },
 
         addNewUser: function() {
-
+            this.$el.find('#userForm').parent().parent().show();
         }
     });
 
