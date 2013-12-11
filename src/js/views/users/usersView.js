@@ -2,7 +2,6 @@ define(function(require) {
     'use strict';
 
     var $ = require('jquery'),
-        _ = require('underscore'),
         Backbone = require('backbone'),
         Events = require('events'),
         usersListTemplate = require('template!templates/users/usersList'),
@@ -31,7 +30,8 @@ define(function(require) {
             'mouseover .userslist tbody tr': 'showRowElements',
             'mouseleave .userslist tbody tr': 'hideRowElements',
             'click .selectedRow': 'selectedRow',
-            'click .selectedRowHeader': 'selectedRowHeader'
+            'click .selectedRowHeader': 'selectedRowHeader',
+            'click .addNewUser': 'addNewUser'
         },
 
         fetchUsersList: function() {
@@ -139,6 +139,10 @@ define(function(require) {
                     view.$el.find('.delAtOnces').css('visibility', 'hidden');
                 }
             });
+        },
+
+        addNewUser: function() {
+
         }
     });
 

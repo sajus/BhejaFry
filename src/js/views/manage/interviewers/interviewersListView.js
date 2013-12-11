@@ -2,7 +2,6 @@ define(function(require) {
     'use strict';
 
     var $ = require('jquery'),
-        _ = require('underscore'),
         Backbone = require('backbone'),
         Events = require('events'),
         interviewersListTemplate = require('template!templates/manage/interviewers/interviewersList'),
