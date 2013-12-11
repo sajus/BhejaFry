@@ -8,7 +8,7 @@ module.exports = {
     },
     "database": {
         "name": "interview_db",
-        "hostname": "root",
+        "host": "root",
         "password": "root"
     }
 }
