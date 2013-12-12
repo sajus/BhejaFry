@@ -8,54 +8,54 @@
                     <button class='btn btn-primary pull-right print'><i class='fa fa-print'></i></button>
                 </td>
             </tr>
-            <tr style='display:none;'>
+            <tr>
                 <td colspan='7'>
-                    <form class='form-horizontal' id='userForm'>
-                        <div class='row'>
-                            <div class='control-group'>
-                                <div class='controls'>
-                                    <div class='col-md-2'>
-                                        <label class='control-label' for='empid'>Employee ID <span class='text-error'>*</span></label>
-                                        <input type='text' id='empid' name='empid' maxlength='8' class='form-control' placeholder='Only numeric allowed without space' />
-                                    </div>
-                                    <div class='col-md-5'>
-                                        <label class='control-label' for='firstname'>First Name <span class='text-error'>*</span></label>
-                                        <input type='text' id='empid' name='empid' maxlength='8' class='form-control' placeholder='Only numeric allowed without space' />
-                                    </div>
-                                    <div class='col-md-5'>
-                                        <label class='control-label' for='lastname'>Last Name <span class='text-error'>*</span></label>
-                                        <input type='text' id='empid' name='empid' maxlength='8' class='form-control' placeholder='Only numeric allowed without space' />
+                    <form class='userForm'>            
+                        <fieldset>
+                            <div class='row'>
+                                <div class='col-md-6'>
+                                    <div class='form-group'>
+                                        <label class='control-label' for='empid'>Employee ID <span class='text-danger'>*</span></label>
+                                        <input type='text' name='empid' maxlength='8' class='form-control' placeholder='Only numeric allowed without space' />
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class='row'>
-                            <div class='control-group'>
-                                <div class='controls'>
-                                    <div class='col-md-12'>
-                                        <label class='control-label' for='email'>Email <span class='text-error'>*</span></label>
-                                        <input type='text' id='email' name='email' maxlength='40' class='form-control' placeholder='Only valid email is allowed' />
+                            <div class='row'>
+                                <div class='col-md-6'>
+                                    <div class='form-group'>
+                                        <label class='control-label' for='uFirstName'>First Name <span class='text-danger'>*</span></label>
+                                        <input type='text' name='uFirstName' maxlength='30' class='form-control' placeholder='Only numeric allowed without space' />
+                                    </div>
+                                </div>
+                                <div class='col-md-6'>
+                                    <div class='form-group'>
+                                        <label class='control-label' for='uLastName'>Last Name <span class='text-danger'>*</span></label>
+                                        <input type='text' name='uLastName' maxlength='30' class='form-control' placeholder='' />
                                     </div>
                                 </div>
                             </div>
-                        </div>                        
-                        <div class='control-group'>
-                            <label class='control-label' for='accesstype'>Access Type <span class='text-error'>*</span></label>                                        
-                            <div class='col-md-12'>
-                                <div class='radio-inline'>
-                                    <label><input type='radio' name='accesstype' value='1'> Administrator</label>
-                                </div>
-                                <div class='radio-inline'>
-                                    <label><input type='radio' name='accesstype' value='0'> Users</label>
+                            <div class='row'>
+                                <div class='col-md-12'>
+                                    <div class='form-group'>                                        
+                                        <label class='control-label' for='uEmail'>Email <span class='text-danger'>*</span></label>
+                                        <input type='text' name='uEmail' maxlength='40' class='form-control' placeholder='Only valid email is allowed' />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class='control-group'>
-                            <div class='controls'>
-                                <button type='submit' class='btn btn-primary' id='addUser'>Add</button>
-                                <button type='button' class='btn btn-default' href='#usersList'>Cancel</button>
-                            </div>
-                        </div>
+                            <div class='row'>
+                                <div class='col-md-12'>
+                                    <label class='control-label' for='uType'>User Roles <span class='text-danger'>*</span></label>
+                                    <div class='form-group'>
+                                        <div class='radio-inline'>
+                                            <label><input type='radio' name='userRoles' value='admin'> Administrator</label>
+                                        </div>
+                                        <div class='radio-inline'>
+                                            <label><input type='radio' name='userRoles' value='user'> Users</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>   
+                        </fieldset>
                     </form>
                 </td>
             </tr>

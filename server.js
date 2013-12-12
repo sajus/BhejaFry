@@ -10,16 +10,16 @@ var express = require('express.io'),
 var app = express(),
     config = require("./config/appsConfig");
 
-var authentication = require('./routes/authentication_src'),
-    userAccount = require('./routes/userAccount_src'),
-    interviewList = require('./routes/interviewList_src'),
-    interviewer = require('./routes/interviewer_src'),
-    mode = require('./routes/mode_src'),
-    rounds = require('./routes/rounds_src'),
-    status = require('./routes/status_src'),
-    recruiter = require('./routes/recruiter_src'),
-    reports = require('./routes/reports_src'),
-    users = require('./routes/users_src');
+var authentication = require('./controllers/authentication_src'),
+    userAccount = require('./controllers/userAccount_src'),
+    interviewList = require('./controllers/interviewList_src'),
+    interviewer = require('./controllers/interviewer_src'),
+    mode = require('./controllers/mode_src'),
+    rounds = require('./controllers/rounds_src'),
+    status = require('./controllers/status_src'),
+    recruiter = require('./controllers/recruiter_src'),
+    reports = require('./controllers/reports_src'),
+    users = require('./controllers/users_src');
 
 /**
  * Application Configurations
