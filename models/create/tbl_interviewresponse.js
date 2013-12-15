@@ -1,7 +1,11 @@
 module.exports = function(sequelize, DataTypes) {
 
     return sequelize.define("InterviewResponse", {
-        candiateName: {
+        interviewDate: {
+            type: DataTypes.STRING(20),
+            allowNull: false
+        },
+        cFirstName: {
             type: DataTypes.STRING(30),
             allowNull: false,
             validate: {
@@ -9,11 +13,27 @@ module.exports = function(sequelize, DataTypes) {
                 len: [2, 30]
             }
         },
-        interviewDate: {
-            type: DataTypes.STRING(20),
+        cLastName: {
+            type: DataTypes.STRING(30),
+            allowNull: false,
+            validate: {
+                isAlpha: true,
+                len: [2, 30]
+            }
+        },
+        cEmail: {
+            type: DataTypes.STRING(40),
+            allowNull: false,
+            validate: {
+                isEmail: true,
+                len: [7, 40]
+            }
+        },
+        improveArea: {
+            type: DataTypes.TEXT,
             allowNull: false
         },
-        description: {
+        comments: {
             type: DataTypes.TEXT,
             allowNull: false
         },

@@ -24,7 +24,7 @@ module.exports = function(sequelize, DataTypes) {
 				isAlpha: true,
 				len: [2, 30]
 			}
-		},
+		}
 	}, {
 		tableName: 'recruiter_tbl'
 	});

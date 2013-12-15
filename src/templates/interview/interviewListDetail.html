@@ -2,23 +2,35 @@
 	<div class='col-md-12'>
 		<div class='panel panel-default'>
 			<div class='panel-heading'>
-				<h6 class='panel-title lead'>{{title}}</h6>
+				<h6 class='panel-title lead'>
+					{{#if editMode}} 
+						<i class='fa fa-pencil-square-o'></i> Following form will help you to edit existing interview information
+					{{else}}
+						<i class='fa fa-plus-circle'></i> Following form will help you to add new conducted interview information
+					{{/if}}
+				</h6>
 			</div>
 			<div class='panel-body'>
 				<form class='interviewForm'>            
 					<fieldset>
-					    <legend class="text-info">Please fill the required information of candidate</legend>
+					    <legend class="text-info">
+					    	{{#if editMode}} 
+								Edit the candidate's information
+							{{else}}
+								Fill the candidate's required information
+							{{/if}}
+					    </legend>
 					    <div class='row'>
 					        <div class='col-md-6'>
 					            <div class='form-group'>
-					                <label class='control-label' for='cFirstName'>First Name <span class='text-danger'>*</span></label>
-					                <input type='text' name='cFirstName' maxlength='30' class='form-control' placeholder='' />
+					                <label class='control-label' for='cFirstName'>First Name</label>
+					                <input type='text' name='cFirstName' maxlength='30' class='form-control cFirstName' placeholder='First' />
 					            </div>
 					        </div>
 					        <div class='col-md-6'>
 					            <div class='form-group'>
-					                <label class='control-label' for='cLastName'>Last Name <span class='text-danger'>*</span></label>
-					                <input type='text' name='cLastName' maxlength='30' class='form-control' placeholder='' />
+					                <label class='control-label' for='cLastName'>Last Name</label>
+					                <input type='text' name='cLastName' maxlength='30' class='form-control cLastName' placeholder='Last' />
 					            </div>
 					        </div>
 					    </div>
@@ -26,19 +38,25 @@
 					        <div class='col-md-12'>
 					            <div class='form-group'>
 					                <label class='control-label' for='cEmail'>Email <span class='text-danger'>*</span></label>
-									<input type='text' name='cEmail' maxlength='30' class='form-control' placeholder='' />
+									<input type='text' name='cEmail' maxlength='30' class='form-control cEmail' placeholder='' />
 					            </div>
 					        </div>
 					    </div>						    
 					</fieldset>
 					<fieldset>
-					    <legend class="text-info">Please fill the required information of interview</legend>
+					    <legend class="text-info">
+					    	{{#if editMode}} 
+								Edit the interview's information
+							{{else}}
+								Fill the interview's required information
+							{{/if}}
+					    </legend>
 					    <div class='row'>
 					        <div class='col-md-6'>
 					            <div class='form-group'>
 					                <label class='control-label' for='interviewDate'>Conducted Date <span class='text-danger'>*</span></label>
-					                <div class='input-group date'>
-					                    <input type='text' class='form-control' name='interviewDate' class='datepicker' data-date-format='dd MM yyyy, DD' readonly>
+				  	            	<div class='input-group date'>
+					                    <input type='text' class='form-control' id='interviewDate' name='interviewDate' class='datepicker' data-date-format='dd MM yyyy, DD' readonly>
 					                    <span class='input-group-addon pickerShow'><i class="fa fa-calendar"></i></span>
 					                </div>
 					            </div>
@@ -48,7 +66,7 @@
 					        <div class='col-md-6'>
 					            <div class='form-group'>
 					                <label class='control-label' for='interviewers'>Interviewers <span class='text-danger'>*</span></label>
-					                <select data-placeholder='Choose Interviewers' multiple name='interviewers' class='form-control'>
+					                <select data-placeholder='Choose Interviewers' multiple name='interviewers' class='form-control interviewers'>
 										<option value=""></option>
 										{{#each interviewers}}
 											<option value='{{empid}}'>{{firstname}} {{lastname}}</option>
@@ -59,7 +77,7 @@
 					        <div class='col-md-6'>
 					            <div class='form-group'>
 					                <label class='control-label' for='recruiter'>Recruiter <span class='text-danger'>*</span></label>
-					                <select data-placeholder='Choose a recruiter' name='recruiters' class='form-control'>
+					                <select name='recruiters' data-placeholder='Choose a recruiter' class='form-control recruiters'>
 										<option value=""></option>
 										{{#each recruiter}}
 											<option value='{{empid}}'>{{firstname}} {{lastname}}</option>
@@ -71,8 +89,8 @@
 					    <div class='row'>
 					        <div class='col-md-4'>    
 					            <div class='form-group'>
-					                <label class='control-label' for='mode'>Mode <span class='text-danger'>*</span></label>
-					                <select name='mode' data-placeholder='Choose a Mode' class='form-control'>
+					                <label class='control-label' for='modes'>Mode <span class='text-danger'>*</span></label>
+					                <select name='modes' data-placeholder='Choose a Mode' class='form-control modes'>
 										<option value=""></option>
 										{{#each mode}}
 											<option value='{{id}}'>{{mode}}</option>
@@ -83,7 +101,7 @@
 					        <div class='col-md-4'>
 					            <div class='form-group'>
 					                <label class='control-label' for='rounds'>Rounds <span class='text-danger'>*</span></label>
-					                <select name='round' data-placeholder='Choose a round' class='form-control'>
+					                <select name='rounds' data-placeholder='Choose a round' class='form-control rounds'>
 										<option value=""></option>
 										{{#each rounds}}
 											<option value='{{id}}'>{{round}}</option>
@@ -94,7 +112,7 @@
 					        <div class='col-md-4'>
 					            <div class='form-group'>
 					                <label class='control-label' for='status'>Status <span class='text-danger'>*</span></label>
-					                <select name='status' data-placeholder='Choose a status' class='form-control'>
+					                <select name='status' data-placeholder='Choose a status' class='form-control status'>
 										<option value=""></option>
 										{{#each interviewStatus}}
 											<option value='{{id}}'>{{status}}</option>
@@ -107,15 +125,15 @@
 					        <div class='col-md-12'>
 					            <div class='form-group'>						                
 					                <label class='control-label' for='improveArea'>Area of Improvement <span class='text-danger'>*</span></label>
-					                <textarea rows="5" class="form-control" name='improveArea' placeholder='Alphabets, numeric and special characters are allowed'></textarea>
+					                <textarea rows="5" class="form-control improveArea" name='improveArea' placeholder='Specify what can be the improvement areas for the respected candidate'></textarea>
 					            </div>
 					        </div>
 					    </div>
 					    <div class='row'>
 					        <div class='col-md-12'>
 					            <div class='form-group'>						                
-					                <label class='control-label' for='status'>Comments <span class='text-danger'>*</span></label>
-					                <textarea rows="8" class="form-control" name='comments' placeholder='Alphabets, numeric and special characters are allowed'></textarea>
+					                <label class='control-label' for='comments'>Comments <span class='text-danger'>*</span></label>
+					                <textarea rows="8" class="form-control comments" name='comments' placeholder='Alphabets, numeric and special characters are allowed'></textarea>
 					            </div>
 					        </div>
 					    </div>
@@ -123,8 +141,10 @@
 				</form>
 			</div>
 			<div class='panel-footer'>
-				<button type='submit' class='btn btn-primary addInterview'>{{addUserText}}</button>
-				<button type='button' class='btn cancelInterviewForm'>Cancel</a>
+				<button type='submit' class='btn btn-primary addInterview'>
+					{{#if editMode}} Update {{else}} Save {{/if}}
+				</button>
+				<button type='button' class='btn btn-default cancelInterviewForm'>Cancel</a>
 			</div>
 		</div>
 	</div>

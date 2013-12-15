@@ -121,42 +121,39 @@ define(function(require) {
                 });
                 view.render();
             });
-            
         },
 
         events: {
-            'submit .form-horizontal': 'processForm',
+            'submit .interviewForm': 'processForm',
             'change :input select': 'processField',
-            'keypress #interviewDate': 'preventAction',
-            // 'mousedown .pickerShow': 'showPicker',
-            'click .addNewList': 'resetForm'
+            'click .pickerShow': 'showDatePicker',
+            'click .cancelInterviewForm': 'cancelForm'
         },
 
-        preventAction: function(e) {
-            e.preventDefault();
+        showDatePicker: function() {
+            this.$el.find('#interviewDate').datepicker('show');
         },
 
-        resetForm: function() {
-            this.$el.find('#candiateName').val('');
-            this.$el.find('#remarks').val('');
+        cancelForm: function() {
+            Events.trigger("view:navigate", {
+                path: "interviewList",
+                options: {
+                    trigger: true
+                }
+            });
         },
 
         render: function() {
-            console.log(this.interviewer);
             var view = this;
-            var addUserText = (this.model.get('id')) ? "Update" : "Save";
-            var title = this.model.get('id') ? "Edit existing interview" : "Add new interview";
 
             this.$el.html(interviewListDetailPageTemplate({
                 mode: this.interviewmode,
-                interviewer1: this.interviewer,
-                interviewer2: this.interviewer,
+                interviewers: this.interviewers,
                 interviewDate: moment(this.interviewDate).format('DD MMMM YYYY, dddd'),
                 recruiter: this.recruiter,
                 rounds: this.interviewrounds,
                 interviewStatus: this.interviewstatus,
-                addUserText: addUserText,
-                title: title
+                editMode: (this.model.get('id')) ? true : false
             }));
 
             this.$el.find('#interviewDate').datepicker({
@@ -175,27 +172,22 @@ define(function(require) {
                 view.modelBinder.bind(view.model, view.el);
             }
 
-            this.$('#interviewer1').chosen({
+            this.$('.interviewers').chosen({
                 allow_single_deselect: true,
                 max_selected_options: 2
             });
-            this.$('#mode').chosen({
+            this.$('.modes').chosen({
                 allow_single_deselect: true
             });
-            this.$('#recruiter').chosen({
+            this.$('.recruiters').chosen({
                 allow_single_deselect: true
             });
-            this.$('#rounds').chosen({
+            this.$('.rounds').chosen({
                 allow_single_deselect: true
             });
-            this.$('#status').chosen({
+            this.$('.status').chosen({
                 allow_single_deselect: true
             });
-            // this.$('#interviewer1').css('width', '55%');
-            this.$('.chosen-container').css({
-                'margin-top': '5px'
-            });
-
             Backbone.Validation.bind(this, {
                 invalid: this.showError,
                 valid: this.removeError
@@ -203,16 +195,24 @@ define(function(require) {
 
             $('.viewTitle').html('<h1>Interviews Detail</h1>');
 
+            var formatDate = this.$('#interviewDate').val();
+            console.log('Format Date:');
+            console.log(formatDate);
+
             return this;
         },
 
         postData: function() {
             var view = this;
-            this.model.set('interviewer_1_id', parseInt(view.model.get('interviewer_1_id'), 10));
-            this.model.set('interviewer_2_id', parseInt(view.model.get('interviewer_2_id'), 10));
-            this.model.set('recruiter_id', parseInt(view.model.get('recruiter_id'), 10));
-            this.model.set('round_id', parseInt(view.model.get('round_id'), 10));
-            this.model.set('status_id', parseInt(view.model.get('status_id'), 10));
+            // .unix()
+            var formatDate = this.$('#interviewDate').val();
+            console.log('Format Date:');
+            console.log(formatDate);
+            console.log(typeof formatDate);
+            this.model.set('interviewers', parseInt(view.model.get('interviewers'), 10));
+            this.model.set('recruiters', parseInt(view.model.get('recruiters'), 10));
+            this.model.set('round', parseInt(view.model.get('round'), 10));
+            this.model.set('status', parseInt(view.model.get('status'), 10));
             this.model.set('interviewDate', this.$('#interviewDate').val());
 
             this.model.save(view.model.toJSON(), {
@@ -220,12 +220,12 @@ define(function(require) {
                     Events.trigger("alert:success", [{
                         message: "Record successfully."
                     }]);
-                    // Events.trigger("view:navigate", {
-                    //     path: "interviewList",
-                    //     options: {
-                    //         trigger: true
-                    //     }
-                    // });
+                    Events.trigger("view:navigate", {
+                        path: "interviewList",
+                        options: {
+                            trigger: true
+                        }
+                    });
                 },
                 error: function() {
                     Events.trigger("alert:error", [{
