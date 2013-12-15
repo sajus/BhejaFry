@@ -15,7 +15,7 @@
 					<fieldset>
 					    <legend class="text-info">
 					    	{{#if editMode}} 
-								Edit the candidate's information
+								Edit candidate's information
 							{{else}}
 								Fill the candidate's required information
 							{{/if}}
@@ -141,9 +141,7 @@
 				</form>
 			</div>
 			<div class='panel-footer'>
-				<button type='submit' class='btn btn-primary addInterview'>
-					{{#if editMode}} Update {{else}} Save {{/if}}
-				</button>
+				<button type='submit' class='btn btn-primary'>{{#if editMode}} Update {{else}} Save {{/if}}</button>
 				<button type='button' class='btn btn-default cancelInterviewForm'>Cancel</a>
 			</div>
 		</div>

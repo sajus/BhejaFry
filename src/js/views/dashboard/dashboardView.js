@@ -50,8 +50,8 @@ define(function(require) {
 				}
 			});
 
-			$('.viewTitle').html('<h1>Dashboard</h1>');
-
+			$('.breadcrumb').html("<li class='active'>Dashboard</li>");
+            
 			return this;
 		},
 

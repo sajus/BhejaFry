@@ -193,22 +193,19 @@ define(function(require) {
                 valid: this.removeError
             });
 
-            $('.viewTitle').html('<h1>Interviews Detail</h1>');
-
-            var formatDate = this.$('#interviewDate').val();
-            console.log('Format Date:');
-            console.log(formatDate);
+            if(this.model.get('id')) {
+                $('.breadcrumb').html("<li><a href='#'>Dashboard</a></li><li class='active'>Edit Interview Details</li>");
+            } else {
+                $('.breadcrumb').html("<li><a href='#'>Dashboard</a></li><li class='active'>Add Interview Details</li>");
+            }
+            
 
             return this;
         },
 
         postData: function() {
             var view = this;
-            // .unix()
-            var formatDate = this.$('#interviewDate').val();
-            console.log('Format Date:');
-            console.log(formatDate);
-            console.log(typeof formatDate);
+
             this.model.set('interviewers', parseInt(view.model.get('interviewers'), 10));
             this.model.set('recruiters', parseInt(view.model.get('recruiters'), 10));
             this.model.set('round', parseInt(view.model.get('round'), 10));
