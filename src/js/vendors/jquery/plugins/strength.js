@@ -63,8 +63,8 @@
 
             thisid = this.$elem.attr('id');
 
-            this.$elem.addClass(this.options.strengthClass).attr('data-password',thisid).after('<input placeholder="Specify your new password" id="newPassword" style="display:none" class="form-control '+this.options.strengthClass+'" data-password="'+thisid+'" type="text" name="" value=""><div data-meter="'+thisid+'"></div>');
-             
+            this.$elem.addClass(this.options.strengthClass).attr('data-password',thisid).after('<input placeholder="Specify your new password" id="newPassword" style="display:none" class="form-control '+this.options.strengthClass+'" data-password="'+thisid+'" type="text" name="" value=""><span class="hint-message" style="display:none;"></span><div data-meter="'+thisid+'"></div>');
+
             this.$elem.bind('keyup keydown change', function(event) {
                 thisval = $('#'+thisid).val();
                 $('input[type="text"][data-password="'+thisid+'"]').val(thisval);

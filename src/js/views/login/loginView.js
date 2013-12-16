@@ -2,8 +2,8 @@ define(function(require) {
     'use strict';
 
     var Backbone = require('backbone'),
-        Events = require('events'),
         BaseView = require('views/BaseView'),
+        Events = require('events'),
         loginPageTemplate = require('template!templates/login/login');
 
     require('css!../../../css/modules/login/login.css');

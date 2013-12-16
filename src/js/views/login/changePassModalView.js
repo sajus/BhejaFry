@@ -30,22 +30,15 @@ define(function(require) {
         },
 
         render: function() {
-            this.$el.html(changePassTemplate());
+            this.$el.html(changePassTemplate);
+            this.uxFormation();
+
             this.modelBinder.bind(this.model, this.el);
 
             Backbone.Validation.bind(this, {
                 invalid: this.showError,
                 valid: this.removeError
             });
-
-            this.$el.find('.modal-dialog').css('width', '600px');
-
-            this.$el.find('#newPassword').strength({
-                strengthClass: 'strength',
-                strengthMeterClass: 'strength_meter',
-                strengthButtonClass: 'button_strength'
-            });
-            this.$el.find('.showPassToggle').prop('disabled', true);
 
             return this;
         },
@@ -61,10 +54,12 @@ define(function(require) {
         showPassToggle: function(e) {
             if (this.$(':input[class="showPassToggle"]').is(':checked')) {
                 this.$el.find('#newPassword').prop('type', 'text');
+                this.$el.find('[name=currentPassword]').prop('type', 'text');
                 this.$el.find('.toggleMsg').html('Hide');
                 this.$(e.target).prop('checked', true);
             } else {
                 this.$el.find('#newPassword').prop('type', 'password');
+                this.$el.find('[name=currentPassword]').prop('type', 'password');
                 this.$el.find('.toggleMsg').html('Show');
                 this.$(e.target).prop('checked', false);
             }
@@ -74,16 +69,28 @@ define(function(require) {
             this.$el.find('.strength').val(generatePassword(12, false)).change();
         },
 
+        uxFormation: function() {
+            this.$el.find('input[name=currentPassword]').focus();
+            this.$el.find('.modal-dialog').css('width', '600px');
+
+            this.$el.find('#newPassword').strength({
+                strengthClass: 'strength',
+                strengthMeterClass: 'strength_meter',
+                strengthButtonClass: 'button_strength'
+            });
+            this.$el.find('.showPassToggle').prop('disabled', true);
+        },
+
         postData: function() {
             this.model.save(this.model.toJSON(), {
                 success: function() {
                     Events.trigger("alert:success", [{
-                        message: "Your password has been changed successfully"
+                        message: "Your password has been changed successfully."
                     }]);
                 },
                 error: function() {
                     Events.trigger("alert:error", [{
-                        message: "The current password you provided are invalid."
+                        message: "The current password you entered is incorrect."
                     }]);
                 }
             });

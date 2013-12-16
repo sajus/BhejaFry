@@ -1,6 +1,6 @@
 define(function(require) {
-
     'use strict';
+
     var $ = require('jquery'),
         Backbone = require('backbone');
 
@@ -13,10 +13,20 @@ define(function(require) {
         },
 
         validation: {
-            currentPassword: {
+            currentPassword: [{
                 required: true,
+                msg: 'Enter your current password.'
+            }, {
+                rangeLength: [8, 40],
                 msg: 'Password should contain min 8 characters.'
-            }
+            }],
+            newPassword: [{
+                required: true,
+                msg: 'Enter your new password.'
+            }, {
+                rangeLength: [8, 40],
+                msg: 'Password should contain min 8 characters.'
+            }],
         }
     });
 });
