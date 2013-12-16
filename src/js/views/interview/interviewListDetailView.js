@@ -159,6 +159,7 @@ define(function(require) {
             }));
 
             this.uxFormation();
+            view.modelBinder.bind(view.model, view.el);
 
             if (this.model.get('id') !== undefined) {
                 this.model.fetch({
@@ -166,8 +167,7 @@ define(function(require) {
                         view.modelBinder.bind(view.model, view.el);
                     }
                 });
-            } else {
-                view.modelBinder.bind(view.model, view.el);
+                // this.$('.rounds').val(this.interviewrounds).trigger("liszt:updated");
             }
 
             Backbone.Validation.bind(this, {
@@ -191,15 +191,19 @@ define(function(require) {
                 allow_single_deselect: true,
                 max_selected_options: 2
             });
+
             this.$('.modes').chosen({
                 allow_single_deselect: true
             });
+
             this.$('.recruiters').chosen({
                 allow_single_deselect: true
             });
             this.$('.rounds').chosen({
                 allow_single_deselect: true
             });
+            this.$('.rounds').trigger("chosen:updated");
+
             this.$('.status').chosen({
                 allow_single_deselect: true
             });
