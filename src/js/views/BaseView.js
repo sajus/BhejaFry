@@ -2,20 +2,15 @@ define(function(require) {
     'use strict';
 
     var $ = require('jquery'),
-        Backbone = require('backbone'),
-        Events = require('events');
+        Backbone = require('backbone');
 
     require('jqueryCookie');
 
     return Backbone.View.extend({
-
         processField: function(e) {
             var target$ = $(e.target),
-                fieldNameAttr = target$.attr('name'),
-                errorText = target$.closest(".controls").find("span.help-inline");
-            if (errorText.text().length !== 0) {
-                errorText.text("");
-            }
+                fieldNameAttr = target$.attr('name');
+
             this.model.set(fieldNameAttr, target$.val(), {
                 validate: true
             });
@@ -23,57 +18,33 @@ define(function(require) {
 
         processForm: function(e) {
             e.preventDefault();
-            if ($(".help-inline").text().length !== 0) {
-                $(".help-inline").text("");
-            }
             this.$('[data-name=option]').slice(2).each(function() {
-                var targetParent$ = $(this).closest('.control-group');
+                var targetParent$ = $(this).closest('.form-control');
                 if ($.trim($(this).val()) === '') {
                     targetParent$.remove();
                 }
             });
             if (this.model.isValid(true)) {
                 this.postData();
-            } else {
-                Events.trigger("alert:error", [{
-                    message: "Something went wrong!"
-                }]);
             }
         },
 
         showError: function(view, attr, error) {
             var targetView$ = view.$el,
                 targetSelector$ = targetView$.find("[name=" + attr + "]"),
-                targetParent$ = targetSelector$.closest(".control-group"),
-                inlineSpan = targetParent$.find('.help-inline');
-            if ($.trim(inlineSpan.html()) === '') {
-                inlineSpan.append(error);
-            } else {
-                if (!view.redundantError(inlineSpan.text(), error)) {
-                    var finalMessage = inlineSpan.text() + ", " + error;
-                    inlineSpan.text(finalMessage);
-                }
-            }
-            targetParent$.addClass("error");
-        },
+                targetParent$ = targetSelector$.parent();
 
-        redundantError: function(errorFullText, error) {
-            var errorList = errorFullText.split(", "),
-                returnValue = false;
-            errorList.forEach(function(value) {
-                if (value.toLowerCase() === error.toLowerCase()) {
-                    returnValue = true;
-                }
-            });
-            return returnValue;
+            targetParent$.addClass("has-error");
+            targetParent$.find('.hint-message').show('slow').addClass('text-danger').html(error);
         },
 
         removeError: function(view, attr) {
             var targetView$ = view.$el,
                 targetSelector$ = targetView$.find("[name=" + attr + "]"),
-                targetParent$ = targetSelector$.closest(".control-group");
-            targetParent$.find(".help-inline").html("");
-            targetParent$.removeClass("error");
+                targetParent$ = targetSelector$.parent();
+
+            targetParent$.removeClass("has-error");
+            targetParent$.find('.hint-message').hide('slow').removeClass('text-danger').html('');
         }
     });
 });

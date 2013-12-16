@@ -44,8 +44,9 @@ requirejs.config({
         'templates': '../templates',
 
         /*** List of Backbone plugins ***/
-        'modelValidator': 'vendors/backbone/plugins/backbone-validation',
-        'modelBinder': 'vendors/backbone/plugins/backbone-modelbinder',
+        'modelValidator': 'vendors/backbone/plugins/modelValidation.min',
+        'modelBinder': 'vendors/backbone/plugins/modelBinder.min',
+        'collectionBinder': 'vendors/backbone/plugins/collectionBinder.min',
 
         /*** List of Require plugins ***/
         'text': 'vendors/require/plugins/text',
@@ -97,6 +98,14 @@ requirejs.config({
         modelBinder: {
             deps: ['backbone'],
             exports: 'Backbone.ModelBinder'
+        },
+        modelValidator: {
+            deps: ['backbone'],
+            exports: 'Backbone.Validator'
+        },
+        collectionBinder: {
+            deps: ['backbone'],
+            exports: 'Backbone.collectionBinder'
         },
         datePicker: {
             deps: ['jquery']

@@ -11,14 +11,20 @@ define(function(require) {
         },
 
         validation: {
-            email: {
+            email: [{
                 required: true,
-                pattern: 'email'
-            },
-            password: {
+                msg: 'Enter your email address.'
+            }, {
+                pattern: 'email',
+                msg: 'Email must be a valid Cybage email account.'
+            }],
+            password: [{
                 required: true,
+                msg: 'Enter your password.'
+            }, {
+                rangeLength: [8, 40],
                 msg: 'Password should contain min 8 characters.'
-            }
+            }]
         }
     });
 });
