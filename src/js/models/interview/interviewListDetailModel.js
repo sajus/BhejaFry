@@ -51,6 +51,9 @@ define(function(require) {
                 required: true,
                 msg: 'Choose your status.'
             },
+            strength: {
+                required: false
+            },
             improveArea: {
                 required: false
             },

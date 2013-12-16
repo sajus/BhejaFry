@@ -56,7 +56,9 @@
     function createInterviewResponse() {
         tbl_interviewresponse
             .bulkCreate([{
-                candiateName: 'Krishna Reddy',
+                cFirstName: 'Ashwin',
+                cLastName: 'Hegde',
+                cEmail: 'unknown1@gmail.com',
                 interviewer_1_id: 5421,
                 interviewer_2_id: 7601,
                 interviewDate: '2013-09-11',
@@ -64,10 +66,14 @@
                 status_id: 1,
                 round_id: 2,
                 mode_id: 1,
-                description: 'Does not have proper knowledge',
+                strength: 'Good in JavaScript',
+                improveArea: 'Can improve in HTML5',
+                comments: 'Does not have proper knowledge',
                 deleteFlag: 0
             }, {
-                candiateName: 'Krishna Iyer',
+               cFirstName: 'Ashwin',
+               cLastName: 'Hegde',
+               cEmail: 'unknown2@gmail.com',
                 interviewer_1_id: 5421,
                 interviewer_2_id: 7601,
                 interviewDate: '2013-09-11',
@@ -75,10 +81,14 @@
                 status_id: 2,
                 round_id: 2,
                 mode_id: 1,
-                description: 'Does not have proper knowledge',
+                strength: 'Good in JavaScript',
+                improveArea: 'Can improve in HTML5',
+                comments: 'Does not have proper knowledge',
                 deleteFlag: 0
             }, {
-                candiateName: 'Krishna Kumar',
+                cFirstName: 'Ashwin',
+                cLastName: 'Hegde',
+                cEmail: 'unknown3@gmail.com',
                 interviewer_1_id: 5421,
                 interviewer_2_id: 7601,
                 interviewDate: '2013-09-11',
@@ -86,10 +96,14 @@
                 status_id: 3,
                 round_id: 2,
                 mode_id: 1,
-                description: 'Does not have proper knowledge',
+                strength: 'Good in JavaScript',
+                improveArea: 'Can improve in HTML5',
+                comments: 'Does not have proper knowledge',
                 deleteFlag: 0
             }, {
-                candiateName: 'Krishna Desai',
+                cFirstName: 'Ashwin',
+                cLastName: 'Hegde',
+                cEmail: 'unknown4@gmail.com',
                 interviewer_1_id: 5421,
                 interviewer_2_id: 7601,
                 interviewDate: '2013-09-11',
@@ -97,7 +111,9 @@
                 status_id: 4,
                 round_id: 2,
                 mode_id: 1,
-                description: 'Does not have proper knowledge',
+                strength: 'Good in JavaScript',
+                improveArea: 'Can improve in HTML5',
+                comments: 'Does not have proper knowledge',
                 deleteFlag: 0
             }])
             .on('success', function() {

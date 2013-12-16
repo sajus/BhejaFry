@@ -26,7 +26,7 @@ define(function(require) {
             this.modelBinder = new Backbone.ModelBinder();
             this.model = new InterviewListDetailModel({'id': this.id});
 
-            this.interviewer = [];
+            this.interviewers = [];
             this.interviewmode = [];
             this.interviewrounds = [];
             this.interviewstatus = [];
@@ -49,7 +49,7 @@ define(function(require) {
             var view = this;
             this.fetchData('interviewer').done(function(interviewer_list) {
                 _.each(interviewer_list, function(data) {
-                    view.interviewer.push(_.object([
+                    view.interviewers.push(_.object([
                         "empid",
                         "firstname",
                         "lastname"
@@ -165,9 +165,14 @@ define(function(require) {
                 this.model.fetch({
                     success: function() {
                         view.modelBinder.bind(view.model, view.el);
+                        var possibleData = view.model.toJSON();
+                        view.$('.modes').val(possibleData.mode_id).trigger("chosen:updated");
+                        view.$('.recruiters').val(possibleData.recruiter_id).trigger("chosen:updated");
+                        view.$('.rounds').val(possibleData.round_id).trigger("chosen:updated");
+                        view.$('.status').val(possibleData.status_id).trigger("chosen:updated");
+                        view.$('.interviewers').val([possibleData.interviewer_1_id, possibleData.interviewer_2_id]).trigger("chosen:updated");
                     }
                 });
-                // this.$('.rounds').val(this.interviewrounds).trigger("liszt:updated");
             }
 
             Backbone.Validation.bind(this, {
@@ -199,10 +204,10 @@ define(function(require) {
             this.$('.recruiters').chosen({
                 allow_single_deselect: true
             });
+
             this.$('.rounds').chosen({
                 allow_single_deselect: true
             });
-            this.$('.rounds').trigger("chosen:updated");
 
             this.$('.status').chosen({
                 allow_single_deselect: true

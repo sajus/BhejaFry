@@ -29,9 +29,13 @@ module.exports = function(sequelize, DataTypes) {
                 len: [7, 40]
             }
         },
+        strength: {
+            type: DataTypes.TEXT,
+            allowNull: true
+        },
         improveArea: {
             type: DataTypes.TEXT,
-            allowNull: false
+            allowNull: true
         },
         comments: {
             type: DataTypes.TEXT,

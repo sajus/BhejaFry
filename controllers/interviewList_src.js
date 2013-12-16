@@ -24,7 +24,7 @@ exports.postInterview = function(req, res) {
 	var interviewer_2_id = null;
 	req.body.interviewer_2_id === undefined ? interviewer_2_id = null : interviewer_2_id = req.body.interviewer_2_id;
 
-	var query = "INSERT INTO interviewresponse_tbl (cFirstName, cLastName, cEmail, interviewer_1_id, interviewer_2_id, interviewDate ,recruiter_id, status_id, round_id, mode_id, description, deleteFlag)";
+	var query = "INSERT INTO interviewresponse_tbl (cFirstName, cLastName, cEmail, interviewer_1_id, interviewer_2_id, interviewDate ,recruiter_id, status_id, round_id, mode_id, strength, improveArea, comments, deleteFlag)";
 	query += "VALUES (";
 	query += " '" + req.body.candiateName + "',";
 	query += req.body.interviewer_1_id + " ,";
@@ -34,6 +34,7 @@ exports.postInterview = function(req, res) {
 	query += req.body.status_id + " ,";
 	query += req.body.round_id + " ,";
 	query += req.body.mode_id + " ,";
+	query += " '" + req.body.strength + "',";
 	query += " '" + req.body.improveArea + "',";
 	query += " '" + req.body.comments + "',";
 	query += 0 + " )";
@@ -69,6 +70,7 @@ exports.getInterviewListById = function(req, res) {
 			"status_id",
 			"round_id",
 			"mode_id",
+			"strength",
 			"improveArea",
 			"comments",
 			"deleteFlag"
@@ -84,6 +86,7 @@ exports.getInterviewListById = function(req, res) {
 			rows[0].status_id,
 			rows[0].round_id,
 			rows[0].mode_id,
+			rows[0].strength,
 			rows[0].improveArea,
 			rows[0].comments,
 			0
@@ -110,6 +113,7 @@ exports.putInterviewListById = function(req, res) {
 	query += " " + "status_id = " + req.body.status_id + ",";
 	query += " " + "round_id = " + req.body.round_id + ",";
 	query += " " + "mode_id = " + req.body.mode_id + ",";
+	query += " " + "strength = '" + req.body.strength + "',";
 	query += " " + "improveArea = '" + req.body.improveArea + "',";
 	query += " " + "comments = '" + req.body.comments + "',";
 	query += " " + "deleteFlag = " + req.body.deleteFlag + "";

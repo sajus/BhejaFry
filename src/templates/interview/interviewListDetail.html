@@ -69,7 +69,7 @@
 					        <div class='col-md-6'>
 					            <div class='form-group'>
 					                <label class='control-label' for='interviewers'>Interviewers <span class='text-danger'>*</span></label>
-					                <select data-placeholder='Choose Interviewers' multiple name='interviewers' class='form-control interviewers'>
+					                <select data-placeholder='Choose Interviewers' name='interviewers' class='form-control interviewers' multiple>
 										<option value=""></option>
 										{{#each interviewers}}
 											<option value='{{empid}}'>{{firstname}} {{lastname}}</option>
@@ -129,11 +129,21 @@
 					            </div>
 					        </div>
 					   	</div>
+					   	<div class='row'>
+					        <div class='col-md-12'>
+					            <div class='form-group'>
+					                <label class='control-label' for='strength'>strength</label>
+					                <textarea rows="4" class="form-control strength" name='strength' placeholder='Specify the strength the respected candidate'></textarea>
+					                <span class="hint-message" style="display:none;"></span>
+					            </div>
+					        </div>
+					    </div>
 					    <div class='row'>
 					        <div class='col-md-12'>
 					            <div class='form-group'>
 					                <label class='control-label' for='improveArea'>Area of Improvement</label>
-					                <textarea rows="5" class="form-control improveArea" name='improveArea' placeholder='Specify what can be the improvement areas for the respected candidate'></textarea>
+					                <textarea rows="4" class="form-control improveArea" name='improveArea' placeholder='Specify what can be the improvement areas for the respected candidate'></textarea>
+					                <span class="hint-message" style="display:none;"></span>
 					            </div>
 					        </div>
 					    </div>
@@ -141,7 +151,8 @@
 					        <div class='col-md-12'>
 					            <div class='form-group'>
 					                <label class='control-label' for='comments'>Comments <span class='text-danger'>*</span></label>
-					                <textarea rows="8" class="form-control comments" name='comments' placeholder='Alphabets, numeric and special characters are allowed'></textarea>
+					                <textarea rows="6" class="form-control comments" name='comments' placeholder='Alphabets, numeric and special characters are allowed'></textarea>
+					                <span class="hint-message" style="display:none;"></span>
 					            </div>
 					        </div>
 					    </div>
