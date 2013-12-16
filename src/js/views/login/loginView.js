@@ -32,10 +32,10 @@ define(function(require) {
         events: {
             'submit .signInForm': 'processForm',
             'change :input, blur :input': 'processField',
-            'click .unableToAccess': 'unableToAccess'
+            'click .switchToLoginIssue': 'switchToLoginIssue'
         },
 
-        unableToAccess: function() {
+        switchToLoginIssue: function() {
             Events.trigger("view:navigate", {
                 path: "loginIssue",
                 options: {
@@ -57,7 +57,7 @@ define(function(require) {
                         Events.trigger('redirectToAuthPage', view.options);
                     } else {
                         Events.trigger("alert:error", [{
-                            message: "The credentials you provided are invalid."
+                            message: "The email or password you entered is incorrect."
                         }]);
                     }
                 }
@@ -66,7 +66,7 @@ define(function(require) {
 
         render: function() {
             this.$el.html(loginPageTemplate);
-            this.$el.find('input[name="email"]').focus();
+            this.uxFormation();
 
             this.modelBinder.bind(this.model, this.el);
 
@@ -75,13 +75,11 @@ define(function(require) {
                 valid: this.removeError
             });
 
-            // if (this.options.authorizationFailed === true) {
-            //     Events.trigger("alert:error", [{
-            //         message: "You are not authorized to view this page."
-            //     }]);
-            // }
-
             return this;
+        },
+
+        uxFormation: function() {
+            this.$el.find('input[name="email"]').focus();
         },
 
         postData: function() {

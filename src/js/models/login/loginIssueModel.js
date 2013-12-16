@@ -1,6 +1,6 @@
 define(function(require) {
-
     'use strict';
+
     var Backbone = require('backbone');
 
     require('modelValidator');
@@ -11,9 +11,16 @@ define(function(require) {
         },
 
         validation: {
-            email: {
+            email: [{
                 required: true,
-                pattern: 'email'
+                msg: 'Enter your email address.'
+            }, {
+                pattern: 'email',
+                msg: 'The email you entered is incorrect.'
+            }],
+            loginIssueOpt: {
+                required: true,
+                msg: 'Specify either you want to reset or unlock.'
             }
         }
     });

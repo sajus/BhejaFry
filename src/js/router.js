@@ -78,8 +78,10 @@ define(function(require) {
                     replace: true
                 });
             } else {
-                require(['views/login/loginIssueView'], function(LoginIssuePage) {
+                require(['views/login/loginIssueView', 'models/login/loginIssueModel'], function(LoginIssuePage, LoginIssueModel) {
+                    var loginIssueModel = new LoginIssueModel();
                     Core.create(appView, 'LoginIssuePage', LoginIssuePage, {
+                        model: loginIssueModel,
                         skipAuthCheck: true
                     });
                 });

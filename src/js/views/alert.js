@@ -101,7 +101,7 @@ define(function(require) {
                         $alert.alert('close');
                         $el.removeClass('fade');
                     }, 150);
-                }, 2000);
+                }, 3500);
             }
 
 

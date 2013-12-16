@@ -34,8 +34,13 @@ define(function(require) {
                 targetSelector$ = targetView$.find("[name=" + attr + "]"),
                 targetParent$ = targetSelector$.parent();
 
+            // Error styles are based on Bootstrap 3 HTML structure.
+            if(targetSelector$.prop('type')==='radio') {
+                targetParent$ = targetSelector$.parent().parent().parent();
+            }
+
             targetParent$.addClass("has-error");
-            targetParent$.find('.hint-message').show('slow').addClass('text-danger').html(error);
+            targetParent$.find('.hint-message').show().addClass('text-danger').html(error);
         },
 
         removeError: function(view, attr) {
@@ -43,8 +48,13 @@ define(function(require) {
                 targetSelector$ = targetView$.find("[name=" + attr + "]"),
                 targetParent$ = targetSelector$.parent();
 
+            // Error styles are based on Bootstrap 3 HTML structure.
+            if(targetSelector$.prop('type')==='radio') {
+                targetParent$ = targetSelector$.parent().parent().parent();
+            }
+
             targetParent$.removeClass("has-error");
-            targetParent$.find('.hint-message').hide('slow').removeClass('text-danger').html('');
+            targetParent$.find('.hint-message').hide().removeClass('text-danger').html('');
         }
     });
 });

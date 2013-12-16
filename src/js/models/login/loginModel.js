@@ -16,7 +16,7 @@ define(function(require) {
                 msg: 'Enter your email address.'
             }, {
                 pattern: 'email',
-                msg: 'Email must be a valid Cybage email account.'
+                msg: 'The email you entered is incorrect.'
             }],
             password: [{
                 required: true,

@@ -8,9 +8,10 @@
                 </div>
             </div>
             <div class="panel-body">
-                <form role="form" class="signInForm">
+                <form role="form" class="signInIssueForm">
                     <div class="form-group">
                         <input type="email" name="email" class="form-control" placeholder="Use your Cybage email account">
+                        <span class="hint-message" style="display:none;"></span>
                     </div>
                     <div class="form-group">
                         <div class="radio-inline">
@@ -19,14 +20,15 @@
                         <div class="radio-inline">
                             <label><input type="radio" name="loginIssueOpt" value="unlock"> Unlock your account</label>
                         </div>
+                        <p class="hint-message" style="display:none;"></p>
                     </div>
                     <div class="alert-container"></div>
-                    <button type="submit" data-loading-text="Loading..." class="signIn btn btn-primary pull-left">Send request</button>
-                    <button type="button" data-loading-text="Loading..." class="btn btn-link pull-right login">Already has an account! Sign in</a>
+                    <button type="submit" class="signIn btn btn-primary">Send request</button>
+                    <button type="button" class="btn btn-link pull-right switchToLogin">Already has an account! Sign in</a>
                 </form>
             </div>
             <div class="panel-footer text-center text-muted">
-                To request an account, please contact your Cybage UI - IMS administrators.
+                To request an account, please contact your Cybage UI - IMS administrators
             </div>
         </div>
     </div>
