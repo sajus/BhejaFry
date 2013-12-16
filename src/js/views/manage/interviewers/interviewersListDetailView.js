@@ -4,7 +4,8 @@ define(function(require) {
     var Backbone = require('backbone'),
         Events = require('events'),
         BaseView = require('views/BaseView'),
-        interviewersListDetailTemplate = require('template!templates/manage/interviewers/interviewersListDetail');
+        interviewersListDetailTemplate = require('template!templates/manage/interviewers/interviewersListDetail'),
+        InterviewersListDetailModel = require('models/manage/interviewers/interviewersListDetailModel');
 
     require('modelBinder');
     require('modelValidator');
@@ -16,6 +17,7 @@ define(function(require) {
 
         initialize: function() {
             this.modelBinder = new Backbone.ModelBinder();
+            this.model = new InterviewersListDetailModel({'id': this.id});
             this.render();
         },
 

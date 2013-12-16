@@ -22,7 +22,7 @@ define(function(require) {
 		},
 
 		events: {
-			'click .minWindow, .maxWindow': 'dockWindow'
+			'click .minWindow, .maxWindow, click .fa-chevron-up, .fa-chevron-down': 'dockWindow'
 		},
 
 		dockWindow: function(e) {
@@ -38,10 +38,14 @@ define(function(require) {
 		},
 
 		render: function() {
-
 			this.$el.html(dashboardTemplate);
 			this.setChartPreferences();
+			this.uxFormation();
 
+			return this;
+		},
+
+		uxFormation: function() {
 			this.turnOffCheck().done(function(data) {
 				if (!data.appRelease) {
 					var whatsNewModalView = new WhatsNewModalView();
@@ -51,8 +55,6 @@ define(function(require) {
 			});
 
 			$('.breadcrumb').html("<li class='active'>Dashboard</li>");
-            
-			return this;
 		},
 
 		turnOffCheck: function() {

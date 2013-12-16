@@ -3,18 +3,18 @@
 		<div class='panel panel-default'>
 			<div class='panel-heading'>
 				<h6 class='panel-title lead'>
-					{{#if editMode}} 
+					{{#if editMode}}
 						<i class='fa fa-pencil-square-o'></i> Following form will help you to edit existing interview information
 					{{else}}
 						<i class='fa fa-plus-circle'></i> Following form will help you to add new conducted interview information
 					{{/if}}
 				</h6>
 			</div>
-			<div class='panel-body'>
-				<form class='interviewForm'>            
+			<form role="form" class="interviewForm">
+				<div class='panel-body'>
 					<fieldset>
 					    <legend class="text-info">
-					    	{{#if editMode}} 
+					    	{{#if editMode}}
 								Edit candidate's information
 							{{else}}
 								Fill the candidate's required information
@@ -25,12 +25,14 @@
 					            <div class='form-group'>
 					                <label class='control-label' for='cFirstName'>First Name</label>
 					                <input type='text' name='cFirstName' maxlength='30' class='form-control cFirstName' placeholder='First' />
+					                <span class="hint-message" style="display:none;"></span>
 					            </div>
 					        </div>
 					        <div class='col-md-6'>
 					            <div class='form-group'>
 					                <label class='control-label' for='cLastName'>Last Name</label>
 					                <input type='text' name='cLastName' maxlength='30' class='form-control cLastName' placeholder='Last' />
+					                <span class="hint-message" style="display:none;"></span>
 					            </div>
 					        </div>
 					    </div>
@@ -38,14 +40,15 @@
 					        <div class='col-md-12'>
 					            <div class='form-group'>
 					                <label class='control-label' for='cEmail'>Email <span class='text-danger'>*</span></label>
-									<input type='text' name='cEmail' maxlength='30' class='form-control cEmail' placeholder='' />
+									<input type='text' name='cEmail' maxlength='30' class='form-control cEmail' placeholder='Email address' />
+									<span class="hint-message" style="display:none;"></span>
 					            </div>
 					        </div>
-					    </div>						    
+					    </div>
 					</fieldset>
 					<fieldset>
 					    <legend class="text-info">
-					    	{{#if editMode}} 
+					    	{{#if editMode}}
 								Edit the interview's information
 							{{else}}
 								Fill the interview's required information
@@ -72,6 +75,7 @@
 											<option value='{{empid}}'>{{firstname}} {{lastname}}</option>
 										{{/each}}
 									</select>
+									<span class="hint-message" style="display:none;"></span>
 					            </div>
 					        </div>
 					        <div class='col-md-6'>
@@ -83,11 +87,12 @@
 											<option value='{{empid}}'>{{firstname}} {{lastname}}</option>
 										{{/each}}
 									</select>
+									<span class="hint-message" style="display:none;"></span>
 					            </div>
 					        </div>
 					    </div>
 					    <div class='row'>
-					        <div class='col-md-4'>    
+					        <div class='col-md-4'>
 					            <div class='form-group'>
 					                <label class='control-label' for='modes'>Mode <span class='text-danger'>*</span></label>
 					                <select name='modes' data-placeholder='Choose a Mode' class='form-control modes'>
@@ -96,6 +101,7 @@
 											<option value='{{id}}'>{{mode}}</option>
 										{{/each}}
 									</select>
+									<span class="hint-message" style="display:none;"></span>
 					            </div>
 					        </div>
 					        <div class='col-md-4'>
@@ -107,6 +113,7 @@
 											<option value='{{id}}'>{{round}}</option>
 										{{/each}}
 									</select>
+									<span class="hint-message" style="display:none;"></span>
 					            </div>
 					        </div>
 					        <div class='col-md-4'>
@@ -118,32 +125,33 @@
 											<option value='{{id}}'>{{status}}</option>
 										{{/each}}
 									</select>
+									<span class="hint-message" style="display:none;"></span>
 					            </div>
 					        </div>
 					   	</div>
 					    <div class='row'>
 					        <div class='col-md-12'>
-					            <div class='form-group'>						                
-					                <label class='control-label' for='improveArea'>Area of Improvement <span class='text-danger'>*</span></label>
+					            <div class='form-group'>
+					                <label class='control-label' for='improveArea'>Area of Improvement</label>
 					                <textarea rows="5" class="form-control improveArea" name='improveArea' placeholder='Specify what can be the improvement areas for the respected candidate'></textarea>
 					            </div>
 					        </div>
 					    </div>
 					    <div class='row'>
 					        <div class='col-md-12'>
-					            <div class='form-group'>						                
+					            <div class='form-group'>
 					                <label class='control-label' for='comments'>Comments <span class='text-danger'>*</span></label>
 					                <textarea rows="8" class="form-control comments" name='comments' placeholder='Alphabets, numeric and special characters are allowed'></textarea>
 					            </div>
 					        </div>
 					    </div>
 					</fieldset>
-				</form>
-			</div>
-			<div class='panel-footer'>
-				<button type='submit' class='btn btn-primary'>{{#if editMode}} Update {{else}} Save {{/if}}</button>
-				<button type='button' class='btn btn-default cancelInterviewForm'>Cancel</a>
-			</div>
+				</div>
+				<div class='panel-footer'>
+					<button type='submit' class='btn btn-primary'>{{#if editMode}} Update {{else}} Save {{/if}}</button>
+					<button type='button' class='btn btn-default cancelInterviewForm'>Cancel</a>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>

@@ -15,44 +15,52 @@ define(function(require) {
         },
 
         validation: {
-            candiateName: [{
-                required: true,
-                msg: "Please specify candidate name."
-            }, {
-                pattern: /^(([A-Za-z]+)(\s{0,2}[A-Za-z]+)?)$/gm,
-                msg: "Please specify valid candidate name."
-            }],
-            interviewDate: {
-                required: true,
-                msg: "Please select interview date."
-            },
-            mode_id: {
-                required: true,
-                msg: "Please specify the interview mode."
-            },
-            interviewer_1_id: {
-                required: true,
-                msg: "Please specify who conducted the interview."
-            },
-            interviewer_2_id: {
+            cFirstName: {
                 required: false
             },
-            recruiter_id: {
-                required: true,
-                msg: "Please specify who arranged the interview."
+            cLastName: {
+                required: false
             },
-            round_id: {
+            cEmail: [{
                 required: true,
-                msg: "Please specify the interview round."
+                msg: 'Enter candidate\'s email address.'
+            }, {
+                pattern: 'email',
+                msg: 'The candidate\'s email you entered is incorrect.'
+            }],
+            interviewDate: {
+                required: true
             },
-            status_id: {
+            interviewers: {
                 required: true,
-                msg: "Please specify the interview status."
+                msg: 'Choose your interviewers.'
             },
-            description: {
+            recruiters: {
                 required: true,
-                msg: "Please give some remarks based on your experience."
-            }
+                msg: 'Choose your recruiters.'
+            },
+            modes: {
+                required: true,
+                msg: 'Choose your mode.'
+            },
+            rounds: {
+                required: true,
+                msg: 'Choose your round.'
+            },
+            status: {
+                required: true,
+                msg: 'Choose your status.'
+            },
+            improveArea: {
+                required: false
+            },
+            comments: [{
+                required: true,
+                msg: 'Enter your comments.'
+            }, {
+                minLength: 4,
+                msg: 'Comments should contain min 4 characters.'
+            }]
         }
     });
 });

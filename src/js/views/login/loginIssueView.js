@@ -4,7 +4,8 @@ define(function(require) {
     var Backbone = require('backbone'),
         Events = require('events'),
         BaseView = require('views/BaseView'),
-        loginIssuePageTemplate = require('template!templates/login/loginIssue');
+        loginIssuePageTemplate = require('template!templates/login/loginIssue'),
+        LoginIssueModel = require('models/login/loginIssueModel');
 
     require('css!../../../css/modules/login/login.css');
     require('modelBinder');
@@ -18,6 +19,7 @@ define(function(require) {
 
         initialize: function() {
             this.modelBinder = new Backbone.ModelBinder();
+            this.model = new LoginIssueModel();
             this.render();
         },
 

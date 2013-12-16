@@ -4,7 +4,8 @@ define(function(require) {
     var Backbone = require('backbone'),
         BaseView = require('views/BaseView'),
         Events = require('events'),
-        loginPageTemplate = require('template!templates/login/login');
+        loginPageTemplate = require('template!templates/login/login'),
+        LoginModel = require('models/login/loginModel');
 
     require('css!../../../css/modules/login/login.css');
     require('modelBinder');
@@ -17,6 +18,7 @@ define(function(require) {
 
         initialize: function() {
             this.modelBinder = new Backbone.ModelBinder();
+            this.model = new LoginModel();
             this.isAuthenticated = $.cookie('isAuthenticated');
             if (this.isAuthenticated) {
                 Events.trigger("view:navigate", {

@@ -60,10 +60,8 @@ define(function(require) {
                     trigger: true
                 });
             } else {
-                require(['views/login/loginView', 'models/login/loginModel'], function(LoginPage, LoginModel) {
-                    var loginModel = new LoginModel();
+                require(['views/login/loginView'], function(LoginPage) {
                     Core.create(appView, 'LoginPage', LoginPage, {
-                        model: loginModel,
                         skipAuthCheck: true
                     });
                 });
@@ -78,10 +76,8 @@ define(function(require) {
                     replace: true
                 });
             } else {
-                require(['views/login/loginIssueView', 'models/login/loginIssueModel'], function(LoginIssuePage, LoginIssueModel) {
-                    var loginIssueModel = new LoginIssueModel();
+                require(['views/login/loginIssueView'], function(LoginIssuePage) {
                     Core.create(appView, 'LoginIssuePage', LoginIssuePage, {
-                        model: loginIssueModel,
                         skipAuthCheck: true
                     });
                 });
@@ -117,11 +113,8 @@ define(function(require) {
         /*** Router configuration for 'interview' | 'interview/:id' routes ***/
         router.on('route:interview', function(id) {
             if ($.cookie('isAuthenticated')) {
-                require(['views/interview/interviewListDetailView', 'models/interview/interviewListDetailModel'], function(InterviewListPage, InterviewListDetailModel) {
-                    var interviewListDetailModel = new InterviewListDetailModel();
-                    Core.create(appView, 'InterviewListPage', InterviewListPage, {
-                        model: interviewListDetailModel.set('id', id)
-                    });
+                require(['views/interview/interviewListDetailView'], function(InterviewListPage) {
+                    Core.create(appView, 'InterviewListPage', InterviewListPage, { 'id': id });
                 });
             } else {
                 this.navigate("login", {
@@ -146,11 +139,8 @@ define(function(require) {
         /*** Router configuration for 'mgnInterviewersDetail' | 'mgnInterviewersDetail/:id' routes ***/
         router.on('route:mgnInterviewersDetail', function(id) {
             if ($.cookie('isAuthenticated')) {
-                require(['views/manage/interviewers/interviewersListDetailView', 'models/manage/interviewers/interviewersListDetailModel'], function(InterviewersListDetailPage, InterviewersListDetailModel) {
-                    var interviewersListDetailModel = new InterviewersListDetailModel();
-                    Core.create(appView, 'InterviewersListDetailPage', InterviewersListDetailPage, {
-                        model: interviewersListDetailModel.set('id', id)
-                    });
+                require(['views/manage/interviewers/interviewersListDetailView'], function(InterviewersListDetailPage) {
+                    Core.create(appView, 'InterviewersListDetailPage', InterviewersListDetailPage, { 'id': id });
                 });
             } else {
                 this.navigate("login", {
@@ -175,11 +165,8 @@ define(function(require) {
         /*** Router configuration for 'mgnRecruitersDetail' | 'mgnRecruitersDetail(/:id)' routes ***/
         router.on('route:mgnRecruitersDetail', function(id) {
             if ($.cookie('isAuthenticated')) {
-                require(['views/manage/recruiters/recruitersListDetailView', 'models/manage/recruiters/recruitersListDetailModel'], function(RecruitersListDetailPage, RecruitersListDetailModel) {
-                    var recruitersListDetailModel = new RecruitersListDetailModel();
-                    Core.create(appView, 'RecruitersListDetailPage', RecruitersListDetailPage, {
-                        model: recruitersListDetailModel.set('id', id)
-                    });
+                require(['views/manage/recruiters/recruitersListDetailView'], function(RecruitersListDetailPage) {
+                    Core.create(appView, 'RecruitersListDetailPage', RecruitersListDetailPage, { 'id': id });
                 });
             } else {
                 this.navigate("login", {
@@ -204,11 +191,8 @@ define(function(require) {
         /*** Router configuration for 'usersDetail' | 'usersDetail(/:id)' routes ***/
         router.on('route:usersDetail', function(id) {
             if ($.cookie('isAuthenticated')) {
-                require(['views/users/usersDetailView', 'models/users/usersListDetailModel'], function(UsersDetailPage, UsersListDetailModel) {
-                    var usersListDetailModel = new UsersListDetailModel();
-                    Core.create(appView, 'UsersDetailPage', UsersDetailPage, {
-                        model: usersListDetailModel.set('id', id)
-                    });
+                require(['views/users/usersDetailView'], function(UsersDetailPage) {
+                    Core.create(appView, 'UsersDetailPage', UsersDetailPage, { 'id': id });
                 });
             } else {
                 this.navigate("login", {

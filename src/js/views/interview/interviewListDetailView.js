@@ -4,16 +4,17 @@ define(function(require) {
     var $ = require('jquery'),
         _ = require('underscore'),
         Backbone = require('backbone'),
-        Events = require('events'),
         BaseView = require('views/BaseView'),
+        Events = require('events'),
         interviewListDetailPageTemplate = require('template!templates/interview/interviewListDetail'),
+        InterviewListDetailModel = require('models/interview/interviewListDetailModel'),
         moment = require('moment');
 
     require('css!vendors/bootstrap/plugins/datepicker/css/datepicker3.css');
     require('css!vendors/jquery/plugins/chosen/chosen.min.css');
     require('modelBinder');
-    require('chosen');
     require('modelValidator');
+    require('chosen');
     require('bsAlert');
     require('datePicker');
 
@@ -23,6 +24,7 @@ define(function(require) {
 
         initialize: function() {
             this.modelBinder = new Backbone.ModelBinder();
+            this.model = new InterviewListDetailModel({'id': this.id});
 
             this.interviewer = [];
             this.interviewmode = [];
@@ -125,7 +127,7 @@ define(function(require) {
 
         events: {
             'submit .interviewForm': 'processForm',
-            'change :input select': 'processField',
+            'change :input, change select, blur :input, blur select': 'processField',
             'click .pickerShow': 'showDatePicker',
             'click .cancelInterviewForm': 'cancelForm'
         },
@@ -156,11 +158,7 @@ define(function(require) {
                 editMode: (this.model.get('id')) ? true : false
             }));
 
-            this.$el.find('#interviewDate').datepicker({
-                "autoclose": true,
-                "format": 'dd MM yyyy, DD',
-            }).data('datepicker');
-            this.$el.find('#interviewDate').datepicker('update');
+            this.uxFormation();
 
             if (this.model.get('id') !== undefined) {
                 this.model.fetch({
@@ -171,6 +169,23 @@ define(function(require) {
             } else {
                 view.modelBinder.bind(view.model, view.el);
             }
+
+            Backbone.Validation.bind(this, {
+                invalid: this.showError,
+                valid: this.removeError
+            });
+
+            return this;
+        },
+
+        uxFormation: function() {
+            this.$el.find('#interviewDate').datepicker({
+                "autoclose": true,
+                "format": 'dd MM yyyy, DD',
+            }).data('datepicker');
+            this.$el.find('#interviewDate').datepicker('update');
+
+            this.$el.find('input[name="cEmail"]').focus();
 
             this.$('.interviewers').chosen({
                 allow_single_deselect: true,
@@ -188,19 +203,12 @@ define(function(require) {
             this.$('.status').chosen({
                 allow_single_deselect: true
             });
-            Backbone.Validation.bind(this, {
-                invalid: this.showError,
-                valid: this.removeError
-            });
 
             if(this.model.get('id')) {
                 $('.breadcrumb').html("<li><a href='#'>Dashboard</a></li><li class='active'>Edit Interview Details</li>");
             } else {
                 $('.breadcrumb').html("<li><a href='#'>Dashboard</a></li><li class='active'>Add Interview Details</li>");
             }
-            
-
-            return this;
         },
 
         postData: function() {
