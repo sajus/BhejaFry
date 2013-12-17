@@ -159,10 +159,7 @@ define(function(require) {
                 editMode: (this.model.get('id')) ? true : false
             }));
 
-            this.modelBinder.bind(this.model, this.el);
-            this.uxFormation();
-
-            if (this.model.get('id') !== undefined) {
+            if (this.id !== null) {
                 this.model.fetch({
                     success: function() {
                         view.modelBinder.bind(view.model, view.el);
@@ -175,7 +172,11 @@ define(function(require) {
                         view.$el.find('#interviewDate').datepicker('update', moment(possibleData.interviewDate).format('DD MMMM YY, dddd'));
                     }
                 });
+            } else {
+                this.modelBinder.bind(this.model, this.el);
             }
+
+            this.uxFormation();
 
             Backbone.Validation.bind(this, {
                 invalid: this.showError,
@@ -189,6 +190,7 @@ define(function(require) {
             this.$el.find('#interviewDate').datepicker({
                 "autoclose": true,
                 "format": 'dd MM yyyy, DD',
+                "todayHighlight": true
             }).data('datepicker');
             
             this.$el.find('input[name="cEmail"]').focus();
