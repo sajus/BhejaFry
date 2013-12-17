@@ -3,7 +3,6 @@ define(function(require) {
 
     var Backbone = require('backbone'),
         listDelConfirmModal = require('template!templates/interview/listDelConfirmModal'),
-        DeleteInterviewModel = require('models/interview/interviewListDetailModel'),
         Events = require('events');
 
     require('bsCollapse');
@@ -13,33 +12,42 @@ define(function(require) {
         className: "modal fade",
 
         events: {
+            'click .agreement': 'agreement',
             'click .confirmDelete': 'confirmDelete'
         },
 
         render: function(userId) {
             this.delUserId = userId;
-            this.$el.html(listDelConfirmModal());
+            this.$el.html(listDelConfirmModal);
             return this;
         },
 
+        agreement: function(e) {
+            if (this.$(e.target).is(':checked')) {
+                this.$(e.target).prop('checked', true);
+                this.$el.find('.confirmDelete').removeClass('disabled').prop('disabled', false);
+            } else {
+                this.$(e.target).prop('checked', false);
+                this.$el.find('.confirmDelete').addClass('disabled').prop('disabled', true);
+            }
+        },
+
         confirmDelete: function() {
-            var deleteInterviewModel = new DeleteInterviewModel();
-
-            deleteInterviewModel.set({
-                id: this.delUserId
-            });
-
-            deleteInterviewModel.destroy({
-                success: function() {
-                    Events.trigger("alert:success", [{
-                        message: "Record deleted successfully"
-                    }]);
-                },
-                error: function() {
-                    Events.trigger("alert:error", [{
-                        message: "Some error got triggered white deleting record"
-                    }]);
-                }
+            var view = this;
+            $.ajax({
+                type: "DELETE",
+                url: Backbone.Model.gateWayUrl + '/interviewList/' + this.delUserId
+            }).done(function() {
+                setTimeout(function() {
+                    view.$el.modal('hide');
+                }, 1500);
+                Events.trigger("alert:success", [{
+                    message: "Interview deleted successfully."
+                }]);
+            }).fail(function() {
+                Events.trigger("alert:error", [{
+                    message: "Some error got triggered white deleting record."
+                }]);
             });
         }
     });

@@ -5,15 +5,20 @@
             <h4 class="modal-title text-danger">Are you absolutely sure you want to remove this interview?</h4>
         </div>
         <div class="modal-body">
-            <span class='text-warning'><strong>Warning!</strong> Unexpected bad things will happen if you don't read this!</span>
+            <p class='text-warning'><strong>Warning!</strong> Unexpected bad things will happen if you don't read this!</p>
             <p>This action <strong>cannot</strong> be undone and will remove this interview details permanently.</p>
-            <label class="checkbox-inline pull-left">
-                <input type="checkbox" value="1">I understand the consequences, remove this interview.
-            </label>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" class="agreement">I understand the consequences, remove this interview.
+                    </label>
+                </div>
+            </div>
+            <div class="alert-container"></div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-danger confirmDelete">Yes</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+            <button type="button" class="btn btn-danger confirmDelete disabled">Yes</button>
         </div>
     </div>
 </div>
