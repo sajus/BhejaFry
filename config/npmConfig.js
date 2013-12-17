@@ -34,3 +34,11 @@ exports.moment = moment;
  */
 var keygen = require('password-generator');
 exports.keygen = keygen;
+
+/**
+ * sql-string is a function library for sql string optimization & part of Sequelize-ORM NPM.
+ *
+ * More information: https://github.com/sequelize/sequelize/blob/master/lib/sql-string.js
+ */
+var SqlString = require('sequelize/lib/sql-string');
+exports.sqlString = SqlString;

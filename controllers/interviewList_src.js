@@ -1,6 +1,7 @@
 var sequelize = require('../config/sqlzConfig').sequelize
 moment = require('../config/npmConfig').moment,
-	_ = require('../config/npmConfig').underscore;
+	_ = require('../config/npmConfig').underscore,
+	sqlString = require('../config/npmConfig').sqlString;
 
 
 exports.getInterviewList = function(req, res) {
@@ -22,29 +23,27 @@ exports.getInterviewList = function(req, res) {
 
 exports.postInterview = function(req, res) {
 	var payload = req.body;
-
 	var interviewer_2_id = (payload.interviewer_2_id === undefined) ? null : payload.interviewer_2_id;
-
-	var query = "INSERT INTO interviewresponse_tbl (cFirstName, cLastName, cEmail, interviewer_1_id, interviewer_2_id, interviewDate ,recruiter_id, status_id, round_id, mode_id, strength, improveArea, comments, deleteFlag)";
-	query += "VALUES (";
-	query += " '" + payload.cFirstName + "',";
-	query += " '" + payload.cLastName + "',";
-	query += " '" + payload.cEmail + "',";
-	query += payload.interviewer_1_id + " ,";
-	query += interviewer_2_id + " ,";
-	query += " '" + payload.interviewDate + "',";
-	query += payload.recruiter_id + " ,";
-	query += payload.status_id + " ,";
-	query += payload.round_id + " ,";
-	query += payload.mode_id + " ,";
-	query += " '" + payload.strength + "',";
-	query += " '" + payload.improveArea + "',";
-	query += " '" + payload.comments + "',";
-	query += 0 + " )";
+	var insertQuery = "INSERT INTO interviewresponse_tbl (cFirstName, cLastName, cEmail, interviewer_1_id, interviewer_2_id, interviewDate ,recruiter_id, status_id, round_id, mode_id, strength, improveArea, comments, deleteFlag)";
+	insertQuery += "VALUES (";
+	insertQuery += sqlString.escape(payload.cFirstName) + " ,";
+	insertQuery += sqlString.escape(payload.cLastName) + " ,";
+	insertQuery += sqlString.escape(payload.cEmail) + " ,";
+	insertQuery += sqlString.escape(payload.interviewer_1_id) + " ,";
+	insertQuery += sqlString.escape(interviewer_2_id) + " ,";
+	insertQuery += sqlString.escape(payload.interviewDate) + " ,";
+	insertQuery += sqlString.escape(payload.recruiter_id) + " ,";
+	insertQuery += sqlString.escape(payload.status_id) + " ,";
+	insertQuery += sqlString.escape(payload.round_id) + " ,";
+	insertQuery += sqlString.escape(payload.mode_id) + " ,";
+	insertQuery += sqlString.escape(payload.strength) + " ,";
+	insertQuery += sqlString.escape(payload.improveArea) + " ,";
+	insertQuery += sqlString.escape(payload.comments) + " ,";
+	insertQuery += 0 + " )";
 
 	var queryID = "SELECT * FROM interviewresponse_tbl WHERE deleteFlag=0 ORDER BY id DESC LIMIT 1;";
 
-	sequelize.query(query).success(function() {
+	sequelize.query(insertQuery).success(function() {
 		sequelize.query(queryID).success(function(rows) {
 			res.format({
 				json: function() {
