@@ -42,7 +42,7 @@ define(function(require) {
                     Events.trigger('deletedInterview');
                     Events.off('deletedInterview');
                     view.$el.modal('hide');
-                }, 1500);
+                }, 1200);
                 Events.trigger("alert:success", [{
                     message: "Interview deleted successfully."
                 }]);

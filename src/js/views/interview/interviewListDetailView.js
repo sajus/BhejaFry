@@ -153,7 +153,6 @@ define(function(require) {
             this.$el.html(interviewListDetailPageTemplate({
                 mode: this.interviewmode,
                 interviewers: this.interviewers,
-                interviewDate: moment(this.interviewDate).format('DD MMMM YYYY, dddd'),
                 recruiter: this.recruiter,
                 rounds: this.interviewrounds,
                 interviewStatus: this.interviewstatus,
@@ -168,11 +167,12 @@ define(function(require) {
                     success: function() {
                         view.modelBinder.bind(view.model, view.el);
                         var possibleData = view.model.toJSON();
-                        view.$('.modes').val(possibleData.mode_id).trigger("chosen:updated");
-                        view.$('.recruiters').val(possibleData.recruiter_id).trigger("chosen:updated");
-                        view.$('.rounds').val(possibleData.round_id).trigger("chosen:updated");
-                        view.$('.status').val(possibleData.status_id).trigger("chosen:updated");
-                        view.$('.interviewers').val([possibleData.interviewer_1_id, possibleData.interviewer_2_id]).trigger("chosen:updated");
+                        view.$el.find('.modes').val(possibleData.mode_id).trigger("chosen:updated");
+                        view.$el.find('.recruiters').val(possibleData.recruiter_id).trigger("chosen:updated");
+                        view.$el.find('.rounds').val(possibleData.round_id).trigger("chosen:updated");
+                        view.$el.find('.status').val(possibleData.status_id).trigger("chosen:updated");
+                        view.$el.find('.interviewers').val([possibleData.interviewer_1_id, possibleData.interviewer_2_id]).trigger("chosen:updated");
+                        view.$el.find('#interviewDate').datepicker('update', moment(possibleData.interviewDate).format('DD MMMM YY, dddd'));
                     }
                 });
             }
@@ -190,8 +190,7 @@ define(function(require) {
                 "autoclose": true,
                 "format": 'dd MM yyyy, DD',
             }).data('datepicker');
-            this.$el.find('#interviewDate').datepicker('update');
-
+            
             this.$el.find('input[name="cEmail"]').focus();
 
             this.$('.interviewers').chosen({
@@ -219,21 +218,18 @@ define(function(require) {
             } else {
                 $('.breadcrumb').html("<li><a href='#'>Dashboard</a></li><li class='active'>Add Interview Details</li>");
             }
-            console.log(this.model);
         },
 
         postData: function() {
             var view = this;
 
-            console.log(view.model.get('interviewers'));
-
-            this.model.set('interviewer_1_id', _.first(view.model.get('interviewers')));
-            this.model.set('interviewer_2_id', _.last(view.model.get('interviewers')));
+            this.model.set('interviewer_1_id', parseInt(_.first(view.model.get('interviewers')), 10));
+            this.model.set('interviewer_2_id', parseInt(_.last(view.model.get('interviewers')), 10));
             this.model.set('recruiter_id', parseInt(view.model.get('recruiters'), 10));
             this.model.set('round_id', parseInt(view.model.get('rounds'), 10));
             this.model.set('status_id', parseInt(view.model.get('status'), 10));
             this.model.set('mode_id', parseInt(view.model.get('modes'), 10));
-            this.model.set('interviewDate', this.$('#interviewDate').val());
+            this.model.set('interviewDate', moment(this.$el.find('#interviewDate').datepicker('getDate')).format('X'));
 
             this.model.save(view.model.toJSON(), {
                 success: function() {

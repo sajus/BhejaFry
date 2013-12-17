@@ -10,9 +10,9 @@ exports.getInterviewList = function(req, res) {
 	sequelize.query(joinQuery).success(function(rows) {
 		res.format({
 			json: function() {
-				_.each(rows, function(row) {
-					row.interviewDate = moment(row.interviewDate).format("DD-MMM-YYYY");
-				})
+				// _.each(rows, function(row) {
+				// 	row.interviewDate = moment(row.interviewDate).format("DD-MMM-YYYY");
+				// })
 				res.send(rows);
 			}
 		});
@@ -82,7 +82,7 @@ exports.getInterviewListById = function(req, res) {
 			rows[0].cEmail,
 			rows[0].interviewer_1_id,
 			rows[0].interviewer_2_id,
-			moment(rows[0].interviewDate).format('DD MMMM YYYY, dddd'),
+			rows[0].interviewDate,
 			rows[0].recruiter_id,
 			rows[0].status_id,
 			rows[0].round_id,
@@ -102,24 +102,25 @@ exports.getInterviewListById = function(req, res) {
 };
 
 exports.putInterviewListById = function(req, res) {
-	var query = "UPDATE interviewresponse_tbl SET";
-	query += " " + "cFirstName = '" + req.body.cFirstName + "',";
-	query += " " + "cLastName = '" + req.body.cLastName + "',";
-	query += " " + "cEmailName = '" + req.body.cEmailName + "',";
-	query += " " + "interviewer_1_id = " + req.body.interviewer_1_id + ",";
-	query += " " + "interviewer_2_id = " + req.body.interviewer_2_id + ",";
-	query += " " + "interviewDate = '" + moment(req.body.interviewDate).format("DD-MMM-YYYY") + "',";
-	query += " " + "recruiter_id = " + req.body.recruiter_id + ",";
-	query += " " + "status_id = " + req.body.status_id + ",";
-	query += " " + "round_id = " + req.body.round_id + ",";
-	query += " " + "mode_id = " + req.body.mode_id + ",";
-	query += " " + "strength = '" + req.body.strength + "',";
-	query += " " + "improveArea = '" + req.body.improveArea + "',";
-	query += " " + "comments = '" + req.body.comments + "',";
-	query += " " + "deleteFlag = " + req.body.deleteFlag + "";
-	query += " WHERE id =" + req.params.id + ";";
+	var payload = req.body;
 
-	sequelize.query(query).success(function() {
+	var updateQuery = "UPDATE interviewresponse_tbl SET";
+	updateQuery += " cFirstName = " + sqlString.escape(payload.cFirstName) + " , ";
+	updateQuery += " cLastName = " + sqlString.escape(payload.cLastName) + " , ";
+	updateQuery += " cEmail = " + sqlString.escape(payload.cEmail) + " , ";
+	updateQuery += " interviewer_1_id = " + sqlString.escape(payload.interviewer_1_id) + " , ";
+	updateQuery += " interviewer_2_id = " + sqlString.escape(payload.interviewer_2_id) + " , ";
+	updateQuery += " interviewDate = " + sqlString.escape(payload.interviewDate) + " , ";
+	updateQuery += " recruiter_id = " + sqlString.escape(payload.recruiter_id) + " , ";
+	updateQuery += " status_id = " + sqlString.escape(payload.status_id) + " , ";
+	updateQuery += " round_id = " + sqlString.escape(payload.round_id) + " , ";
+	updateQuery += " mode_id = " + sqlString.escape(payload.mode_id) + " , ";
+	updateQuery += " strength = " + sqlString.escape(payload.strength) + " , ";
+	updateQuery += " improveArea = " + sqlString.escape(payload.improveArea) + " , ";
+	updateQuery += " comments = " + sqlString.escape(payload.comments);
+	updateQuery += " WHERE id = " + req.params.id;
+
+	sequelize.query(updateQuery).success(function() {
 		res.send(req.params);
 	}).error(function() {
 

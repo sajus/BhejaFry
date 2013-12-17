@@ -61,7 +61,7 @@
                 cEmail: 'unknown1@gmail.com',
                 interviewer_1_id: 5421,
                 interviewer_2_id: 7601,
-                interviewDate: '2013-09-11',
+                interviewDate: '1388428200',
                 recruiter_id: 6523,
                 status_id: 1,
                 round_id: 2,
@@ -71,12 +71,12 @@
                 comments: 'Does not have proper knowledge',
                 deleteFlag: 0
             }, {
-               cFirstName: 'Ashwin',
-               cLastName: 'Hegde',
-               cEmail: 'unknown2@gmail.com',
+                cFirstName: 'Ashwin',
+                cLastName: 'Hegde',
+                cEmail: 'unknown2@gmail.com',
                 interviewer_1_id: 5421,
                 interviewer_2_id: 7601,
-                interviewDate: '2013-09-11',
+                interviewDate: '1388428200',
                 recruiter_id: 6523,
                 status_id: 2,
                 round_id: 2,
@@ -91,7 +91,7 @@
                 cEmail: 'unknown3@gmail.com',
                 interviewer_1_id: 5421,
                 interviewer_2_id: 7601,
-                interviewDate: '2013-09-11',
+                interviewDate: '1388428200',
                 recruiter_id: 6523,
                 status_id: 3,
                 round_id: 2,
@@ -106,7 +106,7 @@
                 cEmail: 'unknown4@gmail.com',
                 interviewer_1_id: 5421,
                 interviewer_2_id: 7601,
-                interviewDate: '2013-09-11',
+                interviewDate: '1388428200',
                 recruiter_id: 6523,
                 status_id: 4,
                 round_id: 2,
@@ -385,7 +385,7 @@
                 round: 'Final'
             }])
             .on('success', function() {
-                console.log("Interviewer-Rounds table is ready");
+                console.log("Interview-Rounds table is ready");
                 createRecruiter();
             }).on('error', function(error) {
                 console.log("Error occured while creating response table!");
@@ -405,7 +405,7 @@
                 status: 'Selected'
             }])
             .on('success', function() {
-                console.log("Interviewer-Status table is ready");
+                console.log("Interview-Status table is ready");
                 createInterviewRounds();
             }).on('error', function(error) {
                 console.log("Error occured while creating response table!");
@@ -423,7 +423,7 @@
                 mode: 'Personal'
             }])
             .on('success', function() {
-                console.log("Interviewer-Mode table is ready");
+                console.log("Interview-Mode table is ready");
                 createInterviewStatus();
             }).on('error', function(error) {
                 console.log("Error occured while creating response table!");
