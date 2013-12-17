@@ -21,22 +21,25 @@ exports.getInterviewList = function(req, res) {
 };
 
 exports.postInterview = function(req, res) {
-	var interviewer_2_id = null;
-	req.body.interviewer_2_id === undefined ? interviewer_2_id = null : interviewer_2_id = req.body.interviewer_2_id;
+	var payload = req.body;
+
+	var interviewer_2_id = (payload.interviewer_2_id === undefined) ? null : payload.interviewer_2_id;
 
 	var query = "INSERT INTO interviewresponse_tbl (cFirstName, cLastName, cEmail, interviewer_1_id, interviewer_2_id, interviewDate ,recruiter_id, status_id, round_id, mode_id, strength, improveArea, comments, deleteFlag)";
 	query += "VALUES (";
-	query += " '" + req.body.candiateName + "',";
-	query += req.body.interviewer_1_id + " ,";
+	query += " '" + payload.cFirstName + "',";
+	query += " '" + payload.cLastName + "',";
+	query += " '" + payload.cEmail + "',";
+	query += payload.interviewer_1_id + " ,";
 	query += interviewer_2_id + " ,";
-	query += " '" + req.body.interviewDate + "',";
-	query += req.body.recruiter_id + " ,";
-	query += req.body.status_id + " ,";
-	query += req.body.round_id + " ,";
-	query += req.body.mode_id + " ,";
-	query += " '" + req.body.strength + "',";
-	query += " '" + req.body.improveArea + "',";
-	query += " '" + req.body.comments + "',";
+	query += " '" + payload.interviewDate + "',";
+	query += payload.recruiter_id + " ,";
+	query += payload.status_id + " ,";
+	query += payload.round_id + " ,";
+	query += payload.mode_id + " ,";
+	query += " '" + payload.strength + "',";
+	query += " '" + payload.improveArea + "',";
+	query += " '" + payload.comments + "',";
 	query += 0 + " )";
 
 	var queryID = "SELECT * FROM interviewresponse_tbl WHERE deleteFlag=0 ORDER BY id DESC LIMIT 1;";
@@ -72,8 +75,7 @@ exports.getInterviewListById = function(req, res) {
 			"mode_id",
 			"strength",
 			"improveArea",
-			"comments",
-			"deleteFlag"
+			"comments"
 		], [
 			rows[0].id,
 			rows[0].cFirstName,
@@ -88,8 +90,7 @@ exports.getInterviewListById = function(req, res) {
 			rows[0].mode_id,
 			rows[0].strength,
 			rows[0].improveArea,
-			rows[0].comments,
-			0
+			rows[0].comments
 		]);
 		res.format({
 			json: function() {

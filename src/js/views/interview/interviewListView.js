@@ -37,14 +37,8 @@ define(function(require) {
             return this.interviewListCollection.fetch();
         },
 
-        domElementsSetup: function() {
-            $('.viewTitle').html('<h1>Interviews List</h1>');
-
-            $(".refresh").tooltip({
-                title: 'Refresh',
-                animation: true,
-                placement: 'top'
-            });
+        uxFormation: function() {
+            $('.breadcrumb').html("<li><a href='#'>Dashboard</a></li><li class='active'>Interview List</li>");
 
             this.$el.find(".delAtOnces").tooltip({
                 title: 'Remove one or multiple interviews',
@@ -85,7 +79,7 @@ define(function(require) {
                     console.log('Error: ' + error);
                 });
 
-            this.domElementsSetup();
+            this.uxFormation();
 
             return this;
         },
@@ -104,7 +98,7 @@ define(function(require) {
         deleteInterview: function(e) {
             e.preventDefault();
             e.stopPropagation();
-
+            Events.on('deletedInterview', this.render, this);
             var confirmDelModal = new ConfirmDelModal();
             $('.modal-container').html(confirmDelModal.render(this.$(e.target).closest('tr').attr('data-id')).el);
             $('.modal-container .modal').modal('show');

@@ -39,6 +39,8 @@ define(function(require) {
                 url: Backbone.Model.gateWayUrl + '/interviewList/' + this.delUserId
             }).done(function() {
                 setTimeout(function() {
+                    Events.trigger('deletedInterview');
+                    Events.off('deletedInterview');
                     view.$el.modal('hide');
                 }, 1500);
                 Events.trigger("alert:success", [{

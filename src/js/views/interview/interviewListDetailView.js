@@ -24,7 +24,9 @@ define(function(require) {
 
         initialize: function() {
             this.modelBinder = new Backbone.ModelBinder();
-            this.model = new InterviewListDetailModel({'id': this.id});
+            this.model = new InterviewListDetailModel({
+                'id': this.id
+            });
 
             this.interviewers = [];
             this.interviewmode = [];
@@ -158,8 +160,8 @@ define(function(require) {
                 editMode: (this.model.get('id')) ? true : false
             }));
 
+            this.modelBinder.bind(this.model, this.el);
             this.uxFormation();
-            view.modelBinder.bind(view.model, view.el);
 
             if (this.model.get('id') !== undefined) {
                 this.model.fetch({
@@ -193,7 +195,6 @@ define(function(require) {
             this.$el.find('input[name="cEmail"]').focus();
 
             this.$('.interviewers').chosen({
-                allow_single_deselect: true,
                 max_selected_options: 2
             });
 
@@ -213,20 +214,25 @@ define(function(require) {
                 allow_single_deselect: true
             });
 
-            if(this.model.get('id')) {
+            if (this.model.get('id')) {
                 $('.breadcrumb').html("<li><a href='#'>Dashboard</a></li><li class='active'>Edit Interview Details</li>");
             } else {
                 $('.breadcrumb').html("<li><a href='#'>Dashboard</a></li><li class='active'>Add Interview Details</li>");
             }
+            console.log(this.model);
         },
 
         postData: function() {
             var view = this;
 
-            this.model.set('interviewers', parseInt(view.model.get('interviewers'), 10));
-            this.model.set('recruiters', parseInt(view.model.get('recruiters'), 10));
-            this.model.set('round', parseInt(view.model.get('round'), 10));
-            this.model.set('status', parseInt(view.model.get('status'), 10));
+            console.log(view.model.get('interviewers'));
+
+            this.model.set('interviewer_1_id', _.first(view.model.get('interviewers')));
+            this.model.set('interviewer_2_id', _.last(view.model.get('interviewers')));
+            this.model.set('recruiter_id', parseInt(view.model.get('recruiters'), 10));
+            this.model.set('round_id', parseInt(view.model.get('rounds'), 10));
+            this.model.set('status_id', parseInt(view.model.get('status'), 10));
+            this.model.set('mode_id', parseInt(view.model.get('modes'), 10));
             this.model.set('interviewDate', this.$('#interviewDate').val());
 
             this.model.save(view.model.toJSON(), {

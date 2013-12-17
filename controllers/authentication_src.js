@@ -2,8 +2,9 @@ var sequelize = require('../config/sqlzConfig').sequelize,
 	_ = require('../config/npmConfig').underscore;
 
 exports.postAuthentication = function(req, res) {
-	var email = req.body.email,
-		password = req.body.password;
+	var payload = req.body,
+		email = payload.email,
+		password = payload.password;
 
 	sequelize.query("SELECT empid, email, firstname, lastname, accesstype, appRelease FROM users_tbl WHERE email='" + email + "' AND password='" + password + "' LIMIT 1 ").success(function(rows) {
 		var authentication = null;
