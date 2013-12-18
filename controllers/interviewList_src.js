@@ -34,7 +34,9 @@ exports.getInterviewList = function(req, res) {
  ***/
 exports.postInterview = function(req, res) {
 	var payload = req.body;
-	var interviewer_2_id = (payload.interviewer_2_id === undefined) ? null : payload.interviewer_2_id;
+
+	// var interviewer_2_id = () ? null console.log('T') : payload.interviewer_2_id console.log('F');
+	// console.log("Google: " + interviewer_2_id);
 	
 	var insertQuery = "INSERT INTO interviewresponse_tbl (cFirstName, cLastName, cEmail, interviewer_1_id, interviewer_2_id, interviewDate ,recruiter_id, status_id, round_id, mode_id, strength, improveArea, comments, deleteFlag)";
 	insertQuery += "VALUES (";
@@ -42,7 +44,13 @@ exports.postInterview = function(req, res) {
 	insertQuery += sqlString.escape(payload.cLastName) + " ,";
 	insertQuery += sqlString.escape(payload.cEmail) + " ,";
 	insertQuery += sqlString.escape(payload.interviewer_1_id) + " ,";
-	insertQuery += sqlString.escape(interviewer_2_id) + " ,";
+
+	if(payload.interviewer_1_id !== payload.interviewer_2_id) {
+		insertQuery += sqlString.escape(payload.interviewer_2_id) + " ,";
+	} else {
+		insertQuery += null + " ,";
+	}	
+	
 	insertQuery += sqlString.escape(payload.interviewDate) + " ,";
 	insertQuery += sqlString.escape(payload.recruiter_id) + " ,";
 	insertQuery += sqlString.escape(payload.status_id) + " ,";
@@ -128,10 +136,18 @@ exports.getInterviewListById = function(req, res) {
  ***/
 exports.putInterviewListById = function(req, res) {
 	var payload = req.body;
-
+	
 	var updateQuery = "UPDATE interviewresponse_tbl SET";
-	updateQuery += " cFirstName = " + sqlString.escape(payload.cFirstName) + " , ";
-	updateQuery += " cLastName = " + sqlString.escape(payload.cLastName) + " , ";
+	if(payload.cFirstName===null) {
+		updateQuery += " cFirstName = " + payload.cFirstName + " , ";
+	} else {
+		updateQuery += " cFirstName = " + sqlString.escape(payload.cFirstName) + " , ";
+	}
+	if(payload.cLastName===null) {
+		updateQuery += " cLastName = " + payload.cLastName + " , ";
+	} else {
+		updateQuery += " cLastName = " + sqlString.escape(payload.cLastName) + " , ";
+	}
 	updateQuery += " cEmail = " + sqlString.escape(payload.cEmail) + " , ";
 	updateQuery += " interviewer_1_id = " + sqlString.escape(payload.interviewer_1_id) + " , ";
 	updateQuery += " interviewer_2_id = " + sqlString.escape(payload.interviewer_2_id) + " , ";
@@ -140,8 +156,18 @@ exports.putInterviewListById = function(req, res) {
 	updateQuery += " status_id = " + sqlString.escape(payload.status_id) + " , ";
 	updateQuery += " round_id = " + sqlString.escape(payload.round_id) + " , ";
 	updateQuery += " mode_id = " + sqlString.escape(payload.mode_id) + " , ";
-	updateQuery += " strength = " + sqlString.escape(payload.strength) + " , ";
-	updateQuery += " improveArea = " + sqlString.escape(payload.improveArea) + " , ";
+	
+	if(payload.strength===null) {
+		updateQuery += " strength = " + payload.strength + " , ";
+	} else {
+		updateQuery += " strength = " + sqlString.escape(payload.strength) + " , ";
+	}
+	if(payload.improveArea===null) {
+		updateQuery += " improveArea = " + payload.improveArea + " , ";
+	} else {
+		updateQuery += " improveArea = " + sqlString.escape(payload.improveArea) + " , ";
+	}
+	
 	updateQuery += " comments = " + sqlString.escape(payload.comments);
 	updateQuery += " WHERE id = " + req.params.id;
 

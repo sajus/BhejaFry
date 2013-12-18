@@ -14,6 +14,7 @@ define(function(require) {
     require('jqueryCookie');
     require('dataTables');
     require('bsTooltip');
+    require('handlebars_Helpers');
 
     return Backbone.View.extend({
 

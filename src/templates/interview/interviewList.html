@@ -10,7 +10,7 @@
             </tr>
             <tr>
                 <th class='center' rowspan='2'><input type='checkbox' class='selectedRowHeader' style='left:-4px; position:relative;'></th>
-                <th rowspan='2'>Candidate Name</th>
+                <th rowspan='2'>Candidate's Email</th>
                 <th colspan='2' style='text-align:center;'>Interviewers</th>
                 <th rowspan='2'>Recruiter</th>
                 <th rowspan='2'>Status</th>
@@ -25,7 +25,7 @@
             {{#each interviews}}
                 <tr data-id={{id}}>
                     <td class='center'><input type='checkbox' class='selectedRow'></td>
-                    <td>{{cFirstName}} {{cLastName}}</td>
+                    <td>{{cEmail}}</td>
                     <td>{{ivofirstname}} {{ivolastname}}</td>
                     <td>{{ivtfirstname}} {{ivtlastname}}</td>
                     <td>{{rcfirstname}} {{rclastname}}</td>
