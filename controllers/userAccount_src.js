@@ -1,14 +1,29 @@
+/**
+ * Build-in | Third party module dependencies.
+ ***/
+
 var sequelize = require('../config/sqlzConfig').sequelize,
 	_ = require('../config/npmConfig').underscore;
 
+/**
+ * Request Method: PUT
+ * Description: Service is for 
+ *
+ ***/
 exports.putReset = function(req, res) {
 	sequelize.query("UPDATE users_tbl SET reset = 1 WHERE email='" + req.body.email + "'").success(function() {
 		res.send(req.params);
 	}).error(function(error) {
+		console.log('SQL Error:\n');
 		console.log(error);
 	});
 };
 
+/**
+ * Request Method: POST
+ * Description: Service is for changing user account password.
+ *
+ ***/
 exports.postUserChange = function(req, res) {
 	var currentPassword = req.body.currentPassword,
 		newPassword = req.body.newPassword,
@@ -25,32 +40,51 @@ exports.postUserChange = function(req, res) {
 			sequelize.query(updateQuery).success(function() {
 				res.send(req.params);
 			}).error(function(error) {
+				console.log('SQL Error:\n');
 				console.log(error);
 			});
 		}
 	}).error(function(error) {
-		console.log("Query Error: " + error);
+		console.log('SQL Error:\n');
+		console.log(error);
 
 	});
 };
 
+/**
+ * Request Method: PUT
+ * Description: Service is for updating user account lock or unlock state.
+ *
+ ***/
 exports.putBlock = function(req, res) {
 	sequelize.query("UPDATE users_tbl SET block = 1 WHERE email='" + req.body.email + "'").success(function() {
 		res.send(req.params);
 	}).error(function(error) {
+		console.log('SQL Error:\n');
 		console.log(error);
 	});
 };
 
+/**
+ * Request Method: PUT
+ * Description: Service is for updating user application release state.
+ *
+ ***/
 exports.putRelease = function(req, res) {
 	sequelize.query("UPDATE users_tbl SET appRelease = " + req.body.turnOff + " WHERE email='" + req.body.email + "'").success(function() {
 		res.send(req.params);
 	}).error(function(error) {
+		console.log('SQL Error:\n');
 		console.log(error);
 	});
 };
 
-exports.postRelease = function(req, res) {
+/**
+ * Request Method: POST
+ * Description: Service is for getting user application release state.
+ *
+ ***/
+exports.getRelease = function(req, res) {
 	sequelize.query("SELECT appRelease FROM users_tbl WHERE email ='" + req.body.email + "' LIMIT 1 ").success(function(rows) {
 		res.format({
 			json: function() {
@@ -58,6 +92,7 @@ exports.postRelease = function(req, res) {
 			}
 		});
 	}).error(function(error) {
+		console.log('SQL Error:\n');
 		console.log(error);
 	});
 };

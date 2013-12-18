@@ -49,7 +49,7 @@ app.post('/userChange/:email', sessionAuth, userAccount.postUserChange);
 
 app.put('/userBlock', sessionAuth, userAccount.putBlock);
 app.put('/appRelease', sessionAuth, userAccount.putRelease);
-app.post('/appRelease', sessionAuth, userAccount.postRelease);
+app.post('/appRelease', sessionAuth, userAccount.getRelease);
 
 /**
  * Service routes for CURD users

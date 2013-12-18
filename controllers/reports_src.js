@@ -1,10 +1,15 @@
+/**
+ * Build-in | Third party module dependencies.
+ ***/
+
 var sequelize = require('../config/sqlzConfig').sequelize,
 	_ = require('../config/npmConfig').underscore;
 
-
-/***
- * Overall candidate report as per interview status.
- */
+/**
+ * Request Method: GET
+ * Description: Service is for sending response with overall candidate report as per interview status.
+ *
+ ***/
 exports.getInterviewStatusReport = function(req, res) {
 	var reportQuery = "SELECT COUNT(a.status_id) as statusCount, b.status FROM interviewresponse_tbl a, interviewstatus_tbl b WHERE deleteFlag=0 AND a.status_id = b.id GROUP BY b.status";
 	sequelize.query(reportQuery).success(function(tblRes) {
@@ -24,13 +29,16 @@ exports.getInterviewStatusReport = function(req, res) {
 			}
 		});
 	}).error(function(error) {
-		console.log("Query Error: " + error);
+		console.log('SQL Error:\n');
+		console.log(error);
 	});
 };
 
-/***
- * Overall candidate report as per interview mode.
- */
+/**
+ * Request Method: GET
+ * Description: Service is for sending response with overall candidate report as per interview mode.
+ *
+ ***/
 exports.getInterviewModeReport = function(req, res) {
 	var reportQuery = "SELECT COUNT(a.mode_id) as modeCount, b.mode FROM interviewresponse_tbl a, interviewmode_tbl b WHERE deleteFlag=0 AND a.mode_id = b.id GROUP BY b.mode";
 	sequelize.query(reportQuery).success(function(tblRes) {
@@ -50,13 +58,16 @@ exports.getInterviewModeReport = function(req, res) {
 			}
 		});
 	}).error(function(error) {
-		console.log("Query Error: " + error);
+		console.log('SQL Error:\n');
+		console.log(error);
 	});
 };
 
-/***
- * Overall candidate report as per interview rounds.
- */
+/**
+ * Request Method: GET
+ * Description: Service is for sending response with overall candidate report as per interview rounds.
+ *
+ ***/
 exports.getInterviewRoundReport = function(req, res) {
 	var reportQuery = "SELECT COUNT(a.round_id) as roundCount, b.round FROM interviewresponse_tbl a, interviewrounds_tbl b WHERE deleteFlag=0 AND a.round_id = b.id GROUP BY b.round";
 	sequelize.query(reportQuery).success(function(tblRes) {
@@ -76,6 +87,7 @@ exports.getInterviewRoundReport = function(req, res) {
 			}
 		});
 	}).error(function(error) {
-		console.log("Query Error: " + error);
+		console.log('SQL Error:\n');
+		console.log(error);
 	});
 };

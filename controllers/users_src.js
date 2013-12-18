@@ -1,10 +1,16 @@
+/**
+ * Build-in | Third party module dependencies.
+ ***/
+
 var sequelize = require('../config/sqlzConfig').sequelize,
 	keygen = require('../config/npmConfig').keygen,
 	_ = require('../config/npmConfig').underscore;
 
-/*
-	GET THE LIST OF ALL USERS
-*/
+/**
+ * Request Method: GET
+ * Description: Service is for getting list of user data.
+ *
+ ***/
 exports.getUsers = function(req, res) {
 	sequelize.query("SELECT empid, email, firstname, lastname, accesstype FROM  users_tbl ORDER BY firstname").success(function(rows) {
 		res.format({
@@ -14,13 +20,16 @@ exports.getUsers = function(req, res) {
 		});
 
 	}).error(function(error) {
+		console.log('SQL Error:\n');
 		console.log(error);
 	});
 };
 
-/*
-	GET THE DETAILS OF THE USERS WITH EMP ID
-*/
+/**
+ * Request Method: GET
+ * Description: Service is for getting user details.
+ *
+ ***/
 exports.getUsersById = function(req, res) {
 	sequelize.query("SELECT empid, email, firstname, lastname, accesstype FROM  users_tbl Where empid=" + req.params.id + " LIMIT 1").success(function(rows) {
 		res.format({
@@ -29,13 +38,16 @@ exports.getUsersById = function(req, res) {
 			}
 		});
 	}).error(function(error) {
+		console.log('SQL Error:\n');
 		console.log(error);
 	});
 }
 
-/*
-	ADD THE NEW RECRUITER WITH EMP ID
-*/
+/**
+ * Request Method: POST
+ * Description: Service is for adding new user data.
+ *
+ ***/
 exports.postUser = function(req, res) {
 	var query = "INSERT INTO users_tbl (empid,email,firstname,lastname,accesstype,password)";
 	query += "VALUES (";
@@ -55,27 +67,34 @@ exports.postUser = function(req, res) {
 				}
 			});
 		}).error(function(error) {
+			console.log('SQL Error:\n');
 			console.log(error);
 		});
 	}).error(function(error) {
+		console.log('SQL Error:\n');
 		console.log(error);
 	});
 }
 
-/*
-	DELETE THE USER WITH EMP ID
-*/
+/**
+ * Request Method: DELETE
+ * Description: Service is for setting delete flag for user data.
+ *
+ ***/
 exports.delUsersById = function(req, res) {
 	sequelize.query("DELETE FROM users_tbl WHERE empid=" + req.params.id).success(function() {
 		res.send(req.params);
 	}).error(function(error) {
+		console.log('SQL Error:\n');
 		console.log(error);
 	});
 };
 
-/*
-	UPDATE THE USER WITH EMP ID
-*/
+/**
+ * Request Method: PUT
+ * Description: Service is for updating user details.
+ *
+ ***/
 exports.putUsersById = function(req, res) {
 	var query = "UPDATE users_tbl SET";
 	query += " " + "firstname='" + req.body.firstname + "',";
@@ -94,6 +113,7 @@ exports.putUsersById = function(req, res) {
 			});
 		});
 	}).error(function(error) {
+		console.log('SQL Error:\n');
 		console.log(error);
 	});
 }

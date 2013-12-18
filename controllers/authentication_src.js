@@ -1,6 +1,16 @@
+/**
+ * Build-in | Third party module dependencies.
+ ***/
+
 var sequelize = require('../config/sqlzConfig').sequelize,
 	_ = require('../config/npmConfig').underscore;
 
+/**
+ * Request Method: POST
+ * Description: Service is for user authentication and send the response whether the user is authenticated.
+ * If the user is valid, a session is started.
+ * 
+ ***/
 exports.postAuthentication = function(req, res) {
 	var payload = req.body,
 		email = payload.email,
@@ -41,10 +51,16 @@ exports.postAuthentication = function(req, res) {
 			}
 		});
 	}).error(function(error) {
+		console.log('SQL Error:\n');
 		console.log(error);
 	});
 };
 
+/**
+ * Method: GET
+ * Description: Service is for destroying user session.
+ *
+ ***/
 exports.getCloseAuthentication = function(req, res) {
 	delete req.session.user_id;
 	res.send(req.params);
