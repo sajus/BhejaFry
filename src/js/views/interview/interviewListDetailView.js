@@ -164,11 +164,11 @@ define(function(require) {
                     success: function() {
                         view.modelBinder.bind(view.model, view.el);
                         var possibleData = view.model.toJSON();
-                        view.$el.find('.modes').val(possibleData.mode_id).trigger("chosen:updated");
-                        view.$el.find('.recruiters').val(possibleData.recruiter_id).trigger("chosen:updated");
-                        view.$el.find('.rounds').val(possibleData.round_id).trigger("chosen:updated");
-                        view.$el.find('.status').val(possibleData.status_id).trigger("chosen:updated");
-                        view.$el.find('.interviewers').val([possibleData.interviewer_1_id, possibleData.interviewer_2_id]).trigger("chosen:updated");
+                        view.$el.find('.modes').val(possibleData.mode_id).trigger("chosen:updated").change();
+                        view.$el.find('.recruiters').val(possibleData.recruiter_id).trigger("chosen:updated").change();
+                        view.$el.find('.rounds').val(possibleData.round_id).trigger("chosen:updated").change();
+                        view.$el.find('.status').val(possibleData.status_id).trigger("chosen:updated").change();
+                        view.$el.find('.interviewers').val([possibleData.interviewer_1_id, possibleData.interviewer_2_id]).trigger("chosen:updated").change();
                         view.$el.find('#interviewDate').datepicker('update', moment(possibleData.interviewDate).format('DD MMMM YY, dddd'));
                     }
                 });
@@ -192,7 +192,7 @@ define(function(require) {
                 "format": 'dd MM yyyy, DD',
                 "todayHighlight": true
             }).data('datepicker');
-            
+
             this.$el.find('input[name="cEmail"]').focus();
 
             this.$('.interviewers').chosen({

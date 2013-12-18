@@ -42,28 +42,32 @@ define(function(require) {
                 pattern: 'email',
                 msg: 'Email address you entered is incorrect.'
             }],
-            // interviewDate: [{
-            //     required: true
-            // }, {
-            //     //pattern: 'email',
-            //     msg: 'The interview date you selected is incorrect.'
-            // }],
+
+            interviewDate: {
+                required: true,
+                msg: 'Enter interviewed date.'
+            },
+
             interviewers: {
                 required: true,
                 msg: 'Choose your interviewers.'
             },
+
             recruiters: {
                 required: true,
                 msg: 'Choose your recruiters.'
             },
+
             modes: {
                 required: true,
                 msg: 'Choose your mode.'
             },
+
             rounds: {
                 required: true,
                 msg: 'Choose your round.'
             },
+
             status: {
                 required: true,
                 msg: 'Choose your status.'
@@ -80,7 +84,7 @@ define(function(require) {
                 required: false
             }, {
                 minLength: 4,
-                msg: 'Area of improvement should contain minimum four characters.'
+                msg: 'Area of improvement should contain minimum 4 characters.'
             }],
 
             comments: [{
@@ -88,7 +92,7 @@ define(function(require) {
                 msg: 'Enter your comments.'
             }, {
                 minLength: 4,
-                msg: 'Comments should contain minimum four characters.'
+                msg: 'Comments should contain minimum 4 characters.'
             }]
         }
     });
