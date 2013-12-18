@@ -5,7 +5,7 @@ exports.putReset = function(req, res) {
 	sequelize.query("UPDATE users_tbl SET reset = 1 WHERE email='" + req.body.email + "'").success(function() {
 		res.send(req.params);
 	}).error(function(error) {
-		console.log("Query Error: " + error);
+		console.log(error);
 	});
 };
 
@@ -25,7 +25,7 @@ exports.postUserChange = function(req, res) {
 			sequelize.query(updateQuery).success(function() {
 				res.send(req.params);
 			}).error(function(error) {
-				console.log("Query Error: " + error);
+				console.log(error);
 			});
 		}
 	}).error(function(error) {
@@ -38,7 +38,7 @@ exports.putBlock = function(req, res) {
 	sequelize.query("UPDATE users_tbl SET block = 1 WHERE email='" + req.body.email + "'").success(function() {
 		res.send(req.params);
 	}).error(function(error) {
-		console.log("Query Error: " + error);
+		console.log(error);
 	});
 };
 
@@ -46,7 +46,7 @@ exports.putRelease = function(req, res) {
 	sequelize.query("UPDATE users_tbl SET appRelease = " + req.body.turnOff + " WHERE email='" + req.body.email + "'").success(function() {
 		res.send(req.params);
 	}).error(function(error) {
-		console.log("Query Error: " + error);
+		console.log(error);
 	});
 };
 
@@ -58,6 +58,6 @@ exports.postRelease = function(req, res) {
 			}
 		});
 	}).error(function(error) {
-		console.log("Query Error: " + error);
+		console.log(error);
 	});
 };

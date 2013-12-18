@@ -13,7 +13,7 @@ exports.getRecruiter = function(req, res) {
 		});
 
 	}).error(function(error) {
-		console.log("Query Error: " + error);
+		console.log(error);
 	});
 };
 
@@ -28,7 +28,7 @@ exports.getRecruiterById = function(req, res) {
 			}
 		});
 	}).error(function(error) {
-		console.log("Query Error: " + error);
+		console.log(error);
 	});
 }
 
@@ -52,10 +52,10 @@ exports.postRecruiter = function(req, res) {
 				}
 			});
 		}).error(function(error) {
-			console.log("Query Error: " + error);
+			console.log(error);
 		});
 	}).error(function(error) {
-		console.log("Query Error: " + error);
+		console.log(error);
 	});
 }
 
@@ -66,7 +66,7 @@ exports.delRecruiterById = function(req, res) {
 	sequelize.query("DELETE FROM recruiter_tbl WHERE empid=" + req.params.id).success(function() {
 		res.send(req.params);
 	}).error(function(error) {
-		console.log("Query Error: " + error);
+		console.log(error);
 	});
 };
 
@@ -90,6 +90,6 @@ exports.putRecruiterById = function(req, res) {
 			});
 		});
 	}).error(function(error) {
-		console.log("Query Error: " + error);
+		console.log(error);
 	});
 }

@@ -9,6 +9,6 @@ exports.getStatus = function(req, res) {
 			}
 		});
 	}).error(function(error) {
-		console.log("Query Error: " + error);
+		console.log(error);
 	});
 };

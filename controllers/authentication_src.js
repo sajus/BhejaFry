@@ -6,7 +6,8 @@ exports.postAuthentication = function(req, res) {
 		email = payload.email,
 		password = payload.password;
 
-	sequelize.query("SELECT empid, email, firstname, lastname, accesstype, appRelease FROM users_tbl WHERE email='" + email + "' AND password='" + password + "' LIMIT 1 ").success(function(rows) {
+	var selectQuery = "SELECT empid, email, firstname, lastname, accesstype, appRelease FROM users_tbl WHERE email='" + email + "' AND password='" + password + "' LIMIT 1 ";
+	sequelize.query(selectQuery).success(function(rows) {
 		var authentication = null;
 
 		if (rows.length === 0) {
@@ -40,7 +41,7 @@ exports.postAuthentication = function(req, res) {
 			}
 		});
 	}).error(function(error) {
-		console.log("Query Error: " + error);
+		console.log(error);
 	});
 };
 

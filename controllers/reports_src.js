@@ -23,6 +23,8 @@ exports.getInterviewStatusReport = function(req, res) {
 				res.send(srcRes);
 			}
 		});
+	}).error(function(error) {
+		console.log("Query Error: " + error);
 	});
 };
 
@@ -47,6 +49,8 @@ exports.getInterviewModeReport = function(req, res) {
 				res.send(srcRes);
 			}
 		});
+	}).error(function(error) {
+		console.log("Query Error: " + error);
 	});
 };
 
@@ -71,5 +75,7 @@ exports.getInterviewRoundReport = function(req, res) {
 				res.send(srcRes);
 			}
 		});
+	}).error(function(error) {
+		console.log("Query Error: " + error);
 	});
 };

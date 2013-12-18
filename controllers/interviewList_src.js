@@ -10,20 +10,18 @@ exports.getInterviewList = function(req, res) {
 	sequelize.query(joinQuery).success(function(rows) {
 		res.format({
 			json: function() {
-				// _.each(rows, function(row) {
-				// 	row.interviewDate = moment(row.interviewDate).format("DD-MMM-YYYY");
-				// })
 				res.send(rows);
 			}
 		});
 	}).error(function(error) {
-		console.log("Query Error: " + error);
+		console.log(error);
 	});
 };
 
 exports.postInterview = function(req, res) {
 	var payload = req.body;
 	var interviewer_2_id = (payload.interviewer_2_id === undefined) ? null : payload.interviewer_2_id;
+	
 	var insertQuery = "INSERT INTO interviewresponse_tbl (cFirstName, cLastName, cEmail, interviewer_1_id, interviewer_2_id, interviewDate ,recruiter_id, status_id, round_id, mode_id, strength, improveArea, comments, deleteFlag)";
 	insertQuery += "VALUES (";
 	insertQuery += sqlString.escape(payload.cFirstName) + " ,";
@@ -41,20 +39,20 @@ exports.postInterview = function(req, res) {
 	insertQuery += sqlString.escape(payload.comments) + " ,";
 	insertQuery += 0 + " )";
 
-	var queryID = "SELECT * FROM interviewresponse_tbl WHERE deleteFlag=0 ORDER BY id DESC LIMIT 1;";
+	var selectQuery = "SELECT * FROM interviewresponse_tbl WHERE deleteFlag=0 ORDER BY id DESC LIMIT 1;";
 
 	sequelize.query(insertQuery).success(function() {
-		sequelize.query(queryID).success(function(rows) {
+		sequelize.query(selectQuery).success(function(rows) {
 			res.format({
 				json: function() {
 					res.send(rows);
 				}
 			});
 		}).error(function(error) {
-			console.log("Query Error: " + error);
+			console.log(error);
 		});
 	}).error(function(error) {
-		console.log("Query Error: " + error);
+		console.log(error);
 	});
 };
 
@@ -97,7 +95,7 @@ exports.getInterviewListById = function(req, res) {
 			}
 		});
 	}).error(function(error) {
-		console.log("Query Error: " + error);
+		console.log(error);
 	});
 };
 
@@ -122,8 +120,8 @@ exports.putInterviewListById = function(req, res) {
 
 	sequelize.query(updateQuery).success(function() {
 		res.send(req.params);
-	}).error(function() {
-
+	}).error(function(error) {
+		console.log(error)
 	});
 };
 
@@ -133,7 +131,7 @@ exports.delInterviewListById = function(req, res) {
 
 	sequelize.query(query).success(function() {
 		res.send(req.params);
-	}).error(function() {
-		res.status(500).send();
+	}).error(function(error) {
+		console.log(error)
 	});
 };

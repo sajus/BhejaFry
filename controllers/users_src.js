@@ -14,7 +14,7 @@ exports.getUsers = function(req, res) {
 		});
 
 	}).error(function(error) {
-		console.log("Query Error: " + error);
+		console.log(error);
 	});
 };
 
@@ -29,7 +29,7 @@ exports.getUsersById = function(req, res) {
 			}
 		});
 	}).error(function(error) {
-		console.log("Query Error: " + error);
+		console.log(error);
 	});
 }
 
@@ -55,10 +55,10 @@ exports.postUser = function(req, res) {
 				}
 			});
 		}).error(function(error) {
-			console.log("Query Error: " + error);
+			console.log(error);
 		});
 	}).error(function(error) {
-		console.log("Query Error: " + error);
+		console.log(error);
 	});
 }
 
@@ -69,7 +69,7 @@ exports.delUsersById = function(req, res) {
 	sequelize.query("DELETE FROM users_tbl WHERE empid=" + req.params.id).success(function() {
 		res.send(req.params);
 	}).error(function(error) {
-		console.log("Query Error: " + error);
+		console.log(error);
 	});
 };
 
@@ -94,6 +94,6 @@ exports.putUsersById = function(req, res) {
 			});
 		});
 	}).error(function(error) {
-		console.log("Query Error: " + error);
+		console.log(error);
 	});
 }
