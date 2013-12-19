@@ -13,7 +13,7 @@ moment = require('../config/npmConfig').moment,
  *
  ***/
 exports.getInterviewList = function(req, res) {
-	var joinQuery = "SELECT interviewresponse_tbl.id, interviewresponse_tbl.cFirstName, interviewresponse_tbl.cLastName, interviewresponse_tbl.cEmail, interviewresponse_tbl.interviewDate, interviewer_tbl1.firstname as ivofirstname, interviewer_tbl1.lastname as ivolastname, interviewer_tbl2.firstname as ivtfirstname, interviewer_tbl2.lastname as ivtlastname, recruiter_tbl.firstname as rcfirstname, recruiter_tbl.lastname as rclastname, interviewmode_tbl.mode, interviewstatus_tbl.id as statusid, interviewstatus_tbl.status, interviewrounds_tbl.round FROM interviewresponse_tbl LEFT JOIN interviewer_tbl as interviewer_tbl1 ON interviewresponse_tbl.interviewer_1_id = interviewer_tbl1.empid LEFT JOIN interviewer_tbl as interviewer_tbl2 ON interviewresponse_tbl.interviewer_2_id = interviewer_tbl2.empid LEFT JOIN recruiter_tbl ON interviewresponse_tbl.recruiter_id = recruiter_tbl.empid LEFT JOIN interviewmode_tbl ON interviewresponse_tbl.mode_id = interviewmode_tbl.id LEFT JOIN interviewstatus_tbl ON interviewresponse_tbl.status_id = interviewstatus_tbl.id LEFT JOIN interviewrounds_tbl ON interviewresponse_tbl.round_id = interviewrounds_tbl.id WHERE recycleBin = 0";
+	var joinQuery = "SELECT interviewresponse_tbl.id, interviewresponse_tbl.cFirstName, interviewresponse_tbl.cLastName, interviewresponse_tbl.cEmail, interviewresponse_tbl.interviewDate, interviewer_tbl1.firstname as ivofirstname, interviewer_tbl1.lastname as ivolastname, interviewer_tbl2.firstname as ivtfirstname, interviewer_tbl2.lastname as ivtlastname, recruiter_tbl.firstname as rcfirstname, recruiter_tbl.lastname as rclastname, interviewmode_tbl.mode, interviewstatus_tbl.id as statusid, interviewstatus_tbl.status, interviewrounds_tbl.round FROM interviewresponse_tbl LEFT JOIN interviewer_tbl as interviewer_tbl1 ON interviewresponse_tbl.interviewer_1_id = interviewer_tbl1.empid LEFT JOIN interviewer_tbl as interviewer_tbl2 ON interviewresponse_tbl.interviewer_2_id = interviewer_tbl2.empid LEFT JOIN recruiter_tbl ON interviewresponse_tbl.recruiter_id = recruiter_tbl.empid LEFT JOIN interviewmode_tbl ON interviewresponse_tbl.mode_id = interviewmode_tbl.id LEFT JOIN interviewstatus_tbl ON interviewresponse_tbl.status_id = interviewstatus_tbl.id LEFT JOIN interviewrounds_tbl ON interviewresponse_tbl.round_id = interviewrounds_tbl.id WHERE interviewresponse_tbl.recycleBin = 0";
 
 	sequelize.query(joinQuery).success(function(rows) {
 		res.format({
@@ -30,14 +30,14 @@ exports.getInterviewList = function(req, res) {
 /**
  * Request Method: POST
  * Description: Service is for setting the interview and candidate details.
- * 
+ *
  ***/
 exports.postInterview = function(req, res) {
 	var payload = req.body;
 
 	// var interviewer_2_id = () ? null console.log('T') : payload.interviewer_2_id console.log('F');
 	// console.log("Google: " + interviewer_2_id);
-	
+
 	var insertQuery = "INSERT INTO interviewresponse_tbl (cFirstName, cLastName, cEmail, interviewer_1_id, interviewer_2_id, interviewDate ,recruiter_id, status_id, round_id, mode_id, strength, improveArea, comments, recycleBin)";
 	insertQuery += "VALUES (";
 	insertQuery += sqlString.escape(payload.cFirstName) + " ,";
@@ -49,8 +49,8 @@ exports.postInterview = function(req, res) {
 		insertQuery += sqlString.escape(payload.interviewer_2_id) + " ,";
 	} else {
 		insertQuery += null + " ,";
-	}	
-	
+	}
+
 	insertQuery += sqlString.escape(payload.interviewDate) + " ,";
 	insertQuery += sqlString.escape(payload.recruiter_id) + " ,";
 	insertQuery += sqlString.escape(payload.status_id) + " ,";
@@ -61,7 +61,7 @@ exports.postInterview = function(req, res) {
 	insertQuery += sqlString.escape(payload.comments) + " ,";
 	insertQuery += 0 + " )";
 
-	var selectQuery = "SELECT * FROM interviewresponse_tbl WHERE recycleBin=0 ORDER BY id DESC LIMIT 1;";
+	var selectQuery = "SELECT * FROM interviewresponse_tbl WHERE interviewresponse_tbl.recycleBin=0 ORDER BY id DESC LIMIT 1";
 
 	sequelize.query(insertQuery).success(function() {
 		sequelize.query(selectQuery).success(function(rows) {
@@ -132,11 +132,11 @@ exports.getInterviewListById = function(req, res) {
 /**
  * Request Method: PUT
  * Description: Service is for updating interview and candidate details.
- * 
+ *
  ***/
 exports.putInterviewListById = function(req, res) {
 	var payload = req.body;
-	
+
 	var updateQuery = "UPDATE interviewresponse_tbl SET";
 	if(payload.cFirstName===null) {
 		updateQuery += " cFirstName = " + payload.cFirstName + " , ";
@@ -156,7 +156,7 @@ exports.putInterviewListById = function(req, res) {
 	updateQuery += " status_id = " + sqlString.escape(payload.status_id) + " , ";
 	updateQuery += " round_id = " + sqlString.escape(payload.round_id) + " , ";
 	updateQuery += " mode_id = " + sqlString.escape(payload.mode_id) + " , ";
-	
+
 	if(payload.strength===null) {
 		updateQuery += " strength = " + payload.strength + " , ";
 	} else {
@@ -167,7 +167,7 @@ exports.putInterviewListById = function(req, res) {
 	} else {
 		updateQuery += " improveArea = " + sqlString.escape(payload.improveArea) + " , ";
 	}
-	
+
 	updateQuery += " comments = " + sqlString.escape(payload.comments);
 	updateQuery += " WHERE id = " + req.params.id;
 
