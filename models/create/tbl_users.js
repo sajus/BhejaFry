@@ -55,7 +55,14 @@ module.exports = function(sequelize, DataTypes) {
 		appRelease: {
 			type: DataTypes.BOOLEAN,
 			allowNull: false
-		}
+		},
+		recycleBin: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            validate: {
+                isNumeric: true
+            }
+        }
 	}, {
 		tableName: 'users_tbl'
 	});

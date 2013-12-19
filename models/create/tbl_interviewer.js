@@ -14,6 +14,13 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.STRING(30),
 			allowNull: false
 		},
+		recycleBin: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            validate: {
+                isNumeric: true
+            }
+        }
 	}, {
 		tableName: 'interviewer_tbl'
 	});

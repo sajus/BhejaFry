@@ -24,7 +24,14 @@ module.exports = function(sequelize, DataTypes) {
 				isAlpha: true,
 				len: [2, 30]
 			}
-		}
+		},
+		recycleBin: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            validate: {
+                isNumeric: true
+            }
+        }
 	}, {
 		tableName: 'recruiter_tbl'
 	});

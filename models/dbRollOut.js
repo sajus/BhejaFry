@@ -130,159 +130,198 @@
             .bulkCreate([{
                 empid: 1967,
                 firstname: 'Kamlesh',
-                lastname: 'Gaikwad'
+                lastname: 'Gaikwad',
+                recycleBin: 0
             }, {
                 empid: 2435,
                 firstname: 'Vishal',
-                lastname: 'Chauhan'
+                lastname: 'Chauhan',
+                recycleBin: 0
             }, {
                 empid: 2762,
                 firstname: 'Ashish',
-                lastname: 'Chandugade'
+                lastname: 'Chandugade',
+                recycleBin: 0
             }, {
                 empid: 3279,
                 firstname: 'Abhijit',
-                lastname: 'Sagade'
+                lastname: 'Sagade',
+                recycleBin: 0
             }, {
                 empid: 3508,
                 firstname: 'Awesh',
-                lastname: 'Shrivastava'
+                lastname: 'Shrivastava',
+                recycleBin: 0
             }, {
                 empid: 3667,
                 firstname: 'Sachin',
-                lastname: 'Shinde'
+                lastname: 'Shinde',
+                recycleBin: 0
             }, {
                 empid: 3937,
                 firstname: 'Prachi',
-                lastname: 'Bhruguwar'
+                lastname: 'Bhruguwar',
+                recycleBin: 0
             }, {
                 empid: 4003,
                 firstname: 'Yogesh',
-                lastname: 'Gaikwad'
+                lastname: 'Gaikwad',
+                recycleBin: 0
             }, {
                 empid: 4573,
                 firstname: 'Rakesh',
-                lastname: 'Thakor'
+                lastname: 'Thakor',
+                recycleBin: 0
             }, {
                 empid: 4593,
                 firstname: 'Bhushan',
-                lastname: 'Joshi'
+                lastname: 'Joshi',
+                recycleBin: 0
             }, {
                 empid: 4996,
                 firstname: 'Nishant',
-                lastname: 'Joshi'
+                lastname: 'Joshi',
+                recycleBin: 0
             }, {
                 empid: 5042,
                 firstname: 'Amarendra',
-                lastname: 'Samal'
+                lastname: 'Samal',
+                recycleBin: 0
             }, {
                 empid: 5421,
                 firstname: 'Ajay',
-                lastname: 'Sajwan'
+                lastname: 'Sajwan',
+                recycleBin: 0
             }, {
                 empid: 5426,
                 firstname: 'Yogesh',
-                lastname: 'Kodarkar'
+                lastname: 'Kodarkar',
+                recycleBin: 0
             }, {
                 empid: 5470,
                 firstname: 'Dhritee',
-                lastname: 'Rathore'
+                lastname: 'Rathore',
+                recycleBin: 0
             }, {
                 empid: 5689,
                 firstname: 'Kumar',
-                lastname: 'Kundan'
+                lastname: 'Kundan',
+                recycleBin: 0
             }, {
                 empid: 5995,
                 firstname: 'Satvashil',
-                lastname: 'Jagtap'
+                lastname: 'Jagtap',
+                recycleBin: 0
             }, {
                 empid: 6536,
                 firstname: 'Jatin',
-                lastname: 'Patel'
+                lastname: 'Patel',
+                recycleBin: 0
             }, {
                 empid: 6587,
                 firstname: 'Omkar',
-                lastname: 'Kulkarni'
+                lastname: 'Kulkarni',
+                recycleBin: 0
             }, {
                 empid: 6672,
                 firstname: 'Jaydeep',
-                lastname: 'Tank'
+                lastname: 'Tank',
+                recycleBin: 0
             }, {
                 empid: 6735,
                 firstname: 'Ram',
-                lastname: 'Joshi'
+                lastname: 'Joshi',
+                recycleBin: 0
             }, {
                 empid: 6815,
                 firstname: 'Shruti',
-                lastname: 'Kshatriya'
+                lastname: 'Kshatriya',
+                recycleBin: 0
             }, {
                 empid: 6817,
                 firstname: 'Sudhir',
-                lastname: 'Nair'
+                lastname: 'Nair',
+                recycleBin: 0
             }, {
                 empid: 6865,
                 firstname: 'Mahesh',
-                lastname: 'Sapkal'
+                lastname: 'Sapkal',
+                recycleBin: 0
             }, {
                 empid: 6895,
                 firstname: 'Basavraj',
-                lastname: 'Keshatti'
+                lastname: 'Keshatti',
+                recycleBin: 0
             }, {
                 empid: 7087,
                 firstname: 'Pravin',
-                lastname: 'Sonawane'
+                lastname: 'Sonawane',
+                recycleBin: 0
             }, {
                 empid: 7559,
                 firstname: 'Ajay',
-                lastname: 'Pawar'
+                lastname: 'Pawar',
+                recycleBin: 0
             }, {
                 empid: 7601,
                 firstname: 'Saju',
-                lastname: 'Sasidharan'
+                lastname: 'Sasidharan',
+                recycleBin: 0
             }, {
                 empid: 7736,
                 firstname: 'Mayur',
-                lastname: 'Thakor'
+                lastname: 'Thakor',
+                recycleBin: 0
             }, {
                 empid: 7988,
                 firstname: 'Gandharva',
-                lastname: 'Jadhav'
+                lastname: 'Jadhav',
+                recycleBin: 0
             }, {
                 empid: 8101,
                 firstname: 'Shashank',
-                lastname: 'Lakhotia'
+                lastname: 'Lakhotia',
+                recycleBin: 0
             }, {
                 empid: 8119,
                 firstname: 'Navneet',
-                lastname: 'Shrivastava'
+                lastname: 'Shrivastava',
+                recycleBin: 0
             }, {
                 empid: 8679,
                 firstname: 'Manasi',
-                lastname: 'Bhagwat'
+                lastname: 'Bhagwat',
+                recycleBin: 0
             }, {
                 empid: 8972,
                 firstname: 'Snehal',
-                lastname: 'Bhapkar'
+                lastname: 'Bhapkar',
+                recycleBin: 0
             }, {
                 empid: 9484,
                 firstname: 'Ashish Kumar',
-                lastname: 'Thawait'
+                lastname: 'Thawait',
+                recycleBin: 0
             }, {
                 empid: 9554,
                 firstname: 'Swapna',
-                lastname: 'Purohit'
+                lastname: 'Purohit',
+                recycleBin: 0
             }, {
                 empid: 9761,
                 firstname: 'Hardik',
-                lastname: 'Joshi'
+                lastname: 'Joshi',
+                recycleBin: 0
             }, {
                 empid: 10353,
                 firstname: 'Sonam',
-                lastname: 'Diwate'
+                lastname: 'Diwate',
+                recycleBin: 0
             }, {
                 empid: 11509,
                 firstname: 'Shravan',
-                lastname: 'Khare'
+                lastname: 'Khare',
+                recycleBin: 0
             }])
             .on('success', function() {
                 console.log("Interviewer table is ready");
@@ -298,71 +337,88 @@
             .bulkCreate([{
                 empid: 2635,
                 firstname: 'Shwetambari',
-                lastname: 'Salgar'
+                lastname: 'Salgar',
+                recycleBin: 0
             }, {
                 empid: 3915,
                 firstname: 'Vikram',
-                lastname: 'Chopra'
+                lastname: 'Chopra',
+                recycleBin: 0
             }, {
                 empid: 4118,
                 firstname: 'Pooja Walia',
-                lastname: 'Garde'
+                lastname: 'Garde',
+                recycleBin: 0
             }, {
                 empid: 6201,
                 firstname: 'Prakash',
-                lastname: 'Vachhani'
+                lastname: 'Vachhani',
+                recycleBin: 0
             }, {
                 empid: 6523,
                 firstname: 'Kirti',
-                lastname: 'Namjoshi'
+                lastname: 'Namjoshi',
+                recycleBin: 0
             }, {
                 empid: 7461,
                 firstname: 'Ketan',
-                lastname: 'Simant'
+                lastname: 'Simant',
+                recycleBin: 0
             }, {
                 empid: 8063,
                 firstname: 'Amruta',
-                lastname: 'Joshi'
+                lastname: 'Joshi',
+                recycleBin: 0
             }, {
                 empid: 9495,
                 firstname: 'Jitin',
-                lastname: 'Naidu'
+                lastname: 'Naidu',
+                recycleBin: 0
             }, {
                 empid: 9637,
                 firstname: 'Deepika',
-                lastname: 'Gupta'
+                lastname: 'Gupta',
+                recycleBin: 0
             }, {
                 empid: 9758,
                 firstname: 'Amit',
-                lastname: 'Jain'
+                lastname: 'Jain',
+                recycleBin: 0
             }, {
                 empid: 9846,
                 firstname: 'Abhinav',
-                lastname: 'Dingre'
+                lastname: 'Dingre',
+                recycleBin: 0
             }, {
                 empid: 9989,
                 firstname: 'Amruta',
-                lastname: 'Devale'
+                lastname: 'Devale',
+                recycleBin: 0
             }, {
                 empid: 10035,
                 firstname: 'Mavish',
-                lastname: 'Ajaney'
+                lastname: 'Ajaney',
+                recycleBin: 0
             }, {
                 empid: 10344,
                 firstname: 'Ketaki',
-                lastname: 'Hebalkar'
+                lastname: 'Hebalkar',
+                recycleBin: 0
             }, {
                 empid: 10772,
                 firstname: 'Kina',
-                lastname: 'Pandya'
+                lastname: 'Pandya',
+                recycleBin: 0
             }, {
                 empid: 10859,
                 firstname: 'Raj',
-                lastname: 'Pillai'
+                lastname: 'Pillai',
+                recycleBin: 0
             }, {
                 empid: 11337,
                 firstname: 'Parul',
-                lastname: 'Shrivastav'
+                lastname: 'Shrivastav',
+                recycleBin: 0
             }])
             .on('success', function() {
                 console.log("Recruiter table is ready");
@@ -376,13 +432,17 @@
     function createInterviewRounds() {
         tbl_interviewrounds
             .bulkCreate([{
-                round: '1st Round'
+                round: '1st Round',
+                recycleBin: 0
             }, {
-                round: '2nd Round'
+                round: '2nd Round',
+                recycleBin: 0
             }, {
-                round: '3rd Round'
+                round: '3rd Round',
+                recycleBin: 0
             }, {
-                round: 'Final'
+                round: 'Final',
+                recycleBin: 0
             }])
             .on('success', function() {
                 console.log("Interview-Rounds table is ready");
@@ -396,13 +456,17 @@
     function createInterviewStatus() {
         tbl_interviewstatus
             .bulkCreate([{
-                status: 'Rejected'
+                status: 'Rejected',
+                recycleBin: 0
             }, {
-                status: 'Call for F2F round'
+                status: 'Call for F2F round',
+                recycleBin: 0
             }, {
-                status: 'OnHold'
+                status: 'OnHold',
+                recycleBin: 0
             }, {
-                status: 'Selected'
+                status: 'Selected',
+                recycleBin: 0
             }])
             .on('success', function() {
                 console.log("Interview-Status table is ready");
@@ -416,11 +480,14 @@
     function createInterviewMode() {
         tbl_interviewmode
             .bulkCreate([{
-                mode: 'Telephonic'
+                mode: 'Telephonic',
+                recycleBin: 0
             }, {
-                mode: 'VC/Skype'
+                mode: 'VC/Skype',
+                recycleBin: 0
             }, {
-                mode: 'Personal'
+                mode: 'Personal',
+                recycleBin: 0
             }])
             .on('success', function() {
                 console.log("Interview-Mode table is ready");
@@ -444,7 +511,8 @@
                 accesstype: 1,
                 block: false,
                 reset: false,
-                appRelease: false
+                appRelease: false,
+                recycleBin: 0
             }, {
                 empid: 10748,
                 email: 'ashwinh@cybage.com',
@@ -454,7 +522,8 @@
                 accesstype: 0,
                 block: false,
                 reset: false,
-                appRelease: false
+                appRelease: false,
+                recycleBin: 0
             }])
             .on('success', function() {
                 console.log("Users table is ready");
