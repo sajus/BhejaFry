@@ -37,8 +37,10 @@ define(function(require) {
             this.turnOffCheck().done(function(data) {
                 if (data.appRelease) {
                     view.$el.find('#turnItOff').prop("checked", true);
+                    view.$el.find('.toggleStatus').html('on');
                 } else {
                     view.$el.find('#turnItOff').prop("checked", false);
+                    view.$el.find('.toggleStatus').html('off');
                 }
             });
             return this;
@@ -50,6 +52,7 @@ define(function(require) {
             this.$($(e.target).closest('input[type="checkbox"]')).prop('checked', function() {
                 if (this.checked) {
                     view.$(this).prop("checked", true);
+                    view.$el.find('.toggleStatus').html('on');
                     email = _.object([
                         'email',
                         'turnOff'
@@ -67,6 +70,7 @@ define(function(require) {
                     });
                 } else {
                     view.$(this).prop("checked", false);
+                    view.$el.find('.toggleStatus').html('off');
                     email = _.object([
                         'email',
                         'turnOff'

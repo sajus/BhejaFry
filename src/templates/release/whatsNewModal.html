@@ -21,12 +21,12 @@
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse in">
                                 <div class="panel-body">
-                                    <p>
-                                        Cybage UI IMS provide reports in the form of interactive charts that show statistics for interviews conducted.
+                                    <p>Cybage UI IMS provide reports in the form of interactive charts that show statistics for interviews conducted.
                                     </p>
                                     <ul>
-                                        <li>You can filter the charts data by directly clicking on legend provided in chart panel.</li>
-                                        <li>Charts are available for download in PNG, JPEG, SVG or PDF file formats or can print it.</li>
+                                        <li>You can filter the charts data by legend provided on chart panel.</li>
+                                        <li>Charts are available for download in PNG, JPEG, SVG or PDF file formats.</li>
+                                        <li>Charts are also available for printing perpose.</li>
                                     </ul>
                                 </div>
                             </div>
@@ -39,16 +39,15 @@
                             </div>
                             <div id="collapseTwo" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    The following reports are included with Cybage UI IMS:
+                                    <p>The following reports are included with Cybage UI IMS:</p>
                                     <ul>
                                         <li>Interview's overall report: Shows overall interview conducted status, grouped by a interviewed status, mode or rounds.</li>
                                         <li>Interviewer overall report: Shows overall interviews conducted filtered by interviewers.</li>
-                                        <li>Recruiters overall report: Shows overall interviews conducted filtered by recruiters.</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="panel panel-default">
+                        <!-- <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Managing your user profile</a>
@@ -59,7 +58,7 @@
                                     Your user profile is where you specify your profile settings (e.g. your name, upload profile pic, summary points of your work).
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -69,7 +68,10 @@
                             <div id="collapseFour" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <p>We highly recommended to periodically change your password. Now you can do it easily with change password facility provided.</p>
-                                    <p>If your password isn't working, you'll need to go through our password recovery process by raising a reset request to administrator.</p>
+                                    <ul>
+                                        <li>If your password isn't working, you'll need to go through our password recovery process by raising a reset request to administrator.</li>
+                                        <li>If your account is locked, you'll need to go through our account recovery process by raising a unlock request to administrator.</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -88,11 +90,20 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">Help center</a>
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">See what's there in release 4 beta stack</a>
                                 </h4>
                             </div>
-                            <div id="collapseFive" class="panel-collapse collapse">
+                            <div id="collapseSix" class="panel-collapse collapse">
                                 <div class="panel-body">
+                                    <ul>
+                                        <li>Managing interviewers & candidates profile.</li>
+                                        <li>Help center & API documentations.</li>
+                                        <li>More reports.</li>
+                                        <li>Drag & drop components on dashboard layout.</li>
+                                        <li>Integration with Git API v3.</li>
+                                        <li>Cybage UI - IMS v1 exposed API.</li>
+                                        <li>Exposed API documentations.</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -102,7 +113,7 @@
         </div>
         <div class="modal-footer">
             <label class="checkbox-inline pull-left">
-                <input type="checkbox" id="turnItOff" value="0"> Turn off this release announcement
+                <input type="checkbox" id="turnItOff"> Turn <span class="toggleStatus">off</span> this release announcement
             </label>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
