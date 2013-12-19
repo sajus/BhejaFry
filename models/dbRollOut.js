@@ -69,7 +69,7 @@
                 strength: 'Good in JavaScript',
                 improveArea: 'Can improve in HTML5',
                 comments: 'Does not have proper knowledge',
-                deleteFlag: 0
+                recycleBin: 0
             }, {
                 cFirstName: 'Ashwin',
                 cLastName: 'Hegde',
@@ -84,7 +84,7 @@
                 strength: 'Good in JavaScript',
                 improveArea: 'Can improve in HTML5',
                 comments: 'Does not have proper knowledge',
-                deleteFlag: 0
+                recycleBin: 0
             }, {
                 cFirstName: 'Ashwin',
                 cLastName: 'Hegde',
@@ -99,7 +99,7 @@
                 strength: 'Good in JavaScript',
                 improveArea: 'Can improve in HTML5',
                 comments: 'Does not have proper knowledge',
-                deleteFlag: 0
+                recycleBin: 0
             }, {
                 cFirstName: 'Ashwin',
                 cLastName: 'Hegde',
@@ -114,7 +114,7 @@
                 strength: 'Good in JavaScript',
                 improveArea: 'Can improve in HTML5',
                 comments: 'Does not have proper knowledge',
-                deleteFlag: 0
+                recycleBin: 0
             }])
             .on('success', function() {
                 console.log("Interview-Response table is ready");

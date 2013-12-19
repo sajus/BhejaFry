@@ -11,7 +11,7 @@ var sequelize = require('../config/sqlzConfig').sequelize,
  *
  ***/
 exports.getInterviewStatusReport = function(req, res) {
-	var reportQuery = "SELECT COUNT(a.status_id) as statusCount, b.status FROM interviewresponse_tbl a, interviewstatus_tbl b WHERE deleteFlag=0 AND a.status_id = b.id GROUP BY b.status";
+	var reportQuery = "SELECT COUNT(a.status_id) as statusCount, b.status FROM interviewresponse_tbl a, interviewstatus_tbl b WHERE recycleBin=0 AND a.status_id = b.id GROUP BY b.status";
 	sequelize.query(reportQuery).success(function(tblRes) {
 		var srcRes = [];
 
@@ -40,7 +40,7 @@ exports.getInterviewStatusReport = function(req, res) {
  *
  ***/
 exports.getInterviewModeReport = function(req, res) {
-	var reportQuery = "SELECT COUNT(a.mode_id) as modeCount, b.mode FROM interviewresponse_tbl a, interviewmode_tbl b WHERE deleteFlag=0 AND a.mode_id = b.id GROUP BY b.mode";
+	var reportQuery = "SELECT COUNT(a.mode_id) as modeCount, b.mode FROM interviewresponse_tbl a, interviewmode_tbl b WHERE recycleBin=0 AND a.mode_id = b.id GROUP BY b.mode";
 	sequelize.query(reportQuery).success(function(tblRes) {
 		var srcRes = [];
 
@@ -69,7 +69,7 @@ exports.getInterviewModeReport = function(req, res) {
  *
  ***/
 exports.getInterviewRoundReport = function(req, res) {
-	var reportQuery = "SELECT COUNT(a.round_id) as roundCount, b.round FROM interviewresponse_tbl a, interviewrounds_tbl b WHERE deleteFlag=0 AND a.round_id = b.id GROUP BY b.round";
+	var reportQuery = "SELECT COUNT(a.round_id) as roundCount, b.round FROM interviewresponse_tbl a, interviewrounds_tbl b WHERE recycleBin=0 AND a.round_id = b.id GROUP BY b.round";
 	sequelize.query(reportQuery).success(function(tblRes) {
 		var srcRes = [];
 
