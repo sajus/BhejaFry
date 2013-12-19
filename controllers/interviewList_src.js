@@ -35,29 +35,26 @@ exports.getInterviewList = function(req, res) {
 exports.postInterview = function(req, res) {
 	var payload = req.body;
 
-	// var interviewer_2_id = () ? null console.log('T') : payload.interviewer_2_id console.log('F');
-	// console.log("Google: " + interviewer_2_id);
-
 	var insertQuery = "INSERT INTO interviewresponse_tbl (cFirstName, cLastName, cEmail, interviewer_1_id, interviewer_2_id, interviewDate ,recruiter_id, status_id, round_id, mode_id, strength, improveArea, comments, recycleBin)";
-	insertQuery += "VALUES (";
-	insertQuery += sqlString.escape(payload.cFirstName) + " ,";
-	insertQuery += sqlString.escape(payload.cLastName) + " ,";
+	insertQuery += " VALUES (";
+	
+	insertQuery += (payload.cFirstName===null) ? payload.cFirstName + " ," : sqlString.escape(payload.cFirstName) + " ,";
+	insertQuery += (payload.cLastName===null) ? payload.cLastName + " ," : sqlString.escape(payload.cLastName) + " ,";
+		
 	insertQuery += sqlString.escape(payload.cEmail) + " ,";
 	insertQuery += sqlString.escape(payload.interviewer_1_id) + " ,";
 
-	if(payload.interviewer_1_id !== payload.interviewer_2_id) {
-		insertQuery += sqlString.escape(payload.interviewer_2_id) + " ,";
-	} else {
-		insertQuery += null + " ,";
-	}
+	insertQuery += (payload.interviewer_1_id !== payload.interviewer_2_id) ? sqlString.escape(payload.interviewer_2_id) + " ," : null +  " ,";
 
 	insertQuery += sqlString.escape(payload.interviewDate) + " ,";
 	insertQuery += sqlString.escape(payload.recruiter_id) + " ,";
 	insertQuery += sqlString.escape(payload.status_id) + " ,";
 	insertQuery += sqlString.escape(payload.round_id) + " ,";
 	insertQuery += sqlString.escape(payload.mode_id) + " ,";
-	insertQuery += sqlString.escape(payload.strength) + " ,";
-	insertQuery += sqlString.escape(payload.improveArea) + " ,";
+
+	insertQuery += (payload.strength===null) ? payload.strength + " ," : sqlString.escape(payload.strength) + " ,";
+	insertQuery += (payload.improveArea===null) ? payload.improveArea + " ," : sqlString.escape(payload.improveArea) + " ,";
+
 	insertQuery += sqlString.escape(payload.comments) + " ,";
 	insertQuery += 0 + " )";
 
@@ -138,35 +135,23 @@ exports.putInterviewListById = function(req, res) {
 	var payload = req.body;
 
 	var updateQuery = "UPDATE interviewresponse_tbl SET";
-	if(payload.cFirstName===null) {
-		updateQuery += " cFirstName = " + payload.cFirstName + " , ";
-	} else {
-		updateQuery += " cFirstName = " + sqlString.escape(payload.cFirstName) + " , ";
-	}
-	if(payload.cLastName===null) {
-		updateQuery += " cLastName = " + payload.cLastName + " , ";
-	} else {
-		updateQuery += " cLastName = " + sqlString.escape(payload.cLastName) + " , ";
-	}
+
+	updateQuery += (payload.cFirstName===null) ? " cFirstName = " + payload.cFirstName + " , " + " ," : " cFirstName = " + sqlString.escape(payload.cFirstName) + " , ";
+	updateQuery += (payload.cLastName===null) ? " cLastName = " + payload.cLastName + " , " : " cLastName = " + sqlString.escape(payload.cLastName) + " , ";
+
 	updateQuery += " cEmail = " + sqlString.escape(payload.cEmail) + " , ";
 	updateQuery += " interviewer_1_id = " + sqlString.escape(payload.interviewer_1_id) + " , ";
-	updateQuery += " interviewer_2_id = " + sqlString.escape(payload.interviewer_2_id) + " , ";
+
+	updateQuery += (payload.interviewer_1_id !== payload.interviewer_2_id) ? " interviewer_2_id = " + sqlString.escape(payload.interviewer_2_id) + " , " : " interviewer_2_id = " + null +  " ,";
+
 	updateQuery += " interviewDate = " + sqlString.escape(payload.interviewDate) + " , ";
 	updateQuery += " recruiter_id = " + sqlString.escape(payload.recruiter_id) + " , ";
 	updateQuery += " status_id = " + sqlString.escape(payload.status_id) + " , ";
 	updateQuery += " round_id = " + sqlString.escape(payload.round_id) + " , ";
 	updateQuery += " mode_id = " + sqlString.escape(payload.mode_id) + " , ";
 
-	if(payload.strength===null) {
-		updateQuery += " strength = " + payload.strength + " , ";
-	} else {
-		updateQuery += " strength = " + sqlString.escape(payload.strength) + " , ";
-	}
-	if(payload.improveArea===null) {
-		updateQuery += " improveArea = " + payload.improveArea + " , ";
-	} else {
-		updateQuery += " improveArea = " + sqlString.escape(payload.improveArea) + " , ";
-	}
+	updateQuery += (payload.cLastName===null) ? " strength = " + payload.strength + " , " : " strength = " + sqlString.escape(payload.strength) + " , ";
+	updateQuery += (payload.cLastName===null) ? " improveArea = " + payload.improveArea + " , " : " improveArea = " + sqlString.escape(payload.improveArea) + " , ";
 
 	updateQuery += " comments = " + sqlString.escape(payload.comments);
 	updateQuery += " WHERE id = " + req.params.id;
