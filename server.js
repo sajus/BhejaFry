@@ -112,11 +112,7 @@ http.createServer(app).listen(app.get('port'), function() {
  ***/
 function sessionAuth(req, res, next) {
     if (!req.session.user_id) {
-        res.status(401).send({
-            error: '401 Unauthorized: Authentication is required and has failed or has not yet been provided'
-        });
-        // res.send('401 Unauthorized: Authentication is required and has failed or has not yet been provided');
-        // 403 Forbidden: Your Authentication is not granted the permission to access the resource
+        res.status(401).send('Authentication is required and has failed or has not yet been provided.');
     } else {
         next();
     }

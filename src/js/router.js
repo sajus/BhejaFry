@@ -220,9 +220,8 @@ define(function(require) {
             if ($.cookie('isAuthenticated')) {
                 $.removeCookie('isAuthenticated');
                 $.removeCookie('email');
-                $.removeCookie('firstName');
-                $.removeCookie('lastName');
-                $.removeCookie('accesstype');
+                $.removeCookie('username');
+                $.removeCookie('roles');
                 $.ajax({
                     url: Backbone.Model.gateWayUrl + '/logout'
                 }).done(function() {

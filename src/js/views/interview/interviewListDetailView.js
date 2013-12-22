@@ -233,10 +233,13 @@ define(function(require) {
             this.model.set('mode_id', parseInt(view.model.get('modes'), 10));
             this.model.set('interviewDate', moment(this.$el.find('#interviewDate').datepicker('getDate')).format('X'));
 
+            var message = (this.id !== null) ? "Interview get updated successfully." : "Interview get saved successfully.";
             this.model.save(view.model.toJSON(), {
-                success: function() {
+                success: function(model, response) {
+                    console.log('response');
+                    console.log(response);
                     Events.trigger("alert:success", [{
-                        message: "Record successfully."
+                        message: message
                     }]);
                     Events.trigger("view:navigate", {
                         path: "interviewList",
@@ -247,7 +250,7 @@ define(function(require) {
                 },
                 error: function() {
                     Events.trigger("alert:error", [{
-                        message: "Some service error occured during data Saving."
+                        message: "Some error occured during data Saving."
                     }]);
                 }
             });

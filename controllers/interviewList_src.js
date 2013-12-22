@@ -33,44 +33,49 @@ exports.getInterviewList = function(req, res) {
  *
  ***/
 exports.postInterview = function(req, res) {
-	var payload = req.body;
+	var sql_isCEmailAlready = "SELECT cEmail FROM interviewresponse_tbl WHERE interviewresponse_tbl.recycleBin = 0 AND cEmail = " + sqlString.escape(req.body.cEmail) + " LIMIT 1";
+	sequelize.query(sql_isCEmailAlready).success(function(rows) {
+		if (rows.length === 0) {
+			// The candidate email does not exist.
+			var payload = req.body;
+			var sql_insertInterview = "INSERT INTO interviewresponse_tbl (cFirstName, cLastName, cEmail, interviewer_1_id, interviewer_2_id, interviewDate ,recruiter_id, status_id, round_id, mode_id, strength, improveArea, comments, recycleBin)";
+			sql_insertInterview += " VALUES (";
+			sql_insertInterview += (payload.cFirstName === null) ? payload.cFirstName + " ," : sqlString.escape(payload.cFirstName) + " ,";
+			sql_insertInterview += (payload.cLastName === null) ? payload.cLastName + " ," : sqlString.escape(payload.cLastName) + " ,";
+			sql_insertInterview += sqlString.escape(payload.cEmail) + " ,";
+			sql_insertInterview += sqlString.escape(payload.interviewer_1_id) + " ,";
+			sql_insertInterview += (payload.interviewer_1_id !== payload.interviewer_2_id) ? sqlString.escape(payload.interviewer_2_id) + " ," : null + " ,";
+			sql_insertInterview += sqlString.escape(payload.interviewDate) + " ,";
+			sql_insertInterview += sqlString.escape(payload.recruiter_id) + " ,";
+			sql_insertInterview += sqlString.escape(payload.status_id) + " ,";
+			sql_insertInterview += sqlString.escape(payload.round_id) + " ,";
+			sql_insertInterview += sqlString.escape(payload.mode_id) + " ,";
+			sql_insertInterview += (payload.strength === null) ? payload.strength + " ," : sqlString.escape(payload.strength) + " ,";
+			sql_insertInterview += (payload.improveArea === null) ? payload.improveArea + " ," : sqlString.escape(payload.improveArea) + " ,";
+			sql_insertInterview += sqlString.escape(payload.comments) + " ,";
+			sql_insertInterview += 0 + " )";
 
-	var insertQuery = "INSERT INTO interviewresponse_tbl (cFirstName, cLastName, cEmail, interviewer_1_id, interviewer_2_id, interviewDate ,recruiter_id, status_id, round_id, mode_id, strength, improveArea, comments, recycleBin)";
-	insertQuery += " VALUES (";
-	
-	insertQuery += (payload.cFirstName===null) ? payload.cFirstName + " ," : sqlString.escape(payload.cFirstName) + " ,";
-	insertQuery += (payload.cLastName===null) ? payload.cLastName + " ," : sqlString.escape(payload.cLastName) + " ,";
-		
-	insertQuery += sqlString.escape(payload.cEmail) + " ,";
-	insertQuery += sqlString.escape(payload.interviewer_1_id) + " ,";
+			var sql_selectInterview = "SELECT * FROM interviewresponse_tbl WHERE interviewresponse_tbl.recycleBin = 0 ORDER BY id DESC LIMIT 1";
 
-	insertQuery += (payload.interviewer_1_id !== payload.interviewer_2_id) ? sqlString.escape(payload.interviewer_2_id) + " ," : null +  " ,";
-
-	insertQuery += sqlString.escape(payload.interviewDate) + " ,";
-	insertQuery += sqlString.escape(payload.recruiter_id) + " ,";
-	insertQuery += sqlString.escape(payload.status_id) + " ,";
-	insertQuery += sqlString.escape(payload.round_id) + " ,";
-	insertQuery += sqlString.escape(payload.mode_id) + " ,";
-
-	insertQuery += (payload.strength===null) ? payload.strength + " ," : sqlString.escape(payload.strength) + " ,";
-	insertQuery += (payload.improveArea===null) ? payload.improveArea + " ," : sqlString.escape(payload.improveArea) + " ,";
-
-	insertQuery += sqlString.escape(payload.comments) + " ,";
-	insertQuery += 0 + " )";
-
-	var selectQuery = "SELECT * FROM interviewresponse_tbl WHERE interviewresponse_tbl.recycleBin=0 ORDER BY id DESC LIMIT 1";
-
-	sequelize.query(insertQuery).success(function() {
-		sequelize.query(selectQuery).success(function(rows) {
-			res.format({
-				json: function() {
-					res.send(rows);
-				}
+			sequelize.query(sql_insertInterview).success(function() {
+				sequelize.query(sql_selectInterview).success(function(rows) {
+					res.format({
+						json: function() {
+							res.send(rows);
+						}
+					});
+				}).error(function(error) {
+					console.log('SQL Error:\n');
+					console.log(error);
+				});
+			}).error(function(error) {
+				console.log('SQL Error:\n');
+				console.log(error);
 			});
-		}).error(function(error) {
-			console.log('SQL Error:\n');
-			console.log(error);
-		});
+		} else {
+			// The candidate email is already exist and is not in recycleBin.
+			res.status(500).send('Candidate email already exist.');
+		}
 	}).error(function(error) {
 		console.log('SQL Error:\n');
 		console.log(error);
@@ -136,13 +141,13 @@ exports.putInterviewListById = function(req, res) {
 
 	var updateQuery = "UPDATE interviewresponse_tbl SET";
 
-	updateQuery += (payload.cFirstName===null) ? " cFirstName = " + payload.cFirstName + " , " + " ," : " cFirstName = " + sqlString.escape(payload.cFirstName) + " , ";
-	updateQuery += (payload.cLastName===null) ? " cLastName = " + payload.cLastName + " , " : " cLastName = " + sqlString.escape(payload.cLastName) + " , ";
+	updateQuery += (payload.cFirstName === null) ? " cFirstName = " + payload.cFirstName + " , " + " ," : " cFirstName = " + sqlString.escape(payload.cFirstName) + " , ";
+	updateQuery += (payload.cLastName === null) ? " cLastName = " + payload.cLastName + " , " : " cLastName = " + sqlString.escape(payload.cLastName) + " , ";
 
 	updateQuery += " cEmail = " + sqlString.escape(payload.cEmail) + " , ";
 	updateQuery += " interviewer_1_id = " + sqlString.escape(payload.interviewer_1_id) + " , ";
 
-	updateQuery += (payload.interviewer_1_id !== payload.interviewer_2_id) ? " interviewer_2_id = " + sqlString.escape(payload.interviewer_2_id) + " , " : " interviewer_2_id = " + null +  " ,";
+	updateQuery += (payload.interviewer_1_id !== payload.interviewer_2_id) ? " interviewer_2_id = " + sqlString.escape(payload.interviewer_2_id) + " , " : " interviewer_2_id = " + null + " ,";
 
 	updateQuery += " interviewDate = " + sqlString.escape(payload.interviewDate) + " , ";
 	updateQuery += " recruiter_id = " + sqlString.escape(payload.recruiter_id) + " , ";
@@ -150,8 +155,8 @@ exports.putInterviewListById = function(req, res) {
 	updateQuery += " round_id = " + sqlString.escape(payload.round_id) + " , ";
 	updateQuery += " mode_id = " + sqlString.escape(payload.mode_id) + " , ";
 
-	updateQuery += (payload.cLastName===null) ? " strength = " + payload.strength + " , " : " strength = " + sqlString.escape(payload.strength) + " , ";
-	updateQuery += (payload.cLastName===null) ? " improveArea = " + payload.improveArea + " , " : " improveArea = " + sqlString.escape(payload.improveArea) + " , ";
+	updateQuery += (payload.cLastName === null) ? " strength = " + payload.strength + " , " : " strength = " + sqlString.escape(payload.strength) + " , ";
+	updateQuery += (payload.cLastName === null) ? " improveArea = " + payload.improveArea + " , " : " improveArea = " + sqlString.escape(payload.improveArea) + " , ";
 
 	updateQuery += " comments = " + sqlString.escape(payload.comments);
 	updateQuery += " WHERE id = " + req.params.id;

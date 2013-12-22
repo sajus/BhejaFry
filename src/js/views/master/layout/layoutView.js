@@ -14,12 +14,6 @@ define(function(require) {
         el: 'body',
 
         initialize: function() {
-            if ($.cookie('isAuthenticated')) {
-                this.email = $.cookie('email');
-                this.firstName = $.cookie('firstName');
-                this.lastName = $.cookie('lastName');
-                this.accesstype = $.cookie('accesstype');
-            }
             this.render();
         },
 
@@ -45,9 +39,9 @@ define(function(require) {
 
         render: function() {
             this.$el.html(layoutTemplate({
-                email: this.email,
-                username: this.firstName + " " + this.lastName,
-                type: this.accesstype
+                email: $.cookie('email'),
+                username: $.cookie('username'),
+                type: $.cookie('roles')
             }));
             this.renderHeader();
             this.renderFooter();

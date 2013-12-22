@@ -18,6 +18,7 @@ define(function(require) {
             Events.on('view:navigate', this.navigate, this);
             Events.on('alert:success', this.alertSuccess, this);
             Events.on('alert:error', this.alertError, this);
+            // this.handleAjaxResponse();
             this.render();
         },
 
@@ -27,7 +28,7 @@ define(function(require) {
                     401: function() {
                         // 401 Unauthorized
                         Events.trigger('alert:error', [{
-                            message: 'Authentication is required and has failed.'
+                            message: 'The email or password you entered is incorrect.'
                         }]);
                         return false;
                     },

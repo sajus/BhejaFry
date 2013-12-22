@@ -53,15 +53,15 @@ define(function(require) {
                     if (response.isAuthenticated) {
                         $.cookie('isAuthenticated', true);
                         $.cookie('email', response.email);
-                        $.cookie('firstName', response.firstname);
-                        $.cookie('lastName', response.lastname);
-                        $.cookie('accesstype', response.accesstype);
+                        $.cookie('username', response.username);
+                        $.cookie('roles', response.roles);
                         Events.trigger('redirectToAuthPage', view.options);
-                    } else {
-                        Events.trigger("alert:error", [{
-                            message: "The email or password you entered is incorrect."
-                        }]);
                     }
+                },
+                error: function() {
+                    Events.trigger("alert:error", [{
+                        message: "The email or password you entered is incorrect."
+                    }]);
                 }
             });
         },

@@ -19,7 +19,7 @@ define(function(require) {
 
         initialize: function() {
             if ($.cookie('isAuthenticated')) {
-                this.accesstype = $.cookie('accesstype');
+                this.roles = $.cookie('roles');
             }
             this.render();
         },
@@ -32,13 +32,13 @@ define(function(require) {
         },
 
         render: function() {
-            if (this.accesstype === '1') {
-                this.accesstype = true;
+            if (this.roles === 'Administrator') {
+                this.roles = true;
             } else {
-                this.accesstype = false;
+                this.roles = false;
             }
             this.$el.html(headerMenuTemplate({
-                type: this.accesstype
+                type: this.roles
             }));
 
             this.$el.find('.logout').tooltip({

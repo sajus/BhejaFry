@@ -43,7 +43,7 @@ define(function(require) {
                 pattern: /^(([A-Za-z]+)(^\s[A-Za-z]+)?)$/gm,
                 msg: "Please specify valid last name."
             }],
-            accesstype: {
+            role_id: {
                 required: true,
                 msg: "Please select employee's access type."
             }

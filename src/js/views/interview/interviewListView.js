@@ -55,7 +55,6 @@ define(function(require) {
                         interviews: data
                     }));
                     view.$el.find('.interviews').dataTable({
-                        "bProcessing": true,
                         "bJQueryUI": true,
                         "sPaginationType": "full_numbers",
                         "sScrollX": "100%",

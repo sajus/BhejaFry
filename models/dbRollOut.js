@@ -8,6 +8,7 @@
         tbl_interviewstatus = sequelize.import(__dirname + '/create/tbl_interviewstatus'),
         tbl_interviewrounds = sequelize.import(__dirname + '/create/tbl_interviewrounds'),
         tbl_recruiter = sequelize.import(__dirname + '/create/tbl_recruiter'),
+        tbl_userroles = sequelize.import(__dirname + '/create/tbl_userroles'),
         tbl_users = sequelize.import(__dirname + '/create/tbl_users'),
         tbl_interviewresponse = sequelize.import(__dirname + '/create/tbl_interviewresponse');
 
@@ -52,6 +53,47 @@
         onUpdate: 'cascade'
     });
     tbl_interviewresponse.belongsTo(tbl_recruiter);
+
+    tbl_userroles.hasMany(tbl_users, {
+        foreignKey: 'role_id',
+        onDelete: 'cascade',
+        onUpdate: 'cascade'
+    });
+    tbl_users.belongsTo(tbl_userroles);
+
+    function createUsers() {
+        tbl_users
+            .bulkCreate([{
+                empid: 7601,
+                email: 'sajus@cybage.com',
+                firstname: 'Saju',
+                lastname: 'Sasidharan',
+                password: 'sajuspass',
+                role_id: 1,
+                block: false,
+                reset: false,
+                appRelease: false,
+                recycleBin: 0
+            }, {
+                empid: 10748,
+                email: 'ashwinh@cybage.com',
+                firstname: 'Ashwin',
+                lastname: 'Hegde',
+                password: 'ashwinpass',
+                role_id: 0,
+                block: false,
+                reset: false,
+                appRelease: false,
+                recycleBin: 0
+            }])
+            .on('success', function() {
+                console.log("Users table is ready");
+                console.log("Database Tables has been setup successfully");
+            }).on('error', function(error) {
+                console.log("Error occured while creating response table!");
+                console.log(error);
+            });
+    }
 
     function createInterviewResponse() {
         tbl_interviewresponse
@@ -118,7 +160,7 @@
             }])
             .on('success', function() {
                 console.log("Interview-Response table is ready");
-                console.log("Database Tables has been setup successfully");
+                createUsers();
             }).on('error', function(error) {
                 console.log("Error occured while creating response table!");
                 console.log(error);
@@ -501,32 +543,18 @@
     sequelize.sync({
         force: true
     }).on('success', function() {
-        tbl_users
+        tbl_userroles
             .bulkCreate([{
-                empid: 7601,
-                email: 'sajus@cybage.com',
-                firstname: 'Saju',
-                lastname: 'Sasidharan',
-                password: 'sajuspass',
-                accesstype: 1,
-                block: false,
-                reset: false,
-                appRelease: false,
+                roleid: 0,
+                roles: 'User',
                 recycleBin: 0
             }, {
-                empid: 10748,
-                email: 'ashwinh@cybage.com',
-                firstname: 'Ashwin',
-                lastname: 'Hegde',
-                password: 'ashwinpass',
-                accesstype: 0,
-                block: false,
-                reset: false,
-                appRelease: false,
+                roleid: 1,
+                roles: 'Administrator',
                 recycleBin: 0
             }])
             .on('success', function() {
-                console.log("Users table is ready");
+                console.log("Userroles table is ready");
                 createInterviewMode();
             }).on('error', function(error) {
                 console.log("Error occured while creating response table!");

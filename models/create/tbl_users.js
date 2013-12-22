@@ -40,10 +40,6 @@ module.exports = function(sequelize, DataTypes) {
 				len: [8, 50]
 			}
 		},
-		accesstype: {
-			type: DataTypes.BOOLEAN,
-			allowNull: false
-		},
 		block: {
 			type: DataTypes.BOOLEAN,
 			allowNull: false
