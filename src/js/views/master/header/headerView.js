@@ -18,9 +18,6 @@ define(function(require) {
         el: '.mainMenu',
 
         initialize: function() {
-            if ($.cookie('isAuthenticated')) {
-                this.roles = $.cookie('roles');
-            }
             this.render();
         },
 
@@ -32,13 +29,17 @@ define(function(require) {
         },
 
         render: function() {
-            if (this.roles === 'Administrator') {
-                this.roles = true;
-            } else {
-                this.roles = false;
+            if ($.cookie('isAuthenticated')) {
+                var roles = $.cookie('roles');
             }
+            if (roles === 'Administrator') {
+                roles = true;
+            } else {
+                roles = false;
+            }
+            
             this.$el.html(headerMenuTemplate({
-                type: this.roles
+                filterByRole: roles
             }));
 
             this.$el.find('.logout').tooltip({

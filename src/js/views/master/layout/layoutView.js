@@ -38,10 +38,19 @@ define(function(require) {
         },
 
         render: function() {
+            if ($.cookie('isAuthenticated')) {
+                var roles = $.cookie('roles');
+            }
+            if (roles === 'Administrator') {
+                roles = true;
+            } else {
+                roles = false;
+            }
             this.$el.html(layoutTemplate({
                 email: $.cookie('email'),
                 username: $.cookie('username'),
-                type: $.cookie('roles')
+                role: $.cookie('roles'),
+                filterByRole: roles
             }));
             this.renderHeader();
             this.renderFooter();

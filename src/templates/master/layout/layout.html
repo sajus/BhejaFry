@@ -11,7 +11,7 @@
 	                    <h4 class="media-heading">Welcome, {{username}}<!--  <i class="fa fa-user"></i> --></h4>
 	                    <p class="list-group-item-text">
 	                    	<p class="label label-primary">{{email}}</a></p>
-	                    	<p class="label label-primary">{{type}}</a></p>
+	                    	<p class="label label-primary">{{role}}</a></p>
 	                    	<!-- <button class="btn btn-default btn-xs editProfile">Edit Profile</button> -->
 	                    </p>
 	                </div>
@@ -19,14 +19,16 @@
 	            <a class="list-group-item" href="#dashboard">Dashboard</a>
 	            <a class="list-group-item active">Interview Operations</a>
 	            <a class="list-group-item" href="#interview">Add New Interview</a>
-	            <a class="list-group-item" href="#interviewList">Interviews List</a>
+	            <a class="list-group-item" href="#interviewList">Conducted Interview's List</a>
 	            <a class="list-group-item active">Manage</a>
 	            <!-- <a class="list-group-item" href="#usersDetail">Add New User</a>
 	            <a class="list-group-item" href="#usersList">Users List</a> -->
 	            <a class="list-group-item" href="#tickets">Tickets</a>
-	            <a class="list-group-item" href="#usersList">Users</a>
-	            <a class="list-group-item" href="#mgnInterviewers">Interviewers</a>
-	            <a class="list-group-item" href="#mgnRecruiters">Recruiters</a>
+	            {{#if filterByRole}}
+		            <a class="list-group-item" href="#usersList">Users</a>
+		            <a class="list-group-item" href="#mgnInterviewers">Interviewers</a>
+		            <a class="list-group-item" href="#mgnRecruiters">Recruiters</a>
+	            {{/if}}
 	        </div>
 	    </div>
 	    <div class="col-md-9" id="content">
