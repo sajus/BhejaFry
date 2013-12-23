@@ -225,12 +225,12 @@ define(function(require) {
         postData: function() {
             var view = this;
 
-            this.model.set('interviewer_1_id', parseInt(_.first(view.model.get('interviewers')), 10));
-            this.model.set('interviewer_2_id', parseInt(_.last(view.model.get('interviewers')), 10));
-            this.model.set('recruiter_id', parseInt(view.model.get('recruiters'), 10));
-            this.model.set('round_id', parseInt(view.model.get('rounds'), 10));
-            this.model.set('status_id', parseInt(view.model.get('status'), 10));
-            this.model.set('mode_id', parseInt(view.model.get('modes'), 10));
+            this.model.set('interviewer_1_id', Number(_.first(view.model.get('interviewers'))));
+            this.model.set('interviewer_2_id', Number(_.last(view.model.get('interviewers'))));
+            this.model.set('recruiter_id', Number(view.model.get('recruiters')));
+            this.model.set('round_id', Number(view.model.get('rounds')));
+            this.model.set('status_id', Number(view.model.get('status')));
+            this.model.set('mode_id', Number(view.model.get('modes')));
             this.model.set('interviewDate', moment(this.$el.find('#interviewDate').datepicker('getDate')).format('X'));
 
             var message = (this.id !== null) ? "Interview get updated successfully." : "Interview get saved successfully.";

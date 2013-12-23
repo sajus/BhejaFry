@@ -29,15 +29,13 @@ define(function(require) {
         },
 
         render: function() {
-            if ($.cookie('isAuthenticated')) {
-                var roles = $.cookie('roles');
-            }
+            var roles = $.cookie('roles');
             if (roles === 'Administrator') {
                 roles = true;
             } else {
                 roles = false;
             }
-            
+
             this.$el.html(headerMenuTemplate({
                 filterByRole: roles
             }));

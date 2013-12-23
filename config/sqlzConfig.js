@@ -35,7 +35,7 @@ var sequelize = new Sequelize(db.name, db.host, db.password, {
 		engine: 'INNODB',
 		charset: 'utf8',
 		collate: 'utf8_general_ci',
-		timestamps: true,
+		timestamps: false,
 		paranoid: false,
 		syncOnAssociation: true
 	}
