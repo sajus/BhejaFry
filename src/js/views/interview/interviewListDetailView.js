@@ -236,8 +236,6 @@ define(function(require) {
             var message = (this.id !== null) ? "Interview get updated successfully." : "Interview get saved successfully.";
             this.model.save(view.model.toJSON(), {
                 success: function(model, response) {
-                    console.log('response');
-                    console.log(response);
                     Events.trigger("alert:success", [{
                         message: message
                     }]);
@@ -248,9 +246,9 @@ define(function(require) {
                         }
                     });
                 },
-                error: function() {
-                    Events.trigger("alert:error", [{
-                        message: "Some error occured during data Saving."
+                error: function(model, response) {
+                    Events.trigger("alert:warning", [{
+                        message: response.responseText
                     }]);
                 }
             });

@@ -18,6 +18,8 @@ define(function(require) {
             Events.on('view:navigate', this.navigate, this);
             Events.on('alert:success', this.alertSuccess, this);
             Events.on('alert:error', this.alertError, this);
+            Events.on('alert:warning', this.alertWarning, this);
+            Events.on('alert:info', this.alertInfo, this);
             // this.handleAjaxResponse();
             this.render();
         },
@@ -75,17 +77,31 @@ define(function(require) {
             Events.trigger('page:navigate', navigationData);
         },
 
-        alertSuccess: function(messages) {
+        alertSuccess: function(message) {
             this.alert(alerts.render({
                 type: 'success',
-                messages: messages
+                messages: message
             }));
         },
 
-        alertError: function(messages) {
+        alertError: function(message) {
             this.alert(alerts.render({
                 type: 'error',
-                messages: messages
+                messages: message
+            }));
+        },
+
+        alertWarning: function(message) {
+            this.alert(alerts.render({
+                type: 'warning',
+                messages: message
+            }));
+        },
+
+        alertInfo: function(message) {
+            this.alert(alerts.render({
+                type: 'info',
+                messages: message
             }));
         },
 

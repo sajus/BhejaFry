@@ -74,7 +74,7 @@ exports.postInterview = function(req, res) {
 			});
 		} else {
 			// The candidate email is already exist and is not in recycleBin.
-			res.status(500).send('Candidate email already exist.');
+			res.status(500).send("Candidate's email already exist.");
 		}
 	}).error(function(error) {
 		console.log('SQL Error:\n');
@@ -155,8 +155,8 @@ exports.putInterviewListById = function(req, res) {
 	updateQuery += " round_id = " + sqlString.escape(payload.round_id) + " , ";
 	updateQuery += " mode_id = " + sqlString.escape(payload.mode_id) + " , ";
 
-	updateQuery += (payload.cLastName === null) ? " strength = " + payload.strength + " , " : " strength = " + sqlString.escape(payload.strength) + " , ";
-	updateQuery += (payload.cLastName === null) ? " improveArea = " + payload.improveArea + " , " : " improveArea = " + sqlString.escape(payload.improveArea) + " , ";
+	updateQuery += (payload.strength === null) ? " strength = " + payload.strength + " , " : " strength = " + sqlString.escape(payload.strength) + " , ";
+	updateQuery += (payload.improveArea === null) ? " improveArea = " + payload.improveArea + " , " : " improveArea = " + sqlString.escape(payload.improveArea) + " , ";
 
 	updateQuery += " comments = " + sqlString.escape(payload.comments);
 	updateQuery += " WHERE id = " + req.params.id;
