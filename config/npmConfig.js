@@ -42,3 +42,14 @@ exports.keygen = keygen;
  */
 var SqlString = require('sequelize/lib/sql-string');
 exports.sqlString = SqlString;
+
+/**
+ * A library of string validation, filtering and sanitization methods.
+ *
+ * More information: https://github.com/chriso/node-validator
+ */
+var check = require('validator').check;
+exports.check = check;
+
+var sanitize = require('validator').sanitize;
+exports.sanitize = sanitize;

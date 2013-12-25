@@ -37,7 +37,8 @@
         "grunt-recess": "~0.3.3",
         "password-generator": "~0.2.1",
         "nodemailer": "~0.5.14",
-        "github": "~0.1.12"
+        "github": "~0.1.12",
+        "validator": "~2.0.0"
     },
     "engines": {
         "node": ">=0.8"
