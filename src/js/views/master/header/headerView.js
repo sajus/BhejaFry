@@ -40,6 +40,12 @@ define(function(require) {
                 filterByRole: roles
             }));
 
+            this.uxFormation();
+
+            return this;
+        },
+
+        uxFormation: function() {
             this.$el.find('.logout').tooltip({
                 title: 'Logout',
                 animation: true,
@@ -55,8 +61,6 @@ define(function(require) {
                 animation: true,
                 placement: 'bottom'
             });
-
-            return this;
         },
 
         changePass: function() {

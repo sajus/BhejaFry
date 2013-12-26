@@ -2,7 +2,7 @@ define(function(require) {
     "use strict";
 
     var Backbone = require('backbone'),
-        BaseView = require('views/BaseView'),
+        Baseview = require('views/baseview'),
         Events = require('events'),
         ChangePassModel = require('models/login/changePassModel'),
         changePassTemplate = require('template!templates/login/changePassModal');
@@ -12,7 +12,7 @@ define(function(require) {
     require('strength');
     require('keygen');
 
-    return BaseView.extend({
+    return Baseview.extend({
 
         initialize: function() {
             this.model = new ChangePassModel();

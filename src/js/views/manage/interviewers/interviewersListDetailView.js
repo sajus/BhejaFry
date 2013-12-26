@@ -3,7 +3,7 @@ define(function(require) {
 
     var Backbone = require('backbone'),
         Events = require('events'),
-        BaseView = require('views/BaseView'),
+        Baseview = require('views/baseview'),
         interviewersListDetailTemplate = require('template!templates/manage/interviewers/interviewersListDetail'),
         InterviewersListDetailModel = require('models/manage/interviewers/interviewersListDetailModel');
 
@@ -11,7 +11,7 @@ define(function(require) {
     require('modelValidator');
     require('bsAlert');
 
-    return BaseView.extend({
+    return Baseview.extend({
 
         el: '.page',
 

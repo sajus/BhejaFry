@@ -4,7 +4,7 @@ define(function(require) {
     var $ = require('jquery'),
         _ = require('underscore'),
         Backbone = require('backbone'),
-        BaseView = require('views/BaseView'),
+        Baseview = require('views/baseview'),
         Events = require('events'),
         interviewListDetailPageTemplate = require('template!templates/interview/interviewListDetail'),
         InterviewListDetailModel = require('models/interview/interviewListDetailModel'),
@@ -18,7 +18,7 @@ define(function(require) {
     require('bsAlert');
     require('datePicker');
 
-    return BaseView.extend({
+    return Baseview.extend({
 
         el: '.page',
 

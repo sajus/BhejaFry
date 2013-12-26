@@ -8,4 +8,7 @@
 @import '../js/vendors/bootstrap/css/bootstrap.min.css';
 @import '../js/vendors/bootstrap/css/bootstrap-theme.min.css';
 
+/*** Custom stylesheet for Bootstrap 3.x ***/
+@import 'common/bootstrap.min.css';
+
 @import '../js/vendors/bootstrap/plugins/font-awesome/css/font-awesome.min.css';

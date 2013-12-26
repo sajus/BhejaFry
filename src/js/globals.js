@@ -2,6 +2,6 @@ define(function() {
 	'use strict';
 
 	return {
-		gateWayPort: '90'
+		gateWayPort: 90
 	};
 });

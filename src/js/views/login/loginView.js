@@ -2,7 +2,7 @@ define(function(require) {
     'use strict';
 
     var Backbone = require('backbone'),
-        BaseView = require('views/BaseView'),
+        Baseview = require('views/baseview'),
         Events = require('events'),
         loginPageTemplate = require('template!templates/login/login'),
         LoginModel = require('models/login/loginModel');
@@ -12,7 +12,7 @@ define(function(require) {
     require('bsAlert');
     require('jqueryCookie');
 
-    return BaseView.extend({
+    return Baseview.extend({
 
         el: 'body',
 

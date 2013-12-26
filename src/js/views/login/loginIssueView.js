@@ -3,7 +3,7 @@ define(function(require) {
 
     var Backbone = require('backbone'),
         Events = require('events'),
-        BaseView = require('views/BaseView'),
+        Baseview = require('views/baseview'),
         loginIssuePageTemplate = require('template!templates/login/loginIssue'),
         LoginIssueModel = require('models/login/loginIssueModel');
 
@@ -13,7 +13,7 @@ define(function(require) {
     require('bsTooltip');
     require('jqueryCookie');
 
-    return BaseView.extend({
+    return Baseview.extend({
 
         el: 'body',
 
