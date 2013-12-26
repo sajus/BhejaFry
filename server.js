@@ -26,9 +26,10 @@ var authentication = require('./controllers/authentication_src'),
  ***/
 app.configure(function() {
     app.set('port', process.env.PORT || config.server.port);
-    app.use(express.json());
-    app.use(express.urlencoded());
+    // app.use(express.json());
+    // app.use(express.urlencoded());
     app.set(express.methodOverride());
+    app.use(express.bodyParser());
     app.use(express.cookieParser('kqsdjfmlksdhfhzirzeoibrzecrbzuzefcuercazeafxzeokwdfzeijfxcerig'));
     app.use(express.session());
     app.set(express.router);

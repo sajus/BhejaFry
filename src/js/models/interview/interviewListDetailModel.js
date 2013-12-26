@@ -18,8 +18,8 @@ define(function(require) {
             cFirstName: [{
                 required: false
             }, {
-                minLength: 4,
-                msg: 'First name should contain minimum 4 characters.'
+                minLength: 2,
+                msg: 'First name should contain minimum 2 characters.'
             }, {
                 pattern: /^(([A-Za-z]+)(^\s[A-Za-z]+)?)$/gm,
                 msg: 'First name you entered is incorrect.'
@@ -28,8 +28,8 @@ define(function(require) {
             cLastName: [{
                 required: false
             }, {
-                minLength: 4,
-                msg: 'Last name should contain minimum 4 characters.'
+                minLength: 2,
+                msg: 'Last name should contain minimum 2 characters.'
             }, {
                 pattern: /^(([A-Za-z]+)(^\s[A-Za-z]+)?)$/gm,
                 msg: 'Last name you entered is incorrect.'

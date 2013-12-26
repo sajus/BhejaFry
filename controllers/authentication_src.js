@@ -3,7 +3,10 @@
  ***/
 
 var sequelize = require('../config/sqlzConfig').sequelize,
-	_ = require('../config/npmConfig').underscore;
+	_ = require('../config/npmConfig').underscore,
+	sqlString = require('../config/npmConfig').sqlString,
+	check = require('../config/npmConfig').check,
+	sanitize = require('../config/npmConfig').sanitize;
 
 /**
  * Request Method: POST
@@ -13,13 +16,32 @@ var sequelize = require('../config/sqlzConfig').sequelize,
  ***/
 exports.postAuthentication = function(req, res) {
 	var payload = req.body,
-		email = payload.email,
-		password = payload.password;
+		email = sanitize(payload.email).trim(),
+		password = sanitize(payload.password).trim();
 
-	var sql_selectAuthUser = "SELECT a.empid, a.email, a.firstname, a.lastname, a.appRelease, b.roles FROM users_tbl a, userroles_tbl b WHERE email='" + email + "' AND password='" + password + "' AND a.role_id = b.roleid LIMIT 1 ";
+	/*** Validate: Email ***/
+	try {
+		check(email, {
+			notNull: 'Enter your email address.',
+			isEmail: 'The email you entered is incorrect.'
+		}).notNull().isEmail();
+		check(email, 'The email needs to be between %1 and %2 characters long.').len(7, 40);
+	} catch (e) {
+		res.status(500).send(e.message);
+	}
+
+	/*** Validate: Password ***/
+	try {
+		check(password, 'Enter your password.').notNull();
+		check(password, 'The password needs to be between %1 and %2 characters long.').len(8, 80);
+	} catch (e) {
+		res.status(500).send(e.message);
+	}
+
+	var sql_selectAuthUser = "SELECT a.empid, a.email, a.firstname, a.lastname, a.appRelease, b.roles FROM users_tbl a, userroles_tbl b WHERE email = " + sqlString.escape(email) + " AND password = " + sqlString.escape(password) + " AND a.role_id = b.roleid LIMIT 1 ";
 	sequelize.query(sql_selectAuthUser).success(function(rows) {
 		if (rows.length === 0) {
-			res.status(401).send('Authentication is required and has failed or has not yet been provided.');
+			res.status(401).send('The email or password you entered is incorrect.');
 		} else {
 			req.session.user_id = rows[0].empid;
 			var authentication = _.object([

@@ -45,9 +45,7 @@ define(function(require) {
                 roles = false;
             }
             this.$el.html(layoutTemplate({
-                email: $.cookie('email'),
                 username: $.cookie('username'),
-                role: $.cookie('roles'),
                 filterByRole: roles
             }));
             this.renderHeader();

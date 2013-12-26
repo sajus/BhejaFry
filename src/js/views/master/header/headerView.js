@@ -37,7 +37,8 @@ define(function(require) {
             }
 
             this.$el.html(headerMenuTemplate({
-                filterByRole: roles
+                filterByRole: roles,
+                email: $.cookie('email')
             }));
 
             this.uxFormation();

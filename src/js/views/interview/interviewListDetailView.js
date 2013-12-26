@@ -193,7 +193,7 @@ define(function(require) {
                 "todayHighlight": true
             }).data('datepicker');
 
-            this.$el.find('input[name="cEmail"]').focus();
+            this.$el.find('input[name="cFirstName"]').focus();
 
             this.$('.interviewers').chosen({
                 max_selected_options: 2

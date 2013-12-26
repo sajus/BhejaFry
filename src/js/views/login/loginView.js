@@ -48,6 +48,7 @@ define(function(require) {
 
         isAuthorized: function() {
             var view = this;
+
             this.model.save(this.model.toJSON(), {
                 success: function(model, response) {
                     if (response.isAuthenticated) {
@@ -58,9 +59,9 @@ define(function(require) {
                         Events.trigger('redirectToAuthPage', view.options);
                     }
                 },
-                error: function() {
+                error: function(model, response) {
                     Events.trigger("alert:error", [{
-                        message: "The email or password you entered is incorrect."
+                        message: response.responseText || "The email or password you entered is incorrect."
                     }]);
                 }
             });

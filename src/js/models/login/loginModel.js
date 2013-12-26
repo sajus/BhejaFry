@@ -17,13 +17,16 @@ define(function(require) {
             }, {
                 pattern: 'email',
                 msg: 'The email you entered is incorrect.'
+            }, {
+                rangeLength: [7, 40],
+                msg: 'The email needs to be between 7 to 40 characters long.'
             }],
             password: [{
                 required: true,
                 msg: 'Enter your password.'
             }, {
-                rangeLength: [8, 40],
-                msg: 'Password should contain min 8 characters.'
+                rangeLength: [8, 80],
+                msg: 'The password should contain minimum 8 characters long.'
             }]
         }
     });
