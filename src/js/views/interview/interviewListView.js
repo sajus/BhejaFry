@@ -37,16 +37,6 @@ define(function(require) {
             return this.interviewListCollection.fetch();
         },
 
-        uxFormation: function() {
-            $('.breadcrumb').html("<li><a href='#'>Dashboard</a></li><li class='active'>Interview List</li>");
-
-            this.$el.find(".delAtOnces").tooltip({
-                title: 'Remove one or multiple interviews',
-                animation: true,
-                placement: 'top'
-            });
-        },
-
         render: function() {
             var view = this;
             $.when(this.fetchInterviewList())
@@ -81,6 +71,16 @@ define(function(require) {
             this.uxFormation();
 
             return this;
+        },
+
+        uxFormation: function() {
+            $('.breadcrumb').html("<li><a href='#'>Dashboard</a></li><li class='active'>Interview List</li>");
+
+            this.$el.find(".delAtOnces").tooltip({
+                title: 'Remove one or multiple interviews',
+                animation: true,
+                placement: 'top'
+            });
         },
 
         editInterview: function(e) {

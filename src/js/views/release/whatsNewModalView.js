@@ -31,8 +31,14 @@ define(function(require) {
         },
 
         render: function() {
+            this.$el.html(whatsNewModalTemplate);
+            this.uxFormation();
+
+            return this;
+        },
+
+        uxFormation: function() {
             var view = this;
-            this.$el.html(whatsNewModalTemplate());
             this.$el.find('.modal-dialog').css('width', '1000px');
             this.turnOffCheck().done(function(data) {
                 if (data.appRelease) {
@@ -43,7 +49,6 @@ define(function(require) {
                     view.$el.find('.toggleStatus').html('off');
                 }
             });
-            return this;
         },
 
         turnItOff: function(e) {

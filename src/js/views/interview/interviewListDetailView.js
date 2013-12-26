@@ -235,7 +235,7 @@ define(function(require) {
 
             var message = (this.id !== null) ? "Interview get updated successfully." : "Interview get saved successfully.";
             this.model.save(view.model.toJSON(), {
-                success: function(model, response) {
+                success: function() {
                     Events.trigger("alert:success", [{
                         message: message
                     }]);

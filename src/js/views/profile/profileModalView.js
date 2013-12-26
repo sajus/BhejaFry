@@ -11,8 +11,12 @@ define(function(require) {
 
         render: function() {
             this.$el.html(profileModalTemplate());
-            this.$el.find('.modal-dialog').css('width', '1000px');
+            this.uxFormation();
             return this;
+        },
+
+        uxFormation: function() {
+            this.$el.find('.modal-dialog').css('width', '1000px');
         }
     });
 });

@@ -10,9 +10,13 @@ define(function(require) {
         className: "modal fade",
 
         render: function() {
-            this.$el.html(feedbackModalTemplate());
-            this.$el.find('.modal-dialog').css('width','1000px');
+            this.$el.html(feedbackModalTemplate);
+            this.uxFormation();
             return this;
+        },
+
+        uxFormation: function() {
+            this.$el.find('.modal-dialog').css('width', '1000px');
         }
     });
 });

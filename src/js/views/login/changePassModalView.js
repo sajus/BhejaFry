@@ -43,6 +43,18 @@ define(function(require) {
             return this;
         },
 
+        uxFormation: function() {
+            this.$el.find('input[name=currentPassword]').focus();
+            this.$el.find('.modal-dialog').css('width', '600px');
+
+            this.$el.find('#newPassword').strength({
+                strengthClass: 'strength',
+                strengthMeterClass: 'strength_meter',
+                strengthButtonClass: 'button_strength'
+            });
+            this.$el.find('.showPassToggle').prop('disabled', true);
+        },
+
         enableShowPass: function() {
             if (this.$el.find('#newPassword').val().length === 0) {
                 this.$el.find('.showPassToggle').prop('disabled', true);
@@ -67,18 +79,6 @@ define(function(require) {
 
         keygenPass: function() {
             this.$el.find('.strength').val(generatePassword(12, false)).change();
-        },
-
-        uxFormation: function() {
-            this.$el.find('input[name=currentPassword]').focus();
-            this.$el.find('.modal-dialog').css('width', '600px');
-
-            this.$el.find('#newPassword').strength({
-                strengthClass: 'strength',
-                strengthMeterClass: 'strength_meter',
-                strengthButtonClass: 'button_strength'
-            });
-            this.$el.find('.showPassToggle').prop('disabled', true);
         },
 
         postData: function() {
