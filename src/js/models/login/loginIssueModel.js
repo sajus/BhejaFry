@@ -17,6 +17,9 @@ define(function(require) {
             }, {
                 pattern: 'email',
                 msg: 'The email you entered is incorrect.'
+            }, {
+                rangeLength: [7, 40],
+                msg: 'The email needs to be between 7 to 40 characters long.'
             }],
             loginIssueOpt: {
                 required: true,

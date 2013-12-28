@@ -16,8 +16,8 @@ define(function(require) {
             'click .confirmDelete': 'confirmDelete'
         },
 
-        render: function(userId) {
-            this.delUserId = userId;
+        render: function(cEmail) {
+            this.delCEmail = cEmail;
             this.$el.html(listDelConfirmModal);
             return this;
         },
@@ -36,7 +36,7 @@ define(function(require) {
             var view = this;
             $.ajax({
                 type: "DELETE",
-                url: Backbone.Model.gateWayUrl + '/interviewList/' + this.delUserId
+                url: Backbone.Model.gateWayUrl + '/interviewList/' + this.delCEmail
             }).done(function() {
                 setTimeout(function() {
                     Events.trigger('deletedInterview');

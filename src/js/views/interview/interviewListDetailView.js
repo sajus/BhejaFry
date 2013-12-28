@@ -25,7 +25,7 @@ define(function(require) {
         initialize: function() {
             this.modelBinder = new Backbone.ModelBinder();
             this.model = new InterviewListDetailModel({
-                'id': this.id
+                'cEmail': this.cEmail
             });
 
             this.interviewers = [];
@@ -156,10 +156,10 @@ define(function(require) {
                 recruiter: this.recruiter,
                 rounds: this.interviewrounds,
                 interviewStatus: this.interviewstatus,
-                editMode: (this.model.get('id')) ? true : false
+                editMode: (this.model.get('cEmail')) ? true : false
             }));
 
-            if (this.id !== null) {
+            if (this.cEmail !== null) {
                 this.model.fetch({
                     success: function() {
                         view.modelBinder.bind(view.model, view.el);
@@ -215,7 +215,7 @@ define(function(require) {
                 allow_single_deselect: true
             });
 
-            if (this.model.get('id')) {
+            if (this.model.get('cEmail')) {
                 $('.breadcrumb').html("<li><a href='#'>Dashboard</a></li><li class='active'>Edit Interview Details</li>");
             } else {
                 $('.breadcrumb').html("<li><a href='#'>Dashboard</a></li><li class='active'>Add Interview Details</li>");
@@ -233,7 +233,7 @@ define(function(require) {
             this.model.set('mode_id', Number(view.model.get('modes')));
             this.model.set('interviewDate', moment(this.$el.find('#interviewDate').datepicker('getDate')).format('X'));
 
-            var message = (this.id !== null) ? "Interview get updated successfully." : "Interview get saved successfully.";
+            var message = (this.cEmail !== null) ? "Interview get updated successfully." : "Interview get saved successfully.";
             this.model.save(view.model.toJSON(), {
                 success: function() {
                     Events.trigger("alert:success", [{

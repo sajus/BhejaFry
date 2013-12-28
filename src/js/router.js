@@ -34,7 +34,7 @@ define(function(require) {
             'login': 'login',
             'loginIssue': 'loginIssue',
             'dashboard': 'dashboard',
-            'interview(/:id)': 'interview',
+            'interview(/:cEmail)': 'interview',
             'interviewList': 'interviewList',
             'mgnInterviewers': 'mgnInterviewers',
             'mgnInterviewersDetail(/:id)': 'mgnInterviewersDetail',
@@ -111,11 +111,11 @@ define(function(require) {
             }
         });
 
-        /*** Router configuration for 'interview' | 'interview/:id' routes ***/
-        router.on('route:interview', function(id) {
+        /*** Router configuration for 'interview' | 'interview/:cEmail' routes ***/
+        router.on('route:interview', function(cEmail) {
             if ($.cookie('isAuthenticated')) {
                 require(['views/interview/interviewListDetailView'], function(InterviewListPage) {
-                    Core.create(appView, 'InterviewListPage', InterviewListPage, { 'id': id });
+                    Core.create(appView, 'InterviewListPage', InterviewListPage, { 'cEmail': cEmail });
                 });
             } else {
                 this.navigate("login", {

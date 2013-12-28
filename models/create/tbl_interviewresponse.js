@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         cFirstName: {
             type: DataTypes.STRING(30),
-            allowNull: true,
+            allowNull: false,
             validate: {
                 isAlpha: true,
                 len: [2, 30]
@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         cLastName: {
             type: DataTypes.STRING(30),
-            allowNull: true,
+            allowNull: false,
             validate: {
                 isAlpha: true,
                 len: [2, 30]

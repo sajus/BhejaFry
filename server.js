@@ -66,9 +66,9 @@ app.del('/usersList/:id', sessionAuth, users.delUsersById);
  ***/
 app.get('/interviewList', sessionAuth, interviewList.getInterviewList)
 app.post('/interviewList', sessionAuth, interviewList.postInterview);
-app.get('/interviewList/:id', sessionAuth, interviewList.getInterviewListById);
-app.put('/interviewList/:id', sessionAuth, interviewList.putInterviewListById);
-app.del('/interviewList/:id', sessionAuth, interviewList.delInterviewListById);
+app.get('/interviewList/:cEmail', sessionAuth, interviewList.getInterviewListByEmail);
+app.put('/interviewList/:cEmail', sessionAuth, interviewList.putInterviewListByEmail);
+app.del('/interviewList/:cEmail', sessionAuth, interviewList.delInterviewListByEmail);
 
 /**
  * Service routes for CURD interview components

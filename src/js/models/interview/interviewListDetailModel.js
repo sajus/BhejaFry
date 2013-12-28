@@ -7,8 +7,8 @@ define(function(require) {
 
     return Backbone.Model.extend({
         url: function() {
-            if (this.get('id')) {
-                return Backbone.Model.gateWayUrl + '/interviewList/' + this.get('id');
+            if (this.get('cEmail')) {
+                return Backbone.Model.gateWayUrl + '/interviewList/' + this.get('cEmail');
             } else {
                 return Backbone.Model.gateWayUrl + '/interviewList';
             }
