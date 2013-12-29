@@ -126,7 +126,15 @@ define(function(require) {
             var view = this;
 
             this.model.set('interviewer_1_id', Number(_.first(view.model.get('interviewers'))));
-            this.model.set('interviewer_2_id', Number(_.last(view.model.get('interviewers'))));
+
+            var interviewer2;
+            if(_.first(view.model.get('interviewers')) === _.last(view.model.get('interviewers'))) {
+                interviewer2 = null;
+            } else {
+                interviewer2 = Number(_.last(view.model.get('interviewers')));
+            }
+
+            this.model.set('interviewer_2_id', interviewer2);
             this.model.set('recruiter_id', Number(view.model.get('recruiters')));
             this.model.set('round_id', Number(view.model.get('rounds')));
             this.model.set('status_id', Number(view.model.get('status')));
