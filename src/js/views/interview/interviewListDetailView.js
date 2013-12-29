@@ -6,6 +6,7 @@ define(function(require) {
         Backbone = require('backbone'),
         Baseview = require('views/baseview'),
         Events = require('events'),
+        globals = require('globals'),
         interviewListDetailPageTemplate = require('template!templates/interview/interviewListDetail'),
         moment = require('moment');
 
@@ -23,104 +24,7 @@ define(function(require) {
 
         initialize: function() {
             this.modelBinder = new Backbone.ModelBinder();
-           
-            this.interviewers = [];
-            this.interviewmode = [];
-            this.interviewrounds = [];
-            this.interviewstatus = [];
-            this.recruiter = [];
-
-            this.populateInterviewer();
-            this.populateMode();
-            this.populateRounds();
-            this.populateStatus();
-            this.populateRecruiter();
-        },
-
-        fetchData: function(service) {
-            return $.ajax({
-                url: Backbone.Model.gateWayUrl + '/' + service
-            });
-        },
-
-        populateInterviewer: function() {
-            var view = this;
-            this.fetchData('interviewer').done(function(interviewer_list) {
-                _.each(interviewer_list, function(data) {
-                    view.interviewers.push(_.object([
-                        "empid",
-                        "firstname",
-                        "lastname"
-                    ], [
-                        data.empid,
-                        data.firstname,
-                        data.lastname
-                    ]));
-                });
-            });
-        },
-
-        populateMode: function() {
-            var view = this;
-            this.fetchData('mode').done(function(interviewmode_list) {
-                _.each(interviewmode_list, function(data) {
-                    view.interviewmode.push(_.object([
-                        "id",
-                        "mode"
-                    ], [
-                        data.id,
-                        data.mode
-                    ]));
-                });
-            });
-        },
-
-        populateStatus: function() {
-            var view = this;
-            this.fetchData('status').done(function(interviewstatus_list) {
-                _.each(interviewstatus_list, function(data) {
-                    view.interviewstatus.push(_.object([
-                        "id",
-                        "status"
-                    ], [
-                        data.id,
-                        data.status
-                    ]));
-                });
-            });
-        },
-
-        populateRounds: function() {
-            var view = this;
-            this.fetchData('rounds').done(function(interviewrounds_list) {
-                _.each(interviewrounds_list, function(data) {
-                    view.interviewrounds.push(_.object([
-                        "id",
-                        "round"
-                    ], [
-                        data.id,
-                        data.round
-                    ]));
-                });
-            });
-        },
-
-        populateRecruiter: function() {
-            var view = this;
-            this.fetchData('recruiter').done(function(recruiter_list) {
-                _.each(recruiter_list, function(data) {
-                    view.recruiter.push(_.object([
-                        "empid",
-                        "firstname",
-                        "lastname"
-                    ], [
-                        data.empid,
-                        data.firstname,
-                        data.lastname
-                    ]));
-                });
-                view.render();
-            });
+            this.render();
         },
 
         events: {
@@ -147,11 +51,11 @@ define(function(require) {
             var view = this;
 
             this.$el.html(interviewListDetailPageTemplate({
-                mode: this.interviewmode,
-                interviewers: this.interviewers,
-                recruiter: this.recruiter,
-                rounds: this.interviewrounds,
-                interviewStatus: this.interviewstatus,
+                mode: globals.component.interviewmode_list,
+                interviewers: globals.component.interviewer_list,
+                recruiter: globals.component.recruiter_list,
+                rounds: globals.component.interviewrounds_list,
+                interviewStatus: globals.component.interviewstatus_list,
                 editMode: (this.model.get('email')) ? true : false
             }));
 

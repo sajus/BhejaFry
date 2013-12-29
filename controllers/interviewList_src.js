@@ -35,44 +35,174 @@ exports.getInterviewList = function(req, res) {
  *
  ***/
 exports.postInterview = function(req, res) {
-	var sql_isCEmailAlready = "SELECT cEmail FROM interviewresponse_tbl WHERE interviewresponse_tbl.recycleBin = 0 AND cEmail = " + sqlString.escape(req.body.cEmail) + " LIMIT 1";
+	var payload = req.body,
+		cEmail_P = sanitize(payload.cEmail).trim();
+
+	var sql_isCEmailAlready = "SELECT cEmail FROM interviewresponse_tbl a WHERE cEmail = " + sqlString.escape(cEmail_P) + " AND a.recycleBin = 0 LIMIT 1";
 	sequelize.query(sql_isCEmailAlready).success(function(rows) {
 		if (rows.length === 0) {
 			// The candidate email does not exist.
-			var payload = req.body;
-			var sql_insertInterview = "INSERT INTO interviewresponse_tbl (cFirstName, cLastName, cEmail, interviewer_1_id, interviewer_2_id, interviewDate ,recruiter_id, status_id, round_id, mode_id, strength, improveArea, comments, recycleBin)";
-			sql_insertInterview += " VALUES (";
-			sql_insertInterview += (payload.cFirstName === null) ? payload.cFirstName + " ," : sqlString.escape(payload.cFirstName) + " ,";
-			sql_insertInterview += (payload.cLastName === null) ? payload.cLastName + " ," : sqlString.escape(payload.cLastName) + " ,";
-			sql_insertInterview += sqlString.escape(payload.cEmail) + " ,";
-			sql_insertInterview += sqlString.escape(payload.interviewer_1_id) + " ,";
-			sql_insertInterview += (payload.interviewer_1_id !== payload.interviewer_2_id) ? sqlString.escape(payload.interviewer_2_id) + " ," : null + " ,";
-			sql_insertInterview += sqlString.escape(payload.interviewDate) + " ,";
-			sql_insertInterview += sqlString.escape(payload.recruiter_id) + " ,";
-			sql_insertInterview += sqlString.escape(payload.status_id) + " ,";
-			sql_insertInterview += sqlString.escape(payload.round_id) + " ,";
-			sql_insertInterview += sqlString.escape(payload.mode_id) + " ,";
-			sql_insertInterview += (payload.strength === null) ? payload.strength + " ," : sqlString.escape(payload.strength) + " ,";
-			sql_insertInterview += (payload.improveArea === null) ? payload.improveArea + " ," : sqlString.escape(payload.improveArea) + " ,";
-			sql_insertInterview += sqlString.escape(payload.comments) + " ,";
-			sql_insertInterview += 0 + " )";
+			var payload = req.body,
+				cFirstName = sanitize(payload.cFirstName).trim(),
+				cLastName = sanitize(payload.cLastName).trim(),
+				cEmail = sanitize(payload.cEmail).trim(),
+				interviewer1 = sanitize(payload.interviewer_1_id).trim(),
+				interviewer2 = sanitize(payload.interviewer_2_id).trim(),
+				interviewDate = sanitize(payload.interviewDate).trim(),
+				recruiterId = Number(sanitize(payload.recruiter_id).trim()),
+				statusId = Number(sanitize(payload.status_id).trim()),
+				roundId = Number(sanitize(payload.round_id).trim()),
+				modeId = Number(sanitize(payload.mode_id).trim()),
+				strength = sanitize(payload.strength).trim(),
+				improveArea = sanitize(payload.improveArea).trim(),
+				comments = sanitize(payload.comments).trim();
 
-			var sql_selectInterview = "SELECT * FROM interviewresponse_tbl WHERE interviewresponse_tbl.recycleBin = 0 ORDER BY id DESC LIMIT 1";
+			try {
+				/*** Validate: cFirstName ***/
+				check(cFirstName, {
+					notNull: 'Specify candidate\'s first name.',
+					len: 'The candidate\'s first name needs to be between %1 and %2 characters long.',
+					isAlpha: 'The candidate\'s first name you specified is incorrect.'
+				}).notNull().len(2, 30).isAlpha();
 
-			sequelize.query(sql_insertInterview).success(function() {
-				sequelize.query(sql_selectInterview).success(function(rows) {
-					res.format({
-						json: function() {
-							res.send(rows);
-						}
-					});
+				/*** Validate: cLastName ***/
+				check(cLastName, {
+					notNull: 'Specify candidate\'s last name.',
+					len: 'The candidate\'s last name needs to be between %1 and %2 characters long.',
+					isAlpha: 'The candidate\'s last name you specified is incorrect.'
+				}).notNull().len(2, 30).isAlpha();
+
+				/*** Validate: cEmail ***/
+				check(cEmail, {
+					notNull: 'Specify candidate\'s email address.',
+					isEmail: 'The candidate\'s email you specified is incorrect.',
+					len: 'The candidate\'s email needs to be between %1 and %2 characters long.'
+				}).notNull().isEmail().len(7, 40);
+
+				/*** Validate: interviewer1 ***/
+				check(interviewer1, {
+					notNull: 'Specify at least 1 interviewer.',
+					isNumeric: 'The interviewer you specified is incorrect.'
+				}).notNull().isNumeric();
+
+				/*** Validate: recruiterId ***/
+				check(recruiterId, {
+					notNull: 'Specify the recruiter.',
+					isNumeric: 'The recruiter you specified is incorrect.'
+				}).notNull().isNumeric();
+
+				/*** Validate: statusId ***/
+				check(statusId, {
+					notNull: 'Specify the status.',
+					isNumeric: 'The status you specified is incorrect.'
+				}).notNull().isNumeric();
+
+				/*** Validate: roundId ***/
+				check(roundId, {
+					notNull: 'Specify the round.',
+					isNumeric: 'The round you specified is incorrect.'
+				}).notNull().isNumeric();
+
+				/*** Validate: modeId ***/
+				check(modeId, {
+					notNull: 'Specify the mode.',
+					isNumeric: 'The mode you specified is incorrect.'
+				}).notNull().isNumeric();
+
+				/*** Validate: comments ***/
+				check(comments, {
+					notNull: 'Specify the comments.'
+				}).notNull();
+
+			} catch (e) {
+				res.status(500).send(e.message);
+			}
+
+			var sql_isInterviewer1 = "SELECT empid FROM interviewer_tbl WHERE empid = " + sqlString.escape(interviewer1);
+			sequelize.query(sql_isInterviewer1).success(function(rows) {
+				if (rows.length === 0) {
+					// The interviewer does not exist.
+					res.status(500).send("The interviewer you specified is incorrect.");
+				}
+			}).error(function(error) {
+				console.log('SQL Error:\n');
+				console.log(error);
+			});
+
+			if (interviewer2 !== 'null' && interviewer2 !== '') {
+				var sql_isInterviewer2 = "SELECT empid FROM interviewer_tbl WHERE empid = " + sqlString.escape(interviewer2);
+				sequelize.query(sql_isInterviewer2).success(function(rows) {
+					if (rows.length === 0) {
+						// The interviewer does not exist.
+						res.status(500).send("The interviewer you specified is incorrect.");
+					}
 				}).error(function(error) {
 					console.log('SQL Error:\n');
 					console.log(error);
 				});
+			}
+
+			var sql_isRecruiter = "SELECT empid FROM recruiter_tbl WHERE empid = " + sqlString.escape(recruiterId);
+			sequelize.query(sql_isRecruiter).success(function(rows) {
+				if (rows.length === 0) {
+					// The recruiter does not exist.
+					res.status(500).send("The recruiter you specified is incorrect.");
+				}
 			}).error(function(error) {
 				console.log('SQL Error:\n');
 				console.log(error);
+			});
+
+			var sql_isStatus = "SELECT id FROM interviewstatus_tbl WHERE id = " + sqlString.escape(statusId);
+			sequelize.query(sql_isStatus).success(function(rows) {
+				if (rows.length === 0) {
+					// The status does not exist.
+					res.status(500).send("The status you specified is incorrect.");
+				}
+			}).error(function(error) {
+				console.log('SQL Error:\n');
+				console.log(error);
+			});
+
+			var sql_isRound = "SELECT id FROM interviewrounds_tbl WHERE id = " + sqlString.escape(roundId);
+			sequelize.query(sql_isRound).success(function(rows) {
+				if (rows.length === 0) {
+					// The round does not exist.
+					res.status(500).send("The round you specified is incorrect.");
+				}
+			}).error(function(error) {
+				console.log('SQL Error:\n');
+				console.log(error);
+			});
+
+			var sql_isMode = "SELECT id FROM interviewmode_tbl WHERE id = " + sqlString.escape(modeId);
+			sequelize.query(sql_isMode).success(function(rows) {
+				if (rows.length === 0) {
+					// The mode does not exist.
+					res.status(500).send("The mode you specified is incorrect.");
+				}
+			}).error(function(error) {
+				console.log('SQL Error:\n');
+				console.log(error);
+			});
+
+			var sql_insertCEmailData = "INSERT INTO interviewresponse_tbl ";
+			sql_insertCEmailData += "(cFirstName, cLastName, cEmail, interviewer_1_id, interviewer_2_id, interviewDate, recruiter_id, status_id, round_id, mode_id, strength, improveArea, comments, recycleBin) ";
+			sql_insertCEmailData += "VALUES (";
+			sql_insertCEmailData += sqlString.escape(cFirstName) + ", " + sqlString.escape(cLastName) + ", " + sqlString.escape(cEmail) + ", ";
+			sql_insertCEmailData += sqlString.escape(Number(interviewer1)) + ", ";
+			sql_insertCEmailData += (interviewer2 === 'null' || interviewer2 === '') ? null + ", " : sqlString.escape(Number(interviewer2)) + ", ";
+			sql_insertCEmailData += sqlString.escape(interviewDate) + ", ";
+			sql_insertCEmailData += sqlString.escape(recruiterId) + ", " + sqlString.escape(statusId) + ", " + sqlString.escape(roundId) + ", " + sqlString.escape(modeId) + ", ";
+			sql_insertCEmailData += (strength === 'null' || strength === '') ? null + ", " : sqlString.escape(strength) + ", ";
+			sql_insertCEmailData += (improveArea === 'null' || improveArea === '') ? null + ", " : sqlString.escape(improveArea) + ", ";
+			sql_insertCEmailData += sqlString.escape(comments) + ", " + 0 + " )";
+
+			sequelize.query(sql_insertCEmailData).success(function() {
+				res.send(req.params);
+			}).error(function(error) {
+				console.log('SQL Error:\n');
+				console.log(error)
 			});
 		} else {
 			// The candidate email is already exist and is not in recycleBin.
@@ -295,7 +425,7 @@ exports.putInterviewListByEmail = function(req, res) {
 			}).error(function(error) {
 				console.log('SQL Error:\n');
 				console.log(error);
-			})
+			});
 
 			var sql_isRound = "SELECT id FROM interviewrounds_tbl WHERE id = " + sqlString.escape(roundId);
 			sequelize.query(sql_isRound).success(function(rows) {
@@ -306,7 +436,7 @@ exports.putInterviewListByEmail = function(req, res) {
 			}).error(function(error) {
 				console.log('SQL Error:\n');
 				console.log(error);
-			})
+			});
 
 			var sql_isMode = "SELECT id FROM interviewmode_tbl WHERE id = " + sqlString.escape(modeId);
 			sequelize.query(sql_isMode).success(function(rows) {
@@ -317,7 +447,7 @@ exports.putInterviewListByEmail = function(req, res) {
 			}).error(function(error) {
 				console.log('SQL Error:\n');
 				console.log(error);
-			})
+			});
 
 			var sql_updateCEmailData = "UPDATE interviewresponse_tbl SET ";
 			sql_updateCEmailData += "cFirstName = " + sqlString.escape(cFirstName) + ", ";

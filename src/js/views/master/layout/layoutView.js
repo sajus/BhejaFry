@@ -4,6 +4,7 @@ define(function(require) {
     var $ = require('jquery'),
         Backbone = require('backbone'),
         Core = require('core'),
+        globals = require('globals'),
         layoutTemplate = require('template!templates/master/layout/layout'),
         ProfileModalView = require('views/profile/profileModalView');
 
@@ -51,7 +52,17 @@ define(function(require) {
             this.renderHeader();
             this.renderFooter();
 
+            this.fetchComponentdata();
+
             return this;
+        },
+
+        fetchComponentdata: function() {
+            globals.fetchInterviewer();
+            globals.fetchMode();
+            globals.fetchStatus();
+            globals.fetchRounds();
+            globals.fetchRecruiter();
         },
 
         editProfile: function() {
