@@ -34,7 +34,7 @@ define(function(require) {
             'login': 'login',
             'loginIssue': 'loginIssue',
             'dashboard': 'dashboard',
-            'interview(/:cEmail)': 'interview',
+            'interview(/:email)': 'interview',
             'interviewList': 'interviewList',
             'mgnInterviewers': 'mgnInterviewers',
             'mgnInterviewersDetail(/:id)': 'mgnInterviewersDetail',
@@ -111,11 +111,14 @@ define(function(require) {
             }
         });
 
-        /*** Router configuration for 'interview' | 'interview/:cEmail' routes ***/
-        router.on('route:interview', function(cEmail) {
+        /*** Router configuration for 'interview' | 'interview/:email' routes ***/
+        router.on('route:interview', function(email) {
             if ($.cookie('isAuthenticated')) {
-                require(['views/interview/interviewListDetailView'], function(InterviewListPage) {
-                    Core.create(appView, 'InterviewListPage', InterviewListPage, { 'cEmail': cEmail });
+                require(['views/interview/interviewListDetailView', 'models/interview/interviewListDetailModel'], function(InterviewListPage, InterviewListDetailModel) {
+                    var interviewListDetailModel = new InterviewListDetailModel();
+                    Core.create(appView, 'InterviewListPage', InterviewListPage, {
+                        model: interviewListDetailModel.set('email', email)
+                    });
                 });
             } else {
                 this.navigate("login", {
@@ -141,7 +144,9 @@ define(function(require) {
         router.on('route:mgnInterviewersDetail', function(id) {
             if ($.cookie('isAuthenticated')) {
                 require(['views/manage/interviewers/interviewersListDetailView'], function(InterviewersListDetailPage) {
-                    Core.create(appView, 'InterviewersListDetailPage', InterviewersListDetailPage, { 'id': id });
+                    Core.create(appView, 'InterviewersListDetailPage', InterviewersListDetailPage, {
+                        'id': id
+                    });
                 });
             } else {
                 this.navigate("login", {
@@ -167,7 +172,9 @@ define(function(require) {
         router.on('route:mgnRecruitersDetail', function(id) {
             if ($.cookie('isAuthenticated')) {
                 require(['views/manage/recruiters/recruitersListDetailView'], function(RecruitersListDetailPage) {
-                    Core.create(appView, 'RecruitersListDetailPage', RecruitersListDetailPage, { 'id': id });
+                    Core.create(appView, 'RecruitersListDetailPage', RecruitersListDetailPage, {
+                        'id': id
+                    });
                 });
             } else {
                 this.navigate("login", {
@@ -193,7 +200,9 @@ define(function(require) {
         router.on('route:usersDetail', function(id) {
             if ($.cookie('isAuthenticated')) {
                 require(['views/users/usersDetailView'], function(UsersDetailPage) {
-                    Core.create(appView, 'UsersDetailPage', UsersDetailPage, { 'id': id });
+                    Core.create(appView, 'UsersDetailPage', UsersDetailPage, {
+                        'id': id
+                    });
                 });
             } else {
                 this.navigate("login", {

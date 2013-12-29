@@ -7,8 +7,8 @@ define(function(require) {
 
     return Backbone.Model.extend({
         url: function() {
-            if (this.get('cEmail')) {
-                return Backbone.Model.gateWayUrl + '/interviewList/' + this.get('cEmail');
+            if (this.get('email')) {
+                return Backbone.Model.gateWayUrl + '/interviewList/' + this.get('email');
             } else {
                 return Backbone.Model.gateWayUrl + '/interviewList';
             }
@@ -16,31 +16,36 @@ define(function(require) {
 
         validation: {
             cFirstName: [{
-                required: false
+                required: true,
+                msg: 'Enter candidate\'s first name.'
             }, {
-                minLength: 2,
-                msg: 'First name should contain minimum 2 characters.'
+                rangeLength: [2, 30],
+                msg: 'The candidate\'s first name needs to be between 7 to 30 characters long.'
             }, {
                 pattern: /^(([A-Za-z]+)(^\s[A-Za-z]+)?)$/gm,
-                msg: 'First name you entered is incorrect.'
+                msg: 'The candidate\'s first name you specified is incorrect.'
             }],
 
             cLastName: [{
-                required: false
+                required: true,
+                msg: 'Enter candidate\'s last name.'
             }, {
-                minLength: 2,
-                msg: 'Last name should contain minimum 2 characters.'
+                rangeLength: [2, 30],
+                msg: 'The candidate\'s last name needs to be between 7 to 30 characters long.'
             }, {
                 pattern: /^(([A-Za-z]+)(^\s[A-Za-z]+)?)$/gm,
-                msg: 'Last name you entered is incorrect.'
+                msg: 'The candidate\'s last name you specified is incorrect.'
             }],
 
             cEmail: [{
                 required: true,
                 msg: 'Enter candidate\'s email address.'
             }, {
+                rangeLength: [7, 40],
+                msg: 'The candidate\'s email needs to be between 7 and 40 characters long.'
+            }, {
                 pattern: 'email',
-                msg: 'Email address you entered is incorrect.'
+                msg: 'The candidate\'s email you specified is incorrect.'
             }],
 
             interviewDate: {
@@ -55,7 +60,7 @@ define(function(require) {
 
             recruiters: {
                 required: true,
-                msg: 'Choose your recruiters.'
+                msg: 'Choose your recruiter.'
             },
 
             modes: {
@@ -76,23 +81,23 @@ define(function(require) {
             strength: [{
                 required: false
             }, {
-                minLength: 4,
-                msg: 'Strength should contain minimum 4 characters.'
+                rangeLength: [5, 1000],
+                msg: 'The strength description needs to be between 5 and 1000 characters long.'
             }],
 
             improveArea: [{
                 required: false
             }, {
-                minLength: 4,
-                msg: 'Area of improvement should contain minimum 4 characters.'
+                rangeLength: [5, 1000],
+                msg: 'The improve area description needs to be between 5 and 1000 characters long.'
             }],
 
             comments: [{
                 required: true,
                 msg: 'Enter your comments.'
             }, {
-                minLength: 4,
-                msg: 'Comments should contain minimum 4 characters.'
+                rangeLength: [5, 1000],
+                msg: 'The comments description needs to be between 5 and 1000 characters long.'
             }]
         }
     });

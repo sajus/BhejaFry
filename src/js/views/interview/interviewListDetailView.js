@@ -7,7 +7,6 @@ define(function(require) {
         Baseview = require('views/baseview'),
         Events = require('events'),
         interviewListDetailPageTemplate = require('template!templates/interview/interviewListDetail'),
-        InterviewListDetailModel = require('models/interview/interviewListDetailModel'),
         moment = require('moment');
 
     require('css!vendors/bootstrap/plugins/datepicker/css/datepicker3.css');
@@ -24,10 +23,7 @@ define(function(require) {
 
         initialize: function() {
             this.modelBinder = new Backbone.ModelBinder();
-            this.model = new InterviewListDetailModel({
-                'cEmail': this.cEmail
-            });
-
+           
             this.interviewers = [];
             this.interviewmode = [];
             this.interviewrounds = [];
@@ -156,10 +152,10 @@ define(function(require) {
                 recruiter: this.recruiter,
                 rounds: this.interviewrounds,
                 interviewStatus: this.interviewstatus,
-                editMode: (this.model.get('cEmail')) ? true : false
+                editMode: (this.model.get('email')) ? true : false
             }));
 
-            if (this.cEmail !== null) {
+            if (this.model.get('email') !== null) {
                 this.model.fetch({
                     success: function() {
                         view.modelBinder.bind(view.model, view.el);
@@ -215,7 +211,7 @@ define(function(require) {
                 allow_single_deselect: true
             });
 
-            if (this.model.get('cEmail')) {
+            if (this.model.get('email')) {
                 $('.breadcrumb').html("<li><a href='#'>Dashboard</a></li><li class='active'>Edit Interview Details</li>");
             } else {
                 $('.breadcrumb').html("<li><a href='#'>Dashboard</a></li><li class='active'>Add Interview Details</li>");
@@ -233,7 +229,7 @@ define(function(require) {
             this.model.set('mode_id', Number(view.model.get('modes')));
             this.model.set('interviewDate', moment(this.$el.find('#interviewDate').datepicker('getDate')).format('X'));
 
-            var message = (this.cEmail !== null) ? "Interview get updated successfully." : "Interview get saved successfully.";
+            var message = (this.model.get('email') !== null) ? "Interview get updated successfully." : "Interview get saved successfully.";
             this.model.save(view.model.toJSON(), {
                 success: function() {
                     Events.trigger("alert:success", [{
