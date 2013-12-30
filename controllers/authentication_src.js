@@ -23,9 +23,9 @@ exports.postAuthentication = function(req, res) {
 	try {
 		check(email, {
 			notNull: 'Enter your email address.',
-			isEmail: 'The email you entered is incorrect.'
-		}).notNull().isEmail();
-		check(email, 'The email needs to be between %1 and %2 characters long.').len(7, 40);
+			isEmail: 'The email you entered is incorrect.',
+			len: 'The email needs to be between %1 and %2 characters long.'
+		}).notNull().isEmail().len(7, 40);
 	} catch (e) {
 		res.status(500).send(e.message);
 	}
