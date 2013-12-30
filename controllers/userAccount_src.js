@@ -3,11 +3,83 @@
  ***/
 
 var sequelize = require('../config/sqlzConfig').sequelize,
-	_ = require('../config/npmConfig').underscore;
+	_ = require('../config/npmConfig').underscore,
+	sqlString = require('../config/npmConfig').sqlString,
+	check = require('../config/npmConfig').check,
+	sanitize = require('../config/npmConfig').sanitize;
+
+/**
+ * Request Method: POST
+ * Description: Service is for changing user account password.
+ *
+ ***/
+exports.postUserChange = function(req, res) {
+	var payload = req.body,
+		currentPassword = sanitize(payload.currentPassword).trim(),
+		newPassword = sanitize(payload.newPassword).trim();
+
+	var queryString = req.params,
+		email = sanitize(queryString.email).trim();
+
+	/*** Validate: email ***/
+	try {
+		check(email, {
+			notNull: 'Specify email address.',
+			isEmail: 'The email you specified is incorrect.',
+			len: 'The email needs to be between %1 and %2 characters long.'
+		}).notNull().isEmail().len(7, 40);
+	} catch (e) {
+		res.status(500).send(e.message);
+	}
+
+	/*** Validate: Current Password ***/
+	try {
+		check(currentPassword, {
+			notNull: 'Enter your current password.',
+			len: 'The current password needs to be between %1 and %2 characters long.'
+		}).notNull().len(8, 80);
+	} catch (e) {
+		res.status(500).send(e.message);
+	}
+
+	/*** Validate: New Password ***/
+	try {
+		check(newPassword, {
+			notNull: 'Enter your new password.',
+			len: 'The new password needs to be between %1 and %2 characters long.'
+		}).notNull().len(8, 80);
+	} catch (e) {
+		res.status(500).send(e.message);
+	}
+
+	var sql_selectIsEmail = "SELECT email FROM users_tbl a WHERE email = " + sqlString.escape(email) + " AND password = " + sqlString.escape(currentPassword) + " AND a.recycleBin = 0 LIMIT 1";
+	sequelize.query(sql_selectIsEmail).success(function(rows) {
+		if (rows.length === 0) {
+			// The user email & password does not exist.
+			res.status(500).send("The current password you entered is incorrect.");
+		} else {
+			// The user email & password is already exist.
+			if (req.session.email === rows[0].email) {
+				var sql_updatePassword = "UPDATE users_tbl SET password = " + sqlString.escape(newPassword) + " WHERE email = " + sqlString.escape(email);
+				sequelize.query(sql_updatePassword).success(function() {
+					res.send(req.params);
+				}).error(function(error) {
+					console.log('SQL Error:\n');
+					console.log(error);
+				});
+			} else {
+				res.status(401).send("The user session seems to be incorrect.");
+			}
+		}
+	}).error(function(error) {
+		console.log('SQL Error:\n');
+		console.log(error);
+	});
+};
 
 /**
  * Request Method: PUT
- * Description: Service is for 
+ * Description: Service is for reset user password.
  *
  ***/
 exports.putReset = function(req, res) {
@@ -19,37 +91,7 @@ exports.putReset = function(req, res) {
 	});
 };
 
-/**
- * Request Method: POST
- * Description: Service is for changing user account password.
- *
- ***/
-exports.postUserChange = function(req, res) {
-	var currentPassword = req.body.currentPassword,
-		newPassword = req.body.newPassword,
-		email = req.params.email;
 
-	var selectQuery = "SELECT email FROM users_tbl WHERE email='" + email + "' and password='" + currentPassword + "'";
-	sequelize.query(selectQuery).success(function(rows) {
-		if (rows.length === 0) {
-			res.status(401).send({
-				error: '401 Authentication failed: Authentication is required and has failed'
-			});
-		} else {
-			var updateQuery = "UPDATE users_tbl SET password='" + newPassword + "' WHERE email='" + email + "'";
-			sequelize.query(updateQuery).success(function() {
-				res.send(req.params);
-			}).error(function(error) {
-				console.log('SQL Error:\n');
-				console.log(error);
-			});
-		}
-	}).error(function(error) {
-		console.log('SQL Error:\n');
-		console.log(error);
-
-	});
-};
 
 /**
  * Request Method: PUT

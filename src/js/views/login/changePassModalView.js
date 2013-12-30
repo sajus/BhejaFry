@@ -25,7 +25,7 @@ define(function(require) {
             'submit .changePassForm': 'processForm',
             'change :input[type="password"]': 'processField',
             'click .showPassToggle': 'showPassToggle',
-            'keyup #newPassword': 'enableShowPass',
+            'keydown #newPassword, #currentPassword': 'enableShowPass',
             'click .keygenPass': 'keygenPass'
         },
 
@@ -44,7 +44,7 @@ define(function(require) {
         },
 
         uxFormation: function() {
-            this.$el.find('input[name=currentPassword]').focus();
+            this.$el.find('#currentPassword').focus();
             this.$el.find('.modal-dialog').css('width', '600px');
 
             this.$el.find('#newPassword').strength({
@@ -56,7 +56,7 @@ define(function(require) {
         },
 
         enableShowPass: function() {
-            if (this.$el.find('#newPassword').val().length === 0) {
+            if (this.$el.find('#newPassword').val().length === 0 && this.$el.find('#currentPassword').val().length === 0) {
                 this.$el.find('.showPassToggle').prop('disabled', true);
             } else {
                 this.$el.find('.showPassToggle').prop('disabled', false);
@@ -66,12 +66,12 @@ define(function(require) {
         showPassToggle: function(e) {
             if (this.$(':input[class="showPassToggle"]').is(':checked')) {
                 this.$el.find('#newPassword').prop('type', 'text');
-                this.$el.find('[name=currentPassword]').prop('type', 'text');
+                this.$el.find('#currentPassword').prop('type', 'text');
                 this.$el.find('.toggleMsg').html('Hide');
                 this.$(e.target).prop('checked', true);
             } else {
                 this.$el.find('#newPassword').prop('type', 'password');
-                this.$el.find('[name=currentPassword]').prop('type', 'password');
+                this.$el.find('#currentPassword').prop('type', 'password');
                 this.$el.find('.toggleMsg').html('Show');
                 this.$(e.target).prop('checked', false);
             }
@@ -84,13 +84,16 @@ define(function(require) {
         postData: function() {
             this.model.save(this.model.toJSON(), {
                 success: function() {
+                    setTimeout(function() {
+                        Events.trigger('modal:closeModal');
+                    }, 1000);
                     Events.trigger("alert:success", [{
                         message: "Your password has been changed successfully."
                     }]);
                 },
-                error: function() {
+                error: function(model, response) {
                     Events.trigger("alert:error", [{
-                        message: "The current password you entered is incorrect."
+                        message: response.responseText || "The current password you entered is incorrect."
                     }]);
                 }
             });

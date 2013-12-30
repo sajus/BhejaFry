@@ -2,6 +2,7 @@ define(function(require) {
     'use strict';
 
     var Backbone = require('backbone'),
+        Events = require('events'),
         headerMenuTemplate = require('template!templates/master/header/header'),
         WhatsNewModalView = require('views/release/whatsNewModalView'),
         ChangePassModalView = require('views/login/changePassModalView'),
@@ -78,13 +79,18 @@ define(function(require) {
         },
 
         profile: function() {
-            this.renderModal(ProfileModalView);
+            Events.renderModal(ProfileModalView);
         },
 
         renderModal: function(ModalView) {
             var modalView = new ModalView();
+            Events.on('modal:closeModal', this.closeModal, this);
             $('.modal-container').html(modalView.render().el);
             $('.modal-container .modal').modal('show');
+        },
+
+        closeModal: function() {
+            $('.modal-container .modal').modal('hide');
         }
     });
 

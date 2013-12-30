@@ -64,56 +64,84 @@ exports.postInterview = function(req, res) {
 					len: 'The candidate\'s first name needs to be between %1 and %2 characters long.',
 					isAlpha: 'The candidate\'s first name you specified is incorrect.'
 				}).notNull().len(2, 30).isAlpha();
+			} catch (e) {
+				res.status(500).send(e.message);
+			}
 
+			try {
 				/*** Validate: cLastName ***/
 				check(cLastName, {
 					notNull: 'Specify candidate\'s last name.',
 					len: 'The candidate\'s last name needs to be between %1 and %2 characters long.',
 					isAlpha: 'The candidate\'s last name you specified is incorrect.'
 				}).notNull().len(2, 30).isAlpha();
+			} catch (e) {
+				res.status(500).send(e.message);
+			}
 
-				/*** Validate: cEmail ***/
+			/*** Validate: cEmail ***/
+			try {
 				check(cEmail, {
 					notNull: 'Specify candidate\'s email address.',
 					isEmail: 'The candidate\'s email you specified is incorrect.',
 					len: 'The candidate\'s email needs to be between %1 and %2 characters long.'
 				}).notNull().isEmail().len(7, 40);
+			} catch (e) {
+				res.status(500).send(e.message);
+			}
 
-				/*** Validate: interviewer1 ***/
-				check(interviewer1, {
-					notNull: 'Specify at least 1 interviewer.',
-					isNumeric: 'The interviewer you specified is incorrect.'
-				}).notNull().isNumeric();
+			/*** Validate: interviewer1 ***/
+			try {
+				check(interviewer1, 'Specify at least 1 interviewer.').notNull();
+			} catch (e) {
+				res.status(500).send(e.message);
+			}
 
-				/*** Validate: recruiterId ***/
+			/*** Validate: recruiterId ***/
+			try {
 				check(recruiterId, {
 					notNull: 'Specify the recruiter.',
 					isNumeric: 'The recruiter you specified is incorrect.'
 				}).notNull().isNumeric();
+			} catch (e) {
+				res.status(500).send(e.message);
+			}
 
-				/*** Validate: statusId ***/
+			/*** Validate: statusId ***/
+			try {
 				check(statusId, {
 					notNull: 'Specify the status.',
 					isNumeric: 'The status you specified is incorrect.'
 				}).notNull().isNumeric();
+			} catch (e) {
+				res.status(500).send(e.message);
+			}
 
-				/*** Validate: roundId ***/
+			/*** Validate: roundId ***/
+			try {
 				check(roundId, {
 					notNull: 'Specify the round.',
 					isNumeric: 'The round you specified is incorrect.'
 				}).notNull().isNumeric();
+			} catch (e) {
+				res.status(500).send(e.message);
+			}
 
-				/*** Validate: modeId ***/
+			/*** Validate: modeId ***/
+			try {
 				check(modeId, {
 					notNull: 'Specify the mode.',
 					isNumeric: 'The mode you specified is incorrect.'
 				}).notNull().isNumeric();
+			} catch (e) {
+				res.status(500).send(e.message);
+			}
 
-				/*** Validate: comments ***/
+			/*** Validate: comments ***/
+			try {
 				check(comments, {
 					notNull: 'Specify the comments.'
 				}).notNull();
-
 			} catch (e) {
 				res.status(500).send(e.message);
 			}
@@ -320,63 +348,91 @@ exports.putInterviewListByEmail = function(req, res) {
 				improveArea = sanitize(payload.improveArea).trim(),
 				comments = sanitize(payload.comments).trim();
 
+			/*** Validate: cFirstName ***/
 			try {
-				/*** Validate: cFirstName ***/
 				check(cFirstName, {
 					notNull: 'Specify candidate\'s first name.',
 					len: 'The candidate\'s first name needs to be between %1 and %2 characters long.',
 					isAlpha: 'The candidate\'s first name you specified is incorrect.'
 				}).notNull().len(2, 30).isAlpha();
+			} catch (e) {
+				res.status(500).send(e.message);
+			}
 
-				/*** Validate: cLastName ***/
+			/*** Validate: cLastName ***/
+			try {
 				check(cLastName, {
 					notNull: 'Specify candidate\'s last name.',
 					len: 'The candidate\'s last name needs to be between %1 and %2 characters long.',
 					isAlpha: 'The candidate\'s last name you specified is incorrect.'
 				}).notNull().len(2, 30).isAlpha();
+			} catch (e) {
+				res.status(500).send(e.message);
+			}
 
-				/*** Validate: cEmail ***/
+			/*** Validate: cEmail ***/
+			try {
 				check(cEmail_P, {
 					notNull: 'Specify candidate\'s email address.',
 					isEmail: 'The candidate\'s email you specified is incorrect.',
 					len: 'The candidate\'s email needs to be between %1 and %2 characters long.'
 				}).notNull().isEmail().len(7, 40);
+			} catch (e) {
+				res.status(500).send(e.message);
+			}
 
-				/*** Validate: interviewer1 ***/
-				check(interviewer1, {
-					notNull: 'Specify at least 1 interviewer.',
-					isNumeric: 'The interviewer you specified is incorrect.'
-				}).notNull().isNumeric();
+			/*** Validate: interviewer1 ***/
+			try {
+				check(interviewer1, 'Specify at least 1 interviewer.').notNull();
+			} catch (e) {
+				res.status(500).send(e.message);
+			}
 
-				/*** Validate: recruiterId ***/
+			/*** Validate: recruiterId ***/
+			try {
 				check(recruiterId, {
 					notNull: 'Specify the recruiter.',
 					isNumeric: 'The recruiter you specified is incorrect.'
 				}).notNull().isNumeric();
+			} catch (e) {
+				res.status(500).send(e.message);
+			}
 
-				/*** Validate: statusId ***/
+			/*** Validate: statusId ***/
+			try {
 				check(statusId, {
 					notNull: 'Specify the status.',
 					isNumeric: 'The status you specified is incorrect.'
 				}).notNull().isNumeric();
+			} catch (e) {
+				res.status(500).send(e.message);
+			}
 
-				/*** Validate: roundId ***/
+			/*** Validate: roundId ***/
+			try {
 				check(roundId, {
 					notNull: 'Specify the round.',
 					isNumeric: 'The round you specified is incorrect.'
 				}).notNull().isNumeric();
+			} catch (e) {
+				res.status(500).send(e.message);
+			}
 
-				/*** Validate: modeId ***/
+			/*** Validate: modeId ***/
+			try {
 				check(modeId, {
 					notNull: 'Specify the mode.',
 					isNumeric: 'The mode you specified is incorrect.'
 				}).notNull().isNumeric();
+			} catch (e) {
+				res.status(500).send(e.message);
+			}
 
-				/*** Validate: comments ***/
+			/*** Validate: comments ***/
+			try {
 				check(comments, {
 					notNull: 'Specify the comments.'
 				}).notNull();
-
 			} catch (e) {
 				res.status(500).send(e.message);
 			}

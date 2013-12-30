@@ -3,7 +3,6 @@
  ***/
 
 var sequelize = require('../config/sqlzConfig').sequelize,
-	_ = require('../config/npmConfig').underscore,
 	sqlString = require('../config/npmConfig').sqlString,
 	check = require('../config/npmConfig').check,
 	sanitize = require('../config/npmConfig').sanitize;
@@ -26,14 +25,17 @@ exports.postAuthentication = function(req, res) {
 			isEmail: 'The email you entered is incorrect.',
 			len: 'The email needs to be between %1 and %2 characters long.'
 		}).notNull().isEmail().len(7, 40);
+
 	} catch (e) {
 		res.status(500).send(e.message);
 	}
 
 	/*** Validate: Password ***/
 	try {
-		check(password, 'Enter your password.').notNull();
-		check(password, 'The password needs to be between %1 and %2 characters long.').len(8, 80);
+		check(password, {
+			notNull: 'Enter your password.',
+			len: 'The password needs to be between %1 and %2 characters long.'
+		}).notNull().len(8, 80);
 	} catch (e) {
 		res.status(500).send(e.message);
 	}
@@ -44,23 +46,16 @@ exports.postAuthentication = function(req, res) {
 			res.status(401).send('The email or password you entered is incorrect.');
 		} else {
 			req.session.user_id = rows[0].empid;
-			var authentication = _.object([
-				"isAuthenticated",
-				"email",
-				"username",
-				"appRelease",
-				"roles"
-			], [
-				true,
-				rows[0].email,
-				rows[0].firstname + ' ' + rows[0].lastname,
-				rows[0].appRelease,
-				rows[0].roles
-			]);
-
+			req.session.email = rows[0].email;
 			res.format({
 				json: function() {
-					res.send(authentication);
+					res.send({
+						"isAuthenticated": true,
+						"email": rows[0].email,
+						"username": rows[0].firstname + ' ' + rows[0].lastname,
+						"appRelease": rows[0].appRelease,
+						"roles": rows[0].roles
+					});
 				}
 			});
 		}
@@ -77,5 +72,6 @@ exports.postAuthentication = function(req, res) {
  ***/
 exports.getCloseAuthentication = function(req, res) {
 	delete req.session.user_id;
+	delete req.session.email;
 	res.send(req.params);
 };

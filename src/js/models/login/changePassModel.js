@@ -18,14 +18,14 @@ define(function(require) {
                 msg: 'Enter your current password.'
             }, {
                 rangeLength: [8, 40],
-                msg: 'Current password should contain min 8 characters.'
+                msg: 'The current password should contain minimum 8 characters.'
             }],
             newPassword: [{
                 required: true,
                 msg: 'Enter your new password.'
             }, {
                 rangeLength: [8, 40],
-                msg: 'New password should contain min 8 characters.'
+                msg: 'The new password should contain minimum 8 characters.'
             }],
         }
     });
