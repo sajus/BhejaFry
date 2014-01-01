@@ -1,1 +1,9 @@
 .page-container { width: 1170px; margin:0 auto; }
+
+.toggleLayer {
+	padding-right: none !important;
+	padding-left: none !important;
+	float: left;
+	position: relative;
+	min-height: 1px;
+}

@@ -19,7 +19,8 @@ define(function(require) {
         },
 
         events: {
-            'click .editProfile': 'editProfile'
+            'click .editProfile': 'editProfile',
+            'click #toggleSidebar': 'toggleSidebar'
         },
 
         renderHeader: function() {
@@ -69,6 +70,12 @@ define(function(require) {
             var profileModalView = new ProfileModalView();
             this.$('.modal-container').html(profileModalView.render().el);
             this.$('.modal-container .modal').modal('show');
+        },
+
+        toggleSidebar: function(e) {
+            e.stopPropagation();
+            console.log('Click');
+            this.$el.find('.showSidebar').hide('slow');
         }
     });
 });

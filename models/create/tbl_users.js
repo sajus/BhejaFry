@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes) {
 		empid: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
-			unique: true,
+			primaryKey: true,
 			validate: {
 				isNumeric: true
 			}

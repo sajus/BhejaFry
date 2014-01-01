@@ -27,8 +27,6 @@ define(function(require) {
         events: {
             'click .editInterview': 'editInterview',
             'click .delInterview': 'deleteInterview',
-            'mouseover .interviews tbody tr': 'showRowElements',
-            'mouseleave .interviews tbody tr': 'hideRowElements',
             'click .selectedRow': 'selectedRow',
             'click .selectedRowHeader': 'selectedRowHeader'
         },
@@ -56,9 +54,6 @@ define(function(require) {
                         "aoColumnDefs": [{
                             "bSortable": false,
                             "aTargets": [0, 6]
-                        }, {
-                            "asSorting": ["asc", "dec"],
-                            "aTargets": [1]
                         }],
                         "bLengthChange": false
                     });
@@ -101,14 +96,6 @@ define(function(require) {
             var confirmDelModal = new ConfirmDelModal();
             $('.modal-container').html(confirmDelModal.render(this.$(e.target).closest('tr').attr('data-id')).el);
             $('.modal-container .modal').modal('show');
-        },
-
-        showRowElements: function(e) {
-            this.$(e.target).closest('tr').find('.delInterview').css('visibility', 'visible');
-        },
-
-        hideRowElements: function(e) {
-            this.$(e.target).closest('tr').find('.delInterview').css('visibility', 'hidden');
         },
 
         selectedRow: function(e) {

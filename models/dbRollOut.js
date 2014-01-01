@@ -61,6 +61,91 @@
     });
     tbl_users.belongsTo(tbl_userroles);
 
+    tbl_users.hasMany(tbl_interviewresponse, {
+        foreignKey: 'creater_id',
+        onDelete: 'cascade',
+        onUpdate: 'cascade'
+    });
+    tbl_interviewresponse.belongsTo(tbl_users);
+
+    
+
+    function createInterviewResponse() {
+        tbl_interviewresponse
+            .bulkCreate([{
+                cFirstName: 'Ashwin',
+                cLastName: 'Hegde',
+                cEmail: 'unknown1@gmail.com',
+                interviewer_1_id: 5421,
+                interviewer_2_id: 7601,
+                interviewDate: '1388428200',
+                recruiter_id: 6523,
+                status_id: 1,
+                round_id: 2,
+                mode_id: 1,
+                strength: 'Good in JavaScript',
+                improveArea: 'Can improve in HTML5',
+                comments: 'Does not have proper knowledge',
+                creater_id: 7601,
+                recycleBin: 0
+            }, {
+                cFirstName: 'Ashwin',
+                cLastName: 'Hegde',
+                cEmail: 'unknown2@gmail.com',
+                interviewer_1_id: 5421,
+                interviewer_2_id: 7601,
+                interviewDate: '1388428200',
+                recruiter_id: 6523,
+                status_id: 2,
+                round_id: 2,
+                mode_id: 1,
+                strength: 'Good in JavaScript',
+                improveArea: 'Can improve in HTML5',
+                comments: 'Does not have proper knowledge',
+                creater_id: 10748,
+                recycleBin: 0
+            }, {
+                cFirstName: 'Ashwin',
+                cLastName: 'Hegde',
+                cEmail: 'unknown3@gmail.com',
+                interviewer_1_id: 5421,
+                interviewer_2_id: 7601,
+                interviewDate: '1388428200',
+                recruiter_id: 6523,
+                status_id: 3,
+                round_id: 2,
+                mode_id: 1,
+                strength: 'Good in JavaScript',
+                improveArea: 'Can improve in HTML5',
+                comments: 'Does not have proper knowledge',
+                creater_id: 7601,
+                recycleBin: 0
+            }, {
+                cFirstName: 'Ashwin',
+                cLastName: 'Hegde',
+                cEmail: 'unknown4@gmail.com',
+                interviewer_1_id: 5421,
+                interviewer_2_id: 7601,
+                interviewDate: '1388428200',
+                recruiter_id: 6523,
+                status_id: 4,
+                round_id: 2,
+                mode_id: 1,
+                strength: 'Good in JavaScript',
+                improveArea: 'Can improve in HTML5',
+                comments: 'Does not have proper knowledge',
+                creater_id: 10748,
+                recycleBin: 0
+            }])
+            .on('success', function() {
+                console.log("Interview-Response table is ready");
+                console.log("Database Tables has been setup successfully");
+            }).on('error', function(error) {
+                console.log("Error occured while creating response table!");
+                console.log(error);
+            });
+    }
+
     function createUsers() {
         tbl_users
             .bulkCreate([{
@@ -88,79 +173,7 @@
             }])
             .on('success', function() {
                 console.log("Users table is ready");
-                console.log("Database Tables has been setup successfully");
-            }).on('error', function(error) {
-                console.log("Error occured while creating response table!");
-                console.log(error);
-            });
-    }
-
-    function createInterviewResponse() {
-        tbl_interviewresponse
-            .bulkCreate([{
-                cFirstName: 'Ashwin',
-                cLastName: 'Hegde',
-                cEmail: 'unknown1@gmail.com',
-                interviewer_1_id: 5421,
-                interviewer_2_id: 7601,
-                interviewDate: '1388428200',
-                recruiter_id: 6523,
-                status_id: 1,
-                round_id: 2,
-                mode_id: 1,
-                strength: 'Good in JavaScript',
-                improveArea: 'Can improve in HTML5',
-                comments: 'Does not have proper knowledge',
-                recycleBin: 0
-            }, {
-                cFirstName: 'Ashwin',
-                cLastName: 'Hegde',
-                cEmail: 'unknown2@gmail.com',
-                interviewer_1_id: 5421,
-                interviewer_2_id: 7601,
-                interviewDate: '1388428200',
-                recruiter_id: 6523,
-                status_id: 2,
-                round_id: 2,
-                mode_id: 1,
-                strength: 'Good in JavaScript',
-                improveArea: 'Can improve in HTML5',
-                comments: 'Does not have proper knowledge',
-                recycleBin: 0
-            }, {
-                cFirstName: 'Ashwin',
-                cLastName: 'Hegde',
-                cEmail: 'unknown3@gmail.com',
-                interviewer_1_id: 5421,
-                interviewer_2_id: 7601,
-                interviewDate: '1388428200',
-                recruiter_id: 6523,
-                status_id: 3,
-                round_id: 2,
-                mode_id: 1,
-                strength: 'Good in JavaScript',
-                improveArea: 'Can improve in HTML5',
-                comments: 'Does not have proper knowledge',
-                recycleBin: 0
-            }, {
-                cFirstName: 'Ashwin',
-                cLastName: 'Hegde',
-                cEmail: 'unknown4@gmail.com',
-                interviewer_1_id: 5421,
-                interviewer_2_id: 7601,
-                interviewDate: '1388428200',
-                recruiter_id: 6523,
-                status_id: 4,
-                round_id: 2,
-                mode_id: 1,
-                strength: 'Good in JavaScript',
-                improveArea: 'Can improve in HTML5',
-                comments: 'Does not have proper knowledge',
-                recycleBin: 0
-            }])
-            .on('success', function() {
-                console.log("Interview-Response table is ready");
-                createUsers();
+                createInterviewResponse();
             }).on('error', function(error) {
                 console.log("Error occured while creating response table!");
                 console.log(error);
@@ -367,7 +380,7 @@
             }])
             .on('success', function() {
                 console.log("Interviewer table is ready");
-                createInterviewResponse();
+                createUsers();
             }).on('error', function(error) {
                 console.log("Error occured while creating response table!");
                 console.log(error);

@@ -1,10 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
 
     return sequelize.define("InterviewResponse", {
-        interviewDate: {
-            type: DataTypes.STRING(20),
-            allowNull: false
-        },
         cFirstName: {
             type: DataTypes.STRING(30),
             allowNull: false,
@@ -28,6 +24,10 @@ module.exports = function(sequelize, DataTypes) {
                 isEmail: true,
                 len: [7, 40]
             }
+        },
+        interviewDate: {
+            type: DataTypes.STRING(20),
+            allowNull: false
         },
         strength: {
             type: DataTypes.TEXT,

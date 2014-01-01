@@ -1,8 +1,8 @@
 <div class="mainMenu"></div>
 <div class="container">
 	<div class="row">
-	    <div class="col-md-3 showSidebar">
-	        <div class="list-group affix col-md-2" style="width: 270px;">
+	    <div class="col-xs-3 showSidebar">
+	        <div class="list-group affix col-xs-2" style="width: 270px;">
 	            <!-- <div class="media" style="padding:10px;">
 	                <a href="#" class="pull-left">
 	                	<img src="http://placehold.it/64x64" alt="64x64" class="media-object" style="width: 64px; height: 64px;">
@@ -31,8 +31,18 @@
 	            {{/if}}
 	        </div>
 	    </div>
-	    <div class="col-md-9" id="content">
-			<div class='row'><ol class="breadcrumb"></ol></div>
+	    <div class="col-xs-9" id="content">
+			<div class='row'>
+				<div class="toggleLayer" style="padding:1px;">
+					<button class="btn btn-default" id="#toggleSidebar"><i class="fa fa-angle-double-left"></i></button>
+				</div>
+				<div class="toggleLayer" style="padding-left:10px;width:95.5%;">
+					<ol class="breadcrumb"></ol>
+				</div>
+				<!-- <button><i class="fa fa-columns"></i></button>
+				<ol class="breadcrumb"></ol> -->
+			</div>
+			<!-- <div class='row'><ol class="breadcrumb"></ol></div> -->
 	    	<div class='row'><div class='alert-container'></div></div>
 	    	<!-- <div class="alert alert-info">
 	    		<i class="fa fa-bullhorn"></i>
@@ -86,7 +96,7 @@
 </div>
 <div class="modal-container"></div>
 <!-- <div class="row">
-	<div class="list-group affix col-md-2">
+	<div class="list-group affix col-xs-2">
 	    <button class="btn btn-primary btn-sm pull-right" style="margin-top:25px;"><i class="glyphicon glyphicon-chevron-left"></i></button>
 	    <div class="media" style="padding:10px;">
 	        <a href="#" class="pull-left"><img src="http://placehold.it/64x64" alt="64x64" class="media-object" style="width: 64px; height: 64px;"></a>
@@ -96,7 +106,7 @@
 	        </div>
 	    </div>
 	</div>
-	<div class="col-md-12 page" id="content">
+	<div class="col-xs-12 page" id="content">
 	    <img src="imgs/loader.gif" alt="Loading">
 	</div>
 </div>

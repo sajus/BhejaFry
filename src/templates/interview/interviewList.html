@@ -3,7 +3,7 @@
         <thead>
             <tr>
                 <td colspan='7'>
-                    <button class="btn btn-primary primary">Add New Interview</button>
+                    <button class="btn btn-primary primary"><i class="fa fa-plus-circle"></i></button>
                     <button class="btn btn-danger delAtOnces" style='visibility:hidden;'><i class='fa fa-trash-o'></i></button>
                     <!-- <button class="btn btn-primary pull-right print"><i class="fa fa-print"></i></button> -->
                 </td>
@@ -24,15 +24,27 @@
         <tbody>
             {{#each interviews}}
                 <tr data-id={{cEmail}}>
-                    <td class='center'><input type='checkbox' class='selectedRow'></td>
+                    <td class='center'>
+                        {{#if isSelectable}}
+                            <input type='checkbox' class='selectedRow'>
+                        {{else}}
+                            <i class="fa fa-minus-square"></i>
+                        {{/if}}
+                    </td>
                     <td>{{cEmail}}</td>
                     <td>{{ivofirstname}} {{ivolastname}}</td>
                     <td>{{ivtfirstname}} {{ivtlastname}}</td>
                     <td>{{rcfirstname}} {{rclastname}}</td>
                     <td>{{status}}</td>
                     <td class='center'>
-                        <button class='btn btn-primary btn-xs editInterview'><i class='fa fa-pencil-square-o'></i></button>
-                        <button class='btn btn-danger btn-xs delInterview' style='visibility:hidden;'><i class='fa fa-trash-o'></i></button>
+                        {{#if isEditable}}
+                            <button class='btn btn-success btn-xs editInterview'><i class='fa fa-pencil-square-o'></i></button>
+                        {{else}}
+                            <button class='btn btn-primary btn-xs editInterview'><i class="fa fa-external-link"></i></button>
+                        {{/if}}
+                        {{#if isDeletable}}
+                            <button class='btn btn-danger btn-xs delInterview'><i class='fa fa-trash-o'></i></button>
+                        {{/if}}
                     </td>
                 </tr>
             {{/each}}
