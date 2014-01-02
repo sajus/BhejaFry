@@ -73,7 +73,9 @@ define(function(require) {
         },
 
         toggleSidebar: function() {
-            this.$el.find('.showSidebar').toggle('slow');
+            this.$el.find('.showSidebar').toggle('fast');
+            this.$el.find('.fullPageView').toggleClass('col-xs-12');
+            this.$el.find('.fa-angle-double-left').toggleClass('fa-angle-double-right');
         }
     });
 });

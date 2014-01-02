@@ -22,19 +22,12 @@ define(function(require) {
 		},
 
 		events: {
-			'click .minWindow, .maxWindow, click .fa-chevron-up, .fa-chevron-down': 'dockWindow'
+			'click .togglePanel': 'togglePanel'
 		},
 
-		dockWindow: function(e) {
-			if (this.$el.find(e.target).hasClass('minWindow')) {
-				this.$el.find(e.target).removeClass('minWindow').addClass('maxWindow');
-				this.$el.find(e.target).find('.fa-chevron-up').removeClass('fa-chevron-up').addClass('fa-chevron-down');
-				this.$el.find(e.target).parent().parent().parent().find('div[class="panel-body"]').hide('slow');
-			} else {
-				this.$el.find(e.target).removeClass('maxWindow').addClass('minWindow');
-				this.$el.find(e.target).find('.fa-chevron-down').removeClass('fa-chevron-down').addClass('fa-chevron-up');
-				this.$el.find(e.target).parent().parent().parent().find('div[class="panel-body"]').show('slow');
-			}
+		togglePanel: function(e) {
+			this.$el.find(e.target).parent().parent().parent().find('div[class="panel-body"]').toggle('slow');
+			this.$el.find(e.target).find('.fa-chevron-up').toggleClass('fa-chevron-down');
 		},
 
 		render: function() {
