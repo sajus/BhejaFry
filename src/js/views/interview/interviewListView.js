@@ -138,12 +138,16 @@ define(function(require) {
 
             this.$($(e.target).closest('input[type="checkbox"]')).prop('checked', function() {
                 if (this.checked) {
-                    view.$('.interviews tbody tr').addClass('warning');
+                    view.$('.interviews tbody tr.canSelect').addClass('warning');
                     view.$(this).prop("checked", true);
                     view.$('.selectedRow').prop("checked", true);
-                    view.$el.find('.delAtOnces').css('visibility', 'visible');
+                    
+                    if(view.$el.find('.selectedRow').length!==0) {
+                        view.$el.find('.delAtOnces').css('visibility', 'visible');
+                    }
+
                 } else {
-                    view.$('.interviews tbody tr').removeClass('warning');
+                    view.$('.interviews tbody tr.canSelect').removeClass('warning');
                     view.$(this).prop("checked", false);
                     view.$('.selectedRow').prop("checked", false);
                     view.$el.find('.delAtOnces').css('visibility', 'hidden');

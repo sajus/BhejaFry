@@ -23,7 +23,7 @@
         </thead>
         <tbody>
             {{#each interviews}}
-                <tr data-id={{cEmail}}>
+                <tr data-id={{cEmail}} class={{#if isSelectable}}canSelect{{/if}}>
                     <td class='center'>
                         {{#if isSelectable}}
                             <input type='checkbox' class='selectedRow'>
