@@ -28,7 +28,8 @@ define(function(require) {
             'click .editInterview': 'editInterview',
             'click .delInterview': 'deleteInterview',
             'click .selectedRow': 'selectedRow',
-            'click .selectedRowHeader': 'selectedRowHeader'
+            'click .selectedRowHeader': 'selectedRowHeader',
+            'click .addNewInterviews': 'addNewInterviews'
         },
 
         fetchInterviewList: function() {
@@ -83,6 +84,17 @@ define(function(require) {
             e.stopPropagation();
             Events.trigger("view:navigate", {
                 path: "interview/" + this.$(e.target).closest('tr').attr('data-id'),
+                options: {
+                    trigger: true
+                }
+            });
+        },
+
+        addNewInterviews: function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            Events.trigger("view:navigate", {
+                path: "interview",
                 options: {
                     trigger: true
                 }

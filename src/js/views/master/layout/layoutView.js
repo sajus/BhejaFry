@@ -20,7 +20,7 @@ define(function(require) {
 
         events: {
             'click .editProfile': 'editProfile',
-            'click #toggleSidebar': 'toggleSidebar'
+            'click .toggleSidebar': 'toggleSidebar'
         },
 
         renderHeader: function() {
@@ -72,10 +72,8 @@ define(function(require) {
             this.$('.modal-container .modal').modal('show');
         },
 
-        toggleSidebar: function(e) {
-            e.stopPropagation();
-            console.log('Click');
-            this.$el.find('.showSidebar').hide('slow');
+        toggleSidebar: function() {
+            this.$el.find('.showSidebar').toggle('slow');
         }
     });
 });
