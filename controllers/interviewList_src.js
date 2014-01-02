@@ -19,11 +19,30 @@ exports.getInterviewList = function(req, res) {
 
 	sequelize.query(sql_selectEmail).success(function(rows) {
 
-		var sql_selectCInterviews = "SELECT interviewresponse_tbl.id, interviewresponse_tbl.cFirstName, interviewresponse_tbl.cLastName, interviewresponse_tbl.cEmail, interviewresponse_tbl.interviewDate, interviewer_tbl1.firstname as ivofirstname, interviewer_tbl1.lastname as ivolastname, interviewer_tbl2.firstname as ivtfirstname, interviewer_tbl2.lastname as ivtlastname, recruiter_tbl.firstname as rcfirstname, recruiter_tbl.lastname as rclastname, interviewmode_tbl.mode, interviewstatus_tbl.id as statusid, interviewstatus_tbl.status, interviewrounds_tbl.round, users_tbl.email FROM interviewresponse_tbl LEFT JOIN interviewer_tbl as interviewer_tbl1 ON interviewresponse_tbl.interviewer_1_id = interviewer_tbl1.empid LEFT JOIN interviewer_tbl as interviewer_tbl2 ON interviewresponse_tbl.interviewer_2_id = interviewer_tbl2.empid LEFT JOIN recruiter_tbl ON interviewresponse_tbl.recruiter_id = recruiter_tbl.empid LEFT JOIN interviewmode_tbl ON interviewresponse_tbl.mode_id = interviewmode_tbl.id LEFT JOIN interviewstatus_tbl ON interviewresponse_tbl.status_id = interviewstatus_tbl.id LEFT JOIN interviewrounds_tbl ON interviewresponse_tbl.round_id = interviewrounds_tbl.id LEFT JOIN users_tbl ON interviewresponse_tbl.creater_id = users_tbl.empid WHERE interviewresponse_tbl.recycleBin = 0 ORDER BY users_tbl.email DESC";
+		var sql_selectCInterviews = "SELECT interviewresponse_tbl.id, interviewresponse_tbl.creater_id, interviewresponse_tbl.cFirstName, interviewresponse_tbl.cLastName, interviewresponse_tbl.cEmail, interviewresponse_tbl.interviewDate, interviewer_tbl1.firstname as ivofirstname, interviewer_tbl1.lastname as ivolastname, interviewer_tbl2.firstname as ivtfirstname, interviewer_tbl2.lastname as ivtlastname, recruiter_tbl.firstname as rcfirstname, recruiter_tbl.lastname as rclastname, interviewmode_tbl.mode, interviewstatus_tbl.id as statusid, interviewstatus_tbl.status, interviewrounds_tbl.round, users_tbl.email FROM interviewresponse_tbl LEFT JOIN interviewer_tbl as interviewer_tbl1 ON interviewresponse_tbl.interviewer_1_id = interviewer_tbl1.empid LEFT JOIN interviewer_tbl as interviewer_tbl2 ON interviewresponse_tbl.interviewer_2_id = interviewer_tbl2.empid LEFT JOIN recruiter_tbl ON interviewresponse_tbl.recruiter_id = recruiter_tbl.empid LEFT JOIN interviewmode_tbl ON interviewresponse_tbl.mode_id = interviewmode_tbl.id LEFT JOIN interviewstatus_tbl ON interviewresponse_tbl.status_id = interviewstatus_tbl.id LEFT JOIN interviewrounds_tbl ON interviewresponse_tbl.round_id = interviewrounds_tbl.id LEFT JOIN users_tbl ON interviewresponse_tbl.creater_id = users_tbl.empid WHERE interviewresponse_tbl.recycleBin = 0 ORDER BY users_tbl.email DESC";
 		sequelize.query(sql_selectCInterviews).success(function(rows) {
-			var interviews = [];
+			var interviews = [],
+				isAllowed = null,
+				roles = null;
+
 			for (var row in rows) {
-				var isAllowed = (req.session.email === rows[row].email) ? true : false;
+
+				switch (req.session.roles) {
+					case 'User':
+						isAllowed = (req.session.email === rows[row].email) ? true : false;
+						break;
+
+					case 'Administrator':
+						isAllowed = true;
+						break;
+				}
+
+				roles = {
+					"isSelectable": isAllowed,
+					"isDeletable": isAllowed,
+					"isEditable": isAllowed
+				}
+
 				interviews.push({
 					"id": rows[row].id,
 					"cFirstName": rows[row].cFirstName,
@@ -40,9 +59,7 @@ exports.getInterviewList = function(req, res) {
 					"statusid": rows[row].statusid,
 					"status": rows[row].status,
 					"round": rows[row].round,
-					"isSelectable": isAllowed,
-					"isDeletable": isAllowed,
-					"isEditable": isAllowed
+					"roles": roles
 				});
 			}
 			res.format({
@@ -542,7 +559,19 @@ exports.putInterviewListByEmail = function(req, res) {
 
 			var sql_isValidSession = "SELECT creater_id FROM interviewresponse_tbl WHERE cEmail = " + sqlString.escape(cEmail);
 			sequelize.query(sql_isValidSession).success(function(rows) {
-				if (req.session.user_id === rows[0].creater_id) {
+
+				var isAllowed = null;
+				switch (req.session.roles) {
+					case 'User':
+						isAllowed = (req.session.user_id === rows[0].creater_id);
+						break;
+
+					case 'Administrator':
+						isAllowed = true;
+						break;
+				}
+
+				if (isAllowed) {
 					var sql_updateCEmailData = "UPDATE interviewresponse_tbl SET ";
 
 					sql_updateCEmailData += "cFirstName = " + sqlString.escape(cFirstName) + ", ";
@@ -612,7 +641,18 @@ exports.delInterviewListByEmail = function(req, res) {
 			res.status(500).send("The candidate's email you specified is incorrect.");
 		} else {
 			// The candidate email is already exist.
-			if (req.session.user_id === rows[0].creater_id) {
+			var isAllowed = null;
+			switch (req.session.roles) {
+				case 'User':
+					isAllowed = (req.session.user_id === rows[0].creater_id);
+					break;
+
+				case 'Administrator':
+					isAllowed = true;
+					break;
+			}
+
+			if (isAllowed) {
 				var sql_updateCEmailDelFlag = "UPDATE interviewresponse_tbl a SET a.recycleBin = 1 WHERE cEmail = " + sqlString.escape(cEmail) + " AND a.recycleBin = 0";
 
 				sequelize.query(sql_updateCEmailDelFlag).success(function() {

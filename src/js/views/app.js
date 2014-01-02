@@ -29,7 +29,7 @@ define(function(require) {
                 statusCode: {
                     403: function(response) {
                         Events.trigger('alert:error', [{
-                            message: response.statusText
+                            message: response.responseText
                         }]);
                         return false;
                     }

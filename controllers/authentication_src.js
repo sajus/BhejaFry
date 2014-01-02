@@ -47,6 +47,7 @@ exports.postAuthentication = function(req, res) {
 		} else {
 			req.session.user_id = rows[0].empid;
 			req.session.email = rows[0].email;
+			req.session.roles = rows[0].roles;
 			res.format({
 				json: function() {
 					res.send({
@@ -73,5 +74,6 @@ exports.postAuthentication = function(req, res) {
 exports.getCloseAuthentication = function(req, res) {
 	delete req.session.user_id;
 	delete req.session.email;
+	delete req.session.roles;
 	res.send(req.params);
 };

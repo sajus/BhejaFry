@@ -23,9 +23,9 @@
         </thead>
         <tbody>
             {{#each interviews}}
-                <tr data-id={{cEmail}} class={{#if isSelectable}}canSelect{{/if}}>
+                <tr data-id={{cEmail}} class={{#if roles.isSelectable}}canSelect{{/if}}>
                     <td class='center'>
-                        {{#if isSelectable}}
+                        {{#if roles.isSelectable}}
                             <input type='checkbox' class='selectedRow'>
                         {{else}}
                             <i class="fa fa-minus-square"></i>
@@ -37,12 +37,12 @@
                     <td>{{rcfirstname}} {{rclastname}}</td>
                     <td>{{status}}</td>
                     <td class='center'>
-                        {{#if isEditable}}
+                        {{#if roles.isEditable}}
                             <button class='btn btn-success btn-xs editInterview'><i class='fa fa-pencil-square-o'></i></button>
                         {{else}}
                             <button class='btn btn-primary btn-xs editInterview'><i class="fa fa-external-link"></i></button>
                         {{/if}}
-                        {{#if isDeletable}}
+                        {{#if roles.isDeletable}}
                             <button class='btn btn-danger btn-xs delInterview'><i class='fa fa-trash-o'></i></button>
                         {{/if}}
                     </td>
