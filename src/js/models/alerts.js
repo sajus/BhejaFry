@@ -4,9 +4,6 @@ define(function(require) {
     var Backbone = require('backbone');
 
     return Backbone.Model.extend({
-        initialize: function() {
-
-        },
         setModalEl: function(modalEl) {
             this.modalEl = modalEl;
         },

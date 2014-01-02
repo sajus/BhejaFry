@@ -42,7 +42,7 @@ define(function(require) {
             'mgnRecruitersDetail(/:id)': 'mgnRecruitersDetail',
             'usersList': 'usersList',
             'usersDetail(/:id)': 'usersDetail',
-            'tickets': 'tickets',
+            'settings': 'settings',
             'logout': 'logout',
 
             // Default - catch all
@@ -211,11 +211,11 @@ define(function(require) {
             }
         });
 
-        /*** Router configuration for 'tickets' route ***/
-        router.on('route:tickets', function() {
+        /*** Router configuration for 'settings' route ***/
+        router.on('route:settings', function() {
             if ($.cookie('isAuthenticated')) {
-                require(['views/tickets/ticketsView'], function(TicketsPage) {
-                    Core.create(appView, 'TicketsPage', TicketsPage);
+                require(['views/settings/settingsView'], function(SettingsPage) {
+                    Core.create(appView, 'SettingsPage', SettingsPage);
                 });
             } else {
                 this.navigate("login", {

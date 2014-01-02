@@ -12,19 +12,23 @@ define(function(require) {
     var metadata = {
         'success': {
             typeClass: 'alert-success',
-            title: 'Success!'
+            title: 'Success!',
+            icon: 'fa-check-circle'
         },
         'error': {
             typeClass: 'alert-danger',
-            title: 'Error!'
+            title: 'Error!',
+            icon: 'fa-times-circle'
         },
         'warning': {
             typeClass: 'alert-warning',
-            title: 'Warning!'
+            title: 'Warning!',
+            icon: 'fa-exclamation-circle'
         },
         'info': {
             typeClass: 'alert-info',
-            title: 'Information!'
+            title: 'Information!',
+            icon: 'fa-info-circle'
         }
     };
 
