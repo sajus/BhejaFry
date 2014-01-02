@@ -68,7 +68,7 @@ exports.postUserChange = function(req, res) {
 					console.log(error);
 				});
 			} else {
-				res.status(401).send("The user session seems to be incorrect.");
+				res.status(403).send("The user session seems to be unauthorized.");
 			}
 		}
 	}).error(function(error) {

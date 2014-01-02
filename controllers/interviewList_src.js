@@ -250,7 +250,7 @@ exports.postInterview = function(req, res) {
 			});
 
 			var sql_insertCEmailData = "INSERT INTO interviewresponse_tbl ";
-			sql_insertCEmailData += "(cFirstName, cLastName, cEmail, interviewer_1_id, interviewer_2_id, interviewDate, recruiter_id, status_id, round_id, mode_id, strength, improveArea, comments, recycleBin) ";
+			sql_insertCEmailData += "(cFirstName, cLastName, cEmail, interviewer_1_id, interviewer_2_id, interviewDate, recruiter_id, status_id, round_id, mode_id, strength, improveArea, comments, creater_id, recycleBin) ";
 			sql_insertCEmailData += "VALUES (";
 			sql_insertCEmailData += sqlString.escape(cFirstName) + ", " + sqlString.escape(cLastName) + ", " + sqlString.escape(cEmail) + ", ";
 			sql_insertCEmailData += sqlString.escape(Number(interviewer1)) + ", ";
@@ -259,7 +259,7 @@ exports.postInterview = function(req, res) {
 			sql_insertCEmailData += sqlString.escape(recruiterId) + ", " + sqlString.escape(statusId) + ", " + sqlString.escape(roundId) + ", " + sqlString.escape(modeId) + ", ";
 			sql_insertCEmailData += (strength === 'null' || strength === '') ? null + ", " : sqlString.escape(strength) + ", ";
 			sql_insertCEmailData += (improveArea === 'null' || improveArea === '') ? null + ", " : sqlString.escape(improveArea) + ", ";
-			sql_insertCEmailData += sqlString.escape(comments) + ", " + 0 + " )";
+			sql_insertCEmailData += sqlString.escape(comments) + ", " + req.session.user_id + ", " + 0 + " )";
 
 			sequelize.query(sql_insertCEmailData).success(function() {
 				res.send(req.params);
@@ -540,34 +540,43 @@ exports.putInterviewListByEmail = function(req, res) {
 				console.log(error);
 			});
 
-			var sql_updateCEmailData = "UPDATE interviewresponse_tbl SET ";
-			sql_updateCEmailData += "cFirstName = " + sqlString.escape(cFirstName) + ", ";
-			sql_updateCEmailData += "cLastName = " + sqlString.escape(cLastName) + ", ";
-			sql_updateCEmailData += "cEmail = " + sqlString.escape(cEmail_P) + ", ";
-			sql_updateCEmailData += "interviewer_1_id = " + sqlString.escape(Number(interviewer1)) + ", ";
+			var sql_isValidSession = "SELECT creater_id FROM interviewresponse_tbl WHERE cEmail = " + sqlString.escape(cEmail);
+			sequelize.query(sql_isValidSession).success(function(rows) {
+				if (req.session.user_id === rows[0].creater_id) {
+					var sql_updateCEmailData = "UPDATE interviewresponse_tbl SET ";
 
-			sql_updateCEmailData += (interviewer2 === 'null' || interviewer2 === '') ? "interviewer_2_id = " + null + ", " : "interviewer_2_id = " + sqlString.escape(Number(interviewer2)) + ", ";
-			sql_updateCEmailData += "interviewDate = " + sqlString.escape(interviewDate) + ", ";
+					sql_updateCEmailData += "cFirstName = " + sqlString.escape(cFirstName) + ", ";
+					sql_updateCEmailData += "cLastName = " + sqlString.escape(cLastName) + ", ";
+					sql_updateCEmailData += "cEmail = " + sqlString.escape(cEmail_P) + ", ";
+					sql_updateCEmailData += "interviewer_1_id = " + sqlString.escape(Number(interviewer1)) + ", ";
 
-			sql_updateCEmailData += "recruiter_id = " + sqlString.escape(recruiterId) + ", ";
-			sql_updateCEmailData += "status_id = " + sqlString.escape(statusId) + ", ";
-			sql_updateCEmailData += "round_id = " + sqlString.escape(roundId) + ", ";
-			sql_updateCEmailData += "mode_id = " + sqlString.escape(modeId) + ", ";
+					sql_updateCEmailData += (interviewer2 === 'null' || interviewer2 === '') ? "interviewer_2_id = " + null + ", " : "interviewer_2_id = " + sqlString.escape(Number(interviewer2)) + ", ";
+					sql_updateCEmailData += "interviewDate = " + sqlString.escape(interviewDate) + ", ";
 
-			sql_updateCEmailData += (strength === 'null' || strength === '') ? "strength = " + null + ", " : "strength = " + sqlString.escape(strength) + ", ";
-			sql_updateCEmailData += (improveArea === 'null' || improveArea === '') ? "improveArea = " + null + ", " : "improveArea = " + sqlString.escape(improveArea) + ", ";
+					sql_updateCEmailData += "recruiter_id = " + sqlString.escape(recruiterId) + ", ";
+					sql_updateCEmailData += "status_id = " + sqlString.escape(statusId) + ", ";
+					sql_updateCEmailData += "round_id = " + sqlString.escape(roundId) + ", ";
+					sql_updateCEmailData += "mode_id = " + sqlString.escape(modeId) + ", ";
 
-			sql_updateCEmailData += "comments = " + sqlString.escape(comments) + " ";
+					sql_updateCEmailData += (strength === 'null' || strength === '') ? "strength = " + null + ", " : "strength = " + sqlString.escape(strength) + ", ";
+					sql_updateCEmailData += (improveArea === 'null' || improveArea === '') ? "improveArea = " + null + ", " : "improveArea = " + sqlString.escape(improveArea) + ", ";
 
-			sql_updateCEmailData += "WHERE cEmail = " + sqlString.escape(cEmail);
+					sql_updateCEmailData += "comments = " + sqlString.escape(comments) + " ";
 
-			console.log(sql_updateCEmailData);
+					sql_updateCEmailData += "WHERE cEmail = " + sqlString.escape(cEmail);
 
-			sequelize.query(sql_updateCEmailData).success(function() {
-				res.send(req.params);
+					sequelize.query(sql_updateCEmailData).success(function() {
+						res.send(req.params);
+					}).error(function(error) {
+						console.log('SQL Error:\n');
+						console.log(error)
+					});
+				} else {
+					res.status(403).send("The user session seems to be unauthorized.");
+				}
 			}).error(function(error) {
 				console.log('SQL Error:\n');
-				console.log(error)
+				console.log(error);
 			});
 		}
 	}).error(function(error) {
@@ -596,21 +605,25 @@ exports.delInterviewListByEmail = function(req, res) {
 		res.status(500).send(e.message);
 	}
 
-	var sql_isCEmailDeleted = "SELECT cEmail FROM interviewresponse_tbl a WHERE cEmail = " + sqlString.escape(cEmail) + " AND a.recycleBin = 0";
+	var sql_isCEmailDeleted = "SELECT cEmail, creater_id FROM interviewresponse_tbl a WHERE cEmail = " + sqlString.escape(cEmail) + " AND a.recycleBin = 0";
 	sequelize.query(sql_isCEmailDeleted).success(function(rows) {
 		if (rows.length === 0) {
 			// The candidate email does not exist.
 			res.status(500).send("The candidate's email you specified is incorrect.");
 		} else {
 			// The candidate email is already exist.
-			var sql_updateCEmailDelFlag = "UPDATE interviewresponse_tbl a SET a.recycleBin = 1 WHERE cEmail = " + sqlString.escape(cEmail) + " AND a.recycleBin = 0";
+			if (req.session.user_id === rows[0].creater_id) {
+				var sql_updateCEmailDelFlag = "UPDATE interviewresponse_tbl a SET a.recycleBin = 1 WHERE cEmail = " + sqlString.escape(cEmail) + " AND a.recycleBin = 0";
 
-			sequelize.query(sql_updateCEmailDelFlag).success(function() {
-				res.send(req.params);
-			}).error(function(error) {
-				console.log('SQL Error:\n');
-				console.log(error)
-			});
+				sequelize.query(sql_updateCEmailDelFlag).success(function() {
+					res.send(req.params);
+				}).error(function(error) {
+					console.log('SQL Error:\n');
+					console.log(error)
+				});
+			} else {
+				res.status(403).send("The user session seems to be unauthorized.");
+			}
 		}
 	}).error(function(error) {
 		console.log('SQL Error:\n');

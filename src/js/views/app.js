@@ -20,52 +20,16 @@ define(function(require) {
             Events.on('alert:error', this.alertError, this);
             Events.on('alert:warning', this.alertWarning, this);
             Events.on('alert:info', this.alertInfo, this);
-            // this.handleAjaxResponse();
+            this.handleAjaxResponse();
             this.render();
         },
 
         handleAjaxResponse: function() {
             $.ajaxSetup({
                 statusCode: {
-                    401: function() {
-                        // 401 Unauthorized
+                    403: function(response) {
                         Events.trigger('alert:error', [{
-                            message: 'The email or password you entered is incorrect.'
-                        }]);
-                        return false;
-                    },
-                    403: function() {
-                        // 403 Forbidden
-                        Events.trigger('alert:error', [{
-                            message: 'Forbidden'
-                        }]);
-                        return false;
-                    },
-                    404: function() {
-                        // 404 Not Found
-                        Events.trigger('alert:error', [{
-                            message: 'Not Found'
-                        }]);
-                        return false;
-                    },
-                    500: function() {
-                        // 500 Internal Server Error
-                        Events.trigger('alert:error', [{
-                            message: 'Internal Server Error'
-                        }]);
-                        return false;
-                    },
-                    501: function() {
-                        // 501 Not Implemented
-                        Events.trigger('alert:error', [{
-                            message: 'Not Implemented'
-                        }]);
-                        return false;
-                    },
-                    503: function() {
-                        // 503 Service Unavailable
-                        Events.trigger('alert:error', [{
-                            message: 'Service Unavailable'
+                            message: response.statusText
                         }]);
                         return false;
                     }
