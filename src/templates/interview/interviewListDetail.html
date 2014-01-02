@@ -5,7 +5,11 @@
 				<div class='panel-heading'>
 					<h6 class='panel-title lead'>
 						{{#if editMode}}
-							<i class='fa fa-pencil-square-o'></i> Following form will help you to edit existing interview information
+							{{#if isEditable}}
+								<i class='fa fa-pencil-square-o'></i> Following form will help you to edit existing interview information
+							{{else}}
+								<i class='fa fa-external-link'></i> Following form will help you to view existing interview information
+							{{/if}}							
 						{{else}}
 							<i class='fa fa-plus-circle'></i> Following form will help you to add new conducted interview information
 						{{/if}}

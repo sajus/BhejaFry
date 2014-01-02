@@ -50,13 +50,21 @@ define(function(require) {
         render: function() {
             var view = this;
 
+            if (this.model.get('email') !== null) {
+                var canEdit = this.model.toJSON();
+                console.log(canEdit);
+                var isEditable = canEdit.isEditable;
+                console.log(isEditable);
+            }
+
             this.$el.html(interviewListDetailPageTemplate({
                 mode: globals.component.interviewmode_list,
                 interviewers: globals.component.interviewer_list,
                 recruiter: globals.component.recruiter_list,
                 rounds: globals.component.interviewrounds_list,
                 interviewStatus: globals.component.interviewstatus_list,
-                editMode: (this.model.get('email')) ? true : false
+                editMode: (this.model.get('email')) ? true : false,
+                isEditable: isEditable
             }));
 
             if (this.model.get('email') !== null) {
@@ -128,7 +136,7 @@ define(function(require) {
             this.model.set('interviewer_1_id', Number(_.first(view.model.get('interviewers'))));
 
             var interviewer2;
-            if(_.first(view.model.get('interviewers')) === _.last(view.model.get('interviewers'))) {
+            if (_.first(view.model.get('interviewers')) === _.last(view.model.get('interviewers'))) {
                 interviewer2 = null;
             } else {
                 interviewer2 = Number(_.last(view.model.get('interviewers')));

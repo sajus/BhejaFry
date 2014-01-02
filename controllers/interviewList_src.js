@@ -314,13 +314,24 @@ exports.getInterviewListByEmail = function(req, res) {
 		res.status(500).send(e.message);
 	}
 
-	var sql_isCEmailDeleted = "SELECT cEmail FROM interviewresponse_tbl a WHERE cEmail = " + sqlString.escape(cEmail) + " AND a.recycleBin = 0";
+	var sql_isCEmailDeleted = "SELECT cEmail, creater_id FROM interviewresponse_tbl a WHERE cEmail = " + sqlString.escape(cEmail) + " AND a.recycleBin = 0";
 	sequelize.query(sql_isCEmailDeleted).success(function(rows) {
 		if (rows.length === 0) {
 			// The candidate email does not exist.
 			res.status(500).send("The candidate's email you specified is incorrect.");
 		} else {
 			// The candidate email is already exist.
+			var isEditable = null;
+			switch (req.session.roles) {
+				case 'User':
+					isEditable = (req.session.user_id === rows[0].creater_id);
+					break;
+
+				case 'Administrator':
+					isEditable = true;
+					break;
+			}
+
 			var sql_selectCEmailData = "SELECT id, cFirstName, cLastName, cEmail, interviewer_1_id, interviewer_2_id, interviewDate, recruiter_id, status_id, round_id, mode_id, strength, improveArea, comments FROM interviewresponse_tbl a WHERE cEmail = " + sqlString.escape(cEmail) + " AND a.recycleBin = 0 LIMIT 1";
 
 			sequelize.query(sql_selectCEmailData).success(function(rows) {
@@ -338,7 +349,8 @@ exports.getInterviewListByEmail = function(req, res) {
 					"mode_id": rows[0].mode_id,
 					"strength": rows[0].strength,
 					"improveArea": rows[0].improveArea,
-					"comments": rows[0].comments
+					"comments": rows[0].comments,
+					"isEditable": isEditable
 				}
 
 				res.format({
