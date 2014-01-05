@@ -5,11 +5,8 @@
 				<div class='panel-heading'>
 					<h6 class='panel-title lead'>
 						{{#if editMode}}
-							{{#if isEditable}}
-								<i class='fa fa-pencil-square-o'></i> Following form will help you to edit existing interview information
-							{{else}}
-								<i class='fa fa-external-link'></i> Following form will help you to view existing interview information
-							{{/if}}							
+							<i class='canEditMode fa'></i> Following form will help you to <span class="canEdit"></span> existing interview information
+							<!-- <i class='fa fa-external-link'></i> Following form will help you to view existing interview information -->
 						{{else}}
 							<i class='fa fa-plus-circle'></i> Following form will help you to add new conducted interview information
 						{{/if}}
@@ -136,7 +133,7 @@
 						   	<div class='row'>
 						        <div class='col-xs-12'>
 						            <div class='form-group'>
-						                <label class='control-label' for='strength'>strength</label>
+						                <label class='control-label' for='strength'>Strength</label>
 						                <textarea rows="4" class="form-control strength" name='strength' placeholder='Specify the strength the respected candidate'></textarea>
 						                <span class="hint-message" style="display:none;"></span>
 						            </div>
