@@ -46,7 +46,6 @@ define(function(require) {
                         users: data
                     }));
                     view.$el.find('.userslist').dataTable({
-                        "bProcessing": true,
                         "bJQueryUI": true,
                         "sPaginationType": "full_numbers",
                         "sScrollY": "200px",
@@ -58,10 +57,7 @@ define(function(require) {
                         },
                         "aoColumnDefs": [{
                             "bSortable": false,
-                            "aTargets": [0, 4]
-                        }, {
-                            "asSorting": ["asc", "dec"],
-                            "aTargets": [1]
+                            "aTargets": [0, 5]
                         }],
                         "bLengthChange": false
                     });
@@ -70,7 +66,14 @@ define(function(require) {
                 .fail(function(error) {
                     console.log('Error: ' + error);
                 });
+
+            this.uxFormation();
+
             return this;
+        },
+
+        uxFormation: function() {
+            $('.breadcrumb').html("<li><a href='#'>Dashboard</a></li><li class='active'>Users List</li>");
         },
 
         editUser: function(e) {
@@ -142,7 +145,12 @@ define(function(require) {
         },
 
         addNewUser: function() {
-            this.$el.find('#userForm').parent().parent().show();
+            Events.trigger("view:navigate", {
+                path: "usersDetail",
+                options: {
+                    trigger: true
+                }
+            });
         }
     });
 

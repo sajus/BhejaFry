@@ -8,8 +8,8 @@ define(function(require) {
 
     return Backbone.Model.extend({
         url: function() {
-            if (this.get('id')) {
-                return Backbone.Model.gateWayUrl + '/usersList/' + this.get('id');
+            if (this.get('email')) {
+                return Backbone.Model.gateWayUrl + '/usersList/' + this.get('email');
             } else {
                 return Backbone.Model.gateWayUrl + '/usersList';
             }
@@ -17,35 +17,51 @@ define(function(require) {
         validation: {
             empid: [{
                 required: true,
-                msg: "Please specify employeeID."
+                msg:  'Enter user\'s employee id.'
             }, {
-                pattern: /^\S\d+$(\.\d+)?/,
-                msg: "Please specify valid employeeID."
-            }],
-            email: [{
-                required: true,
-                msg: "Please specify email."
+                rangeLength: [2, 30],
+                msg: 'The user\'s employee id needs to be between 2 to 30 characters long.'
             }, {
-                pattern: 'email',
-                msg: "Please specify valid email."
+                pattern: /^(([0-9]+)(^\s[0-9]+)?)$/gm,
+                msg: 'The user\'s employee id you specified is incorrect.'
             }],
+
             firstname: [{
                 required: true,
-                msg: "Please specify first name."
+                msg: 'Enter user\'s first name.'
+            }, {
+                rangeLength: [2, 30],
+                msg: 'The user\'s first name needs to be between 7 to 30 characters long.'
             }, {
                 pattern: /^(([A-Za-z]+)(^\s[A-Za-z]+)?)$/gm,
-                msg: "Please specify valid first name."
+                msg: 'The user\'s first name you specified is incorrect.'
             }],
+
             lastname: [{
                 required: true,
-                msg: "Please specify last name."
+                msg: 'Enter user\'s last name.'
+            }, {
+                rangeLength: [2, 30],
+                msg: 'The user\'s last name needs to be between 7 to 30 characters long.'
             }, {
                 pattern: /^(([A-Za-z]+)(^\s[A-Za-z]+)?)$/gm,
-                msg: "Please specify valid last name."
+                msg: 'The user\'s last name you specified is incorrect.'
             }],
+
+            email: [{
+                required: true,
+                msg: 'Enter user\'s email address.'
+            }, {
+                rangeLength: [7, 40],
+                msg: 'The user\'s email needs to be between 7 and 40 characters long.'
+            }, {
+                pattern: 'email',
+                msg: 'The user\'s email you specified is incorrect.'
+            }],
+
             role_id: {
                 required: true,
-                msg: "Please select employee's access type."
+                msg: 'Specify user role.'
             }
         }
     });

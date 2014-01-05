@@ -50,21 +50,13 @@ define(function(require) {
         render: function() {
             var view = this;
 
-            if (this.model.get('email') !== null) {
-                var canEdit = this.model.toJSON();
-                console.log(canEdit);
-                var isEditable = canEdit.isEditable;
-                console.log(isEditable);
-            }
-
             this.$el.html(interviewListDetailPageTemplate({
                 mode: globals.component.interviewmode_list,
                 interviewers: globals.component.interviewer_list,
                 recruiter: globals.component.recruiter_list,
                 rounds: globals.component.interviewrounds_list,
                 interviewStatus: globals.component.interviewstatus_list,
-                editMode: (this.model.get('email')) ? true : false,
-                isEditable: isEditable
+                editMode: (this.model.get('email')) ? true : false
             }));
 
             if (this.model.get('email') !== null) {
@@ -78,6 +70,8 @@ define(function(require) {
                         view.$el.find('.status').val(possibleData.status_id).trigger("chosen:updated").change();
                         view.$el.find('.interviewers').val([possibleData.interviewer_1_id, possibleData.interviewer_2_id]).trigger("chosen:updated").change();
                         view.$el.find('#interviewDate').datepicker('update', moment(possibleData.interviewDate).format('DD MMMM YY, dddd'));
+
+                        view.gridFormation(possibleData.isEditable);
                     }
                 });
             } else {
@@ -92,6 +86,18 @@ define(function(require) {
             });
 
             return this;
+        },
+
+        gridFormation: function(isEditable) {
+            if (isEditable) {
+                this.$el.find('.canEditMode').removeClass('fa-external-link').addClass('fa-pencil-square-o');
+                this.$el.find('.canEdit').html('edit');
+            } else {
+                this.$el.find('.canEditMode').removeClass('fa-pencil-square-o').addClass('fa-external-link');
+                this.$el.find('.canEdit').html('view');
+                this.$el.find('[name=cFirstName], [name=cLastName], [name=cEmail], [name=interviewDate], [name=strength], [name=improveArea], [name=comments]').prop('readonly', true);
+                this.$el.find('[name=interviewers], [name=recruiters], [name=modes], [name=rounds], [name=status]').prop('disabled', true);
+            }
         },
 
         uxFormation: function() {

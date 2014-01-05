@@ -48,7 +48,7 @@ exports.getUsersByEmail = function(req, res) {
 			res.status(500).send(e.message);
 		}
 
-		var sql_selectUser = "SELECT a.empid, a.email, a.firstname, a.lastname, b.roles FROM users_tbl a, userroles_tbl b WHERE email = " + sqlString.escape(email) + " AND a.role_id = b.roleid AND a.recycleBin = 0 LIMIT 1";
+		var sql_selectUser = "SELECT a.empid, a.email, a.firstname, a.lastname, a.role_id FROM users_tbl a WHERE email = " + sqlString.escape(email) + " AND a.recycleBin = 0 LIMIT 1";
 		sequelize.query(sql_selectUser).success(function(rows) {
 			res.format({
 				json: function() {

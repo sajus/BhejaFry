@@ -4,8 +4,7 @@ define(function(require) {
     var Backbone = require('backbone'),
         Events = require('events'),
         Baseview = require('views/baseview'),
-        usersListTemplate = require('template!templates/users/usersDetail'),
-        UsersListDetailModel = require('models/users/usersListDetailModel');
+        usersListTemplate = require('template!templates/users/usersDetail');
 
     require('modelBinder');
     require('modelValidator');
@@ -17,21 +16,28 @@ define(function(require) {
 
         initialize: function() {
             this.modelBinder = new Backbone.ModelBinder();
-            this.model = new UsersListDetailModel({'id': this.id});
             this.render();
         },
 
         events: {
-            'submit .form-horizontal': 'processForm',
-            'change :input': 'processField'
+            'submit .usersForm': 'processForm',
+            'change :input, blur :input': 'processField',
+            'click .cancelUsersForm': 'cancelForm'
+        },
+
+        cancelForm: function() {
+            Events.trigger("view:navigate", {
+                path: "usersList",
+                options: {
+                    trigger: true
+                }
+            });
         },
 
         render: function() {
             var view = this;
-            var addUserText = (this.model.get('id')) ? "Update" : "Save";
-            var title = this.model.get('id') ? "Edit existing user" : "Add new user";
 
-            if (this.model.get('id') !== undefined) {
+            if (this.model.get('email') !== undefined) {
                 this.model.fetch({
                     success: function() {
                         var data = view.model.toJSON();
@@ -40,17 +46,17 @@ define(function(require) {
                             email: data.email,
                             firstname: data.firstname,
                             lastname: data.lastname,
-                            accesstype: data.accesstype,
-                            addUserText: addUserText,
-                            title: title
+                            editMode: (view.model.get('email')) ? true : false
                         }));
                         view.modelBinder.bind(view.model, view.el);
-                        view.$el.find('input:radio[name=accesstype]').filter('[value=' + data.accesstype + ']').prop('checked', true);
+                        view.$el.find('input:radio[name=role_id]').filter('[value=' + data.role_id + ']').prop('checked', true);
                     }
                 });
             } else {
                 view.modelBinder.bind(view.model, view.el);
             }
+
+            this.uxFormation();
 
             Backbone.Validation.bind(this, {
                 invalid: this.showError,
@@ -60,12 +66,23 @@ define(function(require) {
             return this;
         },
 
+        uxFormation: function() {
+            if (this.model.get('email')) {
+                $('.breadcrumb').html("<li><a href='#'>Dashboard</a></li><li class='active'>Edit User Details</li>");
+            } else {
+                $('.breadcrumb').html("<li><a href='#'>Dashboard</a></li><li class='active'>Add User Details</li>");
+            }
+        },
+
         postData: function() {
-            var view = this;
-            view.model.save(view.model.toJSON(), {
+            this.model.set('empid', Number(this.model.get('empid')));
+            this.model.set('role_id', Number(this.model.get('role_id')));
+
+            var message = (this.model.get('email') !== null) ? "User get updated successfully." : "User get saved successfully.";
+            this.model.save(view.model.toJSON(), {
                 success: function() {
                     Events.trigger("alert:success", [{
-                        message: "Record successfully."
+                        message: message
                     }]);
                     Events.trigger("view:navigate", {
                         path: "usersList",
@@ -74,9 +91,9 @@ define(function(require) {
                         }
                     });
                 },
-                error: function() {
-                    Events.trigger("alert:error", [{
-                        message: "Some service error occured during data Saving."
+                error: function(model, response) {
+                    Events.trigger("alert:warning", [{
+                        message: response.responseText
                     }]);
                 }
             });

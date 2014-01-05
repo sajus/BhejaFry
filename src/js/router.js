@@ -196,12 +196,13 @@ define(function(require) {
             }
         });
 
-        /*** Router configuration for 'usersDetail' | 'usersDetail(/:id)' routes ***/
-        router.on('route:usersDetail', function(id) {
+        /*** Router configuration for 'usersDetail' | 'usersDetail(/:email)' routes ***/
+        router.on('route:usersDetail', function(email) {
             if ($.cookie('isAuthenticated')) {
-                require(['views/users/usersDetailView'], function(UsersDetailPage) {
+                require(['views/users/usersDetailView', 'models/users/usersListDetailModel'], function(UsersDetailPage, UsersDetailModel) {
+                    var usersDetailModel = new UsersDetailModel();
                     Core.create(appView, 'UsersDetailPage', UsersDetailPage, {
-                        'id': id
+                        model: usersDetailModel.set('email', email)
                     });
                 });
             } else {
