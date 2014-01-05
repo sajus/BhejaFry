@@ -37,7 +37,7 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.STRING(50),
 			allowNull: false,
 			validate: {
-				len: [8, 50]
+				len: [8, 80]
 			}
 		},
 		block: {
@@ -51,6 +51,10 @@ module.exports = function(sequelize, DataTypes) {
 		appRelease: {
 			type: DataTypes.BOOLEAN,
 			allowNull: false
+		},
+		profilePicPath: {
+			type: DataTypes.STRING(255),
+			allowNull: true
 		},
 		recycleBin: {
             type: DataTypes.INTEGER,

@@ -8,7 +8,6 @@ var sequelize = require('../config/sqlzConfig').sequelize,
 /**
  * Request Method: GET
  * Description: Service is for getting list of interviewer data.
- *
  ***/
 exports.getInterviewer = function(req, res) {
 	sequelize.query("SELECT * FROM  interviewer_tbl ORDER BY firstname").success(function(rows) {
@@ -26,88 +25,234 @@ exports.getInterviewer = function(req, res) {
 /**
  * Request Method: GET
  * Description: Service is for getting interviewer details.
- *
  ***/
 exports.getInterviewerById = function(req, res) {
-	sequelize.query("SELECT * FROM  interviewer_tbl Where empid=" + req.params.id + " LIMIT 1").success(function(rows) {
-		res.format({
-			json: function() {
-				res.send(rows[0]);
-			}
-		});
-	}).error(function(error) {
-		console.log('SQL Error:\n');
-		console.log(error);
-	});
-}
+	if (req.session.roles === 'Administrator') {
+		var queryString = req.params,
+			empid = Number(sanitize(queryString.id).trim());
 
-/**
- * Request Method: POST
- * Description: Service is for adding new interviewer data.
- *
- ***/
-exports.postInterviewer = function(req, res) {
-	var query = "INSERT INTO interviewer_tbl (empid,firstname,lastname)";
-	query += "VALUES (";
-	query += req.body.empid + ",";
-	query += " '" + req.body.firstname + "',";
-	query += " '" + req.body.lastname + "' )";
+		/*** Validate: empid ***/
+		try {
+			check(empid, {
+				notNull: 'Specify interviewer\'s employee ID.',
+				isNumeric: 'The employee ID you specified is incorrect.'
+			}).notNull().isNumeric();
+		} catch (e) {
+			res.status(500).send(e.message);
+		}
 
-	var queryID = "SELECT * FROM interviewer_tbl Where empid=" + req.body.empid;
-
-	sequelize.query(query).success(function() {
-		sequelize.query(queryID).success(function(rows) {
+		var sql_selectInterviewer = "SELECT a.empid, a.firstname, a.lastname FROM interviewer_tbl a WHERE empid = " + sqlString.escape(empid) + " AND a.recycleBin = 0 LIMIT 1";
+		sequelize.query(sql_selectInterviewer).success(function(rows) {
 			res.format({
 				json: function() {
-					res.send(rows);
+					res.send(rows[0]);
 				}
 			});
 		}).error(function(error) {
 			console.log('SQL Error:\n');
 			console.log(error);
 		});
-	}).error(function(error) {
-		console.log('SQL Error:\n');
-		console.log(error);
-	});
+	} else {
+		res.status(403).send("The user session seems to be unauthorized.");
+	}
+}
+
+/**
+ * Request Method: POST
+ * Description: Service is for adding new interviewer data.
+ ***/
+exports.postInterviewer = function(req, res) {
+	if (req.session.roles === 'Administrator') {
+		var payload = req.body,
+			empid = Number(sanitize(payload.empid).trim());
+
+		/*** Validate: empid ***/
+		try {
+			check(empid, {
+				notNull: 'Specify interviewer\'s employee ID.',
+				isNumeric: 'The employee ID you specified is incorrect.'
+			}).notNull().isNumeric();
+		} catch (e) {
+			res.status(500).send(e.message);
+		}
+
+		var sql_isEmpidDeleted = "SELECT a.empid FROM interviewer_tbl a WHERE a.empid = " + sqlString.escape(empid) + " AND a.recycleBin = 0";
+		sequelize.query(sql_isEmpidDeleted).success(function(rows) {
+			if (rows.length === 0) {
+				var firstname = sanitize(payload.firstname).trim(),
+					lastname = sanitize(payload.lastname).trim();
+
+				/*** Validate: firstname ***/
+				try {
+					check(firstname, {
+						notNull: 'Specify interviewer\'s first name.',
+						len: 'The interviewer\'s first name needs to be between %1 and %2 characters long.',
+						isAlpha: 'The interviewer\'s first name you specified is incorrect.'
+					}).notNull().len(2, 30).isAlpha();
+				} catch (e) {
+					res.status(500).send(e.message);
+				}
+
+				/*** Validate: lastname ***/
+				try {
+					check(lastname, {
+						notNull: 'Specify interviewer\'s last name.',
+						len: 'The interviewer\'s last name needs to be between %1 and %2 characters long.',
+						isAlpha: 'The interviewer\'s last name you specified is incorrect.'
+					}).notNull().len(2, 30).isAlpha();
+				} catch (e) {
+					res.status(500).send(e.message);
+				}
+
+				var sql_insertInterviewerDetails = "INSERT INTO interviewer_tbl ";
+				sql_insertInterviewerDetails += "(empid, firstname, lastname, recycleBin) ";
+				sql_insertInterviewerDetails += "VALUES ( ";
+				sql_insertInterviewerDetails += sqlString.escape(empid) + ", " + sqlString.escape(firstname) + ", ";
+				sql_insertInterviewerDetails += sqlString.escape(lastname) + ", " + 0 + " )";
+
+				sequelize.query(sql_insertInterviewerDetails).success(function() {
+					res.send(req.params);
+				}).error(function(error) {
+					console.log('SQL Error:\n');
+					console.log(error)
+				});
+			} else {
+				// The interviewer is already exist and is not in recycleBin.
+				res.status(500).send("Interviewer already exist.");
+			}
+		}).error(function(error) {
+			console.log('SQL Error:\n');
+			console.log(error);
+		});
+	} else {
+		res.status(403).send("The user session seems to be unauthorized.");
+	}
 }
 
 /**
  * Request Method: DELETE
  * Description: Service is for setting delete flag for interviewer data.
- *
  ***/
 exports.delInterviewerById = function(req, res) {
-	sequelize.query("DELETE FROM interviewer_tbl WHERE empid=" + req.params.id).success(function() {
-		res.send(req.params);
-	}).error(function(error) {
-		console.log('SQL Error:\n');
-		console.log(error);
-	});
+	if (req.session.roles === 'Administrator') {
+		var queryString = req.params,
+			empid = Number(sanitize(queryString.id).trim());
+
+		/*** Validate: empid ***/
+		try {
+			check(empid, {
+				notNull: 'Specify interviewer\'s employee ID.',
+				isNumeric: 'The employee ID you specified is incorrect.'
+			}).notNull().isNumeric();
+		} catch (e) {
+			res.status(500).send(e.message);
+		}
+
+		var sql_isEmpidDeleted = "SELECT a.empid FROM interviewer_tbl a WHERE a.empid = " + sqlString.escape(empid) + " AND a.recycleBin = 0 LIMIT 1";
+		sequelize.query(sql_isEmpidDeleted).success(function(rows) {
+			if (rows.length === 0) {
+				// The interviewer email does not exist.
+				res.status(500).send("The interviewer you specified is incorrect.");
+			} else {
+				// The interviewer email does exist.
+				var sql_updateInterviewer = "UPDATE interviewer_tbl a SET a.recycleBin = 1 WHERE empid = " + sqlString.escape(rows[0].empid) + " AND a.recycleBin = 0";
+				sequelize.query(sql_updateInterviewer).success(function() {
+					res.send(req.params);
+				}).error(function(error) {
+					console.log('SQL Error:\n');
+					console.log(error);
+				});
+			}
+		}).error(function(error) {
+			console.log('SQL Error:\n');
+			console.log(error);
+		});
+	} else {
+		res.status(403).send("The user session seems to be unauthorized.");
+	}
 };
 
 /**
  * Request Method: PUT
  * Description: Service is for updating interviewer details.
- *
  ***/
 exports.putInterviewerById = function(req, res) {
-	var query = "UPDATE interviewer_tbl SET";
-	query += " " + "firstname = '" + req.body.firstname + "',";
-	query += " " + "lastname = '" + req.body.lastname + "'";
-	query += " WHERE empid=" + req.params.id + ";";
-	var queryID = "SELECT * FROM interviewer_tbl Where empid=" + req.params.id;
+	if (req.session.roles === 'Administrator') {
+		var queryString = req.params,
+			empid = Number(sanitize(queryString.id).trim());
 
-	sequelize.query(query).success(function() {
-		sequelize.query(queryID).success(function(rows) {
-			res.format({
-				json: function() {
-					res.send(rows);
+		/*** Validate: empid ***/
+		try {
+			check(empid, {
+				notNull: 'Specify interviewer\'s employee ID.',
+				isNumeric: 'The employee ID you specified is incorrect.'
+			}).notNull().isNumeric();
+		} catch (e) {
+			res.status(500).send(e.message);
+		}
+
+		var sql_isEmpidDeleted = "SELECT a.empid FROM interviewer_tbl a WHERE a.empid = " + sqlString.escape(empid) + " AND a.recycleBin = 0";
+		sequelize.query(sql_isEmpidDeleted).success(function(rows) {
+			if (rows.length === 0) {
+				// The interviewer email does not exist.
+				res.status(500).send("The interviewer you specified is incorrect.");
+			} else {
+				var payload = req.body,
+					empid = Number(sanitize(payload.empid).trim()),
+					firstname = sanitize(payload.firstname).trim(),
+					lastname = sanitize(payload.lastname).trim();
+
+				/*** Validate: empid ***/
+				try {
+					check(empid, {
+						notNull: 'Specify interviewer\'s employee ID.',
+						isNumeric: 'The employee ID you specified is incorrect.'
+					}).notNull().isNumeric();
+				} catch (e) {
+					res.status(500).send(e.message);
 				}
-			});
+
+				/*** Validate: firstname ***/
+				try {
+					check(firstname, {
+						notNull: 'Specify interviewer\'s first name.',
+						len: 'The interviewer\'s first name needs to be between %1 and %2 characters long.',
+						isAlpha: 'The interviewer\'s first name you specified is incorrect.'
+					}).notNull().len(2, 30).isAlpha();
+				} catch (e) {
+					res.status(500).send(e.message);
+				}
+
+				/*** Validate: lastname ***/
+				try {
+					check(lastname, {
+						notNull: 'Specify interviewer\'s last name.',
+						len: 'The interviewer\'s last name needs to be between %1 and %2 characters long.',
+						isAlpha: 'The interviewer\'s last name you specified is incorrect.'
+					}).notNull().len(2, 30).isAlpha();
+				} catch (e) {
+					res.status(500).send(e.message);
+				}
+
+				var sql_updateInterviewerDetails = "UPDATE interviewer_tbl SET ";
+
+				sql_updateInterviewerDetails += "empid = " + sqlString.escape(empid) + ", ";
+				sql_updateInterviewerDetails += "fistname = " + sqlString.escape(firstname) + ", ";
+				sql_updateInterviewerDetails += "lastname = " + sqlString.escape(lastname) + ", ";
+				sql_updateInterviewerDetails += "WHERE empid = " + sqlString.escape(empid);
+
+				sequelize.query(sql_updateInterviewerDetails).success(function() {
+					res.send(req.params);
+				}).error(function(error) {
+					console.log('SQL Error:\n');
+					console.log(error)
+				});
+			}
+		}).error(function(error) {
+			console.log('SQL Error:\n');
+			console.log(error);
 		});
-	}).error(function(error) {
-		console.log('SQL Error:\n');
-		console.log(error);
-	});
+	} else {
+		res.status(403).send("The user session seems to be unauthorized.");
+	}
 }

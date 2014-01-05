@@ -40,7 +40,7 @@ exports.postAuthentication = function(req, res) {
 		res.status(500).send(e.message);
 	}
 
-	var sql_selectAuthUser = "SELECT a.empid, a.email, a.firstname, a.lastname, a.appRelease, b.roles FROM users_tbl a, userroles_tbl b WHERE email = " + sqlString.escape(email) + " AND password = " + sqlString.escape(password) + " AND a.role_id = b.roleid LIMIT 1 ";
+	var sql_selectAuthUser = "SELECT a.empid, a.email, a.firstname, a.lastname, a.appRelease, b.roles FROM users_tbl a, userroles_tbl b WHERE email = " + sqlString.escape(email) + " AND password = " + sqlString.escape(password) + " AND a.role_id = b.roleid AND a.recycleBin = 0 LIMIT 1 ";
 	sequelize.query(sql_selectAuthUser).success(function(rows) {
 		if (rows.length === 0) {
 			res.status(401).send('The email or password you entered is incorrect.');
