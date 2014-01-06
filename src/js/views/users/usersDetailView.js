@@ -1,7 +1,8 @@
 define(function(require) {
     'use strict';
 
-    var Backbone = require('backbone'),
+    var $ = require('jquery'),
+        Backbone = require('backbone'),
         Events = require('events'),
         Baseview = require('views/baseview'),
         usersListTemplate = require('template!templates/users/usersDetail');
@@ -37,23 +38,20 @@ define(function(require) {
         render: function() {
             var view = this;
 
-            if (this.model.get('email') !== undefined) {
+            this.$el.html(usersListTemplate({
+                editMode: (view.model.get('email')) ? true : false
+            }));
+
+            if (this.model.get('email') !== null) {
                 this.model.fetch({
                     success: function() {
-                        var data = view.model.toJSON();
-                        view.$el.html(usersListTemplate({
-                            empid: data.empid,
-                            email: data.email,
-                            firstname: data.firstname,
-                            lastname: data.lastname,
-                            editMode: (view.model.get('email')) ? true : false
-                        }));
                         view.modelBinder.bind(view.model, view.el);
-                        view.$el.find('input:radio[name=role_id]').filter('[value=' + data.role_id + ']').prop('checked', true);
+                        var possibleData = view.model.toJSON();
+                        view.$el.find('input:radio[name=role_id]').filter('[value=' + possibleData.role_id + ']').prop('checked', true);
                     }
                 });
             } else {
-                view.modelBinder.bind(view.model, view.el);
+                this.modelBinder.bind(this.model, this.el);
             }
 
             this.uxFormation();
@@ -75,6 +73,7 @@ define(function(require) {
         },
 
         postData: function() {
+            var view = this;
             this.model.set('empid', Number(this.model.get('empid')));
             this.model.set('role_id', Number(this.model.get('role_id')));
 
