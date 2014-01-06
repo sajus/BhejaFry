@@ -6,7 +6,7 @@ define(function(require) {
         Events = require('events'),
         usersListTemplate = require('template!templates/users/usersList'),
         UsersCollection = require('collections/users/usersCollection'),
-        ConfirmDelModal = require('views/interview/listDelConfirmModal'),
+        ConfirmDelModal = require('views/users/userDelConfirmModal'),
         DeleteUsersModel = require('models/users/usersListDetailModel');
 
     require('css!vendors/jquery/plugins/datatables/css/jquery.dataTables.css');
@@ -90,6 +90,7 @@ define(function(require) {
         deleteUser: function(e) {
             e.preventDefault();
             e.stopPropagation();
+            Events.on('deletedUser', this.render, this);
             var confirmDelModal = new ConfirmDelModal();
             $('.modal-container').html(confirmDelModal.render(this.$(e.target).closest('tr').attr('data-id')).el);
             $('.modal-container .modal').modal('show');

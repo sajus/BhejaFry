@@ -41,7 +41,7 @@ define(function(require) {
             'mgnRecruiters': 'mgnRecruiters',
             'mgnRecruitersDetail(/:id)': 'mgnRecruitersDetail',
             'usersList': 'usersList',
-            'usersDetail(/:id)': 'usersDetail',
+            'usersDetail(/:email)': 'usersDetail',
             'settings': 'settings',
             'logout': 'logout',
 
