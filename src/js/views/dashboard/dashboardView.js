@@ -51,15 +51,12 @@ define(function(require) {
 		},
 
 		turnOffCheck: function() {
-			var email = _.object([
-				'email'
-			], [
-				$.cookie('email')
-			]);
 			return $.ajax({
 				url: "/appRelease",
 				type: "post",
-				data: email,
+				data: {
+					"email": $.cookie('email')
+				},
 				dataType: 'json'
 			});
 		},

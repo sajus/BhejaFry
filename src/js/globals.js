@@ -7,15 +7,11 @@ define(function() {
 		var interviewers = [];
 		fetchData('interviewer').done(function(interviewer_list) {
 			_.each(interviewer_list, function(data) {
-				interviewers.push(_.object([
-					"empid",
-					"firstname",
-					"lastname"
-				], [
-					data.empid,
-					data.firstname,
-					data.lastname
-				]));
+				interviewers.push({
+					"empid": data.empid,
+					"firstname": data.firstname,
+					"lastname": data.lastname
+				});
 			});
 			component.interviewer_list = interviewers;
 		});
@@ -25,13 +21,10 @@ define(function() {
 		var interviewmode = [];
 		fetchData('mode').done(function(interviewmode_list) {
 			_.each(interviewmode_list, function(data) {
-				interviewmode.push(_.object([
-					"id",
-					"mode"
-				], [
-					data.id,
-					data.mode
-				]));
+				interviewmode.push({
+					"id": data.id,
+					"mode": data.mode
+				});
 			});
 			component.interviewmode_list = interviewmode;
 		});
@@ -41,13 +34,10 @@ define(function() {
 		var interviewstatus = [];
 		fetchData('status').done(function(interviewstatus_list) {
 			_.each(interviewstatus_list, function(data) {
-				interviewstatus.push(_.object([
-					"id",
-					"status"
-				], [
-					data.id,
-					data.status
-				]));
+				interviewstatus.push({
+					"id": data.id,
+					"status": data.status
+				});
 			});
 			component.interviewstatus_list = interviewstatus;
 		});
@@ -57,13 +47,10 @@ define(function() {
 		var interviewrounds = [];
 		fetchData('rounds').done(function(interviewrounds_list) {
 			_.each(interviewrounds_list, function(data) {
-				interviewrounds.push(_.object([
-					"id",
-					"round"
-				], [
-					data.id,
-					data.round
-				]));
+				interviewrounds.push({
+					"id": data.id,
+					"round": data.round
+				});
 			});
 			component.interviewrounds_list = interviewrounds;
 		});
@@ -73,15 +60,11 @@ define(function() {
 		var recruiter = [];
 		fetchData('recruiter').done(function(recruiter_list) {
 			_.each(recruiter_list, function(data) {
-				recruiter.push(_.object([
-					"empid",
-					"firstname",
-					"lastname"
-				], [
-					data.empid,
-					data.firstname,
-					data.lastname
-				]));
+				recruiter.push({
+					"empid": data.empid,
+					"firstname": data.firstname,
+					"lastname": data.lastname
+				});
 			});
 			component.recruiter_list = recruiter;
 		});

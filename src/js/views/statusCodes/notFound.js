@@ -15,13 +15,10 @@ define(function(require) {
         },
 
         buildStatusCodeMessage: function() {
-            return _.object([
-                'statusCode',
-                'errorDetails'
-            ], [
-                '404 - Page Not Found',
-                'The requested resource could not be found but may be available again in the future.'
-            ]);
+            return {
+                "statusCode": "404 - Page Not Found",
+                "errorDetails": "The requested resource could not be found but may be available again in the future."
+            };
         },
 
         render: function() {

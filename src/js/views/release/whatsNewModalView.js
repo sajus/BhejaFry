@@ -17,15 +17,12 @@ define(function(require) {
         },
 
         turnOffCheck: function() {
-            var email = _.object([
-                'email'
-            ], [
-                $.cookie('email')
-            ]);
             return $.ajax({
                 url: "/appRelease",
                 type: "post",
-                data: email,
+                data: {
+                    "email": $.cookie('email')
+                },
                 dataType: 'json'
             });
         },
@@ -52,23 +49,20 @@ define(function(require) {
         },
 
         turnItOff: function(e) {
-            var view = this,
-                email = null;
+            var view = this;
+
             this.$($(e.target).closest('input[type="checkbox"]')).prop('checked', function() {
                 if (this.checked) {
                     view.$(this).prop("checked", true);
                     view.$el.find('.toggleStatus').html('on');
-                    email = _.object([
-                        'email',
-                        'turnOff'
-                    ], [
-                        $.cookie('email'),
-                        true
-                    ]);
+
                     $.ajax({
                         url: "/appRelease",
                         type: "put",
-                        data: email,
+                        data: {
+                            "email": $.cookie('email'),
+                            "turnOff": true
+                        },
                         dataType: 'json'
                     }).done(function() {
 
@@ -76,17 +70,14 @@ define(function(require) {
                 } else {
                     view.$(this).prop("checked", false);
                     view.$el.find('.toggleStatus').html('off');
-                    email = _.object([
-                        'email',
-                        'turnOff'
-                    ], [
-                        $.cookie('email'),
-                        false
-                    ]);
+
                     $.ajax({
                         url: "/appRelease",
                         type: "put",
-                        data: email,
+                        data: {
+                            "email": $.cookie('email'),
+                            "turnOff": false
+                        },
                         dataType: 'json'
                     }).done(function() {
 
