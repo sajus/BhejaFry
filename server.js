@@ -68,7 +68,7 @@ app.get('/interviewList', sessionAuth, interviewList.getInterviewList)
 app.post('/interviewList', sessionAuth, interviewList.postInterview);
 app.get('/interviewList/:cEmail', sessionAuth, interviewList.getInterviewListByEmail);
 app.put('/interviewList/:cEmail', sessionAuth, interviewList.putInterviewListByEmail);
-app.del('/interviewList/:cEmail', sessionAuth, interviewList.delInterviewListByEmail);
+app.del('/interviewList', sessionAuth, interviewList.delInterviewListByEmail);
 
 /**
  * Service routes for CURD interview components

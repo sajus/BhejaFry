@@ -26,7 +26,7 @@ define(function(require) {
 
         events: {
             'click .editInterview': 'editInterview',
-            'click .delInterview': 'deleteInterview',
+            'click .delInterview, .delAtOnces': 'deleteInterview',
             'click .selectedRow': 'selectedRow',
             'click .selectedRowHeader': 'selectedRowHeader',
             'click .addNewInterviews': 'addNewInterviews'
@@ -83,7 +83,7 @@ define(function(require) {
             e.preventDefault();
             e.stopPropagation();
             Events.trigger("view:navigate", {
-                path: "interview/" + this.$(e.target).closest('tr').attr('data-id'),
+                path: "interview/" + this.$(e.target).closest('tr').attr('data-email'),
                 options: {
                     trigger: true
                 }
@@ -104,9 +104,25 @@ define(function(require) {
         deleteInterview: function(e) {
             e.preventDefault();
             e.stopPropagation();
+
             Events.on('deletedInterview', this.render, this);
             var confirmDelModal = new ConfirmDelModal();
-            $('.modal-container').html(confirmDelModal.render(this.$(e.target).closest('tr').attr('data-id')).el);
+
+            var targetDelete = {};
+            var ids = [];
+
+            targetDelete['ids'] = ids.push(this.$(e.target).closest('tr').attr('data-id'));;
+
+            if (this.$(e.target).hasClass('delAtOnces')) {
+                targetDelete = {};
+                ids = [];
+                this.$('.selectedRow:checked').each(function(i) {
+                    ids.push($(this).val());
+                });
+                targetDelete['ids'] = ids;
+            }
+
+            $('.modal-container').html(confirmDelModal.render(targetDelete).el);
             $('.modal-container .modal').modal('show');
         },
 
@@ -141,8 +157,8 @@ define(function(require) {
                     view.$('.interviews tbody tr.canSelect').addClass('warning');
                     view.$(this).prop("checked", true);
                     view.$('.selectedRow').prop("checked", true);
-                    
-                    if(view.$el.find('.selectedRow').length!==0) {
+
+                    if (view.$el.find('.selectedRow').length !== 0) {
                         view.$el.find('.delAtOnces').css('visibility', 'visible');
                     }
 

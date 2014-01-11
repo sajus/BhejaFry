@@ -76,6 +76,15 @@ define(function() {
 		});
 	};
 
+	var objectSize = function(obj) {
+		var size = 0,
+			key;
+		for (key in obj) {
+			if (obj.hasOwnProperty(key)) size++;
+		}
+		return size;
+	};
+
 	return {
 		gateWayPort: 9000,
 		component: component,
@@ -83,6 +92,7 @@ define(function() {
 		fetchMode: populateMode,
 		fetchStatus: populateStatus,
 		fetchRounds: populateRounds,
-		fetchRecruiter: populateRecruiter
+		fetchRecruiter: populateRecruiter,
+		getObjectSize: objectSize
 	};
 });

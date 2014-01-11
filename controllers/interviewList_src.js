@@ -632,42 +632,27 @@ exports.putInterviewListByEmail = function(req, res) {
  *
  ***/
 exports.delInterviewListByEmail = function(req, res) {
-	var queryString = req.params,
-		cEmail = sanitize(queryString.cEmail).trim();
+	var payload = req.body,
+		ids = sanitize(payload.ids).trim();
 
-	/*** Validate: cEmail ***/
-	try {
-		check(cEmail, {
-			notNull: 'Specify candidate\'s email address.',
-			isEmail: 'The candidate\'s email you specified is incorrect.',
-			len: 'The candidate\'s email needs to be between %1 and %2 characters long.'
-		}).notNull().isEmail().len(7, 40);
-	} catch (e) {
-		res.status(500).send(e.message);
-	}
-
-	var sql_isCEmailDeleted = "SELECT cEmail, creater_id FROM interviewresponse_tbl a WHERE cEmail = " + sqlString.escape(cEmail) + " AND a.recycleBin = 0";
-	sequelize.query(sql_isCEmailDeleted).success(function(rows) {
+	var sql_isIDDeleted = "SELECT creater_id FROM interviewresponse_tbl a WHERE id IN ( " + ids + " ) AND a.recycleBin = 0";
+	sequelize.query(sql_isIDDeleted).success(function(rows) {
 		if (rows.length === 0) {
 			// The candidate email does not exist.
 			res.status(500).send("The candidate's email you specified is incorrect.");
 		} else {
-			// The candidate email is already exist.
 			var isAllowed = null;
-			switch (req.session.roles) {
-				case 'User':
-					isAllowed = (req.session.user_id === rows[0].creater_id);
-					break;
-
-				case 'Administrator':
-					isAllowed = true;
-					break;
+			if (req.session.roles === 'Administrator') {
+				isAllowed = true;
+			} else if (req.session.roles === 'User') {
+				_.each(rows, function(data) {
+					isAllowed = (req.session.user_id !== data.creater_id) ? false : true;
+				});
 			}
-
+			
 			if (isAllowed) {
-				var sql_updateCEmailDelFlag = "UPDATE interviewresponse_tbl a SET a.recycleBin = 1 WHERE cEmail = " + sqlString.escape(cEmail) + " AND a.recycleBin = 0";
-
-				sequelize.query(sql_updateCEmailDelFlag).success(function() {
+				var sql_updateIdDelFlag = "UPDATE interviewresponse_tbl a SET a.recycleBin = 1 WHERE id IN ( " + ids + " )";
+				sequelize.query(sql_updateIdDelFlag).success(function() {
 					res.send(req.params);
 				}).error(function(error) {
 					console.log('SQL Error:\n');
