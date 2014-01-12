@@ -13,7 +13,7 @@ define(function(require) {
 	require('highcharts');
 	require('exportings');
 
-	var DashboardView = Backbone.View.extend({
+	return Backbone.View.extend({
 
 		el: '.page',
 
@@ -114,6 +114,4 @@ define(function(require) {
 			});
 		}
 	});
-
-	return DashboardView;
 });

@@ -45,7 +45,7 @@ requirejs.config({
 
         /*** List of Backbone plugins ***/
         'modelValidator': 'vendors/backbone/plugins/modelValidation.min',
-        'modelBinder': 'vendors/backbone/plugins/modelBinder.min',
+        'modelBinder': 'vendors/backbone/plugins/backbone-modelbinder',
         'collectionBinder': 'vendors/backbone/plugins/collectionBinder.min',
 
         /*** List of Require plugins ***/
