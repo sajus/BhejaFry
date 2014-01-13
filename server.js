@@ -21,20 +21,39 @@ var authentication = require('./controllers/authentication_src'),
     reports = require('./controllers/reports_src'),
     users = require('./controllers/users_src');
 
+
 /**
- * Application Configurations
+ * Application Configurations for Development Environment.
+ * NODE_ENV=development node server.js
  ***/
-app.configure(function() {
-    app.set('port', process.env.PORT || config.server.port);
-    // app.use(express.json());
-    // app.use(express.urlencoded());
+app.configure('development', function() {
+    app.set('db uri', config.server.dev.uri + "/" + config.server.dev.codebase);
+    app.set('port', process.env.PORT || config.server.dev.port);
     app.set(express.methodOverride());
     app.use(express.bodyParser());
+    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
     app.use(express.cookieParser('kqsdjfmlksdhfhzirzeoibrzecrbzuzefcuercazeafxzeokwdfzeijfxcerig'));
     app.use(express.session());
     app.set(express.router);
-    app.use(express.static(path.join(__dirname, 'src')));
+    app.use(express.static(path.join(__dirname, config.server.dev.codebase)));
 });
+
+/**
+ * Application Configurations for Production Environment.
+ * NODE_ENV=production node server.js
+ ***/
+app.configure('production', function() {
+    app.set('db uri', config.server.prod.uri + "/" + config.server.prod.codebase);
+    app.set('port', process.env.PORT || config.server.prod.port);
+    app.set(express.methodOverride());
+    app.use(express.json());
+    app.use(express.urlencoded());
+    app.use(express.cookieParser('kqsdjfmlksdhfhzirzeoibrzecrbzuzefcuercazeafxzeokwdfzeijfxcerig'));
+    app.use(express.session());
+    app.set(express.router);
+    app.use(express.static(path.join(__dirname, config.server.prod.codebase)));
+});
+
 
 /**
  * Service routes for user authentication
@@ -111,6 +130,7 @@ http.createServer(app).listen(app.get('port'), function() {
 /**
  * Service session authentication
  ***/
+
 function sessionAuth(req, res, next) {
     if (!req.session.user_id) {
         res.status(401).send('Authentication is required and has failed or has not yet been provided.');

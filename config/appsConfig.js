@@ -4,11 +4,20 @@
  */
 module.exports = {
     "server": {
-        "port": 90
+    	"dev": {
+    		"port": 9000,
+    		"uri": "localhost",
+    		"codebase": "src"
+    	},
+    	"prod": {
+    		"port": 90,
+    		"uri": "localhost",
+    		"codebase": "prod"
+    	}
     },
     "database": {
         "name": "interview_db",
         "host": "root",
-        "password": "root"
+        "password": ""
     }
 }

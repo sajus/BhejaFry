@@ -1,5 +1,5 @@
 {
     appDir: '../src',
-    baseUrl: 'js/vendors',    
-    dir: '../publish'    
+    baseUrl: 'js/vendors',
+    dir: '../prod'
 }
