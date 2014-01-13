@@ -60,7 +60,8 @@ requirejs.config({
         'strength': 'vendors/jquery/plugins/strength',
         'dataTables': 'vendors/jquery/plugins/datatables/js/jquery.dataTables',
         'highcharts': 'vendors/jquery/plugins/highcharts/js/highcharts',
-        'exportings': 'vendors/jquery/plugins/highcharts/js/modules/exporting'
+        'exportings': 'vendors/jquery/plugins/highcharts/js/modules/exporting',
+        'noDateInChart': 'vendors/jquery/plugins/highcharts/js/modules/no-data-to-display'
     },
 
     /***
@@ -123,6 +124,9 @@ requirejs.config({
             deps: ['jquery']
         },
         exportings: {
+            deps: ['highcharts']
+        },
+        noDateInChart: {
             deps: ['highcharts']
         }
     }

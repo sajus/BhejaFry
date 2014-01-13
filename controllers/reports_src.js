@@ -91,3 +91,48 @@ exports.getInterviewRoundReport = function(req, res) {
 		console.log(error);
 	});
 };
+
+/**
+ * Request Method: GET
+ * Description: 
+ *
+ ***/
+exports.getStatusPerInterviewer = function(req, res) {
+	var reportQuery = "SELECT COUNT(a.round_id) as roundCount, b.round FROM interviewresponse_tbl a, interviewrounds_tbl b WHERE a.recycleBin=0 AND a.round_id = b.id GROUP BY b.round";
+	sequelize.query(reportQuery).success(function(tblRes) {
+		
+	}).error(function(error) {
+		console.log('SQL Error:\n');
+		console.log(error);
+	});
+};
+
+/**
+ * Request Method: GET
+ * Description: 
+ *
+ ***/
+exports.getModePerInterviewer = function(req, res) {
+	var reportQuery = "SELECT COUNT(a.round_id) as roundCount, b.round FROM interviewresponse_tbl a, interviewrounds_tbl b WHERE a.recycleBin=0 AND a.round_id = b.id GROUP BY b.round";
+	sequelize.query(reportQuery).success(function(tblRes) {
+		
+	}).error(function(error) {
+		console.log('SQL Error:\n');
+		console.log(error);
+	});
+};
+
+/**
+ * Request Method: GET
+ * Description: 
+ *
+ ***/
+exports.getRoundsPerInterviewer = function(req, res) {
+	var reportQuery = "SELECT COUNT(a.round_id) as roundCount, b.round FROM interviewresponse_tbl a, interviewrounds_tbl b WHERE a.recycleBin=0 AND a.round_id = b.id GROUP BY b.round";
+	sequelize.query(reportQuery).success(function(tblRes) {
+		
+	}).error(function(error) {
+		console.log('SQL Error:\n');
+		console.log(error);
+	});
+};

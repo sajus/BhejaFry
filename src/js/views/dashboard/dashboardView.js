@@ -11,6 +11,7 @@ define(function(require) {
 	require('bsTooltip');
 	require('bsModal');
 	require('highcharts');
+	require('noDateInChart');
 	require('exportings');
 
 	return Backbone.View.extend({
@@ -81,6 +82,10 @@ define(function(require) {
 		 * @params: id, titleText, seriesData
 		 */
 		renderPieChart: function(id, titleText, seriesData) {
+			if(seriesData.length===0) {
+				this.$el.find('#' + id).parent().next('.panel-footer').hide();
+				this.$el.find('.highcharts-button').hide();
+			}
 			this.$el.find('#' + id).highcharts({
 				chart: {
 					plotBackgroundColor: null,
