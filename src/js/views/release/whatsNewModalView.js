@@ -2,7 +2,6 @@ define(function(require) {
     "use strict";
 
     var $ = require('jquery'),
-        _ = require('underscore'),
         Backbone = require('backbone'),
         whatsNewModalTemplate = require('template!templates/release/whatsNewModal');
 

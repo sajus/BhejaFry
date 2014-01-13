@@ -1,8 +1,7 @@
 define(function(require) {
     'use strict';
 
-    var _ = require('underscore'),
-        Backbone = require('backbone'),
+    var Backbone = require('backbone'),
         notFoundTemplate = require('template!templates/statusCodes/notFound');
 
     require('css!../../../css/modules/statusCodes/statusCodes.css');

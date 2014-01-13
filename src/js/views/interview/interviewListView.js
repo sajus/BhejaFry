@@ -111,12 +111,12 @@ define(function(require) {
             var targetDelete = {};
             var ids = [];
 
-            targetDelete['ids'] = ids.push(this.$(e.target).closest('tr').attr('data-id'));;
+            targetDelete['ids'] = ids.push(this.$(e.target).closest('tr').attr('data-id'));
 
             if (this.$(e.target).hasClass('delAtOnces')) {
                 targetDelete = {};
                 ids = [];
-                this.$('.selectedRow:checked').each(function(i) {
+                this.$('.selectedRow:checked').each(function() {
                     ids.push($(this).val());
                 });
                 targetDelete['ids'] = ids;
