@@ -2,6 +2,14 @@ module.exports = function(grunt) {
     'use strict';
 
     grunt.initConfig({
+        clean: {
+            build: ['prod']
+        },
+        shell: {
+            uglify: {
+                command: 'node tools/r.js -o tools/build.js'
+            }
+        },
         jshint: {
             all: ['src/js/**/*.js'],
             options: {
@@ -92,12 +100,27 @@ module.exports = function(grunt) {
                 }
             }
         },
+        strip: {
+            main: {
+                src: 'prod/src/js/**/*.js',
+                options: {
+                    inline: true,
+                    nodes: ['console.log', 'debug']
+                }
+            }
+        }
     });
 
-    // Load Task
+    // Load NPM Task
+    grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-contrib-csslint");
+    grunt.loadNpmTasks('grunt-shell');
+    grunt.loadNpmTasks("grunt-strip");
 
     // Load Default Task.
-    grunt.registerTask("default", ["jshint", "csslint"]);
+    grunt.registerTask("default", ["clean", "jshint", "csslint"]);
+
+    // Load Build Task;
+    grunt.registerTask("build", ["clean", "jshint", "csslint", "shell", "strip"]);
 };
