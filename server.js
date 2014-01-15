@@ -119,9 +119,9 @@ app.del('/interviewer/:id', sessionAuth, interviewer.delInterviewerById);
 app.get('/reportStatus', sessionAuth, reports.getInterviewStatusReport);
 app.get('/reportMode', sessionAuth, reports.getInterviewModeReport);
 app.get('/reportRounds', sessionAuth, reports.getInterviewRoundReport);
-app.get('/reportStatusPerInterviewer', sessionAuth, reports.getStatusPerInterviewer);
-app.get('/reportModePerInterviewer', sessionAuth, reports.getModePerInterviewer);
-app.get('/reportRoundsPerInterviewer', sessionAuth, reports.getRoundsPerInterviewer);
+// app.get('/reportStatusPerInterviewer', sessionAuth, reports.getStatusPerInterviewer);
+// app.get('/reportModePerInterviewer', sessionAuth, reports.getModePerInterviewer);
+// app.get('/reportRoundsPerInterviewer', sessionAuth, reports.getRoundsPerInterviewer);
 
 /**
  * Start a UNIX socket server listening for connections on the given path.

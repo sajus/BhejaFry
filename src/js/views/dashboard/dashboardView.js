@@ -23,7 +23,8 @@ define(function(require) {
 		},
 
 		events: {
-			'click .togglePanel': 'togglePanel'
+			'click .togglePanel': 'togglePanel',
+			'click [name=overallInterviewReport]': 'groupPieChartBy'
 		},
 
 		togglePanel: function(e) {
@@ -33,9 +34,9 @@ define(function(require) {
 
 		render: function() {
 			this.$el.html(dashboardTemplate);
-			this.setChartPreferences();
+			
+			this.groupPieChartBy();
 			this.uxFormation();
-
 			return this;
 		},
 
@@ -62,19 +63,29 @@ define(function(require) {
 			});
 		},
 
-		setChartPreferences: function() {
+		groupPieChartBy: function() {
 			var view = this;
-			$.get('/reportStatus')
+			switch(this.$el.find('input[name=overallInterviewReport]:radio:checked').val()) {
+				case 'status':
+					view.getSeriesData('reportStatus', 'status');
+				break;
+
+				case 'mode':
+					view.getSeriesData('reportMode', 'mode');
+				break;
+
+				case 'round':
+					view.getSeriesData('reportRounds', 'round');
+				break;
+			}
+		},
+
+		getSeriesData: function(url, groupBy) {
+			var view = this;
+			this.$el.find('#groupBy').html(groupBy);
+			$.get('/' + url)
 				.success(function(seriesData) {
-					view.renderPieChart('overallAsPerStatus', 'Shows overall interview conducted status, grouped by a interviewed status', seriesData);
-				});
-			$.get('/reportMode')
-				.success(function(seriesData) {
-					view.renderPieChart('overallAsPerMode', 'Shows overall interview conducted status, grouped by a interviewed mode', seriesData);
-				});
-			$.get('/reportRounds')
-				.success(function(seriesData) {
-					view.renderPieChart('overallAsPerRounds', 'Shows overall interview conducted status, grouped by a interviewed rounds', seriesData);
+					view.renderPieChart('overallInterviewReport', 'Shows overall interview conducted status, grouped by a interviewed ' + groupBy, seriesData);
 				});
 		},
 

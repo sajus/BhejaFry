@@ -113,72 +113,27 @@
         <div class="row">
             <div class="panel panel-primary">
     			<div class="panel-heading">
-    				<span class="panel-title"><i class="fa fa-bar-chart-o"></i> Interview's Overall Report: Group by Status</span>
+    				<span class="panel-title"><i class="fa fa-bar-chart-o"></i> Interview's overall report: group by <span id="groupBy"></span></span>
     				<div class="toolbar">
                         <button class="btn btn-xs btn-default togglePanel"><i class="fa fa-chevron-up"></i></button>
     	            </div>
     			</div>
     			<div class="panel-body">
-    				<div id='overallAsPerStatus'></div>
+                    <div id='overallInterviewReport'></div>
     			</div>
                 <div class="panel-footer">
-                    Group chart by:
+                    Group by:
                     <label class="checkbox-inline">
-                        <input type="radio" name="overallReport" value="status"> Status
+                        <input type="radio" name="overallInterviewReport" value="status" checked> Status
                     </label>
                     <label class="checkbox-inline">
-                        <input type="radio" name="overallReport" value="mode"> Mode
+                        <input type="radio" name="overallInterviewReport" value="mode"> Mode
                     </label>
                     <label class="checkbox-inline">
-                        <input type="radio" name="overallReport" value="round"> Round
+                        <input type="radio" name="overallInterviewReport" value="round"> Round
                     </label>
                 </div>
     		</div>
-        </div>
-    </div>
-    <div class="col-xs-12">
-        <div class="row">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <span class="panel-title"><i class="fa fa-bar-chart-o"></i> Interview's Overall Report: Group by Mode</span>
-                    <div class="toolbar">
-                        <button class="btn btn-xs btn-default togglePanel"><i class="fa fa-chevron-up"></i></button>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <div id='overallAsPerMode'></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12">
-        <div class="row">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <span class="panel-title"><i class="fa fa-bar-chart-o"></i> Interview's Overall Report: Group by Rounds</span>
-                    <div class="toolbar">
-                        <button class="btn btn-xs btn-default togglePanel"><i class="fa fa-chevron-up"></i></button>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <div id='overallAsPerRounds'></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12">
-        <div class="row">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <span class="panel-title"><i class="fa fa-bar-chart-o"></i> Interview's Overall Report: Group by Rounds</span>
-                    <div class="toolbar">
-                        <button class="btn btn-xs btn-default togglePanel"><i class="fa fa-chevron-up"></i></button>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <div id='columnChart'></div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
