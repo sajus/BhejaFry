@@ -35,7 +35,7 @@ define(function(require) {
                 targetParent$ = targetSelector$.parent();
 
             // Error styles are based on Bootstrap 3 HTML structure.
-            if(targetSelector$.prop('type')==='radio') {
+            if (targetSelector$.prop('type') === 'radio') {
                 targetParent$ = targetSelector$.parent().parent().parent();
             }
 
@@ -49,7 +49,7 @@ define(function(require) {
                 targetParent$ = targetSelector$.parent();
 
             // Error styles are based on Bootstrap 3 HTML structure.
-            if(targetSelector$.prop('type')==='radio') {
+            if (targetSelector$.prop('type') === 'radio') {
                 targetParent$ = targetSelector$.parent().parent().parent();
             }
 

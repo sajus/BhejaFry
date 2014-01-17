@@ -105,7 +105,6 @@ define(function(require) {
             });
         },
 
-
         editUser: function(e) {
             e.preventDefault();
             e.stopPropagation();

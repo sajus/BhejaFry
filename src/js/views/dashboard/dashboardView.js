@@ -34,7 +34,7 @@ define(function(require) {
 
 		render: function() {
 			this.$el.html(dashboardTemplate);
-			
+
 			this.groupPieChartBy();
 			this.uxFormation();
 			return this;
@@ -65,18 +65,18 @@ define(function(require) {
 
 		groupPieChartBy: function() {
 			var view = this;
-			switch(this.$el.find('input[name=overallInterviewReport]:radio:checked').val()) {
+			switch (this.$el.find('input[name=overallInterviewReport]:radio:checked').val()) {
 				case 'status':
 					view.getSeriesData('reportStatus', 'status');
-				break;
+					break;
 
 				case 'mode':
 					view.getSeriesData('reportMode', 'mode');
-				break;
+					break;
 
 				case 'round':
 					view.getSeriesData('reportRounds', 'round');
-				break;
+					break;
 			}
 		},
 
@@ -90,10 +90,10 @@ define(function(require) {
 		},
 
 		/***
-		 * @params: id, titleText, seriesData
+		 * params: (id, titleText, seriesData)
 		 */
 		renderPieChart: function(id, titleText, seriesData) {
-			if(seriesData.length===0) {
+			if (seriesData.length === 0) {
 				this.$el.find('#' + id).parent().next('.panel-footer').hide();
 				this.$el.find('.highcharts-button').hide();
 			}

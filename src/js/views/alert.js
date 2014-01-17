@@ -108,7 +108,6 @@ define(function(require) {
                 }, 3500);
             }
 
-
             this.$('.alert').alert({
                 closed: function() {
                     Events.trigger('alert:closed');
