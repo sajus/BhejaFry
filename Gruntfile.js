@@ -1,19 +1,19 @@
 module.exports = function(grunt) {
-    'use strict';
+    "use strict";
 
     grunt.initConfig({
         clean: {
-            build: ['prod']
+            build: ["prod"]
         },
         shell: {
             uglify: {
-                command: 'node tools/r.js -o tools/build.js'
+                command: "node tools/r.js -o tools/build.js"
             }
         },
         jshint: {
-            all: ['src/js/**/*.js'],
+            all: ["src/js/**/*.js"],
             options: {
-                ignores: ['src/js/main.js', 'src/js/vendors/**/*.js'],
+                ignores: ["src/js/main.js", "src/js/vendors/**/*.js"],
                 "strict": true,
                 "curly": true,
                 "eqeqeq": true,
@@ -53,6 +53,27 @@ module.exports = function(grunt) {
                     "throws": true,
                     "prompt": true,
                     "alert": true
+                }
+            }
+        },
+        jscs: {
+            src: "src/js/**/*.js",
+            options: {
+                "requireCurlyBraces": ["if", "else", "for", "while", "do", "try", "catch"],
+                "requireSpaceAfterKeywords": ["if", "else", "for", "while", "do", "switch", "return", "try", "catch"],
+                "disallowLeftStickedOperators": ["?", "+", "-", "/", "*", "=", "==", "===", "!=", "!==", ">", ">=", "<", "<="],
+                "disallowRightStickedOperators": ["?", "+", "/", "*", ":", "=", "==", "===", "!=", "!==", ">", ">=", "<", "<="],
+                "requireRightStickedOperators": ["!"],
+                "requireLeftStickedOperators": [","],
+                "disallowImplicitTypeConversion": ["string"],
+                "disallowKeywords": ["with"],
+                "disallowMultipleLineBreaks": true,
+                "disallowKeywordsOnNewLine": ["else"],
+                //"requireLineFeedAtFileEnd": true, // requireLineFeedAtFileEnd option requires true value or should be removed
+                "excludeFiles": ["src/js/vendors/**/*.js", "src/js/main.js"],
+                "validateJSDoc": {
+                    "checkParamNames": true,
+                    "requireParamTypes": true
                 }
             }
         },
@@ -102,25 +123,32 @@ module.exports = function(grunt) {
         },
         strip: {
             main: {
-                src: 'prod/src/js/**/*.js',
+                src: "prod/src/js/**/*.js",
                 options: {
                     inline: true,
-                    nodes: ['console.log', 'debug']
+                    nodes: ["console.log", "debug"]
                 }
             }
         }
     });
 
-    // Load NPM Task
+    /**
+     * Load NPM Task
+     */
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-contrib-jshint");
+    grunt.loadNpmTasks("grunt-jscs-checker");
     grunt.loadNpmTasks("grunt-contrib-csslint");
-    grunt.loadNpmTasks('grunt-shell');
+    grunt.loadNpmTasks("grunt-shell");
     grunt.loadNpmTasks("grunt-strip");
 
-    // Load Default Task.
-    grunt.registerTask("default", ["clean", "jshint", "csslint"]);
+    /**
+     * Load Default Task
+     */
+    grunt.registerTask("default", ["jshint", "jscs", "csslint"]);
 
-    // Load Build Task;
-    grunt.registerTask("build", ["clean", "jshint", "csslint", "shell", "strip"]);
+    /**
+     * Load Build Task
+     */
+    grunt.registerTask("build", ["jshint", "jscs", "csslint", "clean", "shell", "strip"]);
 };
