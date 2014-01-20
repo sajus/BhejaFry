@@ -20,7 +20,8 @@ define(function(require) {
 
         events: {
             'click .editProfile': 'editProfile',
-            'click .toggleSidebar': 'toggleSidebar'
+            'click .toggleSidebar': 'toggleSidebar',
+            'mouseover .toggleSidebar': 'uxFormation'
         },
 
         renderHeader: function() {
@@ -58,6 +59,18 @@ define(function(require) {
             return this;
         },
 
+        uxFormation: function() {
+            this.renderTooltip('.toggleSidebar', 'Show or hide sidebar', 'bottom');
+        },
+
+        renderTooltip: function(classes, title, placement) {
+            this.$el.find(classes).tooltip({
+                title: title,
+                animation: true,
+                placement: placement
+            });
+        },
+
         fetchComponentdata: function() {
             globals.fetchInterviewer();
             globals.fetchMode();
@@ -73,8 +86,11 @@ define(function(require) {
         },
 
         toggleSidebar: function() {
-            this.$el.find('.showSidebar').toggle('fast');
+            this.$el.find('.showSidebar').toggle();
             this.$el.find('.fullPageView').toggleClass('col-xs-12');
+            this.$el.find('.dataTables_scrollHeadInner').css('width', '100%');
+            this.$el.find('.interviews').css('width', '100%');
+            this.$el.find('.toggleSidebar').blur();
             this.$el.find('.fa-angle-double-left').toggleClass('fa-angle-double-right');
         }
     });

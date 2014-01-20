@@ -48,20 +48,15 @@ define(function(require) {
         },
 
         uxFormation: function() {
-            this.$el.find('.logout').tooltip({
-                title: 'Logout',
+            this.renderTooltip('.logout', 'Logout', 'bottom');
+            this.renderTooltip('.setting', 'User setting', 'left');
+        },
+
+        renderTooltip: function(classes, title, placement) {
+            this.$el.find(classes).tooltip({
+                title: title,
                 animation: true,
-                placement: 'bottom'
-            });
-            this.$el.find('.setting').tooltip({
-                title: 'User setting',
-                animation: true,
-                placement: 'left'
-            });
-            this.$el.find('.logout').tooltip({
-                title: 'Logout',
-                animation: true,
-                placement: 'bottom'
+                placement: placement
             });
         },
 

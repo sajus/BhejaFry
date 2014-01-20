@@ -3,8 +3,8 @@
         <thead>
             <tr>
                 <td colspan='7'>
-                    <button class='btn btn-primary primary addNewUser'><i class="fa fa-plus-circle"></i></button>
-                    <button class='btn btn-danger delAtOnces' style='visibility:hidden;'><i class='fa fa-trash-o'></i></button>
+                    <button class='btn btn-primary primary addNewUser'><i class="fa fa-plus-circle"></i> New User</button>
+                    <button class='btn btn-danger delAtOnces' style='visibility:hidden;'><i class='fa fa-trash-o'></i> Selected User</button>
                     <!-- <button class='btn btn-primary pull-right print'><i class='fa fa-print'></i></button> -->
                 </td>
             </tr>
@@ -26,8 +26,8 @@
                     <td>{{firstname}} {{lastname}}</td>
                     <td>{{roles}}</td>
                     <td class='center'>
-                        <button class='btn btn-success btn-xs editUser'><i class='fa fa-pencil-square-o'></i></button>
-                        <button class='btn btn-danger btn-xs delUser' style="visibility:hidden"><i class='fa fa-trash-o'></i></button>
+                        <button class='btn btn-success btn-xs editUser'>Edit</button>
+                        <button class='btn btn-danger btn-xs delUser' style="visibility:hidden">Delete</button>
                     </td>
                 </tr>
             {{/each}}
