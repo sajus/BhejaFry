@@ -129,6 +129,14 @@ module.exports = function(grunt) {
                     nodes: ["console.log", "debug"]
                 }
             }
+        },
+        chmod: {
+            options: {
+                mode: "775"
+            },
+            source: {
+                src: ["src/**/*.js"]
+            }
         }
     });
 
@@ -141,14 +149,15 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-csslint");
     grunt.loadNpmTasks("grunt-shell");
     grunt.loadNpmTasks("grunt-strip");
+    grunt.loadNpmTasks("grunt-chmod");
 
     /**
      * Load Default Task
      */
-    grunt.registerTask("default", ["jshint", "jscs", "csslint"]);
+    grunt.registerTask("default", ["chmod", "jshint", "jscs", "csslint"]);
 
     /**
      * Load Build Task
      */
-    grunt.registerTask("build", ["jshint", "jscs", "csslint", "clean", "shell", "strip"]);
+    grunt.registerTask("build", ["chmod", "jshint", "jscs", "csslint", "clean", "shell", "strip"]);
 };
