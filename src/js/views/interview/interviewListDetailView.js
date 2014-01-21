@@ -93,10 +93,11 @@ define(function(require) {
                 this.$el.find('.canEditMode').removeClass('fa-external-link').addClass('fa-pencil-square-o');
                 this.$el.find('.canEdit').html('edit');
             } else {
+                this.$el.find('.panel-footer').hide();
                 this.$el.find('.canEditMode').removeClass('fa-pencil-square-o').addClass('fa-external-link');
                 this.$el.find('.canEdit').html('view');
                 this.$el.find('[name=cFirstName], [name=cLastName], [name=cEmail], [name=interviewDate], [name=strength], [name=improveArea], [name=comments]').prop('readonly', true);
-                this.$el.find('[name=interviewers], [name=recruiters], [name=modes], [name=rounds], [name=status]').prop('disabled', true);
+                this.$el.find('[name=interviewers], [name=recruiters], [name=modes], [name=rounds], [name=status]').prop('disabled', true).trigger("chosen:updated");
             }
         },
 
