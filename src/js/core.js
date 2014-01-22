@@ -2,9 +2,6 @@ define(function(require) {
     'use strict';
 
     var $ = require('jquery'),
-        _ = require('underscore'),
-        Backbone = require('backbone'),
-        Globals = require('globals'),
         LoginView = require('views/login/loginView'),
         LoginModel = require('models/login/loginModel'),
         views = {};
