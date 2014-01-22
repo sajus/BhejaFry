@@ -40,7 +40,6 @@ define(function(require) {
             }).done(function() {
                 setTimeout(function() {
                     Events.trigger('deletedUser');
-                    Events.off('deletedUser');
                     view.$el.modal('hide');
                 }, 1000);
                 Events.trigger("alert:success", [{

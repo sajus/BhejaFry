@@ -111,7 +111,8 @@ define(function(require) {
             var targetDelete = {};
             var ids = [];
 
-            targetDelete['ids'] = ids.push(this.$(e.target).closest('tr').attr('data-id'));
+            ids.push(this.$(e.target).closest('tr').attr('data-id'));
+            targetDelete['ids'] = ids;
 
             if (this.$(e.target).hasClass('delAtOnces')) {
                 targetDelete = {};

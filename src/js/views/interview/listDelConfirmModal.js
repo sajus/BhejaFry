@@ -46,7 +46,6 @@ define(function(require) {
             }).done(function() {
                 setTimeout(function() {
                     Events.trigger('deletedInterview');
-                    Events.off('deletedInterview');
                     view.$el.modal('hide');
                 }, 1000);
                 Events.trigger("alert:success", [{
