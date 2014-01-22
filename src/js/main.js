@@ -28,6 +28,7 @@ requirejs.config({
         'underscore': 'vendors/underscore/underscore',
         'backbone': 'vendors/backbone/backbone',
         'handlebars': 'vendors/handlebars/handlebars',
+        'json2': 'vendors/json2/json2',
         'bsAlert': 'vendors/bootstrap/js/alert',
         'bsTooltip': 'vendors/bootstrap/js/tooltip',
         'bsDropdown': 'vendors/bootstrap/js/dropdown',
