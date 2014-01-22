@@ -38,8 +38,8 @@ requirejs.config({
         'keygen': 'vendors/others/keygen.min',
 
         /*** List of custom utility files. ***/
-        'template': 'utilities/handlebars-template-mapper',
-        'handlebars_Helpers': 'utilities/handlebars-helpers',
+        'template': 'utilities/hbs.tpl.mapper',
+        'handlebarsHelpers': 'utilities/hbs.helpers',
 
         /*** Templates ***/
         'templates': '../templates',
