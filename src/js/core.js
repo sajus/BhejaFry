@@ -1,9 +1,9 @@
 define(function(require) {
     'use strict';
 
-    var $ = require('jquery'),
-        LoginView = require('views/login/loginView'),
+    var LoginView = require('views/login/loginView'),
         LoginModel = require('models/login/loginModel'),
+        globals = require('globals'),
         views = {};
 
     require('jqueryCookie');
@@ -26,7 +26,7 @@ define(function(require) {
                 skipAuthCheck = true;
             }
         }
-        if (!$.cookie('isAuthenticated') && !skipAuthCheck) {
+        if (!globals.getAuthUser().isAuthenticated && !skipAuthCheck) {
             var loginModel = new LoginModel();
             view = new LoginView({
                 model: loginModel,

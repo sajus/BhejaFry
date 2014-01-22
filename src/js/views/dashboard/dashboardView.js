@@ -3,6 +3,7 @@ define(function(require) {
 
 	var $ = require('jquery'),
 		Backbone = require('backbone'),
+		globals = require('globals'),
 		dashboardTemplate = require('template!templates/dashboard/dashboard'),
 		WhatsNewModalView = require('views/release/whatsNewModalView');
 
@@ -57,7 +58,7 @@ define(function(require) {
 				url: "/appRelease",
 				type: "post",
 				data: {
-					"email": $.cookie('email')
+					"email": globals.getAuthUser().email
 				},
 				dataType: 'json'
 			});

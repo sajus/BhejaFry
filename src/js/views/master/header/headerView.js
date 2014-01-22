@@ -3,6 +3,7 @@ define(function(require) {
 
     var Backbone = require('backbone'),
         Events = require('events'),
+        globals = require('globals'),
         headerMenuTemplate = require('template!templates/master/header/header'),
         WhatsNewModalView = require('views/release/whatsNewModalView'),
         ChangePassModalView = require('views/login/changePassModalView'),
@@ -30,7 +31,7 @@ define(function(require) {
         },
 
         render: function() {
-            var roles = $.cookie('roles');
+            var roles = globals.getAuthUser().roles;
             if (roles === 'Administrator') {
                 roles = true;
             } else {
@@ -39,7 +40,7 @@ define(function(require) {
 
             this.$el.html(headerMenuTemplate({
                 filterByRole: roles,
-                email: $.cookie('email')
+                email: globals.getAuthUser().email
             }));
 
             this.uxFormation();

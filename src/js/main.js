@@ -62,7 +62,8 @@ requirejs.config({
         'dataTables': 'vendors/jquery/plugins/datatables/js/jquery.dataTables',
         'highcharts': 'vendors/jquery/plugins/highcharts/js/highcharts',
         'exportings': 'vendors/jquery/plugins/highcharts/js/modules/exporting',
-        'noDateInChart': 'vendors/jquery/plugins/highcharts/js/modules/no-data-to-display'
+        'noDateInChart': 'vendors/jquery/plugins/highcharts/js/modules/no-data-to-display',
+        'localStorage': 'vendors/jquery/plugins/amplify.min'
     },
 
     /***

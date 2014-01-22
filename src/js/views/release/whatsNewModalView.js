@@ -3,6 +3,7 @@ define(function(require) {
 
     var $ = require('jquery'),
         Backbone = require('backbone'),
+        globals = require('globals'),
         whatsNewModalTemplate = require('template!templates/release/whatsNewModal');
 
     require('jqueryCookie');
@@ -20,7 +21,7 @@ define(function(require) {
                 url: "/appRelease",
                 type: "post",
                 data: {
-                    "email": $.cookie('email')
+                    "email": globals.getAuthUser().email
                 },
                 dataType: 'json'
             });
@@ -59,7 +60,7 @@ define(function(require) {
                         url: "/appRelease",
                         type: "put",
                         data: {
-                            "email": $.cookie('email'),
+                            "email": globals.getAuthUser().email,
                             "turnOff": true
                         },
                         dataType: 'json'
@@ -74,7 +75,7 @@ define(function(require) {
                         url: "/appRelease",
                         type: "put",
                         data: {
-                            "email": $.cookie('email'),
+                            "email": globals.getAuthUser().email,
                             "turnOff": false
                         },
                         dataType: 'json'

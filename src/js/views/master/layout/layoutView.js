@@ -1,8 +1,7 @@
 define(function(require) {
     'use strict';
 
-    var $ = require('jquery'),
-        Backbone = require('backbone'),
+    var Backbone = require('backbone'),
         Core = require('core'),
         globals = require('globals'),
         layoutTemplate = require('template!templates/master/layout/layout'),
@@ -41,14 +40,14 @@ define(function(require) {
         },
 
         render: function() {
-            var roles = $.cookie('roles');
+            var roles = globals.getAuthUser().roles;
             if (roles === 'Administrator') {
                 roles = true;
             } else {
                 roles = false;
             }
             this.$el.html(layoutTemplate({
-                username: $.cookie('username'),
+                username: globals.getAuthUser().username,
                 filterByRole: roles
             }));
             this.renderHeader();

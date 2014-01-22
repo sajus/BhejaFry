@@ -1,5 +1,7 @@
-define(function() {
+define(function(require) {
 	'use strict';
+
+	require('localStorage');
 
 	var component = {};
 
@@ -87,6 +89,22 @@ define(function() {
 		return size;
 	};
 
+	var setAuthUser = function(authUser) {
+		amplify.store.sessionStorage('authuser', authUser);
+	};
+
+	var getAuthUser = function() {
+		if (amplify.store.sessionStorage('authuser')) {
+			return amplify.store.sessionStorage('authuser');
+		} else {
+			return false;
+		}
+	};
+
+	var delAuthUser = function() {
+		amplify.store.sessionStorage('authuser', {});
+	};
+
 	return {
 		component: component,
 		fetchInterviewer: populateInterviewer,
@@ -94,6 +112,9 @@ define(function() {
 		fetchStatus: populateStatus,
 		fetchRounds: populateRounds,
 		fetchRecruiter: populateRecruiter,
-		getObjectSize: objectSize
+		getObjectSize: objectSize,
+		setAuthUser: setAuthUser,
+		getAuthUser: getAuthUser,
+		delAuthUser: delAuthUser
 	};
 });

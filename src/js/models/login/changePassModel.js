@@ -1,7 +1,7 @@
 define(function(require) {
     'use strict';
 
-    var $ = require('jquery'),
+    var globals = require('globals'),
         Backbone = require('backbone');
 
     require('modelValidator');
@@ -9,7 +9,7 @@ define(function(require) {
 
     return Backbone.Model.extend({
         url: function() {
-            return '/userChange/' + $.cookie('email');
+            return '/userChange/' + globals.getAuthUser().email;
         },
 
         validation: {

@@ -4,6 +4,7 @@ define(function(require) {
     var Backbone = require('backbone'),
         Baseview = require('views/baseview'),
         Events = require('events'),
+        globals = require('globals'),
         loginPageTemplate = require('template!templates/login/login'),
         LoginModel = require('models/login/loginModel');
 
@@ -19,8 +20,7 @@ define(function(require) {
         initialize: function() {
             this.modelBinder = new Backbone.ModelBinder();
             this.model = new LoginModel();
-            this.isAuthenticated = $.cookie('isAuthenticated');
-            if (this.isAuthenticated) {
+            if (globals.getAuthUser().isAuthenticated) {
                 Events.trigger("view:navigate", {
                     path: "dashboard",
                     options: {
@@ -52,10 +52,12 @@ define(function(require) {
             this.model.save(this.model.toJSON(), {
                 success: function(model, response) {
                     if (response.isAuthenticated) {
-                        $.cookie('isAuthenticated', true);
-                        $.cookie('email', response.email);
-                        $.cookie('username', response.username);
-                        $.cookie('roles', response.roles);
+                        globals.setAuthUser({
+                            isAuthenticated: true,
+                            email: response.email,
+                            username: response.username,
+                            roles: response.roles
+                        });
                         Events.trigger('redirectToAuthPage', view.options);
                     }
                 },

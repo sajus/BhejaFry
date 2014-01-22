@@ -4,6 +4,7 @@ define(function(require) {
     var $ = require('jquery'),
         Backbone = require('backbone'),
         Core = require('core'),
+        globals = require('globals'),
         Events = require('events'),
         AppView = require('views/app');
 
@@ -56,7 +57,7 @@ define(function(require) {
 
         /*** Router configuration for '' | 'login' routes ***/
         router.on('route:login', function() {
-            if ($.cookie('isAuthenticated')) {
+            if (globals.getAuthUser().isAuthenticated) {
                 this.navigate("dashboard", {
                     trigger: true
                 });
@@ -71,7 +72,7 @@ define(function(require) {
 
         /*** Router configuration for 'loginIssue' route ***/
         router.on('route:loginIssue', function() {
-            if ($.cookie('isAuthenticated')) {
+            if (globals.getAuthUser().isAuthenticated) {
                 this.navigate("dashboard", {
                     trigger: true,
                     replace: true
@@ -87,7 +88,7 @@ define(function(require) {
 
         /*** Router configuration for 'dashboard' route ***/
         router.on('route:dashboard', function() {
-            if ($.cookie('isAuthenticated')) {
+            if (globals.getAuthUser().isAuthenticated) {
                 require(['views/dashboard/dashboardView'], function(DashboardPage) {
                     Core.create(appView, 'DashboardPage', DashboardPage);
                 });
@@ -100,7 +101,7 @@ define(function(require) {
 
         /*** Router configuration for 'interviewList' route ***/
         router.on('route:interviewList', function() {
-            if ($.cookie('isAuthenticated')) {
+            if (globals.getAuthUser().isAuthenticated) {
                 require(['views/interview/interviewListView'], function(InterviewListPage) {
                     Core.create(appView, 'InterviewListPage', InterviewListPage);
                 });
@@ -113,7 +114,7 @@ define(function(require) {
 
         /*** Router configuration for 'interview' | 'interview/:email' routes ***/
         router.on('route:interview', function(email) {
-            if ($.cookie('isAuthenticated')) {
+            if (globals.getAuthUser().isAuthenticated) {
                 require(['views/interview/interviewListDetailView', 'models/interview/interviewListDetailModel'], function(InterviewListPage, InterviewListDetailModel) {
                     var interviewListDetailModel = new InterviewListDetailModel();
                     Core.create(appView, 'InterviewListPage', InterviewListPage, {
@@ -129,7 +130,7 @@ define(function(require) {
 
         /*** Router configuration for 'mgnInterviewers' route ***/
         router.on('route:mgnInterviewers', function() {
-            if ($.cookie('isAuthenticated')) {
+            if (globals.getAuthUser().isAuthenticated) {
                 require(['views/manage/interviewers/interviewersListView'], function(InterviewersListPage) {
                     Core.create(appView, 'InterviewersListPage', InterviewersListPage);
                 });
@@ -142,7 +143,7 @@ define(function(require) {
 
         /*** Router configuration for 'mgnInterviewersDetail' | 'mgnInterviewersDetail/:id' routes ***/
         router.on('route:mgnInterviewersDetail', function(id) {
-            if ($.cookie('isAuthenticated')) {
+            if (globals.getAuthUser().isAuthenticated) {
                 require(['views/manage/interviewers/interviewersListDetailView'], function(InterviewersListDetailPage) {
                     Core.create(appView, 'InterviewersListDetailPage', InterviewersListDetailPage, {
                         'id': id
@@ -157,7 +158,7 @@ define(function(require) {
 
         /*** Router configuration for 'mgnRecruiters' route ***/
         router.on('route:mgnRecruiters', function() {
-            if ($.cookie('isAuthenticated')) {
+            if (globals.getAuthUser().isAuthenticated) {
                 require(['views/manage/recruiters/recruitersListView'], function(RecruitersListPage) {
                     Core.create(appView, 'RecruitersListPage', RecruitersListPage);
                 });
@@ -170,7 +171,7 @@ define(function(require) {
 
         /*** Router configuration for 'mgnRecruitersDetail' | 'mgnRecruitersDetail(/:id)' routes ***/
         router.on('route:mgnRecruitersDetail', function(id) {
-            if ($.cookie('isAuthenticated')) {
+            if (globals.getAuthUser().isAuthenticated) {
                 require(['views/manage/recruiters/recruitersListDetailView'], function(RecruitersListDetailPage) {
                     Core.create(appView, 'RecruitersListDetailPage', RecruitersListDetailPage, {
                         'id': id
@@ -185,7 +186,7 @@ define(function(require) {
 
         /*** Router configuration for 'usersList' routes ***/
         router.on('route:usersList', function() {
-            if ($.cookie('isAuthenticated')) {
+            if (globals.getAuthUser().isAuthenticated) {
                 require(['views/users/usersView'], function(UsersPage) {
                     Core.create(appView, 'UsersPage', UsersPage);
                 });
@@ -198,7 +199,7 @@ define(function(require) {
 
         /*** Router configuration for 'usersDetail' | 'usersDetail(/:email)' routes ***/
         router.on('route:usersDetail', function(email) {
-            if ($.cookie('isAuthenticated')) {
+            if (globals.getAuthUser().isAuthenticated) {
                 require(['views/users/usersDetailView', 'models/users/usersListDetailModel'], function(UsersDetailPage, UsersDetailModel) {
                     var usersDetailModel = new UsersDetailModel();
                     Core.create(appView, 'UsersDetailPage', UsersDetailPage, {
@@ -214,7 +215,7 @@ define(function(require) {
 
         /*** Router configuration for 'settings' route ***/
         router.on('route:settings', function() {
-            if ($.cookie('isAuthenticated')) {
+            if (globals.getAuthUser().isAuthenticated) {
                 require(['views/settings/settingsView'], function(SettingsPage) {
                     Core.create(appView, 'SettingsPage', SettingsPage);
                 });
@@ -227,14 +228,11 @@ define(function(require) {
 
         /*** Router configuration for 'logout' routes ***/
         router.on('route:logout', function() {
-            if ($.cookie('isAuthenticated')) {
-                $.removeCookie('isAuthenticated');
-                $.removeCookie('email');
-                $.removeCookie('username');
-                $.removeCookie('roles');
+            if (globals.getAuthUser().isAuthenticated) {
                 $.ajax({
                     url: '/logout'
                 }).done(function() {
+                    globals.delAuthUser();
                     Events.trigger("view:navigate", {
                         path: "login",
                         options: {
@@ -251,7 +249,7 @@ define(function(require) {
 
         /*** Router configuration for 'notFound' routes ***/
         router.on('route:notFound', function() {
-            if ($.cookie('isAuthenticated')) {
+            if (globals.getAuthUser().isAuthenticated) {
                 require(['views/statusCodes/notFound'], function(StatusCodePage) {
                     Core.create(appView, 'StatusCodePage', StatusCodePage);
                 });

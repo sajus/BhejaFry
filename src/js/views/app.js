@@ -4,6 +4,7 @@ define(function(require) {
     var $ = require('jquery'),
         Backbone = require('backbone'),
         Core = require('core'),
+        globals = require('globals'),
         Events = require('events'),
         alerts = require('utilities/alerts'),
         AlertView = require('views/alert');
@@ -28,6 +29,12 @@ define(function(require) {
         handleAjaxResponse: function() {
             $.ajaxSetup({
                 statusCode: {
+                    401: function(response) {
+                        Events.trigger('alert:error', [{
+                            message: response.responseText
+                        }]);
+                        return false;
+                    },
                     403: function(response) {
                         Events.trigger('alert:error', [{
                             message: response.responseText
@@ -85,7 +92,7 @@ define(function(require) {
         },
 
         render: function() {
-            if ($.cookie('isAuthenticated')) {
+            if (globals.getAuthUser().isAuthenticated) {
                 require(['views/master/layout/layoutView'], function(LayoutView) {
                     Core.create(this, 'LayoutView', LayoutView, {
                         skipAuthCheck: true
