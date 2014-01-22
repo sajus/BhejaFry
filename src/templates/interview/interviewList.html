@@ -1,20 +1,20 @@
-<div class='row'>
-    <table id='dataTable' class='table table-bordered table-condensed table-hover table-striped interviews'>
+<div class="row">
+    <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped interviews">
         <thead>
             <tr>
-                <td colspan='7'>
+                <td colspan="7">
                     <button class="btn btn-primary primary addNewInterviews"><i class="fa fa-plus-circle"></i> New Interview</button>
-                    <button class="btn btn-danger delAtOnces" style='visibility:hidden;'><i class='fa fa-trash-o'></i> Selected Interviews</button>
+                    <button class="btn btn-danger delAtOnces" style="visibility:hidden;"><i class="fa fa-trash-o"></i> Selected Interviews</button>
                     <!-- <button class="btn btn-primary pull-right print"><i class="fa fa-print"></i></button> -->
                 </td>
             </tr>
             <tr>
-                <th class='center' rowspan='2'><input type='checkbox' class='selectedRowHeader' style='left:-4px; position:relative;'></th>
-                <th rowspan='2'>Candidate's Email</th>
-                <th colspan='2' style='text-align:center;'>Interviewers</th>
-                <th rowspan='2'>Recruiter</th>
-                <th rowspan='2'>Status</th>
-                <th rowspan='2' style='text-align:center;'>Operations</th>
+                <th class="center" rowspan="2"><input type="checkbox" class="selectedRowHeader" style="left:-4px; position:relative;"/></th>
+                <th rowspan="2">Candidate's Email</th>
+                <th colspan="2" style="text-align:center;">Interviewers</th>
+                <th rowspan="2">Recruiter</th>
+                <th rowspan="2">Status</th>
+                <th rowspan="2" style="text-align:center;">Operations</th>
             </tr>
             <tr>
                 <th>First</th>
@@ -23,10 +23,10 @@
         </thead>
         <tbody>
             {{#each interviews}}
-                <tr data-email={{cEmail}} data-id={{id}} class={{#if roles.isSelectable}}canSelect{{/if}}>
-                    <td class='center'>
+                <tr data-email="{{cEmail}}" data-id="{{id}}" class="{{#if roles.isSelectable}}canSelect{{/if}}">
+                    <td class="center">
                         {{#if roles.isSelectable}}
-                            <input type='checkbox' class='selectedRow' value='{{id}}'>
+                            <input type="checkbox" class="selectedRow" value="{{id}}"/>
                         {{else}}
                             <i class="fa fa-minus-square"></i>
                         {{/if}}
@@ -36,14 +36,14 @@
                     <td>{{ivtfirstname}} {{ivtlastname}}</td>
                     <td>{{rcfirstname}} {{rclastname}}</td>
                     <td>{{status}}</td>
-                    <td class='center'>
+                    <td class="center">
                         {{#if roles.isEditable}}
-                            <button class='btn btn-success btn-xs editInterview'>Edit</button>
+                            <button class="btn btn-success btn-xs editInterview">Edit</button>
                         {{else}}
-                            <button class='btn btn-primary btn-xs editInterview'>View</button>
+                            <button class="btn btn-primary btn-xs editInterview">View</button>
                         {{/if}}
                         {{#if roles.isDeletable}}
-                            <button class='btn btn-danger btn-xs delInterview'>Delete</button>
+                            <button class="btn btn-danger btn-xs delInterview">Delete</button>
                         {{/if}}
                     </td>
                 </tr>

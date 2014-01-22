@@ -1,15 +1,15 @@
-<div class='row'>
-    <table id='dataTable' class='table table-bordered table-condensed table-hover table-striped userslist'>
+<div class="row">
+    <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped userslist">
         <thead>
             <tr>
-                <td colspan='7'>
-                    <button class='btn btn-primary primary addNewUser'><i class="fa fa-plus-circle"></i> New User</button>
-                    <button class='btn btn-danger delAtOnces' style='visibility:hidden;'><i class='fa fa-trash-o'></i> Selected User</button>
-                    <!-- <button class='btn btn-primary pull-right print'><i class='fa fa-print'></i></button> -->
+                <td colspan="7">
+                    <button class="btn btn-primary primary addNewUser"><i class="fa fa-plus-circle"></i> New User</button>
+                    <button class="btn btn-danger delAtOnces" style="visibility:hidden;"><i class="fa fa-trash-o"></i> Selected User</button>
+                    <!-- <button class="btn btn-primary pull-right print"><i class="fa fa-print"></i></button> -->
                 </td>
             </tr>
             <tr>
-                <th class='center'><input type='checkbox' class='selectedRowHeader' style='left:-4px; position:relative;'></th>
+                <th class="center"><input type="checkbox" class="selectedRowHeader" style="left:-4px; position:relative;"/></th>
                 <th>Employee ID</th>
                 <th>Email</th>
                 <th>Name</th>
@@ -19,15 +19,15 @@
         </thead>
         <tbody>
             {{#each users}}
-                <tr data-id={{email}}>
-                    <td class='center'><input type='checkbox' class='selectedRow'></td>
+                <tr data-id="{{email}}">
+                    <td class="center"><input type="checkbox" class="selectedRow"/></td>
                     <td>{{empid}}</td>
                     <td>{{email}}</td>
                     <td>{{firstname}} {{lastname}}</td>
                     <td>{{roles}}</td>
-                    <td class='center'>
-                        <button class='btn btn-success btn-xs editUser'>Edit</button>
-                        <button class='btn btn-danger btn-xs delUser' style="visibility:hidden">Delete</button>
+                    <td class="center">
+                        <button class="btn btn-success btn-xs editUser">Edit</button>
+                        <button class="btn btn-danger btn-xs delUser" style="visibility:hidden">Delete</button>
                     </td>
                 </tr>
             {{/each}}

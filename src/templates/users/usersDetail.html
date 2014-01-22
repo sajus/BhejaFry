@@ -1,62 +1,62 @@
-<div class='row'>
-	<div class='col-xs-12'>
+<div class="row">
+	<div class="col-xs-12">
 		<div class="row">
-			<div class='panel panel-default'>
-				<div class='panel-heading'>
-					<h6 class='panel-title lead'>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h6 class="panel-title lead">
 						{{#if editMode}}
-							<i class='fa fa-pencil-square-o'></i> Following form will help you to edit existing user information
+							<i class="fa fa-pencil-square-o"></i> Following form will help you to edit existing user information
 						{{else}}
-							<i class='fa fa-plus-circle'></i> Following form will help you to add new user information
+							<i class="fa fa-plus-circle"></i> Following form will help you to add new user information
 						{{/if}}
 					</h6>
 				</div>
 				<form role="form" class="usersForm">
-					<div class='panel-body'>
+					<div class="panel-body">
 						<fieldset>
-							<div class='row'>
-						        <div class='col-xs-6'>
-						            <div class='form-group'>
-						                <label class='control-label' for='empid'>Employee ID <span class='text-danger'>*</span></label>
-										<input type='text' name='empid' maxlength='40' class='form-control empid' placeholder='Employee ID' />
+							<div class="row">
+						        <div class="col-xs-6">
+						            <div class="form-group">
+						                <label class="control-label" for="empid">Employee ID <span class="text-danger">*</span></label>
+										<input type="text" name="empid" maxlength="40" class="form-control empid" placeholder="Employee ID" />
 										<span class="hint-message" style="display:none;"></span>
 						            </div>
 						        </div>
 						    </div>
-						    <div class='row'>
-						        <div class='col-xs-6'>
-						            <div class='form-group'>
-						                <label class='control-label' for='firstname'>First Name <span class='text-danger'>*</span></label>
-						                <input type='text' name='firstname' maxlength='30' class='form-control firstname' placeholder='First' />
+						    <div class="row">
+						        <div class="col-xs-6">
+						            <div class="form-group">
+						                <label class="control-label" for="firstname">First Name <span class="text-danger">*</span></label>
+						                <input type="text" name="firstname" maxlength="30" class="form-control firstname" placeholder="First" />
 						                <span class="hint-message" style="display:none;"></span>
 						            </div>
 						        </div>
-						        <div class='col-xs-6'>
-						            <div class='form-group'>
-						                <label class='control-label' for='lastname'>Last Name <span class='text-danger'>*</span></label>
-						                <input type='text' name='lastname' maxlength='30' class='form-control lastname' placeholder='Last' />
+						        <div class="col-xs-6">
+						            <div class="form-group">
+						                <label class="control-label" for="lastname">Last Name <span class="text-danger">*</span></label>
+						                <input type="text" name="lastname" maxlength="30" class="form-control lastname" placeholder="Last" />
 						                <span class="hint-message" style="display:none;"></span>
 						            </div>
 						        </div>
 						    </div>
-						    <div class='row'>
-						        <div class='col-xs-12'>
-						            <div class='form-group'>
-						                <label class='control-label' for='email'>Email <span class='text-danger'>*</span></label>
-										<input type='text' name='email' maxlength='40' class='form-control email' placeholder='Email address' />
+						    <div class="row">
+						        <div class="col-xs-12">
+						            <div class="form-group">
+						                <label class="control-label" for="email">Email <span class="text-danger">*</span></label>
+										<input type="text" name="email" maxlength="40" class="form-control email" placeholder="Email address" />
 										<span class="hint-message" style="display:none;"></span>
 						            </div>
 						        </div>
 						    </div>
-				     		<div class='row'>
-						        <div class='col-xs-12'>
-						        	<label class='control-label' for='role_id'>User role <span class='text-danger'>*</span></label>
+				     		<div class="row">
+						        <div class="col-xs-12">
+						        	<label class="control-label" for="role_id">User role <span class="text-danger">*</span></label>
 						            <div class="form-group">
 				                        <div class="radio-inline">
-				                            <label><input type="radio" name="role_id" value="0"> User</label>
+				                            <label><input type="radio" name="role_id" value="0"/> User</label>
 				                        </div>
 				                        <div class="radio-inline">
-				                            <label><input type="radio" name="role_id" value="1"> Administrator</label>
+				                            <label><input type="radio" name="role_id" value="1"/> Administrator</label>
 				                        </div>
 				                        <p class="hint-message" style="display:none;"></p>
 				                    </div>
@@ -64,9 +64,9 @@
 						    </div>
 						</fieldset>
 					</div>
-					<div class='panel-footer'>
-						<button type='submit' class='btn btn-primary'>{{#if editMode}} Update {{else}} Save {{/if}}</button>
-						<button type='button' class='btn btn-default cancelUsersForm'>Cancel</a>
+					<div class="panel-footer">
+						<button type="submit" class="btn btn-primary">{{#if editMode}} Update {{else}} Save {{/if}}</button>
+						<button type="button" class="btn btn-default cancelUsersForm">Cancel</a>
 					</div>
 				</form>
 			</div>
