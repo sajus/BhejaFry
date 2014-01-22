@@ -90,7 +90,7 @@ define(function(require) {
         deleteUser: function(e) {
             e.preventDefault();
             e.stopPropagation();
-            Events.on('deletedUser', this.render, this);
+            this.listenTo(Events, 'deletedUser', this.render);
             var confirmDelModal = new ConfirmDelModal();
             $('.modal-container').html(confirmDelModal.render(this.$(e.target).closest('tr').attr('data-id')).el);
             $('.modal-container .modal').modal('show');

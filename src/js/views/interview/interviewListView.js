@@ -105,7 +105,7 @@ define(function(require) {
             e.preventDefault();
             e.stopPropagation();
 
-            Events.on('deletedInterview', this.render, this);
+            this.listenTo(Events, 'deletedInterview', this.render);
             var confirmDelModal = new ConfirmDelModal();
 
             var targetDelete = {};

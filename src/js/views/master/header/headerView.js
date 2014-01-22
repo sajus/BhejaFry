@@ -79,7 +79,7 @@ define(function(require) {
 
         renderModal: function(ModalView) {
             var modalView = new ModalView();
-            Events.on('modal:closeModal', this.closeModal, this);
+            this.listenTo(Events, 'modal:closeModal', this.closeModal);
             $('.modal-container').html(modalView.render().el);
             $('.modal-container .modal').modal('show');
         },

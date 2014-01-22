@@ -38,7 +38,7 @@ define(function(require) {
 
         initialize: function() {
             $(window).on('scroll', _.bind(this.scrollSpy, this));
-            Events.on('alert:hideAlert', this.hideAlert, this);
+            this.listenTo(Events, 'alert:hideAlert', this.hideAlert);
         },
 
         scrollSpy: function() {
