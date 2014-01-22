@@ -11,7 +11,6 @@ define(function(require) {
     require('modelBinder');
     require('bsAlert');
     require('bsTooltip');
-    require('jqueryCookie');
 
     return Baseview.extend({
 

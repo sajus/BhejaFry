@@ -172,7 +172,7 @@ module.exports = function(grunt) {
         },
         chmod: {
             options: {
-                mode: "775"
+                mode: "644"
             },
             source: {
                 src: ["src/**/*.js"]

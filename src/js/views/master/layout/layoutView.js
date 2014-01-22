@@ -7,8 +7,6 @@ define(function(require) {
         layoutTemplate = require('template!templates/master/layout/layout'),
         ProfileModalView = require('views/profile/profileModalView');
 
-    require('jqueryCookie');
-
     return Backbone.View.extend({
 
         el: 'body',

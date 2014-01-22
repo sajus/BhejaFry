@@ -11,7 +11,6 @@ define(function(require) {
     require('css!../../../css/modules/login/login.css');
     require('modelBinder');
     require('bsAlert');
-    require('jqueryCookie');
 
     return Baseview.extend({
 

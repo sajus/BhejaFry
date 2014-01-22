@@ -10,7 +10,6 @@ define(function(require) {
         FeedbackModalView = require('views/feedback/feedbackModalView'),
         ProfileModalView = require('views/profile/profileModalView');
 
-    require('jqueryCookie');
     require('bsTooltip');
     require('bsModal');
     require('bsDropdown');

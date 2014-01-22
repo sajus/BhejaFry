@@ -9,8 +9,6 @@ define(function(require) {
         alerts = require('utilities/alerts'),
         AlertView = require('views/alert');
 
-    require('jqueryCookie');
-
     var AppView = Backbone.View.extend({
 
         el: 'body',

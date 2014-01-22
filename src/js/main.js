@@ -56,7 +56,6 @@ requirejs.config({
         'datePicker': 'vendors/bootstrap/plugins/datepicker/js/bootstrap-datepicker',
 
         /*** List of jQuery plugins ***/
-        'jqueryCookie': 'vendors/jquery/plugins/jquery.cookie',
         'chosen': 'vendors/jquery/plugins/chosen/chosen.jquery.min',
         'strength': 'vendors/jquery/plugins/strength',
         'dataTables': 'vendors/jquery/plugins/datatables/js/jquery.dataTables',

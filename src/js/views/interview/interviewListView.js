@@ -11,7 +11,6 @@ define(function(require) {
     require('css!vendors/jquery/plugins/datatables/css/jquery.dataTables.css');
     require('css!vendors/jquery/plugins/datatables/css/dataTables_themeroller.css');
     require('css!vendors/jquery/plugins/datatables/css/smoothness/jquery-ui-1.8.4.custom.css');
-    require('jqueryCookie');
     require('dataTables');
     require('bsTooltip');
 

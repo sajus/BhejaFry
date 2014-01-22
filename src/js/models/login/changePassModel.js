@@ -5,7 +5,6 @@ define(function(require) {
         Backbone = require('backbone');
 
     require('modelValidator');
-    require('jqueryCookie');
 
     return Backbone.Model.extend({
         url: function() {

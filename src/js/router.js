@@ -8,8 +8,6 @@ define(function(require) {
         Events = require('events'),
         AppView = require('views/app');
 
-    require('jqueryCookie');
-
     var AppRouter = Backbone.Router.extend({
 
         initialize: function() {

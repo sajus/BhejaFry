@@ -6,7 +6,6 @@ define(function(require) {
         globals = require('globals'),
         whatsNewModalTemplate = require('template!templates/release/whatsNewModal');
 
-    require('jqueryCookie');
     require('bsCollapse');
 
     return Backbone.View.extend({

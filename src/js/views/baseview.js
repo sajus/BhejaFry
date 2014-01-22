@@ -4,8 +4,6 @@ define(function(require) {
     var $ = require('jquery'),
         Backbone = require('backbone');
 
-    require('jqueryCookie');
-
     return Backbone.View.extend({
         processField: function(e) {
             var target$ = $(e.target),

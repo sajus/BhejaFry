@@ -6,8 +6,6 @@ define(function(require) {
         globals = require('globals'),
         views = {};
 
-    require('jqueryCookie');
-
     var create = function(context, name, View, options) {
         var view = null;
         /*
