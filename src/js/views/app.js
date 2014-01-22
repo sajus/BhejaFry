@@ -15,11 +15,12 @@ define(function(require) {
         el: 'body',
 
         initialize: function() {
-            Events.on('view:navigate', this.navigate, this);
-            Events.on('alert:success', this.alertSuccess, this);
-            Events.on('alert:error', this.alertError, this);
-            Events.on('alert:warning', this.alertWarning, this);
-            Events.on('alert:info', this.alertInfo, this);
+            this.listenTo(Events, 'view:navigate', this.navigate);
+            this.listenTo(Events, 'alert:success', this.alertSuccess);
+            this.listenTo(Events, 'alert:error', this.alertError);
+            this.listenTo(Events, 'alert:warning', this.alertWarning);
+            this.listenTo(Events, 'alert:info', this.alertInfo);
+
             this.handleAjaxResponse();
             this.render();
         },
