@@ -11,10 +11,6 @@ define(function(require) {
 
     require('jqueryCookie');
 
-    _.extend(Backbone.Model, {
-        gateWayUrl: 'http://' + document.domain + ':' + Globals.gateWayPort
-    });
-
     var create = function(context, name, View, options) {
         var view = null;
         /*

@@ -72,7 +72,7 @@ define(function() {
 
 	var fetchData = function(service) {
 		return $.ajax({
-			url: Backbone.Model.gateWayUrl + '/' + service
+			url: '/' + service
 		});
 	};
 
@@ -88,7 +88,6 @@ define(function() {
 	};
 
 	return {
-		gateWayPort: 9000,
 		component: component,
 		fetchInterviewer: populateInterviewer,
 		fetchMode: populateMode,

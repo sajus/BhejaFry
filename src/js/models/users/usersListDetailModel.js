@@ -8,9 +8,9 @@ define(function(require) {
     return Backbone.Model.extend({
         url: function() {
             if (this.get('email')) {
-                return Backbone.Model.gateWayUrl + '/usersList/' + this.get('email');
+                return '/usersList/' + this.get('email');
             } else {
-                return Backbone.Model.gateWayUrl + '/usersList';
+                return '/usersList';
             }
         },
 

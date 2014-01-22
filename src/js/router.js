@@ -233,7 +233,7 @@ define(function(require) {
                 $.removeCookie('username');
                 $.removeCookie('roles');
                 $.ajax({
-                    url: Backbone.Model.gateWayUrl + '/logout'
+                    url: '/logout'
                 }).done(function() {
                     Events.trigger("view:navigate", {
                         path: "login",

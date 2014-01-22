@@ -3,7 +3,7 @@ define(['backbone'], function(Backbone) {
 
 	return Backbone.Collection.extend({
 		url: function() {
-			return Backbone.Model.gateWayUrl + '/interviewList';
+			return '/interviewList';
 		}
 	});
 });

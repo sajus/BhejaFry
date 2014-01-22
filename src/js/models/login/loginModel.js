@@ -7,7 +7,7 @@ define(function(require) {
 
     return Backbone.Model.extend({
         url: function() {
-            return Backbone.Model.gateWayUrl + '/authenticate';
+            return '/authenticate';
         },
 
         validation: {

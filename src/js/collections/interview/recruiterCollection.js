@@ -5,7 +5,7 @@ define(function(require) {
 
 	return Backbone.Collection.extend({
 		url: function() {
-			return Backbone.Model.gateWayUrl + '/recruiter';
+			return '/recruiter';
 		}
 	});
 });

@@ -9,9 +9,9 @@ define(function(require) {
     return Backbone.Model.extend({
         url: function() {
             if (this.get('id')) {
-                return Backbone.Model.gateWayUrl + '/recruiter/' + this.get('id');
+                return '/recruiter/' + this.get('id');
             } else {
-                return Backbone.Model.gateWayUrl + '/recruiter';
+                return '/recruiter';
             }
         },
         validation: {

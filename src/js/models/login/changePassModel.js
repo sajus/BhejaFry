@@ -9,7 +9,7 @@ define(function(require) {
 
     return Backbone.Model.extend({
         url: function() {
-            return Backbone.Model.gateWayUrl + '/userChange/' + $.cookie('email');
+            return '/userChange/' + $.cookie('email');
         },
 
         validation: {
