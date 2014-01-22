@@ -121,6 +121,46 @@ module.exports = function(grunt) {
                 }
             }
         },
+        htmlhint: {
+            Root_HTML_Files: {
+                options: {
+                    "tag-pair": true,
+                    "tagname-lowercase": true,
+                    "attr-lowercase": true,
+                    "attr-value-double-quotes": true,
+                    "attr-value-not-empty": true,
+                    "doctype-first": true,
+                    "tag-self-close": true,
+                    "spec-char-escape": true,
+                    "id-unique": true,
+                    "head-script-disabled": true,
+                    "img-alt-require": true,
+                    "doctype-html5": true,
+                    "id-class-value": true
+                },
+                src: [
+                    "src/*.html"
+                ]
+            },
+            Templates: {
+                options: {
+                    "tagname-lowercase": true,
+                    "attr-lowercase": true,
+                    "attr-value-double-quotes": true,
+                    "attr-value-not-empty": true,
+                    "tag-self-close": false,
+                    "spec-char-escape": true,
+                    "id-unique": true,
+                    "head-script-disabled": true,
+                    "img-alt-require": true,
+                    "id-class-value": true,
+                    "style-disabled": true
+                },
+                src: [
+                    "src/templates/**/*.html"
+                ]
+            }
+        },
         strip: {
             main: {
                 src: "prod/src/js/**/*.js",
@@ -147,6 +187,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-jscs-checker");
     grunt.loadNpmTasks("grunt-contrib-csslint");
+    grunt.loadNpmTasks('grunt-htmlhint');
     grunt.loadNpmTasks("grunt-shell");
     grunt.loadNpmTasks("grunt-strip");
     grunt.loadNpmTasks("grunt-chmod");
@@ -154,10 +195,10 @@ module.exports = function(grunt) {
     /**
      * Load Default Task
      */
-    grunt.registerTask("default", ["chmod", "jshint", "jscs", "csslint"]);
+    grunt.registerTask("default", ["chmod", "jshint", "jscs", "csslint", "htmlhint"]);
 
     /**
      * Load Build Task
      */
-    grunt.registerTask("build", ["chmod", "jshint", "jscs", "csslint", "clean", "shell", "strip"]);
+    grunt.registerTask("build", ["chmod", "jshint", "jscs", "csslint", "htmlhint", "clean", "shell", "strip"]);
 };
