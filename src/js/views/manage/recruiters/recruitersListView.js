@@ -99,7 +99,7 @@ define(function(require) {
                 },
                 error: function() {
                     Events.trigger("alert:error", [{
-                        message: "Some error got triggered white deleting record"
+                        message: "Some error got triggered while deleting record."
                     }]);
                 }
             });

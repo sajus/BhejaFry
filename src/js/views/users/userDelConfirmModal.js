@@ -36,7 +36,7 @@ define(function(require) {
             var view = this;
             $.ajax({
                 type: "DELETE",
-                url: Backbone.Model.gateWayUrl + '/usersList/' + this.delCEmail
+                url: '/usersList/' + this.delCEmail
             }).done(function() {
                 setTimeout(function() {
                     Events.trigger('deletedUser');
@@ -48,7 +48,7 @@ define(function(require) {
                 }]);
             }).fail(function() {
                 Events.trigger("alert:error", [{
-                    message: "Some error got triggered white deleting record."
+                    message: "Some error got triggered while deleting record."
                 }]);
             });
         }

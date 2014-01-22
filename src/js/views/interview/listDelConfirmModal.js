@@ -19,7 +19,7 @@ define(function(require) {
 
         render: function(id) {
             this.delid = id;
-            
+
             this.$el.html(listDelConfirmModal({
                 isSingle: (globals.getObjectSize(this.delid) === 1) ? true : false
             }));
@@ -40,7 +40,7 @@ define(function(require) {
             var view = this;
             $.ajax({
                 type: "delete",
-                url: Backbone.Model.gateWayUrl + '/interviewList',
+                url: '/interviewList',
                 data: view.delid,
                 dataType: 'json'
             }).done(function() {
@@ -54,7 +54,7 @@ define(function(require) {
                 }]);
             }).fail(function() {
                 Events.trigger("alert:error", [{
-                    message: "Some error got triggered white deleting record."
+                    message: "Some error got triggered while deleting record."
                 }]);
             });
         }
