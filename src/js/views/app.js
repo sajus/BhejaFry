@@ -31,6 +31,15 @@ define(function(require) {
                         Events.trigger('alert:error', [{
                             message: response.responseText
                         }]);
+                        setTimeout(function() {
+                            globals.delAuthUser();
+                            Events.trigger("view:navigate", {
+                                path: "login",
+                                options: {
+                                    trigger: true
+                                }
+                            });
+                        }, 2000);
                         return false;
                     },
                     403: function(response) {
