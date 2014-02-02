@@ -75,10 +75,10 @@ app.post('/appRelease', sessionAuth, userAccount.getRelease);
  * Service routes for CURD users
  ***/
 app.get('/usersList', sessionAuth, users.getUsers);
-app.post('/usersList', sessionAuth, users.postUser);
+app.post('/usersList/:email', sessionAuth, users.postUser);
 app.get('/usersList/:email', sessionAuth, users.getUsersByEmail);
 app.put('/usersList/:email', sessionAuth, users.putUsersByEmail);
-app.del('/usersList/:email', sessionAuth, users.delUsersByEmail);
+app.del('/usersList', sessionAuth, users.delUsersByEmail);
 
 /**
  * Service routes for CURD interviews

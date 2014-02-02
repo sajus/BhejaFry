@@ -21,9 +21,6 @@ define(function(require) {
             }, {
                 pattern: /^(([0-9]+)(^\s[0-9]+)?)$/gm,
                 msg: 'The user\'s employee id you specified is incorrect.'
-            }, {
-                rangeLength: [1, 30],
-                msg: 'The user\'s employee id needs to be between 1 to 30 characters long.'
             }],
 
             firstname: [{

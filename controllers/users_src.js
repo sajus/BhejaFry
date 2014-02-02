@@ -91,7 +91,7 @@ exports.postUser = function(req, res) {
 				var	empid = Number(sanitize(payload.empid).trim()),
 					firstname = sanitize(payload.firstname).trim(),
 					lastname = sanitize(payload.lastname).trim(),
-					role_id = sanitize(payload.roleid).trim();
+					role_id = Number(sanitize(payload.role_id).trim());
 
 				/*** Validate: empid ***/
 				try {
@@ -145,7 +145,7 @@ exports.postUser = function(req, res) {
 						var sql_insertUserDetails = "INSERT INTO users_tbl ";
 						sql_insertUserDetails += "(empid, firstname, lastname, email, role_id, recycleBin) ";
 						sql_insertUserDetails += "VALUES (";
-						sql_insertUserDetails += sqlString.escape(empid) + ", " + sqlString.escape(firstname) + ", " + sqlString.escape(lastname);
+						sql_insertUserDetails += sqlString.escape(empid) + ", " + sqlString.escape(firstname) + ", " + sqlString.escape(lastname) + ", ";
 						sql_insertUserDetails += sqlString.escape(email) + ", " + sqlString.escape(role_id) + ", " + 0 + " )";
 
 						sequelize.query(sql_insertUserDetails).success(function() {
@@ -171,51 +171,6 @@ exports.postUser = function(req, res) {
 		res.status(403).send("The user session seems to be unauthorized.");
 	}
 }
-
-/**
- * Request Method: DELETE
- * Description: Service is for setting delete flag for user data.
- *
- ***/
-exports.delUsersByEmail = function(req, res) {
-	if (req.session.roles === 'Administrator') {
-		var queryString = req.params,
-			email = sanitize(queryString.email).trim();
-
-		/*** Validate: email ***/
-		try {
-			check(email, {
-				notNull: 'Specify user\'s email address.',
-				isEmail: 'The user\'s email you specified is incorrect.',
-				len: 'The user\'s email needs to be between %1 and %2 characters long.'
-			}).notNull().isEmail().len(7, 40);
-		} catch (e) {
-			res.status(500).send(e.message);
-		}
-
-		var sql_isCEmailDeleted = "SELECT a.email FROM users_tbl a WHERE a.email = " + sqlString.escape(email) + " AND a.recycleBin = 0 LIMIT 1";
-		sequelize.query(sql_isCEmailDeleted).success(function(rows) {
-			if (rows.length === 0) {
-				// The user email does not exist.
-				res.status(500).send("The user's email you specified is incorrect.");
-			} else {
-				// The user email does exist.
-				var sql_updateEmailDelFlag = "UPDATE users_tbl a SET a.recycleBin = 1 WHERE email = " + sqlString.escape(rows[0].email) + " AND a.recycleBin = 0";
-				sequelize.query(sql_updateEmailDelFlag).success(function() {
-					res.send(req.params);
-				}).error(function(error) {
-					console.log('SQL Error:\n');
-					console.log(error)
-				});
-			}
-		}).error(function(error) {
-			console.log('SQL Error:\n');
-			console.log(error);
-		});
-	} else {
-		res.status(403).send("The user session seems to be unauthorized.");
-	}
-};
 
 /**
  * Request Method: PUT
@@ -249,7 +204,7 @@ exports.putUsersByEmail = function(req, res) {
 					firstname = sanitize(payload.firstname).trim(),
 					lastname = sanitize(payload.lastname).trim(),
 					email = sanitize(payload.email).trim(),
-					role_id = sanitize(payload.roleid).trim();
+					role_id = sanitize(payload.role_id).trim();
 
 				/*** Validate: empid ***/
 				try {
@@ -339,4 +294,44 @@ exports.putUsersByEmail = function(req, res) {
 	} else {
 		res.status(403).send("The user session seems to be unauthorized.");
 	}
-}
+};
+
+/**
+ * Request Method: DELETE
+ * Description: Service is for setting delete flag for user data.
+ *
+ ***/
+exports.delUsersByEmail = function(req, res) {
+	var payload = req.body,
+		ids = sanitize(payload.ids).trim();
+
+	var sql_isIDDeleted = "SELECT empid FROM users_tbl a WHERE a.empid IN ( " + ids + " ) AND a.recycleBin = 0";
+	sequelize.query(sql_isIDDeleted).success(function(rows) {
+		if (rows.length === 0) {
+			// The candidate email does not exist.
+			res.status(500).send("The candidate's email you specified is incorrect.");
+		} else {
+			var isAllowed = null;
+			if (req.session.roles === 'Administrator') {
+				isAllowed = true;
+			} else {
+				isAllowed = false;
+			}
+			
+			if (isAllowed) {
+				var sql_updateIdDelFlag = "UPDATE users_tbl a SET a.recycleBin = 1 WHERE a.empid IN ( " + ids + " )";
+				sequelize.query(sql_updateIdDelFlag).success(function() {
+					res.send(req.params);
+				}).error(function(error) {
+					console.log('SQL Error:\n');
+					console.log(error)
+				});
+			} else {
+				res.status(403).send("The user session seems to be unauthorized.");
+			}
+		}
+	}).error(function(error) {
+		console.log('SQL Error:\n');
+		console.log(error);
+	});
+};

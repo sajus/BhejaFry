@@ -2,6 +2,7 @@ define(function(require) {
     "use strict";
 
     var Backbone = require('backbone'),
+        globals = require('globals'),
         listDelConfirmModal = require('template!templates/interview/listDelConfirmModal'),
         Events = require('events');
 
@@ -16,9 +17,11 @@ define(function(require) {
             'click .confirmDelete': 'confirmDelete'
         },
 
-        render: function(cEmail) {
-            this.delCEmail = cEmail;
-            this.$el.html(listDelConfirmModal);
+        render: function(id) {
+            this.delid = id;
+            this.$el.html(listDelConfirmModal({
+                isSingle: (globals.getObjectSize(this.delid) === 1) ? true : false
+            }));
             return this;
         },
 
@@ -35,8 +38,10 @@ define(function(require) {
         confirmDelete: function() {
             var view = this;
             $.ajax({
-                type: "DELETE",
-                url: '/usersList/' + this.delCEmail
+                type: "delete",
+                url: '/usersList',
+                data: view.delid,
+                dataType: 'json'
             }).done(function() {
                 setTimeout(function() {
                     Events.trigger('deletedUser');
