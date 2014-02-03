@@ -129,6 +129,9 @@ requirejs.config({
         },
         noDateInChart: {
             deps: ['highcharts']
+        },
+        localStorage: {
+            deps: ['jquery']
         }
     }
 });
