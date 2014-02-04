@@ -40,6 +40,8 @@ define(function(require) {
 		},
 
 		uxFormation: function() {
+			$('.breadcrumb').html("<li class='active'>Dashboard</li>");
+
 			this.turnOffCheck().done(function(data) {
 				if (!data.appRelease) {
 					var whatsNewModalView = new WhatsNewModalView();
@@ -47,8 +49,6 @@ define(function(require) {
 					$('.modal-container .modal').modal('show');
 				}
 			});
-
-			$('.breadcrumb').html("<li class='active'>Dashboard</li>");
 		},
 
 		turnOffCheck: function() {

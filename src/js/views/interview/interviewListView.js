@@ -53,7 +53,7 @@ define(function(require) {
                         },
                         "aoColumnDefs": [{
                             "bSortable": false,
-                            "aTargets": [0, 5]
+                            "aTargets": [0, 6]
                         }],
                         "bLengthChange": false
                     });
