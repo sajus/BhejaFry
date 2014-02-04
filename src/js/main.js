@@ -80,7 +80,24 @@ requirejs.config({
             exports: '_'
         },
         handlebars: {
+            deps: ['jquery'],
             exports: 'Handlebars'
+        },
+        highcharts: {
+            deps: ['jquery'],
+            exports: 'highcharts'
+        },
+        exportings: {
+            deps: ['jquery', 'highcharts'],
+            exports: 'exportings'
+        },
+        noDateInChart: {
+            deps: ['jquery', 'highcharts'],
+            exports: 'noDateInChart'
+        },
+        localStorage: {
+            deps: ['jquery'],
+            exports: 'localStorage'
         },
         bsAlert: {
             deps: ['jquery']
@@ -119,18 +136,6 @@ requirejs.config({
             deps: ['jquery']
         },
         strength: {
-            deps: ['jquery']
-        },
-        highcharts: {
-            deps: ['jquery']
-        },
-        exportings: {
-            deps: ['highcharts']
-        },
-        noDateInChart: {
-            deps: ['highcharts']
-        },
-        localStorage: {
             deps: ['jquery']
         }
     }

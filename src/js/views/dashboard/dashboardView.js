@@ -7,13 +7,11 @@ define(function(require) {
 		dashboardTemplate = require('template!templates/dashboard/dashboard'),
 		WhatsNewModalView = require('views/release/whatsNewModalView');
 
-	require('css!vendors/jquery/plugins/chosen/chosen.min.css');
-	require('chosen');
-	require('bsTooltip');
-	require('bsModal');
 	require('highcharts');
 	require('noDateInChart');
 	require('exportings');
+	require('bsTooltip');
+	require('bsModal');
 
 	return Backbone.View.extend({
 
