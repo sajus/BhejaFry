@@ -37,14 +37,17 @@ define(function(require) {
             });
         },
 
-        isAuthentication: function() {
+        checkAccountStatus: function() {
             this.model.save(this.model.toJSON(), {
-                success: function(model, response) {
-                    if (!response.isAuthenticated) {
-                        Events.trigger("alert:error", [{
-                            message: "The email you specified does not exist. To request an account, please contact your Cybage UI - IMS administrators."
-                        }]);
-                    }
+                success: function() {
+                    Events.trigger("alert:success", [{
+                        message: "Your ticket request has been raised."
+                    }]);
+                },
+                error: function(model, response) {
+                    Events.trigger("alert:error", [{
+                        message: response.responseText || "The email you entered is incorrect."
+                    }]);
                 }
             });
         },
@@ -65,8 +68,8 @@ define(function(require) {
 
         uxFormation: function() {
             this.$el.find('input[name="email"]').focus();
-            this.$el.find(":input[type='radio']").filter('[value=reset]').prop('checked', true).tooltip({
-                title: 'Select to raise a request to reset your password',
+            this.$el.find(":input[type='radio']").filter('[value=recover]').prop('checked', true).tooltip({
+                title: 'Select to raise a request to recover your password',
                 animation: true
             });
 
@@ -77,7 +80,7 @@ define(function(require) {
         },
 
         postData: function() {
-            this.isAuthentication();
+            this.checkAccountStatus();
         }
     });
 });

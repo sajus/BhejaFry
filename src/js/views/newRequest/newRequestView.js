@@ -3,7 +3,7 @@ define(function(require) {
 
 	var $ = require('jquery'),
 		Backbone = require('backbone'),
-		settingsTemplate = require('template!templates/settings/settings');
+		newRequestTemplate = require('template!templates/newRequest/newRequest');
 
 	require('bsTooltip');
 
@@ -16,14 +16,14 @@ define(function(require) {
 		},
 
 		render: function() {
-			this.$el.html(settingsTemplate);
+			this.$el.html(newRequestTemplate);
 			this.uxFormation();
 
 			return this;
 		},
 
 		uxFormation: function() {
-			$('.breadcrumb').html("<li><a href='#'>Dashboard</a></li><li class='active'>Manage Preferences</li>");
+			$('.breadcrumb').html("<li><a href='#'>Dashboard</a></li><li class='active'>Manage New Request</li>");
 		}
 	});
 });

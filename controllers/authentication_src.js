@@ -40,25 +40,29 @@ exports.postAuthentication = function(req, res) {
 		res.status(500).send(e.message);
 	}
 
-	var sql_selectAuthUser = "SELECT a.empid, a.email, a.firstname, a.lastname, a.appRelease, b.roles FROM users_tbl a, userroles_tbl b WHERE email = " + sqlString.escape(email) + " AND password = " + sqlString.escape(password) + " AND a.role_id = b.roleid AND a.recycleBin = 0 LIMIT 1 ";
+	var sql_selectAuthUser = "SELECT a.empid, a.email, a.firstname, a.lastname, a.appRelease, a.block, b.roles FROM users_tbl a, userroles_tbl b WHERE email = " + sqlString.escape(email) + " AND password = " + sqlString.escape(password) + " AND a.role_id = b.roleid AND a.recycleBin = 0 LIMIT 1 ";
 	sequelize.query(sql_selectAuthUser).success(function(rows) {
 		if (rows.length === 0) {
-			res.status(401).send('The email or password you entered is incorrect.');
+			res.status(401).send("The email or password you entered is incorrect.");
 		} else {
-			req.session.user_id = rows[0].empid;
-			req.session.email = rows[0].email;
-			req.session.roles = rows[0].roles;
-			res.format({
-				json: function() {
-					res.send({
-						"isAuthenticated": true,
-						"email": rows[0].email,
-						"username": rows[0].firstname + ' ' + rows[0].lastname,
-						"appRelease": rows[0].appRelease,
-						"roles": rows[0].roles
-					});
-				}
-			});
+			if (rows[0].block === 1) {
+				res.status(403).send("Your account is blocked. Please raise a ticket to unlock your account.");
+			} else {
+				req.session.user_id = rows[0].empid;
+				req.session.email = rows[0].email;
+				req.session.roles = rows[0].roles;
+				res.format({
+					json: function() {
+						res.send({
+							"isAuthenticated": true,
+							"email": rows[0].email,
+							"username": rows[0].firstname + ' ' + rows[0].lastname,
+							"appRelease": rows[0].appRelease,
+							"roles": rows[0].roles
+						});
+					}
+				});
+			}
 		}
 	}).error(function(error) {
 		console.log('SQL Error:\n');

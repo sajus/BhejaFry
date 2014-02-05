@@ -91,8 +91,6 @@ exports.putReset = function(req, res) {
 	});
 };
 
-
-
 /**
  * Request Method: PUT
  * Description: Service is for updating user account lock or unlock state.
@@ -136,5 +134,123 @@ exports.getRelease = function(req, res) {
 	}).error(function(error) {
 		console.log('SQL Error:\n');
 		console.log(error);
+	});
+};
+
+/**
+ * Request Method: POST
+ * Description: Service is for getting user account status.
+ *
+ ***/
+exports.postAccountStatus = function(req, res) {
+	var payload = req.body,
+		email = sanitize(payload.email).trim(),
+		loginIssueOpt = sanitize(payload.loginIssueOpt).trim();
+
+	/*** Validate: email ***/
+	try {
+		check(email, {
+			notNull: 'Specify email address.',
+			isEmail: 'The email you specified is incorrect.',
+			len: 'The email needs to be between %1 and %2 characters long.'
+		}).notNull().isEmail().len(7, 40);
+	} catch (e) {
+		res.status(500).send(e.message);
+	}
+
+	var sql_selectIsEmail = "SELECT email FROM users_tbl a WHERE email = " + sqlString.escape(email) + " AND a.recycleBin = 0 LIMIT 1";
+	sequelize.query(sql_selectIsEmail).success(function(rows) {
+		if (rows.length === 0) {
+			// The user email does not exist.
+			res.status(500).send("The email you specified does not exist. To request an account, please contact your Cybage UI - IMS administrators.");
+		} else {
+			var processedOpt = isLoginOptValid(loginIssueOpt);
+			if (!processedOpt) {
+				res.status(501).send("You can request either \"recover your password\" or \"unlock your account\".");
+			} else {
+				switch (processedOpt) {
+					case 'recover':
+						/**
+						 * User is following password recovery process.
+						 */
+						var sql_hasAlreadyResetRequested = "SELECT email, reset FROM users_tbl a WHERE email = " + sqlString.escape(email) + " AND a.recycleBin = 0 LIMIT 1";
+						sequelize.query(sql_hasAlreadyResetRequested).success(function(rows) {
+							if (rows[0].reset === 1) {
+								// Already requeste'd for password recovery and is in queue.
+								responseHandling("You already raised a ticket for password recovery.", res);
+							} else {
+								// Raise the ticket for password recovery.
+								var sql_recoverRequest = "UPDATE users_tbl SET reset = 1 WHERE email='" + rows[0].email + "'";
+								sequelize.query(sql_recoverRequest).success(function(rows) {
+									res.format({
+										json: function() {
+											res.send(req.params);
+										}
+									});
+								}).error(function(error) {
+									console.log('SQL Error:\n');
+									console.log(error);
+								});
+							}
+						}).error(function(error) {
+							console.log('SQL Error:\n');
+							console.log(error);
+						});
+						break;
+
+					case 'unlock':
+						// User is following account recovery process.
+						var sql_hasAlreadyUnlockRequested = "SELECT email, block FROM users_tbl a WHERE email = " + sqlString.escape(email) + " AND a.recycleBin = 0 LIMIT 1";
+						sequelize.query(sql_hasAlreadyUnlockRequested).success(function(rows) {
+							if (rows[0].block === 1) {
+								// Already requested for account recovery and is in queue.
+								responseHandling("You already raised a ticket for account unlock.", res);
+							} else {
+								// Raise the ticket for account recovery.
+								var sql_unlockRequest = "UPDATE users_tbl SET block = 1 WHERE email='" + rows[0].email + "'";
+								sequelize.query(sql_unlockRequest).success(function(rows) {
+									res.format({
+										json: function() {
+											res.send(req.params);
+										}
+									});
+								}).error(function(error) {
+									console.log('SQL Error:\n');
+									console.log(error);
+								});
+							}
+						}).error(function(error) {
+							console.log('SQL Error:\n');
+							console.log(error);
+						});
+						break;
+				}
+			}
+		}
+	}).error(function(error) {
+		console.log('SQL Error:\n');
+		console.log(error);
+	});
+};
+
+function isLoginOptValid(loginIssueOpt) {
+	switch (loginIssueOpt) {
+		case 'recover':
+		case 'unlock':
+			// User is following account recovery/unlock process.
+			return loginIssueOpt;
+			break;
+
+		default:
+			return false;
+			break;
+	}
+};
+
+function responseHandling(errMsg, res) {
+	res.format({
+		json: function() {
+			res.status(500).send(errMsg);
+		}
 	});
 };

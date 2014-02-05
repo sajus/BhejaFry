@@ -41,7 +41,7 @@ define(function(require) {
             'mgnRecruitersDetail(/:id)': 'mgnRecruitersDetail',
             'usersList': 'usersList',
             'usersDetail(/:email)': 'usersDetail',
-            'settings': 'settings',
+            'newRequest': 'newRequest',
             'logout': 'logout',
 
             // Default - catch all
@@ -211,11 +211,11 @@ define(function(require) {
             }
         });
 
-        /*** Router configuration for 'settings' route ***/
-        router.on('route:settings', function() {
+        /*** Router configuration for 'newRequest' route ***/
+        router.on('route:newRequest', function() {
             if (globals.getAuthUser().isAuthenticated) {
-                require(['views/settings/settingsView'], function(SettingsPage) {
-                    Core.create(appView, 'SettingsPage', SettingsPage);
+                require(['views/newRequest/newRequestView'], function(NewRequestPage) {
+                    Core.create(appView, 'NewRequestPage', NewRequestPage);
                 });
             } else {
                 this.navigate("login", {

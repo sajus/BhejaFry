@@ -64,9 +64,9 @@ app.get('/logout', sessionAuth, authentication.getCloseAuthentication);
 /**
  * Service routes for user account
  ***/
+app.post('/checkAccountStatus', userAccount.postAccountStatus);
 app.put('/userReset', sessionAuth, userAccount.putReset);
 app.post('/userChange/:email', sessionAuth, userAccount.postUserChange);
-
 app.put('/userBlock', sessionAuth, userAccount.putBlock);
 app.put('/appRelease', sessionAuth, userAccount.putRelease);
 app.post('/appRelease', sessionAuth, userAccount.getRelease);

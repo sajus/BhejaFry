@@ -7,7 +7,7 @@ define(function(require) {
 
     return Backbone.Model.extend({
         url: function() {
-            return '/checkEmailAuth';
+            return '/checkAccountStatus';
         },
 
         validation: {
@@ -23,7 +23,7 @@ define(function(require) {
             }],
             loginIssueOpt: {
                 required: true,
-                msg: 'Specify either you want to reset or unlock.'
+                msg: 'Specify either you want to recover or unlock.'
             }
         }
     });
