@@ -31,6 +31,8 @@ app.configure('development', function() {
     app.set('port', process.env.PORT || config.server.dev.port);
     app.set(express.methodOverride());
     app.use(express.bodyParser());
+    app.use(express.json());
+    app.use(express.urlencoded());
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
     app.use(express.cookieParser('kqsdjfmlksdhfhzirzeoibrzecrbzuzefcuercazeafxzeokwdfzeijfxcerig'));
     app.use(express.session());
@@ -75,7 +77,7 @@ app.post('/appRelease', sessionAuth, userAccount.getRelease);
  * Service routes for CURD users
  ***/
 app.get('/usersList', sessionAuth, users.getUsers);
-app.post('/usersList/:email', sessionAuth, users.postUser);
+app.post('/usersList', sessionAuth, users.postUser);
 app.get('/usersList/:email', sessionAuth, users.getUsersByEmail);
 app.put('/usersList/:email', sessionAuth, users.putUsersByEmail);
 app.del('/usersList', sessionAuth, users.delUsersByEmail);

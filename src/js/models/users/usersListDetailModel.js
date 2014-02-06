@@ -2,7 +2,7 @@ define(function(require) {
     'use strict';
 
     var Backbone = require('backbone');
-
+    require('modelBinder');
     require('modelValidator');
 
     return Backbone.Model.extend({
@@ -27,33 +27,33 @@ define(function(require) {
                 required: true,
                 msg: 'Enter user\'s first name.'
             }, {
-                pattern: /^(([A-Za-z]+)(^\s[A-Za-z]+)?)$/gm,
-                msg: 'The user\'s first name you specified is incorrect.'
-            }, {
                 rangeLength: [2, 30],
                 msg: 'The user\'s first name needs to be between 2 to 30 characters long.'
+            }, {
+                pattern: /^(([A-Za-z]+)(^\s[A-Za-z]+)?)$/gm,
+                msg: 'The user\'s first name you specified is incorrect.'
             }],
 
             lastname: [{
                 required: true,
                 msg: 'Enter user\'s last name.'
             }, {
-                pattern: /^(([A-Za-z]+)(^\s[A-Za-z]+)?)$/gm,
-                msg: 'The user\'s last name you specified is incorrect.'
-            }, {
                 rangeLength: [2, 30],
                 msg: 'The user\'s last name needs to be between 2 to 30 characters long.'
+            }, {
+                pattern: /^(([A-Za-z]+)(^\s[A-Za-z]+)?)$/gm,
+                msg: 'The user\'s last name you specified is incorrect.'
             }],
 
             email: [{
                 required: true,
                 msg: 'Enter user\'s email address.'
             }, {
-                pattern: 'email',
-                msg: 'The user\'s email you specified is incorrect.'
-            }, {
                 rangeLength: [7, 40],
                 msg: 'The user\'s email needs to be between 7 and 40 characters long.'
+            }, {
+                pattern: 'email',
+                msg: 'The user\'s email you specified is incorrect.'
             }],
 
             role_id: {

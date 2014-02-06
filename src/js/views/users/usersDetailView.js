@@ -74,8 +74,6 @@ define(function(require) {
 
         postData: function() {
             var view = this;
-            this.model.set('empid', Number(this.model.get('empid')));
-            this.model.set('role_id', Number(this.model.get('role_id')));
 
             var message = (this.model.get('email') !== null) ? "User get updated successfully." : "User get saved successfully.";
             this.model.save(view.model.toJSON(), {
