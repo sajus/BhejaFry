@@ -204,7 +204,7 @@ exports.putUsersByEmail = function(req, res) {
 					firstname = sanitize(payload.firstname).trim(),
 					lastname = sanitize(payload.lastname).trim(),
 					email = sanitize(payload.email).trim(),
-					role_id = sanitize(payload.role_id).trim();
+					role_id = Number(sanitize(payload.role_id).trim());
 
 				/*** Validate: empid ***/
 				try {
@@ -269,10 +269,10 @@ exports.putUsersByEmail = function(req, res) {
 						var sql_updateUserDetails = "UPDATE users_tbl SET ";
 
 						sql_updateUserDetails += "empid = " + sqlString.escape(empid) + ", ";
-						sql_updateUserDetails += "fistname = " + sqlString.escape(firstname) + ", ";
+						sql_updateUserDetails += "firstname = " + sqlString.escape(firstname) + ", ";
 						sql_updateUserDetails += "lastname = " + sqlString.escape(lastname) + ", ";
 						sql_updateUserDetails += "email = " + sqlString.escape(email) + ", ";
-						sql_updateUserDetails += "roleid = " + sqlString.escape(role_id) + " ";
+						sql_updateUserDetails += "role_id = " + sqlString.escape(role_id) + " ";
 						sql_updateUserDetails += "WHERE email = " + sqlString.escape(email);
 
 						sequelize.query(sql_updateUserDetails).success(function() {
@@ -317,7 +317,7 @@ exports.delUsersByEmail = function(req, res) {
 			} else {
 				isAllowed = false;
 			}
-			
+
 			if (isAllowed) {
 				var sql_updateIdDelFlag = "UPDATE users_tbl a SET a.recycleBin = 1 WHERE a.empid IN ( " + ids + " )";
 				sequelize.query(sql_updateIdDelFlag).success(function() {
