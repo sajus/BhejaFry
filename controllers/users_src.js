@@ -12,7 +12,7 @@ var sequelize = require('../config/sqlzConfig').sequelize,
  ***/
 exports.getUsers = function(req, res) {
 	if (req.session.roles === 'Administrator') {
-		var sql_selectUsers = "SELECT a.empid, a.email, a.firstname, a.lastname, b.roles FROM users_tbl a, userroles_tbl b WHERE a.role_id = b.roleid AND a.recycleBin = 0";
+		var sql_selectUsers = "SELECT a.empid, a.email, a.firstname, a.lastname, a.role_id FROM users_tbl a WHERE a.recycleBin = 0";
 		sequelize.query(sql_selectUsers).success(function(rows) {
 			res.format({
 				json: function() {
@@ -143,10 +143,10 @@ exports.postUser = function(req, res) {
 					} else {
 						// The role does exist.
 						var sql_insertUserDetails = "INSERT INTO users_tbl ";
-						sql_insertUserDetails += "(empid, firstname, lastname, email, role_id, recycleBin) ";
+						sql_insertUserDetails += "(empid, firstname, lastname, email, password, role_id, recycleBin) ";
 						sql_insertUserDetails += "VALUES (";
 						sql_insertUserDetails += sqlString.escape(empid) + ", " + sqlString.escape(firstname) + ", " + sqlString.escape(lastname) + ", ";
-						sql_insertUserDetails += sqlString.escape(email) + ", " + sqlString.escape(role_id) + ", " + 0 + " )";
+						sql_insertUserDetails += sqlString.escape(email) + ", " + sqlString.escape(keygen(12, false)) + ", " + sqlString.escape(role_id) + ", " + 0 + " )";
 
 						sequelize.query(sql_insertUserDetails).success(function() {
 							res.send(req.params);
