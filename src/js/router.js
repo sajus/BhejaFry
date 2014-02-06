@@ -42,6 +42,7 @@ define(function(require) {
             'usersList': 'usersList',
             'usersDetail(/:email)': 'usersDetail',
             'newRequest': 'newRequest',
+            'activities': 'activities',
             'logout': 'logout',
 
             // Default - catch all
@@ -216,6 +217,19 @@ define(function(require) {
             if (globals.getAuthUser().isAuthenticated) {
                 require(['views/newRequest/newRequestView'], function(NewRequestPage) {
                     Core.create(appView, 'NewRequestPage', NewRequestPage);
+                });
+            } else {
+                this.navigate("login", {
+                    trigger: true
+                });
+            }
+        });
+
+        /*** Router configuration for 'activities' route ***/
+        router.on('route:activities', function() {
+            if (globals.getAuthUser().isAuthenticated) {
+                require(['views/activities/activitiesView'], function(ActivitiesPage) {
+                    Core.create(appView, 'ActivitiesPage', ActivitiesPage);
                 });
             } else {
                 this.navigate("login", {
