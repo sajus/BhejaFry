@@ -46,7 +46,6 @@ define(function(require) {
                     view.$el.find('.userslist').dataTable({
                         "bJQueryUI": true,
                         "sPaginationType": "full_numbers",
-                        "sScrollY": "200px",
                         "sScrollX": "100%",
                         "sScrollXInner": "110%",
                         "bScrollCollapse": true,

@@ -86,7 +86,7 @@ define(function(require) {
             this.$el.find('.showSidebar').toggle();
             this.$el.find('.fullPageView').toggleClass('col-xs-12');
             this.$el.find('.dataTables_scrollHeadInner').css('width', '100%');
-            this.$el.find('.interviews').css('width', '100%');
+            this.$el.find('.dataTable').css('width', '100%');
             this.$el.find('.toggleSidebar').blur();
             this.$el.find('.fa-angle-double-left').toggleClass('fa-angle-double-right');
         }
