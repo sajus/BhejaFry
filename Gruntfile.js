@@ -122,7 +122,7 @@ module.exports = function(grunt) {
             }
         },
         htmlhint: {
-            Root_HTML_Files: {
+            Other_Then_Templates: {
                 options: {
                     "tag-pair": true,
                     "tagname-lowercase": true,
@@ -177,6 +177,19 @@ module.exports = function(grunt) {
             source: {
                 src: ["src/**/*.js"]
             }
+        },
+        imagemin: {
+            dynamic: {
+                options: {
+                    optimizationLevel: 7
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'src/',
+                    src: ['src/imgs/**/*.{png,jpg,gif}'],
+                    dest: 'prod/imgs/'
+                }]
+            }
         }
     });
 
@@ -191,6 +204,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-shell");
     grunt.loadNpmTasks("grunt-strip");
     grunt.loadNpmTasks("grunt-chmod");
+    grunt.loadNpmTasks("grunt-contrib-imagemin");
 
     /**
      * Load Default Task
@@ -200,5 +214,5 @@ module.exports = function(grunt) {
     /**
      * Load Build Task
      */
-    grunt.registerTask("build", ["chmod", "jshint", "jscs", "csslint", "htmlhint", "clean", "shell", "strip"]);
+    grunt.registerTask("build", ["chmod", "jshint", "jscs", "csslint", "htmlhint", "clean", "shell", "imagemin", "strip"]);
 };
