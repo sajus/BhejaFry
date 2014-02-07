@@ -5,7 +5,7 @@ define(function(require) {
         Backbone = require('backbone'),
         Events = require('events'),
         interviewersListTemplate = require('template!templates/manage/interviewers/interviewersList'),
-        InterviewerCollection = require('collections/interview/interviewerCollection'),
+        InterviewerCollection = require('collections/interviewers/interviewersCollection'),
         ConfirmDelModal = require('views/interview/listDelConfirmModal'),
         DeleteInterviewersModel = require('models/manage/interviewers/interviewersListDetailModel');
 
@@ -40,11 +40,9 @@ define(function(require) {
                     view.$el.html(interviewersListTemplate({
                         interviewers: data
                     }));
-                    view.$el.find('.userslist').dataTable({
-                        "bProcessing": true,
+                    view.$el.find('.interviewers').dataTable({
                         "bJQueryUI": true,
                         "sPaginationType": "full_numbers",
-                        "sScrollY": "200px",
                         "sScrollX": "100%",
                         "sScrollXInner": "110%",
                         "bScrollCollapse": true,
@@ -53,10 +51,7 @@ define(function(require) {
                         },
                         "aoColumnDefs": [{
                             "bSortable": false,
-                            "aTargets": [0, 4]
-                        }, {
-                            "asSorting": ["asc", "dec"],
-                            "aTargets": [1]
+                            "aTargets": [0, 3]
                         }],
                         "bLengthChange": false
                     });
@@ -109,7 +104,7 @@ define(function(require) {
             e.preventDefault();
             e.stopPropagation();
             Events.trigger("view:navigate", {
-                path: "usersDetail/" + this.$(e.target).closest('tr').attr('data-id'),
+                path: "mgnInterviewersDetail/" + this.$(e.target).closest('tr').attr('data-id'),
                 options: {
                     trigger: true
                 }
@@ -122,14 +117,6 @@ define(function(require) {
             var confirmDelModal = new ConfirmDelModal();
             $('.modal-container').html(confirmDelModal.render(this.$(e.target).closest('tr').attr('data-id')).el);
             $('.modal-container .modal').modal('show');
-        },
-
-        showRowElements: function(e) {
-            this.$(e.target).closest('tr').find('.delUser').css('visibility', 'visible');
-        },
-
-        hideRowElements: function(e) {
-            this.$(e.target).closest('tr').find('.delUser').css('visibility', 'hidden');
         },
 
         selectedRow: function(e) {

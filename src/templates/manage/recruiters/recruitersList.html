@@ -69,32 +69,30 @@
     </div>
 </div> -->
 <div class="row">
-    <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped userslist">
+    <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped recruiters">
         <thead>
             <tr>
                 <td colspan="7">
-                    <button class="btn btn-primary primary">Add new user</button>
-                    <button class="btn btn-danger delAtOnces" style="visibility:hidden;"><i class="fa fa-trash-o"></i></button><button class="btn btn-primary pull-right print"><i class="fa fa-print"></i></button>
+                    <button class="btn btn-primary primary"><i class="fa fa-plus-circle"></i> New Recruiter</button>
+                    <button class="btn btn-danger delAtOnces" style="visibility:hidden;"><i class="fa fa-trash-o"></i> Selected Recruiter</button>
                 </td>
             </tr>
             <tr>
                 <th class="center"><input type="checkbox" class="selectedRowHeader" style="left:-4px; position:relative;"/></th>
                 <th>Employee's ID</th>
-                <th>Email</th>
                 <th>Name</th>
                 <th>Operations</th>
             </tr>
         </thead>
         <tbody>
-            {{#each users}}
+            {{#each recruiters}}
                 <tr data-id="{{empid}}">
                     <td class="center"><input type="checkbox" class="selectedRow"/></td>
                     <td>{{empid}}</td>
-                    <td>{{email}}</td>
                     <td>{{firstname}} {{lastname}}</td>
                     <td class="center">
-                        <button class="btn btn-primary btn-xs editUser"><i class="fa fa-pencil-square-o"></i></button>
-                        <button class="btn btn-danger btn-xs delUser" style="visibility:hidden;"><i class="fa fa-trash-o"></i></button>
+                        <button class="btn btn-success btn-xs editUser">Edit</button>
+                        <button class="btn btn-danger btn-xs delUser">Delete</button>
                     </td>
                 </tr>
             {{/each}}

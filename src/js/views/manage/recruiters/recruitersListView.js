@@ -5,7 +5,7 @@ define(function(require) {
         Backbone = require('backbone'),
         Events = require('events'),
         recruitersListTemplate = require('template!templates/manage/recruiters/recruitersList'),
-        RecruiterCollection = require('collections/interview/recruiterCollection'),
+        RecruiterCollection = require('collections/recruiters/recruitersCollection'),
         ConfirmDelModal = require('views/interview/listDelConfirmModal'),
         DeleteRecruitersModel = require('models/manage/recruiters/recruitersListDetailModel');
 
@@ -40,11 +40,10 @@ define(function(require) {
                     view.$el.html(recruitersListTemplate({
                         recruiters: data
                     }));
-                    view.$el.find('.userslist').dataTable({
+                    view.$el.find('.recruiters').dataTable({
                         "bProcessing": true,
                         "bJQueryUI": true,
                         "sPaginationType": "full_numbers",
-                        "sScrollY": "200px",
                         "sScrollX": "100%",
                         "sScrollXInner": "110%",
                         "bScrollCollapse": true,
@@ -53,10 +52,7 @@ define(function(require) {
                         },
                         "aoColumnDefs": [{
                             "bSortable": false,
-                            "aTargets": [0, 4]
-                        }, {
-                            "asSorting": ["asc", "dec"],
-                            "aTargets": [1]
+                            "aTargets": [0, 3]
                         }],
                         "bLengthChange": false
                     });

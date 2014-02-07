@@ -32,7 +32,15 @@ define(function(require) {
 		},
 
 		render: function() {
-			this.$el.html(dashboardTemplate);
+			var roles = globals.getAuthUser().roles;
+			if (roles === 'Administrator') {
+				roles = true;
+			} else {
+				roles = false;
+			}
+			this.$el.html(dashboardTemplate({
+				filterByRole: roles
+			}));
 
 			this.groupPieChartBy();
 			this.uxFormation();

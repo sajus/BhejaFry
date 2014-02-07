@@ -10,7 +10,7 @@ var sequelize = require('../config/sqlzConfig').sequelize,
  * Description: Service is for getting list of interviewer data.
  ***/
 exports.getInterviewer = function(req, res) {
-	sequelize.query("SELECT * FROM  interviewer_tbl ORDER BY firstname").success(function(rows) {
+	sequelize.query("SELECT empid, firstname, lastname FROM  interviewer_tbl ORDER BY firstname").success(function(rows) {
 		res.format({
 			json: function() {
 				res.send(rows);
