@@ -3,7 +3,7 @@ define(function(require) {
 
     var Backbone = require('backbone'),
         globals = require('globals'),
-        listDelConfirmModal = require('template!templates/interview/listDelConfirmModal'),
+        recruiterDelConfirmModal = require('template!templates/manage/recruiters/recruiterDelConfirmModal'),
         Events = require('events');
 
     require('bsCollapse');
@@ -19,7 +19,7 @@ define(function(require) {
 
         render: function(id) {
             this.delid = id;
-            this.$el.html(listDelConfirmModal({
+            this.$el.html(recruiterDelConfirmModal({
                 isSingle: (globals.getObjectSize(this.delid) === 1) ? true : false
             }));
             return this;
@@ -39,16 +39,16 @@ define(function(require) {
             var view = this;
             $.ajax({
                 type: "delete",
-                url: '/usersList',
+                url: '/recruiter',
                 data: view.delid,
                 dataType: 'json'
             }).done(function() {
                 setTimeout(function() {
-                    Events.trigger('deletedUser');
+                    Events.trigger('deletedRecruiter');
                     view.$el.modal('hide');
                 }, 1000);
                 Events.trigger("alert:success", [{
-                    message: "User deleted successfully."
+                    message: "Recruiter deleted successfully."
                 }]);
             }).fail(function() {
                 Events.trigger("alert:error", [{

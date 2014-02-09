@@ -48,7 +48,7 @@ define(function(require) {
                     view.$el.modal('hide');
                 }, 1000);
                 Events.trigger("alert:success", [{
-                    message: "User deleted successfully."
+                    message: "Interviewer deleted successfully."
                 }]);
             }).fail(function() {
                 Events.trigger("alert:error", [{

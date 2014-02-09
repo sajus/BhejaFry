@@ -77,7 +77,7 @@ define(function(require) {
 
             var message = (this.model.get('email') !== null) ? "User get updated successfully." : "User get saved successfully.";
             this.model.save(view.model.toJSON(), {
-                success: function() {
+                success: function(model, response) {
                     Events.trigger("alert:success", [{
                         message: message
                     }]);

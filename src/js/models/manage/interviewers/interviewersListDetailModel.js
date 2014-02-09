@@ -2,13 +2,13 @@ define(function(require) {
     'use strict';
 
     var Backbone = require('backbone');
-    
+
     require('modelBinder');
     require('modelValidator');
 
     return Backbone.Model.extend({
         url: function() {
-            if (this.get('id')!==null) {
+            if (this.get('id') !== null) {
                 return '/interviewer/' + this.get('id');
             } else {
                 return '/interviewer';

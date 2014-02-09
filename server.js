@@ -102,7 +102,7 @@ app.get('/recruiter', sessionAuth, recruiter.getRecruiter);
 app.post('/recruiter', sessionAuth, recruiter.postRecruiter);
 app.get('/recruiter/:id', sessionAuth, recruiter.getRecruiterById);
 app.put('/recruiter/:id', sessionAuth, recruiter.putRecruiterById);
-app.del('/recruiter/:id', sessionAuth, recruiter.delRecruiterById);
+app.del('/recruiter', sessionAuth, recruiter.delRecruiter);
 
 /**
  * Service routes for CURD interviewers

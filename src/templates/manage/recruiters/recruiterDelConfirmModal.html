@@ -2,15 +2,15 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times-circle-o"></i></button>
-            <h4 class="modal-title text-danger">Are you absolutely sure you want to remove this user?</h4>
+            <h4 class="modal-title text-danger">Are you absolutely sure you want to remove {{#if isSingle}}this recruiter{{else}}these recruiters{{/if}}?</h4>
         </div>
         <div class="modal-body">
             <p class="text-warning"><strong>Warning!</strong> Unexpected bad things will happen if you don't read this!</p>
-            <p>This action <strong>cannot</strong> be undone and will remove this user details permanently.</p>
+            <p>This action <strong>cannot</strong> be undone and will remove {{#if isSingle}}this recruiter {{else}}these recruiters{{/if}} details permanently.</p>
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" class="agreement"/>I understand the consequences, remove this user.
+                        <input type="checkbox" class="agreement"/>I understand the consequences, remove {{#if isSingle}}this recruiter{{else}}these recruiters {{/if}}.
                     </label>
                 </div>
             </div>

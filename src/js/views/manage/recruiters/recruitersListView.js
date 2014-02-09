@@ -6,8 +6,7 @@ define(function(require) {
         Events = require('events'),
         recruitersListTemplate = require('template!templates/manage/recruiters/recruitersList'),
         RecruiterCollection = require('collections/recruiters/recruitersCollection'),
-        ConfirmDelModal = require('views/interview/listDelConfirmModal'),
-        DeleteRecruitersModel = require('models/manage/recruiters/recruitersListDetailModel');
+        ConfirmDelModal = require('views/manage/recruiters/recruiterDelConfirmModal');
 
     require('css!vendors/jquery/plugins/datatables/css/jquery.dataTables.css');
     require('css!vendors/jquery/plugins/datatables/css/dataTables_themeroller.css');
@@ -19,18 +18,20 @@ define(function(require) {
         el: '.page',
 
         initialize: function() {
-            this.deleteRecruitersModel = new DeleteRecruitersModel();
-            this.recruiterCollection = new RecruiterCollection();
+            this.recruitersCollection = new RecruiterCollection();
             this.render();
         },
 
         events: {
-            'click .editRecruiters': 'editInterviewers',
-            'click .delete': 'deleteInterviewers'
+            'click .editRecruiter': 'editRecruiter',
+            'click .delRecruiter, .delAtOnces': 'deleteRecruiter',
+            'click .selectedRow': 'selectedRow',
+            'click .selectedRowHeader': 'selectedRowHeader',
+            'click .addNewRecruiter': 'addNewRecruiter'
         },
 
         fetchRecruitersList: function() {
-            return this.recruiterCollection.fetch();
+            return this.recruitersCollection.fetch();
         },
 
         render: function() {
@@ -41,7 +42,6 @@ define(function(require) {
                         recruiters: data
                     }));
                     view.$el.find('.recruiters').dataTable({
-                        "bProcessing": true,
                         "bJQueryUI": true,
                         "sPaginationType": "full_numbers",
                         "sScrollX": "100%",
@@ -61,71 +61,51 @@ define(function(require) {
                 .fail(function(error) {
                     console.log('Error: ' + error);
                 });
+
+            this.uxFormation();
+
             return this;
         },
 
-        editInterviewers: function(e) {
+        uxFormation: function() {
+            $('.breadcrumb').html("<li><a href='#'>Dashboard</a></li><li class='active'>Recruiters List</li>");
+        },
+
+        editRecruiter: function(e) {
             e.preventDefault();
             e.stopPropagation();
-            var editId = this.$(e.target).closest('tr td span').attr('data-id');
             Events.trigger("view:navigate", {
-                path: "mgnRecruitersDetail/" + editId,
+                path: "mgnRecruitersDetail/" + this.$(e.target).closest('tr').attr('data-id'),
                 options: {
                     trigger: true
                 }
             });
         },
 
-        deleteInterviewers: function(e) {
+        deleteRecruiter: function(e) {
             e.preventDefault();
             e.stopPropagation();
-            var view = this;
-            var deleteId = this.$(e.target).closest('tr td span').attr('data-id');
 
-            this.deleteRecruitersModel.set({
-                id: deleteId
-            });
-            this.deleteRecruitersModel.destroy({
-                success: function() {
-                    view.render();
-                    Events.trigger("alert:success", [{
-                        message: "Record deleted successfully"
-                    }]);
-
-                },
-                error: function() {
-                    Events.trigger("alert:error", [{
-                        message: "Some error got triggered while deleting record."
-                    }]);
-                }
-            });
-        },
-
-        editUser: function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            Events.trigger("view:navigate", {
-                path: "usersDetail/" + this.$(e.target).closest('tr').attr('data-id'),
-                options: {
-                    trigger: true
-                }
-            });
-        },
-
-        deleteUser: function(e) {
-            e.preventDefault();
-            e.stopPropagation();
+            this.listenTo(Events, 'deletedRecruiter', this.render);
             var confirmDelModal = new ConfirmDelModal();
-            $('.modal-container').html(confirmDelModal.render(this.$(e.target).closest('tr').attr('data-id')).el);
+
+            var targetDelete = {};
+            var ids = [];
+
+            ids.push(this.$(e.target).closest('tr').attr('data-id'));
+            targetDelete['ids'] = ids;
+
+            if (this.$(e.target).hasClass('delAtOnces')) {
+                targetDelete = {};
+                ids = [];
+                this.$('.selectedRow:checked').each(function() {
+                    ids.push($(this).val());
+                });
+                targetDelete['ids'] = ids;
+            }
+
+            $('.modal-container').html(confirmDelModal.render(targetDelete).el);
             $('.modal-container .modal').modal('show');
-        },
-
-        showRowElements: function(e) {
-            this.$(e.target).closest('tr').find('.delUser').css('visibility', 'visible');
-        },
-
-        hideRowElements: function(e) {
-            this.$(e.target).closest('tr').find('.delUser').css('visibility', 'hidden');
         },
 
         selectedRow: function(e) {
@@ -156,15 +136,24 @@ define(function(require) {
 
             this.$($(e.target).closest('input[type="checkbox"]')).prop('checked', function() {
                 if (this.checked) {
-                    view.$('.userslist tbody tr').addClass('warning');
+                    view.$('.recruiters tbody tr').addClass('warning');
                     view.$(this).prop("checked", true);
                     view.$('.selectedRow').prop("checked", true);
                     view.$el.find('.delAtOnces').css('visibility', 'visible');
                 } else {
-                    view.$('.userslist tbody tr').removeClass('warning');
+                    view.$('.recruiters tbody tr').removeClass('warning');
                     view.$(this).prop("checked", false);
                     view.$('.selectedRow').prop("checked", false);
                     view.$el.find('.delAtOnces').css('visibility', 'hidden');
+                }
+            });
+        },
+
+        addNewRecruiter: function() {
+            Events.trigger("view:navigate", {
+                path: "mgnRecruitersDetail",
+                options: {
+                    trigger: true
                 }
             });
         }

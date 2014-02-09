@@ -172,9 +172,10 @@ define(function(require) {
         /*** Router configuration for 'mgnRecruitersDetail' | 'mgnRecruitersDetail(/:id)' routes ***/
         router.on('route:mgnRecruitersDetail', function(id) {
             if (globals.getAuthUser().isAuthenticated) {
-                require(['views/manage/recruiters/recruitersListDetailView'], function(RecruitersListDetailPage) {
+                require(['views/manage/recruiters/recruitersListDetailView', 'models/manage/recruiters/recruitersListDetailModel'], function(RecruitersListDetailPage, RecruiterDetailModel) {
+                    var recruiterDetailModel = new RecruiterDetailModel({'id': id});
                     Core.create(appView, 'RecruitersListDetailPage', RecruitersListDetailPage, {
-                        'id': id
+                        model: recruiterDetailModel
                     });
                 });
             } else {

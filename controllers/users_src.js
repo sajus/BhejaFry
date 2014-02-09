@@ -143,10 +143,11 @@ exports.postUser = function(req, res) {
 					} else {
 						// The role does exist.
 						var sql_insertUserDetails = "INSERT INTO users_tbl ";
-						sql_insertUserDetails += "(empid, firstname, lastname, email, password, role_id, recycleBin) ";
+						sql_insertUserDetails += "(empid, firstname, lastname, email, password, role_id, recycleBin, block, reset, appRelease, profilePicPath) ";
 						sql_insertUserDetails += "VALUES (";
 						sql_insertUserDetails += sqlString.escape(empid) + ", " + sqlString.escape(firstname) + ", " + sqlString.escape(lastname) + ", ";
-						sql_insertUserDetails += sqlString.escape(email) + ", " + sqlString.escape(keygen(12, false)) + ", " + sqlString.escape(role_id) + ", " + 0 + " )";
+						sql_insertUserDetails += sqlString.escape(email) + ", " + sqlString.escape(keygen(12, false)) + ", " + sqlString.escape(role_id) + ", ";
+						sql_insertUserDetails += 0 + ", " + 0 + ", " + 0 + ", " + 0 + ", " + null + " )";
 
 						sequelize.query(sql_insertUserDetails).success(function() {
 							res.send(req.params);
@@ -180,11 +181,11 @@ exports.postUser = function(req, res) {
 exports.putUsersByEmail = function(req, res) {
 	if (req.session.roles === 'Administrator') {
 		var queryString = req.params,
-			email = sanitize(queryString.email).trim();
+			qEmail = sanitize(queryString.email).trim();
 
 		/*** Validate: email ***/
 		try {
-			check(email, {
+			check(qEmail, {
 				notNull: 'Specify user\'s email address.',
 				isEmail: 'The user\'s email you specified is incorrect.',
 				len: 'The user\'s email needs to be between %1 and %2 characters long.'
@@ -193,7 +194,7 @@ exports.putUsersByEmail = function(req, res) {
 			res.status(500).send(e.message);
 		}
 
-		var sql_isEmailDeleted = "SELECT a.email FROM users_tbl a WHERE a.email = " + sqlString.escape(email) + " AND a.recycleBin = 0";
+		var sql_isEmailDeleted = "SELECT a.email FROM users_tbl a WHERE a.email = " + sqlString.escape(qEmail) + " AND a.recycleBin = 0";
 		sequelize.query(sql_isEmailDeleted).success(function(rows) {
 			if (rows.length === 0) {
 				// The user email does not exist.
@@ -267,13 +268,12 @@ exports.putUsersByEmail = function(req, res) {
 					} else {
 						// The role does exist.
 						var sql_updateUserDetails = "UPDATE users_tbl SET ";
-
 						sql_updateUserDetails += "empid = " + sqlString.escape(empid) + ", ";
 						sql_updateUserDetails += "firstname = " + sqlString.escape(firstname) + ", ";
 						sql_updateUserDetails += "lastname = " + sqlString.escape(lastname) + ", ";
 						sql_updateUserDetails += "email = " + sqlString.escape(email) + ", ";
-						sql_updateUserDetails += "role_id = " + sqlString.escape(role_id) + " ";
-						sql_updateUserDetails += "WHERE email = " + sqlString.escape(email);
+						sql_updateUserDetails += "role_id = " + sqlString.escape(role_id);
+						sql_updateUserDetails += " WHERE email = " + sqlString.escape(qEmail) + " AND recycleBin = 0";
 
 						sequelize.query(sql_updateUserDetails).success(function() {
 							res.send(req.params);

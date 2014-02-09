@@ -1,11 +1,11 @@
 define(function(require) {
     'use strict';
 
-    var Backbone = require('backbone'),
+    var $ = require('jquery'),
+        Backbone = require('backbone'),
         Events = require('events'),
         Baseview = require('views/baseview'),
-        recruitersListDetailTemplate = require('template!templates/manage/recruiters/recruitersListDetail'),
-        RecruitersListDetailModel = require('models/manage/recruiters/recruitersListDetailModel');
+        recruitersListDetailTemplate = require('template!templates/manage/recruiters/recruitersListDetail');
 
     require('modelBinder');
     require('modelValidator');
@@ -17,37 +17,42 @@ define(function(require) {
 
         initialize: function() {
             this.modelBinder = new Backbone.ModelBinder();
-            this.model = new RecruitersListDetailModel({'id': this.id});
             this.render();
         },
 
         events: {
-            'submit .form-horizontal': 'processForm',
-            'change :input': 'processField'
+            'submit .recruiterForm': 'processForm',
+            'change :input, blur :input': 'processField',
+            'click .cancelRecruiterForm': 'cancelForm'
+        },
+
+        cancelForm: function() {
+            Events.trigger("view:navigate", {
+                path: "mgnRecruiters",
+                options: {
+                    trigger: true
+                }
+            });
         },
 
         render: function() {
             var view = this;
-            var addUserText = (this.model.get('id')) ? "Update" : "Save";
-            var title = this.model.get('id') ? "Edit existing recruiter" : "Add new recruiter";
 
-            if (this.model.get('id') !== undefined) {
+            this.$el.html(recruitersListDetailTemplate({
+                editMode: (view.model.get('id')) ? true : false
+            }));
+
+            if (this.model.get('id') !== null) {
                 this.model.fetch({
                     success: function() {
-                        var data = view.model.toJSON();
-                        view.$el.html(recruitersListDetailTemplate({
-                            empid: data.empid,
-                            firstname: data.firstname,
-                            lastname: data.lastname,
-                            addUserText: addUserText,
-                            title: title
-                        }));
                         view.modelBinder.bind(view.model, view.el);
                     }
                 });
             } else {
-                view.modelBinder.bind(view.model, view.el);
+                this.modelBinder.bind(this.model, this.el);
             }
+
+            this.uxFormation();
 
             Backbone.Validation.bind(this, {
                 invalid: this.showError,
@@ -57,12 +62,22 @@ define(function(require) {
             return this;
         },
 
+        uxFormation: function() {
+            if (this.model.get('id')) {
+                $('.breadcrumb').html("<li><a href='#'>Dashboard</a></li><li class='active'>Edit Recruiter Details</li>");
+            } else {
+                $('.breadcrumb').html("<li><a href='#'>Dashboard</a></li><li class='active'>Add Recruiter Details</li>");
+            }
+        },
+
         postData: function() {
             var view = this;
-            view.model.save(view.model.toJSON(), {
-                success: function() {
+
+            var message = (this.model.get('id') !== null) ? "Recruiter get updated successfully." : "Recruiter get saved successfully.";
+            this.model.save(view.model.toJSON(), {
+                success: function(model, response) {
                     Events.trigger("alert:success", [{
-                        message: "Record successfully."
+                        message: message
                     }]);
                     Events.trigger("view:navigate", {
                         path: "mgnRecruiters",
@@ -71,9 +86,9 @@ define(function(require) {
                         }
                     });
                 },
-                error: function() {
-                    Events.trigger("alert:error", [{
-                        message: "Some service error occured during data Saving."
+                error: function(model, response) {
+                    Events.trigger("alert:warning", [{
+                        message: response.responseText
                     }]);
                 }
             });

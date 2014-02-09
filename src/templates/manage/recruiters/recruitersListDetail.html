@@ -2,50 +2,56 @@
 	<div class="span12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<div class="pull-right">
-				</div>
-				<h6 class="panel-title lead">{{title}}</h6>
+				<h6 class="panel-title lead">
+					{{#if editMode}}
+						<i class="canEditMode fa"></i> Following form will help you to <span class="canEdit"></span> existing recruiter information
+					{{else}}
+						<i class="fa fa-plus-circle"></i> Following form will help you to add new recruiter information
+					{{/if}}
+				</h6>
 			</div>
-			<div class="panel-body">
-				<div id="createUser">
-					<form class="form-horizontal" id="userForm">
-						<!-- EmployeeID -->
-						<div class="control-group">
-							<label class="control-label" for="empid">Employee ID<span class="text-error">*</span></label>
-							<div class="controls">
-								<input type="text" id="empid" name="empid" maxlength="8" class="form-control" placeholder="Only numeric allowed without space" />
-								<span class="help-inline"></span>
-							</div>
-						</div>
-
-						<!-- FirstName -->
-						<div class="control-group">
-							<label class="control-label" for="firstname">First Name<span class="text-error">*</span></label>
-							<div class="controls">
-								<input type="text" id="firstname" name="firstname" maxlength="30" class="form-control" placeholder="Only alphabets allowed without space" />
-								<span class="help-inline"></span>
-							</div>
-						</div>
-
-						<!-- LastName -->
-						<div class="control-group">
-							<label class="control-label" for="lastname">Last Name<span class="text-error">*</span></label>
-							<div class="controls">
-								<input type="text" id="lastname" name="lastname" maxlength="30" class="form-control" placeholder="Only alphabets allowed without space" />
-								<span class="help-inline"></span>
-							</div>
-						</div>
-
-						<div class="control-group">
-							<div class="controls">
-								<button type="submit" class="btn btn-primary" id="addUser">{{addUserText}}</button>
-								<a type="button" class="btn" href="#mgnRecruiters" id="addCancel">Cancel</a>
-							</div>
-						</div>
-					</form>
+			<form role="form" class="recruiterForm">
+				<div class="panel-body">
+					<fieldset>
+					    <legend class="text-info">
+					    	{{#if editMode}}
+								Edit recruiter's information
+							{{else}}
+								Fill the recruiter's required information
+							{{/if}}
+					    </legend>
+					    <div class="row">
+					        <div class="col-xs-6">
+					            <div class="form-group">
+					                <label class="control-label" for="empid">Employee ID <span class="text-danger">*</span></label>
+									<input type="text" name="empid" maxlength="40" class="form-control empid" placeholder="Employee ID" />
+									<span class="hint-message" style="display:none;"></span>
+					            </div>
+					        </div>
+					    </div>
+					    <div class="row">
+					        <div class="col-xs-6">
+					            <div class="form-group">
+					                <label class="control-label" for="firstname">First Name <span class="text-danger">*</span></label>
+					                <input type="text" name="firstname" maxlength="40" class="form-control firstname" placeholder="First" />
+					                <span class="hint-message" style="display:none;"></span>
+					            </div>
+					        </div>
+					        <div class="col-xs-6">
+					            <div class="form-group">
+					                <label class="control-label" for="lastname">Last Name <span class="text-danger">*</span></label>
+					                <input type="text" name="lastname" maxlength="40" class="form-control lastname" placeholder="Last" />
+					                <span class="hint-message" style="display:none;"></span>
+					            </div>
+					        </div>
+					    </div>
+					</fieldset>
 				</div>
-			</div>
-			<div class="panel-footer"><span class="text-info">Notes: * indicates required field.</span></div>
+				<div class="panel-footer">
+					<button type="submit" class="btn btn-primary">{{#if editMode}} Update {{else}} Save {{/if}}</button>
+					<button type="button" class="btn btn-default cancelRecruiterForm">Cancel</a>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
