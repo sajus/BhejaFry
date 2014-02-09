@@ -40,7 +40,7 @@ define(function(require) {
             'mgnRecruiters': 'mgnRecruiters',
             'mgnRecruitersDetail(/:id)': 'mgnRecruitersDetail',
             'usersList': 'usersList',
-            'usersDetail(/:email)': 'usersDetail',
+            'usersDetail(/:uEmail)': 'usersDetail',
             'newRequest': 'newRequest',
             'activities': 'activities',
             'logout': 'logout',
@@ -143,9 +143,10 @@ define(function(require) {
         /*** Router configuration for 'mgnInterviewersDetail' | 'mgnInterviewersDetail/:id' routes ***/
         router.on('route:mgnInterviewersDetail', function(id) {
             if (globals.getAuthUser().isAuthenticated) {
-                require(['views/manage/interviewers/interviewersListDetailView'], function(InterviewersListDetailPage) {
+                require(['views/manage/interviewers/interviewersListDetailView', 'models/manage/interviewers/interviewersListDetailModel'], function(InterviewersListDetailPage, InterviewerDetailModel) {
+                    var interviewerDetailModel = new InterviewerDetailModel({'id': id});
                     Core.create(appView, 'InterviewersListDetailPage', InterviewersListDetailPage, {
-                        'id': id
+                        model: interviewerDetailModel
                     });
                 });
             } else {
@@ -196,13 +197,13 @@ define(function(require) {
             }
         });
 
-        /*** Router configuration for 'usersDetail' | 'usersDetail(/:email)' routes ***/
-        router.on('route:usersDetail', function(email) {
+        /*** Router configuration for 'usersDetail' | 'usersDetail(/:uEmail)' routes ***/
+        router.on('route:usersDetail', function(uEmail) {
             if (globals.getAuthUser().isAuthenticated) {
                 require(['views/users/usersDetailView', 'models/users/usersListDetailModel'], function(UsersDetailPage, UsersDetailModel) {
-                    var usersDetailModel = new UsersDetailModel();
+                    var usersDetailModel = new UsersDetailModel({'email': uEmail});
                     Core.create(appView, 'UsersDetailPage', UsersDetailPage, {
-                        model: usersDetailModel.set('email', email)
+                        model: usersDetailModel
                     });
                 });
             } else {

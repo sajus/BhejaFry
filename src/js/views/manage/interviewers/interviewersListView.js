@@ -6,7 +6,7 @@ define(function(require) {
         Events = require('events'),
         interviewersListTemplate = require('template!templates/manage/interviewers/interviewersList'),
         InterviewerCollection = require('collections/interviewers/interviewersCollection'),
-        ConfirmDelModal = require('views/interview/listDelConfirmModal'),
+        ConfirmDelModal = require('views/manage/interviewers/interviewerDelConfirmModal'),
         DeleteInterviewersModel = require('models/manage/interviewers/interviewersListDetailModel');
 
     require('css!vendors/jquery/plugins/datatables/css/jquery.dataTables.css');
@@ -20,17 +20,20 @@ define(function(require) {
 
         initialize: function() {
             this.deleteInterviewersModel = new DeleteInterviewersModel();
-            this.interviewerCollection = new InterviewerCollection();
+            this.interviewersCollection = new InterviewerCollection();
             this.render();
         },
 
         events: {
-            'click .editInterviewer': 'editInterviewers',
-            'click .delete': 'deleteInterviewers'
+            'click .editInterviewer': 'editInterviewer',
+            'click .delInterviewer, .delAtOnces': 'deleteInterviewer',
+            'click .selectedRow': 'selectedRow',
+            'click .selectedRowHeader': 'selectedRowHeader',
+            'click .addNewInterviewer': 'addNewInterviewer'
         },
 
         fetchInterviewersList: function() {
-            return this.interviewerCollection.fetch();
+            return this.interviewersCollection.fetch();
         },
 
         render: function() {
@@ -60,47 +63,17 @@ define(function(require) {
                 .fail(function(error) {
                     console.log('Error: ' + error);
                 });
+
+            this.uxFormation();
+
             return this;
         },
 
-        editInterviewers: function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            var editId = this.$(e.target).closest('tr td span').attr('data-id');
-            Events.trigger("view:navigate", {
-                path: "mgnInterviewersDetail/" + editId,
-                options: {
-                    trigger: true
-                }
-            });
+        uxFormation: function() {
+            $('.breadcrumb').html("<li><a href='#'>Dashboard</a></li><li class='active'>Interviewer List</li>");
         },
 
-        deleteInterviewers: function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            var view = this;
-            var deleteId = this.$(e.target).closest('tr td span').attr('data-id');
-
-            this.deleteInterviewersModel.set({
-                id: deleteId
-            });
-            this.deleteInterviewersModel.destroy({
-                success: function() {
-                    view.render();
-                    Events.trigger("alert:success", [{
-                        message: "Record deleted successfully"
-                    }]);
-
-                },
-                error: function() {
-                    Events.trigger("alert:error", [{
-                        message: "Some error got triggered while deleting record."
-                    }]);
-                }
-            });
-        },
-
-        editUser: function(e) {
+        editInterviewer: function(e) {
             e.preventDefault();
             e.stopPropagation();
             Events.trigger("view:navigate", {
@@ -111,11 +84,29 @@ define(function(require) {
             });
         },
 
-        deleteUser: function(e) {
+        deleteInterviewer: function(e) {
             e.preventDefault();
             e.stopPropagation();
+
+            this.listenTo(Events, 'deletedInterviewer', this.render);
             var confirmDelModal = new ConfirmDelModal();
-            $('.modal-container').html(confirmDelModal.render(this.$(e.target).closest('tr').attr('data-id')).el);
+
+            var targetDelete = {};
+            var ids = [];
+
+            ids.push(this.$(e.target).closest('tr').attr('data-id'));
+            targetDelete['ids'] = ids;
+
+            if (this.$(e.target).hasClass('delAtOnces')) {
+                targetDelete = {};
+                ids = [];
+                this.$('.selectedRow:checked').each(function() {
+                    ids.push($(this).val());
+                });
+                targetDelete['ids'] = ids;
+            }
+
+            $('.modal-container').html(confirmDelModal.render(targetDelete).el);
             $('.modal-container .modal').modal('show');
         },
 
@@ -147,15 +138,24 @@ define(function(require) {
 
             this.$($(e.target).closest('input[type="checkbox"]')).prop('checked', function() {
                 if (this.checked) {
-                    view.$('.userslist tbody tr').addClass('warning');
+                    view.$('.interviewers tbody tr').addClass('warning');
                     view.$(this).prop("checked", true);
                     view.$('.selectedRow').prop("checked", true);
                     view.$el.find('.delAtOnces').css('visibility', 'visible');
                 } else {
-                    view.$('.userslist tbody tr').removeClass('warning');
+                    view.$('.interviewers tbody tr').removeClass('warning');
                     view.$(this).prop("checked", false);
                     view.$('.selectedRow').prop("checked", false);
                     view.$el.find('.delAtOnces').css('visibility', 'hidden');
+                }
+            });
+        },
+
+        addNewInterviewer: function() {
+            Events.trigger("view:navigate", {
+                path: "mgnInterviewersDetail",
+                options: {
+                    trigger: true
                 }
             });
         }

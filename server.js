@@ -31,8 +31,6 @@ app.configure('development', function() {
     app.set('port', process.env.PORT || config.server.dev.port);
     app.set(express.methodOverride());
     app.use(express.bodyParser());
-    app.use(express.json());
-    app.use(express.urlencoded());
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
     app.use(express.cookieParser('kqsdjfmlksdhfhzirzeoibrzecrbzuzefcuercazeafxzeokwdfzeijfxcerig'));
     app.use(express.session());
@@ -113,7 +111,7 @@ app.get('/interviewer', sessionAuth, interviewer.getInterviewer);
 app.post('/interviewer', sessionAuth, interviewer.postInterviewer);
 app.get('/interviewer/:id', sessionAuth, interviewer.getInterviewerById);
 app.put('/interviewer/:id', sessionAuth, interviewer.putInterviewerById);
-app.del('/interviewer/:id', sessionAuth, interviewer.delInterviewerById);
+app.del('/interviewer', sessionAuth, interviewer.delInterviewer);
 
 /**
  * Service routes for reports

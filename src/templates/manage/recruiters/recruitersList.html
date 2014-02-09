@@ -1,93 +1,23 @@
-<!-- <div class="rows">
-    <div class="fuelux">
-        <table id="MyGrid" class="table table-bordered datagrid">
-            <thead>
-                <tr>
-                    <th>
-                        <div class="datagrid-header-left">
-                            <span class="lead text-left text-info">List of recruiters</span>
-                        </div>
-                        <div class="rows pull-right">
-                            <a href="#mgnRecruitersDetail" class="btn btn-inverse lead newRecruiters">Add new recruiters</a>
-                        </div>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <div class="datagrid-header-left">
-                            <div class="input-append search datagrid-search">
-                                <input type="text" class="input-medium" placeholder="Search"/>
-                                <button type="button" class="btn"><i class="icon-search"></i></button>
-                            </div>
-                        </div>
-                    </th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th>
-                        <div class="datagrid-footer-left" style="display:none;">
-                            <div class="grid-controls">
-                                <span>
-                                    <span class="grid-start"></span> -
-                                    <span class="grid-end"></span> of
-                                    <span class="grid-count"></span>
-                                </span>
-                                <div class="select grid-pagesize" data-resize="auto">
-                                    <button type="button" data-toggle="dropdown" class="btn dropdown-toggle">
-                                        <span class="dropdown-label"></span>
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li data-value="5"><a href="#">5</a></li>
-                                        <li data-value="10" data-selected="true"><a href="#">10</a></li>
-                                        <li data-value="20"><a href="#">20</a></li>
-                                        <li data-value="50"><a href="#">50</a></li>
-                                        <li data-value="100"><a href="#">100</a></li>
-                                    </ul>
-                                </div>
-                                <span>Per Page</span>
-                            </div>
-                        </div>
-                        <div class="datagrid-footer-right" style="display:none;">
-                            <div class="grid-pager">
-                                <button type="button" class="btn grid-prevpage"><i class="icon-chevron-left"></i></button>
-                                <span>Page</span>
-                                <div class="input-append dropup combobox">
-                                    <input class="span1" type="text"/>
-                                    <button type="button" class="btn" data-toggle="dropdown"><i class="caret"></i></button>
-                                    <ul class="dropdown-menu"></ul>
-                                </div>
-                                <span>of <span class="grid-pages"></span></span>
-                                <button type="button" class="btn grid-nextpage"><i class="icon-chevron-right"></i></button>
-                            </div>
-                        </div>
-                    </th>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-</div> -->
 <div class="row">
     <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped recruiters">
         <thead>
             <tr>
                 <td colspan="7">
-                    <button class="btn btn-primary primary"><i class="fa fa-plus-circle"></i> New Recruiter</button>
+                    <button class="btn btn-primary primary addNewRecruiter"><i class="fa fa-plus-circle"></i> New Recruiter</button>
                     <button class="btn btn-danger delAtOnces" style="visibility:hidden;"><i class="fa fa-trash-o"></i> Selected Recruiter</button>
                 </td>
             </tr>
             <tr>
-                <th class="center"><input type="checkbox" class="selectedRowHeader" style="left:-4px; position:relative;"/></th>
-                <th>Employee's ID</th>
+                <th class="center"><input type="checkbox" class="selectedRowHeader" style="left:2px; position:relative;"/></th>
+                <th>Employee ID</th>
                 <th>Name</th>
-                <th>Operations</th>
+                <th style="text-align:center;">Operations</th>
             </tr>
         </thead>
         <tbody>
             {{#each recruiters}}
                 <tr data-id="{{empid}}">
-                    <td class="center"><input type="checkbox" class="selectedRow"/></td>
+                    <td class="center"><input type="checkbox" class="selectedRow" value="{{empid}}"/></td>
                     <td>{{empid}}</td>
                     <td>{{firstname}} {{lastname}}</td>
                     <td class="center">

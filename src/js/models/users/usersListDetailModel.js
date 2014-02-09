@@ -7,7 +7,7 @@ define(function(require) {
 
     return Backbone.Model.extend({
         url: function() {
-            if (this.get('email')) {
+            if (this.get('email')!==null) {
                 return '/usersList/' + this.get('email');
             } else {
                 return '/usersList';
